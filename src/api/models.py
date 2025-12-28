@@ -1,0 +1,148 @@
+"""Pydantic models for API request/response schemas."""
+
+from datetime import date, time, datetime
+from typing import Optional
+from uuid import UUID
+
+from pydantic import BaseModel, Field
+
+
+# ============================================================================
+# Event Schemas
+# ============================================================================
+
+class EventBase(BaseModel):
+    """Base event schema."""
+    event_id: str
+    sport: str
+    sport_code: str
+    event_name: str
+    date: date
+    time: Optional[time] = None
+    venue: Optional[str] = None
+    venue_city: Optional[str] = None
+    status: str = "scheduled"
+    session_code: Optional[str] = None
+    medal_event: bool = False
+
+
+class EventResponse(EventBase):
+    """Event response with computed fields."""
+
+    class Config:
+        from_attributes = True
+
+
+class EventListResponse(BaseModel):
+    """Response for list of events."""
+    events: list[EventResponse]
+    total: int
+
+
+# ============================================================================
+# Sport/Venue Schemas
+# ============================================================================
+
+class SportResponse(BaseModel):
+    """Sport info."""
+    code: str
+    name: str
+
+
+class VenueResponse(BaseModel):
+    """Venue info."""
+    venue: str
+    city: str
+
+
+# ============================================================================
+# User Schemas
+# ============================================================================
+
+class UserCreate(BaseModel):
+    """Create user request."""
+    device_token: Optional[str] = None
+    platform: Optional[str] = Field(None, pattern="^(ios|android)$")
+    language: str = "en"
+
+
+class UserResponse(BaseModel):
+    """User response."""
+    id: UUID
+    platform: Optional[str] = None
+    is_premium: bool = False
+    language: str = "en"
+
+    class Config:
+        from_attributes = True
+
+
+class UserTokenUpdate(BaseModel):
+    """Update user device token."""
+    device_token: str
+    platform: str = Field(..., pattern="^(ios|android)$")
+
+
+# ============================================================================
+# Favorite Schemas
+# ============================================================================
+
+class FavoriteAdd(BaseModel):
+    """Add favorite request."""
+    event_id: str
+
+
+class FavoriteResponse(BaseModel):
+    """Favorite response."""
+    event_id: str
+    added: bool
+
+
+# ============================================================================
+# Schedule Change Schemas
+# ============================================================================
+
+class ScheduleChangeResponse(BaseModel):
+    """Schedule change notification."""
+    id: UUID
+    event_id: str
+    change_type: str
+    old_value: Optional[str] = None
+    new_value: Optional[str] = None
+    detected_at: datetime
+    event: Optional[EventResponse] = None
+
+    class Config:
+        from_attributes = True
+
+
+# ============================================================================
+# Filter Schemas
+# ============================================================================
+
+class EventFilters(BaseModel):
+    """Query parameters for filtering events."""
+    sport_code: Optional[str] = None
+    venue_city: Optional[str] = None
+    date: Optional[date] = None
+    medal_only: bool = False
+    include_past: bool = False
+
+
+# ============================================================================
+# Health/Status Schemas
+# ============================================================================
+
+class HealthResponse(BaseModel):
+    """Health check response."""
+    status: str = "healthy"
+    version: str = "0.1.0"
+    timestamp: datetime
+
+
+class StatsResponse(BaseModel):
+    """API statistics."""
+    total_events: int
+    total_users: int
+    total_favorites: int
+    last_scrape: Optional[datetime] = None
