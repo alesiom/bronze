@@ -1,0 +1,119 @@
+{
+  "app": {
+    "name": "Neve26",
+    "tagline": "Elk evenement. Elke update."
+  },
+  "tabs": {
+    "schedule": "Schema",
+    "favorites": "Favorieten",
+    "settings": "Instellingen"
+  },
+  "schedule": {
+    "title": "Schema",
+    "now": "Nu Bezig",
+    "today": "Vandaag",
+    "tomorrow": "Morgen",
+    "upcoming": "Binnenkort",
+    "noEvents": "Geen evenementen gepland",
+    "noEventsToday": "Geen evenementen meer vandaag",
+    "liveNow": "Nu Live",
+    "startsIn": "Start over {{time}}",
+    "startsSoon": "Start binnenkort"
+  },
+  "filters": {
+    "all": "Alle",
+    "sport": "Sport",
+    "venue": "Locatie",
+    "date": "Datum",
+    "medals": "Medaille-evenementen",
+    "clearAll": "Filters wissen"
+  },
+  "event": {
+    "details": "Evenement Details",
+    "venue": "Locatie",
+    "time": "Tijd",
+    "sport": "Sport",
+    "medal": "Medaille-evenement",
+    "status": {
+      "scheduled": "Gepland",
+      "live": "Live",
+      "finished": "Afgelopen",
+      "delayed": "Vertraagd",
+      "cancelled": "Geannuleerd",
+      "postponed": "Uitgesteld"
+    },
+    "addToFavorites": "Toevoegen aan Favorieten",
+    "removeFromFavorites": "Verwijderen uit Favorieten",
+    "share": "Evenement Delen",
+    "openMap": "Open in Kaarten"
+  },
+  "favorites": {
+    "title": "Favorieten",
+    "empty": "Geen favorieten",
+    "emptyHint": "Tik op het hartje bij een evenement om het hier toe te voegen",
+    "upcomingFavorites": "Komende Favorieten"
+  },
+  "settings": {
+    "title": "Instellingen",
+    "appearance": "Weergave",
+    "theme": "Thema",
+    "themeLight": "Licht",
+    "themeDark": "Donker",
+    "themeSystem": "Systeem",
+    "display": "Scherm",
+    "comfortMode": "Comfort Modus",
+    "comfortModeHint": "Grotere knoppen voor makkelijker tikken",
+    "language": "Taal",
+    "notifications": "Meldingen",
+    "notifyChanges": "Schema Wijzigingen",
+    "notifyChangesHint": "Ontvang meldingen wanneer je favorieten veranderen",
+    "about": "Over",
+    "version": "Versie",
+    "feedback": "Feedback Sturen",
+    "privacy": "Privacybeleid"
+  },
+  "sports": {
+    "ALP": "Alpineskiën",
+    "BTH": "Biatlon",
+    "BOB": "Bobsleeën",
+    "CCS": "Langlaufen",
+    "CUR": "Curling",
+    "FSK": "Kunstrijden",
+    "FRS": "Freestyleskiën",
+    "IHO": "IJshockey",
+    "LUG": "Rodelen",
+    "NCB": "Noordse Combinatie",
+    "STK": "Skeleton",
+    "SKN": "Shorttrack",
+    "SJP": "Schansspringen",
+    "SMT": "Snowboarden",
+    "SBD": "Snowboarden",
+    "SSK": "Schaatsen"
+  },
+  "venues": {
+    "bormio": "Bormio",
+    "cortina": "Cortina d'Ampezzo",
+    "anterselva": "Anterselva",
+    "predazzo": "Predazzo",
+    "baselga": "Baselga di Piné",
+    "milan": "Milaan",
+    "rho": "Rho",
+    "livigno": "Livigno",
+    "tesero": "Tesero"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Er ging iets mis",
+    "retry": "Opnieuw proberen",
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "done": "Klaar",
+    "search": "Zoeken",
+    "noResults": "Geen resultaten gevonden"
+  },
+  "time": {
+    "hours": "{{count}}u",
+    "minutes": "{{count}}m",
+    "justNow": "Zojuist"
+  }
+}

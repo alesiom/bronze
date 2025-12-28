@@ -1,0 +1,119 @@
+{
+  "app": {
+    "name": "Neve26",
+    "tagline": "كل حدث. كل تحديث."
+  },
+  "tabs": {
+    "schedule": "الجدول",
+    "favorites": "المفضلة",
+    "settings": "الإعدادات"
+  },
+  "schedule": {
+    "title": "الجدول",
+    "now": "يحدث الآن",
+    "today": "اليوم",
+    "tomorrow": "غداً",
+    "upcoming": "القادمة",
+    "noEvents": "لا توجد فعاليات مجدولة",
+    "noEventsToday": "لا مزيد من الفعاليات اليوم",
+    "liveNow": "مباشر الآن",
+    "startsIn": "يبدأ خلال {{time}}",
+    "startsSoon": "يبدأ قريباً"
+  },
+  "filters": {
+    "all": "الكل",
+    "sport": "الرياضة",
+    "venue": "المكان",
+    "date": "التاريخ",
+    "medals": "فعاليات الميداليات",
+    "clearAll": "مسح الفلاتر"
+  },
+  "event": {
+    "details": "تفاصيل الفعالية",
+    "venue": "المكان",
+    "time": "الوقت",
+    "sport": "الرياضة",
+    "medal": "فعالية ميدالية",
+    "status": {
+      "scheduled": "مجدول",
+      "live": "مباشر",
+      "finished": "انتهى",
+      "delayed": "مؤجل",
+      "cancelled": "ملغى",
+      "postponed": "مؤجل"
+    },
+    "addToFavorites": "إضافة للمفضلة",
+    "removeFromFavorites": "إزالة من المفضلة",
+    "share": "مشاركة الفعالية",
+    "openMap": "فتح في الخرائط"
+  },
+  "favorites": {
+    "title": "المفضلة",
+    "empty": "لا توجد مفضلات",
+    "emptyHint": "اضغط على القلب في أي فعالية لإضافتها هنا",
+    "upcomingFavorites": "المفضلات القادمة"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "appearance": "المظهر",
+    "theme": "السمة",
+    "themeLight": "فاتح",
+    "themeDark": "داكن",
+    "themeSystem": "النظام",
+    "display": "العرض",
+    "comfortMode": "وضع الراحة",
+    "comfortModeHint": "أزرار أكبر للنقر بسهولة",
+    "language": "اللغة",
+    "notifications": "الإشعارات",
+    "notifyChanges": "تغييرات الجدول",
+    "notifyChangesHint": "احصل على إشعار عند تغيير مفضلاتك",
+    "about": "حول",
+    "version": "الإصدار",
+    "feedback": "إرسال ملاحظات",
+    "privacy": "سياسة الخصوصية"
+  },
+  "sports": {
+    "ALP": "التزلج الألبي",
+    "BTH": "البياثلون",
+    "BOB": "البوبسليد",
+    "CCS": "التزلج الريفي",
+    "CUR": "الكيرلنغ",
+    "FSK": "التزلج الفني",
+    "FRS": "التزلج الحر",
+    "IHO": "هوكي الجليد",
+    "LUG": "الزحافات",
+    "NCB": "المركبة الشمالية",
+    "STK": "الهيكل العظمي",
+    "SKN": "المضمار القصير",
+    "SJP": "القفز على الجليد",
+    "SMT": "التزلج على الجليد",
+    "SBD": "التزلج على الجليد",
+    "SSK": "التزلج السريع"
+  },
+  "venues": {
+    "bormio": "بورميو",
+    "cortina": "كورتينا دامبيتسو",
+    "anterselva": "أنترسلفا",
+    "predazzo": "بريداتسو",
+    "baselga": "باسيلغا دي بينيه",
+    "milan": "ميلانو",
+    "rho": "رو",
+    "livigno": "ليفينيو",
+    "tesero": "تيسيرو"
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ ما",
+    "retry": "إعادة المحاولة",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "done": "تم",
+    "search": "بحث",
+    "noResults": "لا توجد نتائج"
+  },
+  "time": {
+    "hours": "{{count}} ساعة",
+    "minutes": "{{count}} دقيقة",
+    "justNow": "الآن"
+  }
+}

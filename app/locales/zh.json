@@ -1,0 +1,119 @@
+{
+  "app": {
+    "name": "Neve26",
+    "tagline": "每个赛事。每个更新。"
+  },
+  "tabs": {
+    "schedule": "赛程",
+    "favorites": "收藏",
+    "settings": "设置"
+  },
+  "schedule": {
+    "title": "赛程",
+    "now": "正在进行",
+    "today": "今天",
+    "tomorrow": "明天",
+    "upcoming": "即将开始",
+    "noEvents": "暂无赛事安排",
+    "noEventsToday": "今日赛事已结束",
+    "liveNow": "正在直播",
+    "startsIn": "{{time}}后开始",
+    "startsSoon": "即将开始"
+  },
+  "filters": {
+    "all": "全部",
+    "sport": "项目",
+    "venue": "场馆",
+    "date": "日期",
+    "medals": "奖牌赛事",
+    "clearAll": "清除筛选"
+  },
+  "event": {
+    "details": "赛事详情",
+    "venue": "场馆",
+    "time": "时间",
+    "sport": "项目",
+    "medal": "奖牌赛事",
+    "status": {
+      "scheduled": "已安排",
+      "live": "直播中",
+      "finished": "已结束",
+      "delayed": "已延迟",
+      "cancelled": "已取消",
+      "postponed": "已推迟"
+    },
+    "addToFavorites": "添加到收藏",
+    "removeFromFavorites": "从收藏中移除",
+    "share": "分享赛事",
+    "openMap": "在地图中打开"
+  },
+  "favorites": {
+    "title": "收藏",
+    "empty": "暂无收藏",
+    "emptyHint": "点击赛事上的心形图标添加收藏",
+    "upcomingFavorites": "即将开始的收藏"
+  },
+  "settings": {
+    "title": "设置",
+    "appearance": "外观",
+    "theme": "主题",
+    "themeLight": "浅色",
+    "themeDark": "深色",
+    "themeSystem": "跟随系统",
+    "display": "显示",
+    "comfortMode": "舒适模式",
+    "comfortModeHint": "更大的按钮，更易点击",
+    "language": "语言",
+    "notifications": "通知",
+    "notifyChanges": "赛程变更",
+    "notifyChangesHint": "收藏的赛事变更时通知您",
+    "about": "关于",
+    "version": "版本",
+    "feedback": "发送反馈",
+    "privacy": "隐私政策"
+  },
+  "sports": {
+    "ALP": "高山滑雪",
+    "BTH": "冬季两项",
+    "BOB": "雪车",
+    "CCS": "越野滑雪",
+    "CUR": "冰壶",
+    "FSK": "花样滑冰",
+    "FRS": "自由式滑雪",
+    "IHO": "冰球",
+    "LUG": "雪橇",
+    "NCB": "北欧两项",
+    "STK": "钢架雪车",
+    "SKN": "短道速滑",
+    "SJP": "跳台滑雪",
+    "SMT": "单板滑雪",
+    "SBD": "单板滑雪",
+    "SSK": "速度滑冰"
+  },
+  "venues": {
+    "bormio": "博尔米奥",
+    "cortina": "科尔蒂纳丹佩佐",
+    "anterselva": "安特塞尔瓦",
+    "predazzo": "普雷达佐",
+    "baselga": "巴塞尔加迪皮内",
+    "milan": "米兰",
+    "rho": "罗镇",
+    "livigno": "利维尼奥",
+    "tesero": "泰塞罗"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "出错了",
+    "retry": "重试",
+    "cancel": "取消",
+    "save": "保存",
+    "done": "完成",
+    "search": "搜索",
+    "noResults": "无结果"
+  },
+  "time": {
+    "hours": "{{count}}小时",
+    "minutes": "{{count}}分钟",
+    "justNow": "刚刚"
+  }
+}

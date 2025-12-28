@@ -1,0 +1,119 @@
+{
+  "app": {
+    "name": "Neve26",
+    "tagline": "모든 경기. 모든 업데이트."
+  },
+  "tabs": {
+    "schedule": "일정",
+    "favorites": "즐겨찾기",
+    "settings": "설정"
+  },
+  "schedule": {
+    "title": "일정",
+    "now": "진행 중",
+    "today": "오늘",
+    "tomorrow": "내일",
+    "upcoming": "예정된 경기",
+    "noEvents": "예정된 경기가 없습니다",
+    "noEventsToday": "오늘 더 이상 경기가 없습니다",
+    "liveNow": "라이브",
+    "startsIn": "{{time}} 후 시작",
+    "startsSoon": "곧 시작"
+  },
+  "filters": {
+    "all": "전체",
+    "sport": "종목",
+    "venue": "경기장",
+    "date": "날짜",
+    "medals": "메달 경기",
+    "clearAll": "필터 초기화"
+  },
+  "event": {
+    "details": "경기 상세",
+    "venue": "경기장",
+    "time": "시간",
+    "sport": "종목",
+    "medal": "메달 경기",
+    "status": {
+      "scheduled": "예정",
+      "live": "라이브",
+      "finished": "종료",
+      "delayed": "지연",
+      "cancelled": "취소",
+      "postponed": "연기"
+    },
+    "addToFavorites": "즐겨찾기에 추가",
+    "removeFromFavorites": "즐겨찾기에서 제거",
+    "share": "경기 공유",
+    "openMap": "지도에서 열기"
+  },
+  "favorites": {
+    "title": "즐겨찾기",
+    "empty": "즐겨찾기가 없습니다",
+    "emptyHint": "경기의 하트를 탭하여 추가하세요",
+    "upcomingFavorites": "예정된 즐겨찾기"
+  },
+  "settings": {
+    "title": "설정",
+    "appearance": "외관",
+    "theme": "테마",
+    "themeLight": "라이트",
+    "themeDark": "다크",
+    "themeSystem": "시스템",
+    "display": "디스플레이",
+    "comfortMode": "편안한 모드",
+    "comfortModeHint": "더 큰 버튼으로 터치가 쉬워집니다",
+    "language": "언어",
+    "notifications": "알림",
+    "notifyChanges": "일정 변경",
+    "notifyChangesHint": "즐겨찾기 변경 시 알림 받기",
+    "about": "정보",
+    "version": "버전",
+    "feedback": "피드백 보내기",
+    "privacy": "개인정보 보호정책"
+  },
+  "sports": {
+    "ALP": "알파인 스키",
+    "BTH": "바이애슬론",
+    "BOB": "봅슬레이",
+    "CCS": "크로스컨트리 스키",
+    "CUR": "컬링",
+    "FSK": "피겨 스케이팅",
+    "FRS": "프리스타일 스키",
+    "IHO": "아이스하키",
+    "LUG": "루지",
+    "NCB": "노르딕 복합",
+    "STK": "스켈레톤",
+    "SKN": "쇼트트랙",
+    "SJP": "스키점프",
+    "SMT": "스노보드",
+    "SBD": "스노보드",
+    "SSK": "스피드 스케이팅"
+  },
+  "venues": {
+    "bormio": "보르미오",
+    "cortina": "코르티나 담페초",
+    "anterselva": "안테르셀바",
+    "predazzo": "프레다초",
+    "baselga": "바셀가 디 피네",
+    "milan": "밀라노",
+    "rho": "로",
+    "livigno": "리비뇨",
+    "tesero": "테세로"
+  },
+  "common": {
+    "loading": "로딩 중...",
+    "error": "문제가 발생했습니다",
+    "retry": "재시도",
+    "cancel": "취소",
+    "save": "저장",
+    "done": "완료",
+    "search": "검색",
+    "noResults": "결과 없음"
+  },
+  "time": {
+    "hours": "{{count}}시간",
+    "minutes": "{{count}}분",
+    "justNow": "방금"
+  }
+}

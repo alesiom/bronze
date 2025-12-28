@@ -1,0 +1,119 @@
+{
+  "app": {
+    "name": "Neve26",
+    "tagline": "すべてのイベント。すべての更新。"
+  },
+  "tabs": {
+    "schedule": "スケジュール",
+    "favorites": "お気に入り",
+    "settings": "設定"
+  },
+  "schedule": {
+    "title": "スケジュール",
+    "now": "開催中",
+    "today": "今日",
+    "tomorrow": "明日",
+    "upcoming": "今後の予定",
+    "noEvents": "予定されているイベントはありません",
+    "noEventsToday": "本日のイベントは終了しました",
+    "liveNow": "ライブ中",
+    "startsIn": "{{time}}後に開始",
+    "startsSoon": "まもなく開始"
+  },
+  "filters": {
+    "all": "すべて",
+    "sport": "競技",
+    "venue": "会場",
+    "date": "日付",
+    "medals": "メダル種目",
+    "clearAll": "フィルターをクリア"
+  },
+  "event": {
+    "details": "イベント詳細",
+    "venue": "会場",
+    "time": "時間",
+    "sport": "競技",
+    "medal": "メダル種目",
+    "status": {
+      "scheduled": "予定",
+      "live": "ライブ",
+      "finished": "終了",
+      "delayed": "遅延",
+      "cancelled": "中止",
+      "postponed": "延期"
+    },
+    "addToFavorites": "お気に入りに追加",
+    "removeFromFavorites": "お気に入りから削除",
+    "share": "イベントを共有",
+    "openMap": "マップで開く"
+  },
+  "favorites": {
+    "title": "お気に入り",
+    "empty": "お気に入りはまだありません",
+    "emptyHint": "イベントのハートをタップして追加してください",
+    "upcomingFavorites": "今後のお気に入り"
+  },
+  "settings": {
+    "title": "設定",
+    "appearance": "外観",
+    "theme": "テーマ",
+    "themeLight": "ライト",
+    "themeDark": "ダーク",
+    "themeSystem": "システム",
+    "display": "表示",
+    "comfortMode": "コンフォートモード",
+    "comfortModeHint": "タップしやすい大きなボタン",
+    "language": "言語",
+    "notifications": "通知",
+    "notifyChanges": "スケジュール変更",
+    "notifyChangesHint": "お気に入りの変更を通知",
+    "about": "このアプリについて",
+    "version": "バージョン",
+    "feedback": "フィードバックを送信",
+    "privacy": "プライバシーポリシー"
+  },
+  "sports": {
+    "ALP": "アルペンスキー",
+    "BTH": "バイアスロン",
+    "BOB": "ボブスレー",
+    "CCS": "クロスカントリースキー",
+    "CUR": "カーリング",
+    "FSK": "フィギュアスケート",
+    "FRS": "フリースタイルスキー",
+    "IHO": "アイスホッケー",
+    "LUG": "リュージュ",
+    "NCB": "ノルディック複合",
+    "STK": "スケルトン",
+    "SKN": "ショートトラック",
+    "SJP": "スキージャンプ",
+    "SMT": "スノーボード",
+    "SBD": "スノーボード",
+    "SSK": "スピードスケート"
+  },
+  "venues": {
+    "bormio": "ボルミオ",
+    "cortina": "コルティナ・ダンペッツォ",
+    "anterselva": "アンテルセルヴァ",
+    "predazzo": "プレダッツォ",
+    "baselga": "バゼルガ・ディ・ピネ",
+    "milan": "ミラノ",
+    "rho": "ロー",
+    "livigno": "リヴィーニョ",
+    "tesero": "テセロ"
+  },
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラーが発生しました",
+    "retry": "再試行",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "done": "完了",
+    "search": "検索",
+    "noResults": "結果が見つかりません"
+  },
+  "time": {
+    "hours": "{{count}}時間",
+    "minutes": "{{count}}分",
+    "justNow": "たった今"
+  }
+}

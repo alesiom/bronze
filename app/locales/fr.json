@@ -1,0 +1,119 @@
+{
+  "app": {
+    "name": "Neve26",
+    "tagline": "Chaque événement. Chaque mise à jour."
+  },
+  "tabs": {
+    "schedule": "Programme",
+    "favorites": "Favoris",
+    "settings": "Paramètres"
+  },
+  "schedule": {
+    "title": "Programme",
+    "now": "En Cours",
+    "today": "Aujourd'hui",
+    "tomorrow": "Demain",
+    "upcoming": "À Venir",
+    "noEvents": "Aucun événement prévu",
+    "noEventsToday": "Plus d'événements aujourd'hui",
+    "liveNow": "En Direct",
+    "startsIn": "Commence dans {{time}}",
+    "startsSoon": "Commence bientôt"
+  },
+  "filters": {
+    "all": "Tous",
+    "sport": "Sport",
+    "venue": "Lieu",
+    "date": "Date",
+    "medals": "Épreuves à Médailles",
+    "clearAll": "Effacer les filtres"
+  },
+  "event": {
+    "details": "Détails de l'Événement",
+    "venue": "Lieu",
+    "time": "Heure",
+    "sport": "Sport",
+    "medal": "Épreuve à Médailles",
+    "status": {
+      "scheduled": "Programmé",
+      "live": "En Direct",
+      "finished": "Terminé",
+      "delayed": "Retardé",
+      "cancelled": "Annulé",
+      "postponed": "Reporté"
+    },
+    "addToFavorites": "Ajouter aux Favoris",
+    "removeFromFavorites": "Retirer des Favoris",
+    "share": "Partager l'Événement",
+    "openMap": "Ouvrir dans Plans"
+  },
+  "favorites": {
+    "title": "Favoris",
+    "empty": "Aucun favori",
+    "emptyHint": "Appuyez sur le cœur d'un événement pour l'ajouter ici",
+    "upcomingFavorites": "Favoris à Venir"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "appearance": "Apparence",
+    "theme": "Thème",
+    "themeLight": "Clair",
+    "themeDark": "Sombre",
+    "themeSystem": "Système",
+    "display": "Affichage",
+    "comfortMode": "Mode Confort",
+    "comfortModeHint": "Boutons plus grands pour un toucher facile",
+    "language": "Langue",
+    "notifications": "Notifications",
+    "notifyChanges": "Changements de Programme",
+    "notifyChangesHint": "Soyez notifié des changements de vos favoris",
+    "about": "À Propos",
+    "version": "Version",
+    "feedback": "Envoyer un Commentaire",
+    "privacy": "Politique de Confidentialité"
+  },
+  "sports": {
+    "ALP": "Ski Alpin",
+    "BTH": "Biathlon",
+    "BOB": "Bobsleigh",
+    "CCS": "Ski de Fond",
+    "CUR": "Curling",
+    "FSK": "Patinage Artistique",
+    "FRS": "Ski Acrobatique",
+    "IHO": "Hockey sur Glace",
+    "LUG": "Luge",
+    "NCB": "Combiné Nordique",
+    "STK": "Skeleton",
+    "SKN": "Short Track",
+    "SJP": "Saut à Ski",
+    "SMT": "Snowboard",
+    "SBD": "Snowboard",
+    "SSK": "Patinage de Vitesse"
+  },
+  "venues": {
+    "bormio": "Bormio",
+    "cortina": "Cortina d'Ampezzo",
+    "anterselva": "Anterselva",
+    "predazzo": "Predazzo",
+    "baselga": "Baselga di Piné",
+    "milan": "Milan",
+    "rho": "Rho",
+    "livigno": "Livigno",
+    "tesero": "Tesero"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "retry": "Réessayer",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "done": "Terminé",
+    "search": "Rechercher",
+    "noResults": "Aucun résultat"
+  },
+  "time": {
+    "hours": "{{count}}h",
+    "minutes": "{{count}}m",
+    "justNow": "À l'instant"
+  }
+}
