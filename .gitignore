@@ -54,3 +54,4 @@ web-build/
 .expo/
 dist/
 *.hprof
+Admin/
