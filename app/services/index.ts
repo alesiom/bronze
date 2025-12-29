@@ -11,3 +11,19 @@ export type {
   EventListResponse,
   ApiError,
 } from './api';
+
+export {
+  initNotifications,
+  requestPermissions,
+  areNotificationsEnabled,
+  getPushToken,
+  scheduleEventReminder,
+  cancelEventReminder,
+  rescheduleEventReminder,
+  scheduleAllReminders,
+  cancelAllReminders,
+  getScheduledEventIds,
+  hasScheduledReminder,
+  cleanupExpiredNotifications,
+  addNotificationResponseListener,
+} from './notifications';

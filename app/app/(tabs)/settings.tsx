@@ -216,6 +216,12 @@ export default function SettingsScreen() {
         <SectionHeader title={t('settings.notifications')} />
         <View style={[styles.section, { backgroundColor: theme.surface }, presets.hardShadow as ViewStyle]}>
           <SettingToggle
+            label={t('settings.notifyReminders')}
+            hint={t('settings.notifyRemindersHint')}
+            value={settings.notifyReminders}
+            onValueChange={(value) => updateSettings({ notifyReminders: value })}
+          />
+          <SettingToggle
             label={t('settings.notifyChanges')}
             hint={t('settings.notifyChangesHint')}
             value={settings.notifyChanges}

@@ -65,6 +65,8 @@
     "comfortModeHint": "Boutons plus grands pour un toucher facile",
     "language": "Langue",
     "notifications": "Notifications",
+    "notifyReminders": "Rappels d'événements",
+    "notifyRemindersHint": "Soyez notifié 2h avant vos favoris",
     "notifyChanges": "Changements de Programme",
     "notifyChangesHint": "Soyez notifié des changements de vos favoris",
     "about": "À Propos",
@@ -158,5 +160,13 @@
     "hoursAgo": "il y a {{count}}h",
     "daysAgo": "il y a {{count}}j",
     "tapToSync": "Appuyez pour synchroniser"
+  },
+  "notifications": {
+    "reminderTitle": "{{sport}} dans 2 heures",
+    "reminderBody": "{{eventName}} à {{venue}}",
+    "permissionTitle": "Activer les notifications",
+    "permissionMessage": "Recevez des rappels 2h avant vos événements favoris",
+    "permissionAllow": "Autoriser",
+    "permissionDeny": "Plus tard"
   }
 }

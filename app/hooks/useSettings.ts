@@ -8,13 +8,15 @@ export type ThemeMode = 'light' | 'dark' | 'system';
 export interface Settings {
   themeMode: ThemeMode;
   comfortMode: boolean;
-  notifyChanges: boolean;
-  language: string | null; // null = auto-detect
+  notifyReminders: boolean;  // 2h reminder notifications
+  notifyChanges: boolean;    // Schedule change notifications
+  language: string | null;   // null = auto-detect
 }
 
 const defaultSettings: Settings = {
   themeMode: 'system',
   comfortMode: true,
+  notifyReminders: true,
   notifyChanges: true,
   language: null,
 };

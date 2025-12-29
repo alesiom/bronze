@@ -1,16 +1,30 @@
 /**
  * Centralized favorites management with server sync
  * AsyncStorage is source of truth, syncs to server when online
+ * Also manages local notification reminders
  */
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api } from '../services/api';
+import {
+  scheduleEventReminder,
+  cancelEventReminder,
+  areNotificationsEnabled,
+} from '../services/notifications';
 import type { Event } from '../types';
 
 const FAVORITES_KEY = '@neve26_favorites';
 const FAVORITES_IDS_KEY = '@neve26_favorite_ids';
 const PENDING_SYNC_KEY = '@neve26_pending_sync';
+const SETTINGS_KEY = '@neve26_settings';
+
+// Translation function placeholder (will be set by component)
+let translationFn: ((key: string, options?: Record<string, unknown>) => string) | null = null;
+
+export function setTranslationFunction(t: (key: string, options?: Record<string, unknown>) => string) {
+  translationFn = t;
+}
 
 export interface FavoritesState {
   favorites: Event[];
@@ -142,6 +156,19 @@ export function useFavorites() {
     newIds.add(event.event_id);
 
     await saveFavorites(newFavorites, newIds);
+
+    // Schedule notification reminder if enabled
+    try {
+      const settingsStr = await AsyncStorage.getItem(SETTINGS_KEY);
+      const settings = settingsStr ? JSON.parse(settingsStr) : {};
+      const notificationsEnabled = await areNotificationsEnabled();
+
+      if (settings.notifyReminders !== false && notificationsEnabled && translationFn) {
+        await scheduleEventReminder(event, translationFn);
+      }
+    } catch (error) {
+      console.error('Failed to schedule notification:', error);
+    }
   }, []);
 
   /**
@@ -157,6 +184,13 @@ export function useFavorites() {
     newIds.delete(eventId);
 
     await saveFavorites(newFavorites, newIds);
+
+    // Cancel notification reminder
+    try {
+      await cancelEventReminder(eventId);
+    } catch (error) {
+      console.error('Failed to cancel notification:', error);
+    }
   }, []);
 
   /**

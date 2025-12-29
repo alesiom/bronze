@@ -1,26 +1,48 @@
-import { useEffect, useRef } from 'react';
-import { Stack } from 'expo-router';
+import { useEffect, useRef, useCallback } from 'react';
+import { Stack, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { I18nManager, useColorScheme, AppState, AppStateStatus } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useTranslation } from 'react-i18next';
 
 import '../i18n';
 import { colors, darkColors } from '../theme';
 import { isRTL } from '../i18n';
 import i18n from '../i18n';
 import { api } from '../services/api';
-import { useDeviceRegistration, useFavorites, useNetworkStatus } from '../hooks';
+import { initNotifications, requestPermissions, getPushToken } from '../services/notifications';
+import {
+  useDeviceRegistration,
+  useFavorites,
+  useNetworkStatus,
+  useNotificationNavigation,
+  setTranslationFunction,
+} from '../hooks';
 
 export default function RootLayout() {
+  const { t } = useTranslation();
+  const router = useRouter();
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
   const theme = isDark ? darkColors : colors;
 
-  const { isRegistered, registerPlaceholder } = useDeviceRegistration();
+  const { isRegistered, registerWithToken, registerPlaceholder } = useDeviceRegistration();
   const { syncToServer, pendingSync } = useFavorites();
   const { isConnected, isServerReachable } = useNetworkStatus();
   const appState = useRef(AppState.currentState);
+
+  // Set translation function for favorites notifications
+  useEffect(() => {
+    setTranslationFunction(t);
+  }, [t]);
+
+  // Handle notification taps - navigate to event
+  const handleNotificationTap = useCallback((eventId: string) => {
+    router.push(`/event/${eventId}`);
+  }, [router]);
+
+  useNotificationNavigation(handleNotificationTap);
 
   // Handle RTL languages
   useEffect(() => {
@@ -31,13 +53,27 @@ export default function RootLayout() {
     }
   }, []);
 
-  // Initialize API and register device on first load
+  // Initialize API, notifications, and register device on first load
   useEffect(() => {
     const initializeApp = async () => {
+      // Initialize API
       await api.init();
 
-      // If not registered, register with placeholder token
-      // In production, this would use expo-notifications to get real FCM/APNs token
+      // Initialize notifications
+      await initNotifications();
+
+      // Request notification permissions
+      const permissionGranted = await requestPermissions();
+
+      // Get push token and register device
+      if (permissionGranted) {
+        const pushToken = await getPushToken();
+        if (pushToken && !api.getDeviceId()) {
+          await registerWithToken(pushToken);
+        }
+      }
+
+      // Fallback: register with placeholder if no push token
       if (!isRegistered && !api.getDeviceId()) {
         await registerPlaceholder();
       }

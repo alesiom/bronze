@@ -65,6 +65,8 @@
     "comfortModeHint": "Larger buttons for easier tapping",
     "language": "Language",
     "notifications": "Notifications",
+    "notifyReminders": "Event Reminders",
+    "notifyRemindersHint": "Get notified 2 hours before your favorites",
     "notifyChanges": "Schedule Changes",
     "notifyChangesHint": "Get notified when your favorites change",
     "about": "About",
@@ -158,5 +160,13 @@
     "hoursAgo": "{{count}}h ago",
     "daysAgo": "{{count}}d ago",
     "tapToSync": "Tap to sync"
+  },
+  "notifications": {
+    "reminderTitle": "{{sport}} starts in 2 hours",
+    "reminderBody": "{{eventName}} at {{venue}}",
+    "permissionTitle": "Enable Notifications",
+    "permissionMessage": "Get reminders 2 hours before your favorite events",
+    "permissionAllow": "Allow",
+    "permissionDeny": "Not Now"
   }
 }

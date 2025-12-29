@@ -65,6 +65,8 @@
     "comfortModeHint": "Größere Tasten zum einfacheren Tippen",
     "language": "Sprache",
     "notifications": "Benachrichtigungen",
+    "notifyReminders": "Event-Erinnerungen",
+    "notifyRemindersHint": "Erinnerung 2h vor deinen Favoriten",
     "notifyChanges": "Zeitplanänderungen",
     "notifyChangesHint": "Benachrichtigung bei Änderungen Ihrer Favoriten",
     "about": "Über",
@@ -158,5 +160,13 @@
     "hoursAgo": "vor {{count}}h",
     "daysAgo": "vor {{count}}T",
     "tapToSync": "Zum Synchronisieren tippen"
+  },
+  "notifications": {
+    "reminderTitle": "{{sport}} in 2 Stunden",
+    "reminderBody": "{{eventName}} in {{venue}}",
+    "permissionTitle": "Benachrichtigungen aktivieren",
+    "permissionMessage": "Erhalte Erinnerungen 2h vor deinen Favoriten",
+    "permissionAllow": "Erlauben",
+    "permissionDeny": "Später"
   }
 }
