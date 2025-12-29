@@ -7,36 +7,43 @@ import {
   TouchableOpacity,
   Switch,
   useColorScheme,
+  Alert,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { colors, darkColors, spacing, sizing, typography } from '../../theme';
+import { colors, darkColors, spacing, sizing, typography, presets } from '../../theme';
+import type { ViewStyle } from 'react-native';
 import { supportedLanguages, type LanguageCode } from '../../i18n';
 import i18n from '../../i18n';
-
-type ThemeMode = 'light' | 'dark' | 'system';
+import { useSettings, type ThemeMode } from '../../hooks/useSettings';
+import { Icons, SyncStatusIndicator } from '../../components';
 
 function SettingRow({
   label,
   value,
   onPress,
   showChevron = true,
+  opensUp = false,
 }: {
   label: string;
   value?: string;
   onPress?: () => void;
   showChevron?: boolean;
+  opensUp?: boolean;  // Shows up arrow for expandable sections
 }) {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
   const theme = isDark ? darkColors : colors;
 
+  // Determine which chevron to show
+  const ChevronIcon = opensUp ? Icons.ChevronUp : Icons.ChevronDown;
+
   return (
     <TouchableOpacity
-      style={[styles.settingRow, { borderBottomColor: isDark ? '#2A3A4A' : '#E5E5E5' }]}
+      style={[styles.settingRow, { borderBottomColor: theme.border }]}
       onPress={onPress}
-      activeOpacity={onPress ? 0.7 : 1}
+      activeOpacity={onPress ? 0.8 : 1}
       disabled={!onPress}
     >
       <Text style={[styles.settingLabel, { color: theme.text }]}>{label}</Text>
@@ -47,7 +54,7 @@ function SettingRow({
           </Text>
         )}
         {showChevron && onPress && (
-          <Text style={[styles.chevron, { color: theme.textMuted }]}>›</Text>
+          <ChevronIcon size={20} color={theme.textMuted} />
         )}
       </View>
     </TouchableOpacity>
@@ -70,7 +77,7 @@ function SettingToggle({
   const theme = isDark ? darkColors : colors;
 
   return (
-    <View style={[styles.settingRow, styles.toggleRow, { borderBottomColor: isDark ? '#2A3A4A' : '#E5E5E5' }]}>
+    <View style={[styles.settingRow, styles.toggleRow, { borderBottomColor: theme.border }]}>
       <View style={styles.toggleInfo}>
         <Text style={[styles.settingLabel, { color: theme.text }]}>{label}</Text>
         {hint && (
@@ -80,8 +87,8 @@ function SettingToggle({
       <Switch
         value={value}
         onValueChange={onValueChange}
-        trackColor={{ false: '#767577', true: colors.alpineGreen }}
-        thumbColor={value ? colors.snowWhite : '#f4f3f4'}
+        trackColor={{ false: theme.textMuted, true: colors.primary }}
+        thumbColor={value ? colors.snowWhite : colors.snowWhite}
       />
     </View>
   );
@@ -107,16 +114,27 @@ export default function SettingsScreen() {
   const isDark = colorScheme === 'dark';
   const theme = isDark ? darkColors : colors;
 
-  const [themeMode, setThemeMode] = useState<ThemeMode>('system');
-  const [comfortMode, setComfortMode] = useState(true);
-  const [notifyChanges, setNotifyChanges] = useState(true);
+  const { settings, updateSettings, loading } = useSettings();
   const [showLanguagePicker, setShowLanguagePicker] = useState(false);
 
   const currentLanguage = supportedLanguages.find((l) => l.code === i18n.language);
 
   const handleLanguageChange = (code: LanguageCode) => {
     i18n.changeLanguage(code);
+    updateSettings({ language: code });
     setShowLanguagePicker(false);
+  };
+
+  const handleThemeChange = () => {
+    const modes: ThemeMode[] = ['system', 'light', 'dark'];
+    const currentIndex = modes.indexOf(settings.themeMode);
+    const newMode = modes[(currentIndex + 1) % modes.length];
+    updateSettings({ themeMode: newMode });
+    Alert.alert(
+      t('settings.theme'),
+      'Theme changes will apply on next app restart.',
+      [{ text: 'OK' }]
+    );
   };
 
   const getThemeLabel = (mode: ThemeMode) => {
@@ -131,41 +149,37 @@ export default function SettingsScreen() {
   };
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]} edges={['left', 'right']}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]} edges={['top', 'left', 'right']}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {/* Appearance Section */}
         <SectionHeader title={t('settings.appearance')} />
-        <View style={[styles.section, { backgroundColor: theme.surface }]}>
+        <View style={[styles.section, { backgroundColor: theme.surface }, presets.hardShadow as ViewStyle]}>
           <SettingRow
             label={t('settings.theme')}
-            value={getThemeLabel(themeMode)}
-            onPress={() => {
-              // Cycle through themes
-              const modes: ThemeMode[] = ['system', 'light', 'dark'];
-              const currentIndex = modes.indexOf(themeMode);
-              setThemeMode(modes[(currentIndex + 1) % modes.length]);
-            }}
+            value={getThemeLabel(settings.themeMode)}
+            onPress={handleThemeChange}
           />
         </View>
 
         {/* Display Section */}
         <SectionHeader title={t('settings.display')} />
-        <View style={[styles.section, { backgroundColor: theme.surface }]}>
+        <View style={[styles.section, { backgroundColor: theme.surface }, presets.hardShadow as ViewStyle]}>
           <SettingToggle
             label={t('settings.comfortMode')}
             hint={t('settings.comfortModeHint')}
-            value={comfortMode}
-            onValueChange={setComfortMode}
+            value={settings.comfortMode}
+            onValueChange={(value) => updateSettings({ comfortMode: value })}
           />
         </View>
 
         {/* Language Section */}
         <SectionHeader title={t('settings.language')} />
-        <View style={[styles.section, { backgroundColor: theme.surface }]}>
+        <View style={[styles.section, { backgroundColor: theme.surface }, presets.hardShadow as ViewStyle]}>
           <SettingRow
             label={t('settings.language')}
             value={currentLanguage?.nativeName ?? 'English'}
             onPress={() => setShowLanguagePicker(!showLanguagePicker)}
+            opensUp={!showLanguagePicker}
           />
           {showLanguagePicker && (
             <View style={styles.languageList}>
@@ -175,7 +189,7 @@ export default function SettingsScreen() {
                   style={[
                     styles.languageOption,
                     i18n.language === lang.code && {
-                      backgroundColor: colors.alpineGreen + '20',
+                      backgroundColor: colors.primary + '20',
                     },
                   ]}
                   onPress={() => handleLanguageChange(lang.code)}
@@ -184,7 +198,7 @@ export default function SettingsScreen() {
                     style={[
                       styles.languageName,
                       { color: theme.text },
-                      i18n.language === lang.code && { color: colors.alpineGreen },
+                      i18n.language === lang.code && { color: colors.primary },
                     ]}
                   >
                     {lang.nativeName}
@@ -200,18 +214,24 @@ export default function SettingsScreen() {
 
         {/* Notifications Section */}
         <SectionHeader title={t('settings.notifications')} />
-        <View style={[styles.section, { backgroundColor: theme.surface }]}>
+        <View style={[styles.section, { backgroundColor: theme.surface }, presets.hardShadow as ViewStyle]}>
           <SettingToggle
             label={t('settings.notifyChanges')}
             hint={t('settings.notifyChangesHint')}
-            value={notifyChanges}
-            onValueChange={setNotifyChanges}
+            value={settings.notifyChanges}
+            onValueChange={(value) => updateSettings({ notifyChanges: value })}
           />
+        </View>
+
+        {/* Sync Status Section */}
+        <SectionHeader title={t('sync.synced')} />
+        <View style={[styles.section, { backgroundColor: theme.surface }, presets.hardShadow as ViewStyle]}>
+          <SyncStatusIndicator />
         </View>
 
         {/* About Section */}
         <SectionHeader title={t('settings.about')} />
-        <View style={[styles.section, { backgroundColor: theme.surface }]}>
+        <View style={[styles.section, { backgroundColor: theme.surface }, presets.hardShadow as ViewStyle]}>
           <SettingRow
             label={t('settings.version')}
             value="1.0.0"
@@ -233,12 +253,18 @@ export default function SettingsScreen() {
 
         {/* App tagline */}
         <View style={styles.footer}>
+          <Icons.Mountain size={32} color={theme.textMuted} />
           <Text style={[styles.footerText, { color: theme.textMuted }]}>
             Neve26
           </Text>
           <Text style={[styles.footerTagline, { color: theme.textMuted }]}>
             {t('app.tagline')}
           </Text>
+          <View style={styles.footerSnowflakes}>
+            <Icons.Snowflake size={16} color={theme.textMuted} />
+            <Icons.Snowflake size={16} color={theme.textMuted} />
+            <Icons.Snowflake size={16} color={theme.textMuted} />
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -291,10 +317,6 @@ const styles = StyleSheet.create({
   settingValueText: {
     fontSize: typography.fontSize.md,
   },
-  chevron: {
-    fontSize: typography.fontSize.xxl,
-    fontWeight: typography.fontWeight.normal,
-  },
   toggleInfo: {
     flex: 1,
     marginRight: spacing.md,
@@ -306,7 +328,7 @@ const styles = StyleSheet.create({
   },
   languageList: {
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: '#E5E5E5',
+    borderTopColor: colors.border,
   },
   languageOption: {
     flexDirection: 'row',
@@ -334,5 +356,10 @@ const styles = StyleSheet.create({
   },
   footerTagline: {
     fontSize: typography.fontSize.sm,
+  },
+  footerSnowflakes: {
+    flexDirection: 'row',
+    gap: spacing.sm,
+    marginTop: spacing.sm,
   },
 });

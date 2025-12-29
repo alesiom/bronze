@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.db import get_session, Event, User, Favorite, ScrapeLog
+from src.db import get_session, Event, Device, Favorite, ScrapeLog
 from src.api.models import HealthResponse, StatsResponse
 
 router = APIRouter(tags=["health"])
@@ -43,9 +43,9 @@ async def get_stats(
     event_count = await session.execute(select(func.count(Event.event_id)))
     total_events = event_count.scalar() or 0
 
-    # Count users
-    user_count = await session.execute(select(func.count(User.id)))
-    total_users = user_count.scalar() or 0
+    # Count devices
+    device_count = await session.execute(select(func.count(Device.id)))
+    total_devices = device_count.scalar() or 0
 
     # Count favorites
     fav_count = await session.execute(select(func.count()).select_from(Favorite))
@@ -62,7 +62,7 @@ async def get_stats(
 
     return StatsResponse(
         total_events=total_events,
-        total_users=total_users,
+        total_devices=total_devices,
         total_favorites=total_favorites,
         last_scrape=last_scrape,
     )

@@ -8,7 +8,7 @@ from sqlalchemy import delete, select, update, and_, or_
 from sqlalchemy.ext.asyncio import AsyncSession
 import structlog
 
-from .models import Event, User, Favorite, ScheduleChange, ScrapeLog
+from .models import Event, Device, Favorite, ScheduleChange, ScrapeLog
 
 log = structlog.get_logger()
 
@@ -191,118 +191,89 @@ async def get_venues(session: AsyncSession) -> list[dict]:
 
 
 # ============================================================================
-# User Queries
+# Device Queries
 # ============================================================================
 
-async def get_or_create_user(
+async def register_device(
     session: AsyncSession,
-    device_token: Optional[str] = None,
-    platform: Optional[str] = None,
-) -> User:
-    """Get existing user by device token or create new one."""
-    if device_token:
-        result = await session.execute(
-            select(User).where(User.device_token == device_token)
-        )
-        user = result.scalar_one_or_none()
-        if user:
-            return user
-
-    # Create new user
-    user = User(device_token=device_token, platform=platform)
-    session.add(user)
-    await session.flush()
-    return user
-
-
-async def update_user_token(
-    session: AsyncSession,
-    user_id: UUID,
-    device_token: str,
+    token: str,
     platform: str,
-) -> Optional[User]:
-    """Update user's device token for push notifications."""
+) -> Device:
+    """Register a device for push notifications. Returns existing device if token already registered."""
+    # Check if device with this token already exists
     result = await session.execute(
-        select(User).where(User.id == user_id)
+        select(Device).where(Device.token == token)
     )
-    user = result.scalar_one_or_none()
-    if user:
-        user.device_token = device_token
-        user.platform = platform
-        await session.flush()
-    return user
+    device = result.scalar_one_or_none()
+    if device:
+        # Update platform if changed
+        if device.platform != platform:
+            device.platform = platform
+            await session.flush()
+        return device
+
+    # Create new device
+    device = Device(token=token, platform=platform)
+    session.add(device)
+    await session.flush()
+    return device
+
+
+async def get_device_by_id(session: AsyncSession, device_id: UUID) -> Optional[Device]:
+    """Get device by ID."""
+    result = await session.execute(
+        select(Device).where(Device.id == device_id)
+    )
+    return result.scalar_one_or_none()
 
 
 # ============================================================================
 # Favorites Queries
 # ============================================================================
 
-async def get_user_favorites(
+async def sync_favorites(
     session: AsyncSession,
-    user_id: UUID,
-    include_past: bool = False,
-) -> list[Event]:
-    """Get user's favorited events."""
-    query = (
-        select(Event)
-        .join(Favorite)
-        .where(Favorite.user_id == user_id)
+    device_id: UUID,
+    event_ids: list[str],
+) -> int:
+    """
+    Bulk sync favorites - replaces all device favorites with the provided list.
+    Returns the number of favorites synced.
+    """
+    # Delete all existing favorites for this device
+    await session.execute(
+        delete(Favorite).where(Favorite.device_id == device_id)
     )
 
-    if not include_past:
-        query = query.where(Event.date >= date.today())
+    # Add new favorites
+    for event_id in event_ids:
+        favorite = Favorite(device_id=device_id, event_id=event_id)
+        session.add(favorite)
 
-    query = query.order_by(Event.date, Event.time)
-
-    result = await session.execute(query)
-    return list(result.scalars().all())
-
-
-async def add_favorite(
-    session: AsyncSession,
-    user_id: UUID,
-    event_id: str,
-) -> bool:
-    """Add event to user's favorites. Returns True if added, False if already exists."""
-    # Check if already favorited
-    result = await session.execute(
-        select(Favorite).where(
-            and_(Favorite.user_id == user_id, Favorite.event_id == event_id)
-        )
-    )
-    if result.scalar_one_or_none():
-        return False
-
-    favorite = Favorite(user_id=user_id, event_id=event_id)
-    session.add(favorite)
     await session.flush()
-    return True
+    return len(event_ids)
 
 
-async def remove_favorite(
+async def get_device_favorites(
     session: AsyncSession,
-    user_id: UUID,
-    event_id: str,
-) -> bool:
-    """Remove event from user's favorites. Returns True if removed."""
+    device_id: UUID,
+) -> list[str]:
+    """Get list of event IDs favorited by this device."""
     result = await session.execute(
-        delete(Favorite).where(
-            and_(Favorite.user_id == user_id, Favorite.event_id == event_id)
-        )
+        select(Favorite.event_id).where(Favorite.device_id == device_id)
     )
-    return result.rowcount > 0
+    return [row[0] for row in result.all()]
 
 
-async def get_users_with_favorite(
+async def get_devices_with_favorite(
     session: AsyncSession,
     event_id: str,
-) -> list[User]:
-    """Get all users who favorited a specific event (for notifications)."""
+) -> list[Device]:
+    """Get all devices that have favorited a specific event (for push notifications)."""
     result = await session.execute(
-        select(User)
+        select(Device)
         .join(Favorite)
         .where(Favorite.event_id == event_id)
-        .where(User.device_token.isnot(None))
     )
     return list(result.scalars().all())
 

@@ -1,7 +1,7 @@
 """Database module for Neve26."""
 
 from .connection import get_session, init_db, close_db
-from .models import Base, Event, User, Favorite, ScheduleChange, ScrapeLog
+from .models import Base, Event, Device, Favorite, ScheduleChange, ScrapeLog
 from .queries import (
     # Event queries
     get_all_events,
@@ -11,14 +11,13 @@ from .queries import (
     upsert_events,
     get_sports,
     get_venues,
-    # User queries
-    get_or_create_user,
-    update_user_token,
+    # Device queries
+    register_device,
+    get_device_by_id,
     # Favorites queries
-    get_user_favorites,
-    add_favorite,
-    remove_favorite,
-    get_users_with_favorite,
+    sync_favorites,
+    get_device_favorites,
+    get_devices_with_favorite,
     # Change queries
     record_change,
     get_pending_notifications,
@@ -36,7 +35,7 @@ __all__ = [
     # Models
     "Base",
     "Event",
-    "User",
+    "Device",
     "Favorite",
     "ScheduleChange",
     "ScrapeLog",
@@ -48,14 +47,13 @@ __all__ = [
     "upsert_events",
     "get_sports",
     "get_venues",
-    # User queries
-    "get_or_create_user",
-    "update_user_token",
+    # Device queries
+    "register_device",
+    "get_device_by_id",
     # Favorites queries
-    "get_user_favorites",
-    "add_favorite",
-    "remove_favorite",
-    "get_users_with_favorite",
+    "sync_favorites",
+    "get_device_favorites",
+    "get_devices_with_favorite",
     # Change queries
     "record_change",
     "get_pending_notifications",

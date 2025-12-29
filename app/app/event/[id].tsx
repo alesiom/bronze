@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   ScrollView,
+  Pressable,
   TouchableOpacity,
   Share,
   Linking,
@@ -16,24 +17,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { colors, darkColors, spacing, sizing, typography, presets } from '../../theme';
+import type { ViewStyle } from 'react-native';
+import { useEvent } from '../../hooks/useEvents';
+import { SportIcon, Icons } from '../../components';
 import type { Event } from '../../types';
 
 const FAVORITES_KEY = '@neve26_favorites';
-
-// Mock event data - will be replaced with API call
-const MOCK_EVENT: Event = {
-  event_id: 'ALP-001',
-  sport: 'Alpine Skiing',
-  sport_code: 'ALP',
-  event_name: "Men's Downhill",
-  date: '2026-02-07',
-  time: '11:00',
-  venue: 'Stelvio Ski Centre',
-  venue_city: 'Bormio',
-  status: 'scheduled',
-  session_code: 'ALP01',
-  is_medal_event: true,
-};
 
 // Venue coordinates for maps
 const VENUE_COORDINATES: Record<string, { lat: number; lng: number }> = {
@@ -50,33 +39,60 @@ function BigButton({
   icon,
   onPress,
   variant = 'primary',
+  opensUp = false,
 }: {
   title: string;
-  icon: string;
+  icon: React.ReactNode;
   onPress: () => void;
   variant?: 'primary' | 'secondary' | 'danger';
+  opensUp?: boolean;  // Shows chevron-up to indicate overlay opens from below
 }) {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
   const theme = isDark ? darkColors : colors;
 
   const bgColor = {
-    primary: colors.alpineGreen,
-    secondary: isDark ? '#2A3A4A' : '#F0F0F0',
+    primary: colors.primary,
+    secondary: isDark ? theme.surfaceAlt : colors.surfaceAlt,
+    danger: colors.rossoCorsa,
+  }[variant];
+
+  // Shadow color matches button color (lighter for secondary)
+  const shadowColor = {
+    primary: colors.primary,
+    secondary: isDark ? theme.textMuted : '#888',
     danger: colors.rossoCorsa,
   }[variant];
 
   const textColor = variant === 'secondary' ? theme.text : colors.snowWhite;
 
+  const getButtonStyle = (pressed: boolean) => ({
+    backgroundColor: bgColor,
+    borderColor: isDark ? theme.border : bgColor,
+    // When pressed: move into the shadow hole, remove shadow
+    ...(pressed ? {
+      transform: [{ translateX: 4 }, { translateY: 4 }],
+    } : {
+      shadowColor: shadowColor,
+      shadowOffset: { width: 4, height: 4 },
+      shadowOpacity: 0.8,
+      shadowRadius: 0,
+      elevation: 6,
+    }),
+  });
+
   return (
-    <TouchableOpacity
-      style={[styles.bigButton, { backgroundColor: bgColor }]}
-      onPress={onPress}
-      activeOpacity={0.8}
-    >
-      <Text style={styles.buttonIcon}>{icon}</Text>
-      <Text style={[styles.buttonText, { color: textColor }]}>{title}</Text>
-    </TouchableOpacity>
+    <Pressable onPress={onPress}>
+      {({ pressed }) => (
+        <View style={[styles.bigButton, getButtonStyle(pressed)]}>
+          {icon}
+          <Text style={[styles.buttonText, { color: textColor }]}>{title}</Text>
+          {opensUp && (
+            <Icons.ChevronUp size={18} color={textColor} />
+          )}
+        </View>
+      )}
+    </Pressable>
   );
 }
 
@@ -86,7 +102,7 @@ function DetailRow({ label, value }: { label: string; value: string }) {
   const theme = isDark ? darkColors : colors;
 
   return (
-    <View style={[styles.detailRow, { borderBottomColor: isDark ? '#2A3A4A' : '#E5E5E5' }]}>
+    <View style={[styles.detailRow, { borderBottomColor: theme.border }]}>
       <Text style={[styles.detailLabel, { color: theme.textMuted }]}>{label}</Text>
       <Text style={[styles.detailValue, { color: theme.text }]}>{value}</Text>
     </View>
@@ -101,15 +117,8 @@ export default function EventDetailScreen() {
   const isDark = colorScheme === 'dark';
   const theme = isDark ? darkColors : colors;
 
-  const [event, setEvent] = useState<Event | null>(null);
+  const { event, loading } = useEvent(id ?? '');
   const [isFavorite, setIsFavorite] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  const loadEvent = useCallback(async () => {
-    // TODO: Fetch from API
-    setEvent(MOCK_EVENT);
-    setLoading(false);
-  }, [id]);
 
   const checkFavorite = useCallback(async () => {
     try {
@@ -124,9 +133,8 @@ export default function EventDetailScreen() {
   }, [id]);
 
   useEffect(() => {
-    loadEvent();
     checkFavorite();
-  }, [loadEvent, checkFavorite]);
+  }, [checkFavorite]);
 
   const handleToggleFavorite = async () => {
     if (!event) return;
@@ -165,25 +173,14 @@ export default function EventDetailScreen() {
     if (!event) return;
 
     const coords = VENUE_COORDINATES[event.venue_city];
-    if (!coords) {
-      // Fallback to search
-      const query = encodeURIComponent(`${event.venue}, ${event.venue_city}, Italy`);
-      const url = Platform.select({
-        ios: `maps:?q=${query}`,
-        android: `geo:0,0?q=${query}`,
-        default: `https://maps.google.com/?q=${query}`,
-      });
-      Linking.openURL(url);
-      return;
-    }
+    const query = encodeURIComponent(`${event.venue}, ${event.venue_city}, Italy`);
 
-    const url = Platform.select({
-      ios: `maps:${coords.lat},${coords.lng}?q=${encodeURIComponent(event.venue)}`,
-      android: `geo:${coords.lat},${coords.lng}?q=${encodeURIComponent(event.venue)}`,
-      default: `https://maps.google.com/?q=${coords.lat},${coords.lng}`,
-    });
+    // Use Google Maps web URL - works universally and opens in Google Maps app if installed
+    const webUrl = coords
+      ? `https://www.google.com/maps/search/?api=1&query=${coords.lat},${coords.lng}`
+      : `https://www.google.com/maps/search/?api=1&query=${query}`;
 
-    Linking.openURL(url);
+    Linking.openURL(webUrl);
   };
 
   if (loading || !event) {
@@ -199,7 +196,7 @@ export default function EventDetailScreen() {
     );
   }
 
-  const sportColor = colors.sportColors[event.sport_code] ?? theme.primary;
+  const sportColor = theme.sportColors[event.sport_code] ?? theme.primary;
   const statusLabel = t(`event.status.${event.status}`);
 
   return (
@@ -219,7 +216,8 @@ export default function EventDetailScreen() {
           <View style={styles.badges}>
             {event.is_medal_event && (
               <View style={styles.medalBadge}>
-                <Text style={styles.medalText}>🏅 {t('event.medal')}</Text>
+                <Icons.Medal size={16} color={colors.snowWhite} />
+                <Text style={styles.medalText}>{t('event.medal')}</Text>
               </View>
             )}
             <View style={[styles.statusBadge, event.status === 'live' && styles.liveBadge]}>
@@ -229,7 +227,7 @@ export default function EventDetailScreen() {
         </View>
 
         {/* Details */}
-        <View style={[styles.detailsCard, { backgroundColor: theme.surface }, presets.cardShadow]}>
+        <View style={[styles.detailsCard, { backgroundColor: theme.surface }, presets.hardShadow as ViewStyle]}>
           <DetailRow label={t('event.time')} value={`${event.date} • ${event.time ?? '--:--'}`} />
           <DetailRow label={t('event.venue')} value={event.venue} />
           <DetailRow label={t('event.sport')} value={event.sport} />
@@ -239,19 +237,20 @@ export default function EventDetailScreen() {
         <View style={styles.actions}>
           <BigButton
             title={isFavorite ? t('event.removeFromFavorites') : t('event.addToFavorites')}
-            icon={isFavorite ? '❤️' : '🤍'}
+            icon={<Icons.Heart size={22} color={colors.snowWhite} />}
             onPress={handleToggleFavorite}
             variant={isFavorite ? 'danger' : 'primary'}
           />
           <BigButton
             title={t('event.share')}
-            icon="📤"
+            icon={<Icons.Share size={22} color={theme.text} />}
             onPress={handleShare}
             variant="secondary"
+            opensUp
           />
           <BigButton
             title={t('event.openMap')}
-            icon="🗺️"
+            icon={<Icons.Map size={22} color={theme.text} />}
             onPress={handleOpenMap}
             variant="secondary"
           />
@@ -298,6 +297,9 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   medalBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
     backgroundColor: 'rgba(255,255,255,0.2)',
     paddingHorizontal: spacing.sm,
     paddingVertical: spacing.xs,
@@ -355,11 +357,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     minHeight: sizing.button.large,
     borderRadius: sizing.radius.medium,
+    borderWidth: 2,
     paddingHorizontal: spacing.xl,
     gap: spacing.sm,
-  },
-  buttonIcon: {
-    fontSize: 24,
   },
   buttonText: {
     fontSize: typography.fontSize.lg,

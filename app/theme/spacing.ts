@@ -48,11 +48,12 @@ export const sizing = {
     xlarge: 48,
   },
 
-  // Border radius
+  // Border radius - vintage/retro style (smaller, sharper)
   radius: {
-    small: 8,
-    medium: 12,
-    large: 16,
+    none: 0,
+    small: 4,
+    medium: 6,
+    large: 8,
     round: 9999,
   },
 } as const;
@@ -95,6 +96,25 @@ export const presets = {
     shadowOpacity: 0.08,
     shadowRadius: 8,
     elevation: 3,
+  },
+
+  // Retro hard shadow - raised button look (light from bottom-right)
+  // Creates 3D effect with solid shadow on top-left
+  hardShadow: {
+    shadowColor: '#000',
+    shadowOffset: { width: -3, height: -3 },
+    shadowOpacity: 0.25,
+    shadowRadius: 0,  // Hard edge, no blur
+    elevation: 4,
+  },
+
+  // Retro inset look for pressed state
+  hardShadowPressed: {
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 0,
+    elevation: 1,
   },
 
   // Glove-friendly button

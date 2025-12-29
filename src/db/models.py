@@ -44,7 +44,6 @@ class Event(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     # Relationships
-    favorites = relationship("Favorite", back_populates="event", cascade="all, delete-orphan")
     changes = relationship("ScheduleChange", back_populates="event", cascade="all, delete-orphan")
 
     __table_args__ = (
@@ -69,46 +68,42 @@ class Event(Base):
         }
 
 
-class User(Base):
-    """App user (device-based, no login required)."""
+class Device(Base):
+    """Registered device for push notifications."""
 
-    __tablename__ = "users"
+    __tablename__ = "devices"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
-    device_token = Column(String(255), nullable=True, unique=True)
-    platform = Column(String(10), nullable=True)  # ios/android
-    is_premium = Column(Boolean, default=False)
-    language = Column(String(5), default="en")  # User's preferred language
+    token = Column(String(255), nullable=False, unique=True)
+    platform = Column(String(10), nullable=False)  # ios/android
     created_at = Column(DateTime, default=datetime.utcnow)
 
     # Relationships
-    favorites = relationship("Favorite", back_populates="user", cascade="all, delete-orphan")
+    favorites = relationship("Favorite", back_populates="device", cascade="all, delete-orphan")
 
     def to_dict(self) -> dict:
         """Convert to dictionary for API response."""
         return {
             "id": str(self.id),
             "platform": self.platform,
-            "is_premium": self.is_premium,
-            "language": self.language,
         }
 
 
 class Favorite(Base):
-    """User's favorited events."""
+    """Device's favorited events for push notifications."""
 
     __tablename__ = "favorites"
 
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
-    event_id = Column(String(50), ForeignKey("events.event_id", ondelete="CASCADE"), primary_key=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    device_id = Column(UUID(as_uuid=True), ForeignKey("devices.id", ondelete="CASCADE"), primary_key=True)
+    event_id = Column(String(50), primary_key=True)  # No FK to events - favorites can exist before schedule is loaded
+    synced_at = Column(DateTime, default=datetime.utcnow)
 
     # Relationships
-    user = relationship("User", back_populates="favorites")
-    event = relationship("Event", back_populates="favorites")
+    device = relationship("Device", back_populates="favorites")
 
     __table_args__ = (
-        Index("idx_favorites_user", "user_id"),
+        Index("idx_favorites_device", "device_id"),
+        Index("idx_favorites_event", "event_id"),
     )
 
 

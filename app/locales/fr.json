@@ -86,6 +86,7 @@
     "STK": "Skeleton",
     "SKN": "Short Track",
     "SJP": "Saut à Ski",
+    "SKM": "Ski-Alpinisme",
     "SMT": "Snowboard",
     "SBD": "Snowboard",
     "SSK": "Patinage de Vitesse"
@@ -115,5 +116,47 @@
     "hours": "{{count}}h",
     "minutes": "{{count}}m",
     "justNow": "À l'instant"
+  },
+  "humanTime": {
+    "now": "maintenant",
+    "inMinutes": "dans {{count}} min",
+    "inMinutesAt": "dans {{count}} min ({{time}})",
+    "inHours": "dans {{count}}h",
+    "inHoursAt": "dans {{count}}h ({{time}})",
+    "today": "aujourd'hui, {{time}}",
+    "thisMorning": "ce matin, {{time}}",
+    "thisAfternoon": "cet après-midi, {{time}}",
+    "thisEvening": "ce soir, {{time}}",
+    "thisNight": "cette nuit, {{time}}",
+    "tomorrow": "demain, {{time}}",
+    "onDay": "{{day}}, {{time}}",
+    "onDate": "{{day}} {{month}}, {{time}}",
+    "todayShort": "auj.",
+    "tomorrowShort": "demain",
+    "minShort": "{{count}}m",
+    "hourShort": "{{count}}h"
+  },
+  "days": {
+    "monday": "lundi",
+    "tuesday": "mardi",
+    "wednesday": "mercredi",
+    "thursday": "jeudi",
+    "friday": "vendredi",
+    "saturday": "samedi",
+    "sunday": "dimanche"
+  },
+  "sync": {
+    "online": "En ligne",
+    "offline": "Hors ligne",
+    "syncing": "Synchronisation...",
+    "synced": "Synchronisé",
+    "pendingSync": "Synchronisation en attente",
+    "lastSync": "Dernière sync. {{time}}",
+    "never": "Jamais synchronisé",
+    "justNow": "à l'instant",
+    "minutesAgo": "il y a {{count}}m",
+    "hoursAgo": "il y a {{count}}h",
+    "daysAgo": "il y a {{count}}j",
+    "tapToSync": "Appuyez pour synchroniser"
   }
 }

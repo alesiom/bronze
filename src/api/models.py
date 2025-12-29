@@ -56,46 +56,37 @@ class VenueResponse(BaseModel):
 
 
 # ============================================================================
-# User Schemas
+# Device Schemas
 # ============================================================================
 
-class UserCreate(BaseModel):
-    """Create user request."""
-    device_token: Optional[str] = None
-    platform: Optional[str] = Field(None, pattern="^(ios|android)$")
-    language: str = "en"
+class DeviceRegister(BaseModel):
+    """Register device for push notifications."""
+    token: str = Field(..., description="FCM or APNs device token")
+    platform: str = Field(..., pattern="^(ios|android)$")
 
 
-class UserResponse(BaseModel):
-    """User response."""
+class DeviceResponse(BaseModel):
+    """Device registration response."""
     id: UUID
-    platform: Optional[str] = None
-    is_premium: bool = False
-    language: str = "en"
+    platform: str
 
     class Config:
         from_attributes = True
-
-
-class UserTokenUpdate(BaseModel):
-    """Update user device token."""
-    device_token: str
-    platform: str = Field(..., pattern="^(ios|android)$")
 
 
 # ============================================================================
 # Favorite Schemas
 # ============================================================================
 
-class FavoriteAdd(BaseModel):
-    """Add favorite request."""
-    event_id: str
+class FavoritesSync(BaseModel):
+    """Bulk sync favorites - replaces all favorites with this list."""
+    event_ids: list[str] = Field(..., description="List of event IDs to sync as favorites")
 
 
-class FavoriteResponse(BaseModel):
-    """Favorite response."""
-    event_id: str
-    added: bool
+class FavoritesSyncResponse(BaseModel):
+    """Response after syncing favorites."""
+    synced: int = Field(..., description="Number of favorites synced")
+    event_ids: list[str]
 
 
 # ============================================================================
@@ -143,6 +134,6 @@ class HealthResponse(BaseModel):
 class StatsResponse(BaseModel):
     """API statistics."""
     total_events: int
-    total_users: int
+    total_devices: int
     total_favorites: int
     last_scrape: Optional[datetime] = None

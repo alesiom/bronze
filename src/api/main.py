@@ -10,7 +10,7 @@ import structlog
 
 from config.settings import get_settings
 from src.db import init_db, close_db, get_session, upsert_events
-from src.api.routes import events_router, users_router, health_router
+from src.api.routes import events_router, devices_router, health_router
 
 log = structlog.get_logger()
 
@@ -84,7 +84,7 @@ def create_app() -> FastAPI:
     # Include routers
     app.include_router(health_router, prefix="/api/v1")
     app.include_router(events_router, prefix="/api/v1")
-    app.include_router(users_router, prefix="/api/v1")
+    app.include_router(devices_router, prefix="/api/v1")
 
     return app
 
