@@ -439,13 +439,13 @@ function EventCard({
             <View style={styles.timeContainer}>
               <Icons.Clock size={14} color={theme.textSecondary} />
               <Text style={[styles.eventTime, { color: theme.textSecondary }]}>
-                {formatHumanDateTime(event.date, event.time, { t })}
+                {formatHumanDateTime(event.date, event.start_time, { t })}
               </Text>
             </View>
             <View style={styles.venueContainer}>
               <Icons.MapPin size={14} color={theme.textMuted} />
               <Text style={[styles.eventVenue, { color: theme.textMuted }]} numberOfLines={1}>
-                {event.venue_city}
+                {event.venue || event.location}
               </Text>
             </View>
           </View>
@@ -577,14 +577,9 @@ export default function ScheduleScreen() {
     tomorrow.setDate(tomorrow.getDate() + 1);
     const tomorrowStr = formatLocalDate(tomorrow);
 
-    // Sort by date and time
+    // Sort by start_time (ISO datetime comparison)
     const sortByDateTime = (a: Event, b: Event) => {
-      const dateCompare = a.date.localeCompare(b.date);
-      if (dateCompare !== 0) return dateCompare;
-      // Sort by time (null times go to end)
-      const timeA = a.time ?? '99:99';
-      const timeB = b.time ?? '99:99';
-      return timeA.localeCompare(timeB);
+      return a.start_time.localeCompare(b.start_time);
     };
 
     // Filter by sport if selected

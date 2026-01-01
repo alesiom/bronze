@@ -112,21 +112,18 @@ export async function getPushToken(): Promise<string | null> {
 }
 
 /**
- * Parse event date/time to a Date object
+ * Parse event start_time to a Date object
  */
 function getEventDateTime(event: Event): Date | null {
-  if (!event.date || !event.time) {
+  if (!event.start_time) {
     return null;
   }
 
   try {
-    // Parse YYYY-MM-DD and HH:MM
-    const [year, month, day] = event.date.split('-').map(Number);
-    const [hours, minutes] = event.time.split(':').map(Number);
-
-    return new Date(year, month - 1, day, hours, minutes);
+    // Parse ISO datetime string (e.g., "2026-02-07T11:30:00")
+    return new Date(event.start_time);
   } catch {
-    console.error('Failed to parse event date/time:', event.date, event.time);
+    console.error('Failed to parse event start_time:', event.start_time);
     return null;
   }
 }
@@ -165,7 +162,7 @@ export async function scheduleEventReminder(
         title: t('notifications.reminderTitle', { sport: event.sport }),
         body: t('notifications.reminderBody', {
           eventName: event.event_name,
-          venue: event.venue_city,
+          venue: event.venue || event.location,
         }),
         data: {
           eventId: event.event_id,

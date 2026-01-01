@@ -1,5 +1,5 @@
 export { useSettings, type Settings, type ThemeMode } from './useSettings';
-export { useEvents, useEvent, getAllEvents, getEventById } from './useEvents';
+export { useEvents, useEvent, getEventById } from './useEvents';
 export { useFavorites, getFavorites, getFavoriteIds, setTranslationFunction } from './useFavorites';
 export { useNetworkStatus, formatRelativeTime, type NetworkStatus } from './useNetworkStatus';
 export { useDeviceRegistration, type DeviceRegistrationState } from './useDeviceRegistration';

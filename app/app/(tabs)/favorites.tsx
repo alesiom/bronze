@@ -215,13 +215,13 @@ function EventCard({ event, onPress, onRemove }: {
                   <View style={styles.detailRow}>
                     <Icons.Clock size={14} color={theme.textSecondary} />
                     <Text style={[styles.eventDate, { color: theme.textSecondary }]}>
-                      {formatHumanDateTime(event.date, event.time, { t })}
+                      {formatHumanDateTime(event.date, event.start_time, { t })}
                     </Text>
                   </View>
                   <View style={styles.detailRow}>
                     <Icons.MapPin size={14} color={theme.textMuted} />
                     <Text style={[styles.eventVenue, { color: theme.textMuted }]}>
-                      {event.venue_city}
+                      {event.venue || event.location}
                     </Text>
                   </View>
                 </View>

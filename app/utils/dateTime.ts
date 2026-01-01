@@ -22,9 +22,33 @@ function getTimeOfDay(hour: number): 'morning' | 'afternoon' | 'evening' | 'nigh
 
 /**
  * Format time as HH:MM
+ * Accepts either HH:MM or full ISO datetime
  */
 function formatTime(time: string | null): string {
-  return time ?? '--:--';
+  if (!time) return '--:--';
+
+  // If it's a full ISO datetime (contains 'T'), extract the time part
+  if (time.includes('T')) {
+    const timePart = time.split('T')[1];
+    return timePart ? timePart.substring(0, 5) : '--:--';
+  }
+
+  return time;
+}
+
+/**
+ * Extract time (HH:MM) from various formats
+ */
+export function extractTime(timeOrDatetime: string | null): string | null {
+  if (!timeOrDatetime) return null;
+
+  // If it's a full ISO datetime (contains 'T'), extract the time part
+  if (timeOrDatetime.includes('T')) {
+    const timePart = timeOrDatetime.split('T')[1];
+    return timePart ? timePart.substring(0, 5) : null;
+  }
+
+  return timeOrDatetime;
 }
 
 /**
@@ -63,8 +87,9 @@ export function formatHumanDateTime(
   const daysDiff = getDaysDifference(now, eventDate);
   const timeStr = formatTime(time);
 
-  // Parse event time
-  const [hours, minutes] = (time ?? '00:00').split(':').map(Number);
+  // Parse event time (handle both HH:MM and ISO datetime formats)
+  const extractedTime = extractTime(time) ?? '00:00';
+  const [hours, minutes] = extractedTime.split(':').map(Number);
   const eventDateTime = new Date(eventDate);
   eventDateTime.setHours(hours, minutes, 0, 0);
 
@@ -124,8 +149,9 @@ export function formatShortRelativeTime(
   const eventDate = parseLocalDate(dateStr);
   const daysDiff = getDaysDifference(now, eventDate);
 
-  // Parse event time
-  const [hours, minutes] = (time ?? '00:00').split(':').map(Number);
+  // Parse event time (handle both HH:MM and ISO datetime formats)
+  const extractedTime = extractTime(time) ?? '00:00';
+  const [hours, minutes] = extractedTime.split(':').map(Number);
   const eventDateTime = new Date(eventDate);
   eventDateTime.setHours(hours, minutes, 0, 0);
 

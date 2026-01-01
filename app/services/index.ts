@@ -3,6 +3,7 @@
  */
 
 export { api } from './api';
+export * from './schedule';
 export type {
   DeviceRegisterRequest,
   DeviceResponse,

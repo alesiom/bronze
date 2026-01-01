@@ -1,1 +1,1 @@
-export { formatHumanDateTime, formatShortRelativeTime } from './dateTime';
+export { formatHumanDateTime, formatShortRelativeTime, extractTime } from './dateTime';

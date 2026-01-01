@@ -20,18 +20,26 @@ import { colors, darkColors, spacing, sizing, typography, presets } from '../../
 import type { ViewStyle } from 'react-native';
 import { useEvent } from '../../hooks/useEvents';
 import { SportIcon, Icons } from '../../components';
+import { extractTime } from '../../utils';
 import type { Event } from '../../types';
 
 const FAVORITES_KEY = '@neve26_favorites';
 
-// Venue coordinates for maps
+// Venue coordinates by venue name (for maps)
 const VENUE_COORDINATES: Record<string, { lat: number; lng: number }> = {
-  Bormio: { lat: 46.4681, lng: 10.3705 },
-  'Cortina d\'Ampezzo': { lat: 46.5369, lng: 12.1356 },
-  Milano: { lat: 45.4642, lng: 9.1900 },
-  Anterselva: { lat: 46.8658, lng: 12.0650 },
-  Livigno: { lat: 46.5385, lng: 10.1358 },
-  Predazzo: { lat: 46.3136, lng: 11.6036 },
+  'Stelvio Ski Centre': { lat: 46.4681, lng: 10.3705 },
+  'Tofane Alpine Skiing Centre': { lat: 46.5369, lng: 12.1356 },
+  'Cortina Curling Olympic Stadium': { lat: 46.5400, lng: 12.1400 },
+  'Cortina Sliding Centre': { lat: 46.5200, lng: 12.1200 },
+  'Anterselva Biathlon Arena': { lat: 46.8658, lng: 12.0650 },
+  'Milano Ice Skating Arena': { lat: 45.4642, lng: 9.1900 },
+  'Milano Speed Skating Stadium': { lat: 45.4642, lng: 9.1900 },
+  'Milano Santagiulia Ice Hockey Arena': { lat: 45.4600, lng: 9.2400 },
+  'Milano Rho Ice Hockey Arena': { lat: 45.5200, lng: 9.0900 },
+  'Livigno Snow Park': { lat: 46.5385, lng: 10.1358 },
+  'Livigno Aerials & Moguls Park': { lat: 46.5385, lng: 10.1358 },
+  'Predazzo Ski Jumping Stadium': { lat: 46.3136, lng: 11.6036 },
+  'Tesero Cross-Country Skiing Stadium': { lat: 46.2900, lng: 11.5100 },
 };
 
 function BigButton({
@@ -160,8 +168,9 @@ export default function EventDetailScreen() {
     if (!event) return;
 
     try {
+      const timeStr = extractTime(event.start_time) ?? '--:--';
       await Share.share({
-        message: `${event.event_name} - ${event.sport}\n${event.date} at ${event.time}\n${event.venue}, ${event.venue_city}`,
+        message: `${event.event_name} - ${event.sport}\n${event.date} at ${timeStr}\n${event.venue ?? event.location}`,
         title: event.event_name,
       });
     } catch (error) {
@@ -172,8 +181,9 @@ export default function EventDetailScreen() {
   const handleOpenMap = () => {
     if (!event) return;
 
-    const coords = VENUE_COORDINATES[event.venue_city];
-    const query = encodeURIComponent(`${event.venue}, ${event.venue_city}, Italy`);
+    const venueName = event.venue ?? event.location;
+    const coords = VENUE_COORDINATES[venueName];
+    const query = encodeURIComponent(`${venueName}, Italy`);
 
     // Use Google Maps web URL - works universally and opens in Google Maps app if installed
     const webUrl = coords
@@ -228,8 +238,8 @@ export default function EventDetailScreen() {
 
         {/* Details */}
         <View style={[styles.detailsCard, { backgroundColor: theme.surface }, presets.hardShadow as ViewStyle]}>
-          <DetailRow label={t('event.time')} value={`${event.date} • ${event.time ?? '--:--'}`} />
-          <DetailRow label={t('event.venue')} value={event.venue} />
+          <DetailRow label={t('event.time')} value={`${event.date} • ${extractTime(event.start_time) ?? '--:--'}`} />
+          <DetailRow label={t('event.venue')} value={event.venue ?? event.location} />
           <DetailRow label={t('event.sport')} value={event.sport} />
         </View>
 
