@@ -307,6 +307,11 @@ function EventCard({
   // Shadow color matches the sport color (live badge handles the "live" indicator)
   const accentColor = sportColor;
 
+  // For team sports, show "Team1 vs Team2" instead of generic session name
+  const displayName = event.match?.team1 && event.match?.team2
+    ? `${event.match.team1.description} vs ${event.match.team2.description}`
+    : event.event_name;
+
   // Card wrapper with button effect (shadow + press transform)
   const getWrapperStyle = (pressed: boolean) => ({
     marginHorizontal: spacing.md,
@@ -432,7 +437,7 @@ function EventCard({
         {/* Card content */}
         <View style={styles.cardContent}>
           <Text style={[styles.eventName, { color: theme.text }]} numberOfLines={2}>
-            {event.event_name}
+            {displayName}
           </Text>
 
           <View style={styles.eventDetails}>

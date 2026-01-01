@@ -23,6 +23,7 @@
   "filters": {
     "all": "Tous",
     "sport": "Sport",
+    "round": "Tour",
     "venue": "Lieu",
     "date": "Date",
     "medals": "Épreuves à Médailles",
@@ -33,6 +34,7 @@
     "venue": "Lieu",
     "time": "Heure",
     "sport": "Sport",
+    "round": "Tour",
     "medal": "Épreuve à Médailles",
     "status": {
       "scheduled": "Programmé",

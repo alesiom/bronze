@@ -23,6 +23,7 @@
   "filters": {
     "all": "Tutti",
     "sport": "Sport",
+    "round": "Turno",
     "venue": "Sede",
     "date": "Data",
     "medals": "Gare a Medaglia",
@@ -33,6 +34,7 @@
     "venue": "Sede",
     "time": "Orario",
     "sport": "Sport",
+    "round": "Turno",
     "medal": "Gara a Medaglia",
     "status": {
       "scheduled": "Programmato",

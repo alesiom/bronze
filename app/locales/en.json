@@ -33,6 +33,7 @@
     "venue": "Venue",
     "time": "Time",
     "sport": "Sport",
+    "round": "Round",
     "medal": "Medal Event",
     "status": {
       "scheduled": "Scheduled",

@@ -209,6 +209,11 @@ export default function EventDetailScreen() {
   const sportColor = theme.sportColors[event.sport_code] ?? theme.primary;
   const statusLabel = t(`event.status.${event.status}`);
 
+  // For team sports, show "Team1 vs Team2" as title
+  const displayName = event.match?.team1 && event.match?.team2
+    ? `${event.match.team1.description} vs ${event.match.team2.description}`
+    : event.event_name;
+
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]} edges={['bottom']}>
       <Stack.Screen
@@ -222,7 +227,7 @@ export default function EventDetailScreen() {
         {/* Header */}
         <View style={[styles.header, { backgroundColor: sportColor }]}>
           <Text style={styles.sportName}>{event.sport}</Text>
-          <Text style={styles.eventName}>{event.event_name}</Text>
+          <Text style={styles.eventName}>{displayName}</Text>
           <View style={styles.badges}>
             {event.is_medal_event && (
               <View style={styles.medalBadge}>
@@ -241,6 +246,9 @@ export default function EventDetailScreen() {
           <DetailRow label={t('event.time')} value={`${event.date} • ${extractTime(event.start_time) ?? '--:--'}`} />
           <DetailRow label={t('event.venue')} value={event.venue ?? event.location} />
           <DetailRow label={t('event.sport')} value={event.sport} />
+          {event.match && (
+            <DetailRow label={t('event.round')} value={event.event_name} />
+          )}
         </View>
 
         {/* Actions */}
