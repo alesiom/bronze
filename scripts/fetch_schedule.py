@@ -145,7 +145,7 @@ def main():
     # Ensure output directory exists
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    all_events = []
+    events_by_id: dict[str, dict] = {}  # Deduplicate by event_id
     all_disciplines = []
     failed_days = []
 
@@ -165,7 +165,11 @@ def main():
 
             if day_data:
                 events = extract_events(day_data)
-                all_events.extend(events)
+                # Deduplicate: same event appears on multiple day pages
+                for event in events:
+                    event_id = event["event_id"]
+                    if event_id not in events_by_id:
+                        events_by_id[event_id] = event
 
                 # Collect disciplines (first day only)
                 if not all_disciplines and day_data.get("disciplines"):
@@ -176,6 +180,8 @@ def main():
             # Be polite - small delay between requests
             if i < len(DAYS):
                 time.sleep(0.5)
+
+    all_events = list(events_by_id.values())
 
     print()
     print("=" * 60)

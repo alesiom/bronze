@@ -304,7 +304,7 @@ export default function FavoritesScreen() {
             onRemove={() => handleRemoveFavorite(item.event_id)}
           />
         )}
-        keyExtractor={(item) => item.event_id}
+        keyExtractor={(item, index) => `${item.event_id}-${index}`}
         contentContainerStyle={[
           styles.listContent,
           favorites.length === 0 && styles.emptyList,

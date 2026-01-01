@@ -678,7 +678,7 @@ export default function ScheduleScreen() {
         data={flatData}
         renderItem={renderItem}
         keyExtractor={(item, index) =>
-          'type' in item ? `header-${index}` : item.event_id
+          'type' in item ? `header-${index}` : `${item.event_id}-${index}`
         }
         contentContainerStyle={styles.listContent}
         refreshControl={
