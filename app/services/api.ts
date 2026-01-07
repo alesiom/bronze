@@ -88,7 +88,11 @@ class ApiClient {
       await AsyncStorage.setItem(DEVICE_ID_KEY, device.id);
       return device;
     } catch (error) {
-      console.error('Device registration error:', error);
+      // Network errors are expected when offline - handled silently
+      const isNetworkError = error instanceof TypeError && error.message === 'Network request failed';
+      if (!isNetworkError) {
+        console.warn('[API] Device registration error:', error);
+      }
       return null;
     }
   }

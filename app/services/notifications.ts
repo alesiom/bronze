@@ -94,6 +94,7 @@ export async function areNotificationsEnabled(): Promise<boolean> {
 
 /**
  * Get the push token for this device (for FCM/APNs)
+ * Note: Push tokens only work in development builds, not Expo Go
  */
 export async function getPushToken(): Promise<string | null> {
   if (!Device.isDevice) {
@@ -101,12 +102,13 @@ export async function getPushToken(): Promise<string | null> {
   }
 
   try {
-    const { data: token } = await Notifications.getExpoPushTokenAsync({
-      projectId: 'neve26', // Replace with actual Expo project ID
-    });
+    // Note: projectId should come from app.json's expo.extra.eas.projectId
+    // In Expo Go, this will fail - that's expected
+    const { data: token } = await Notifications.getExpoPushTokenAsync();
     return token;
   } catch (error) {
-    console.error('Failed to get push token:', error);
+    // Expected to fail in Expo Go - push notifications require a development build
+    console.log('[Notifications] Push token not available (expected in Expo Go)');
     return null;
   }
 }

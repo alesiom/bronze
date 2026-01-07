@@ -33,8 +33,8 @@ class Settings(BaseSettings):
     scrape_interval_live: int = 30         # 30 seconds
     
     # Target URLs
-    olympics_base_url: str = "https://olympics.com/en/milano-cortina-2026"
-    olympics_schedule_url: str = "https://olympics.com/en/milano-cortina-2026/schedule"
+    olympics_base_url: str = "https://www.olympics.com/en/milano-cortina-2026"
+    olympics_schedule_url: str = "https://www.olympics.com/en/milano-cortina-2026/schedule/overview"
     
     # Push notifications
     firebase_credentials_json: str = ""

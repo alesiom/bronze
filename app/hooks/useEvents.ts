@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import type { Event, FilterState, SportCode } from '../types';
+import type { Event, FilterState, SportCode, Session } from '../types';
 import {
   getAllEvents,
   getEventById as getEventByIdFromSchedule,
@@ -13,6 +13,10 @@ import {
   getDisciplines,
   getVenues,
   getDates,
+  getAllSessions,
+  getSessionByCode,
+  filterSessions,
+  getCountries,
 } from '../services/schedule';
 
 /**
@@ -38,6 +42,7 @@ export function useEvents(filters?: Partial<FilterState>) {
       sport: filters?.sport ?? null,
       venue: filters?.venue ?? null,
       date: filters?.date ?? null,
+      country: filters?.country ?? null,
       medalsOnly: filters?.medalsOnly ?? false,
     };
 
@@ -45,7 +50,7 @@ export function useEvents(filters?: Partial<FilterState>) {
       includeTraining: false,
       includePast: false,
     });
-  }, [allEvents, filters?.sport, filters?.venue, filters?.date, filters?.medalsOnly]);
+  }, [allEvents, filters?.sport, filters?.venue, filters?.date, filters?.country, filters?.medalsOnly]);
 
   // Simulate initial load (for consistent UX)
   useEffect(() => {
@@ -155,12 +160,79 @@ export function useEventSearch(query: string) {
 }
 
 /**
- * Hook for filter options (disciplines, venues, dates)
+ * Hook for filter options (disciplines, venues, dates, countries)
  */
 export function useFilterOptions() {
   const disciplines = useMemo(() => getDisciplines(), []);
   const venues = useMemo(() => getVenues(), []);
   const dates = useMemo(() => getDates(), []);
+  const countries = useMemo(() => getCountries(), []);
 
-  return { disciplines, venues, dates };
+  return { disciplines, venues, dates, countries };
+}
+
+// ============================================
+// Session hooks (events grouped by session_code)
+// ============================================
+
+/**
+ * Main hook for accessing and filtering sessions
+ */
+export function useSessions(filters?: Partial<FilterState>) {
+  const [loading, setLoading] = useState(true);
+
+  // Get all sessions from bundled data
+  const allSessions = useMemo(() => getAllSessions(), []);
+
+  // Apply filters
+  const sessions = useMemo(() => {
+    const filterState: FilterState = {
+      sport: filters?.sport ?? null,
+      venue: filters?.venue ?? null,
+      date: filters?.date ?? null,
+      country: filters?.country ?? null,
+      medalsOnly: filters?.medalsOnly ?? false,
+    };
+
+    return filterSessions(allSessions, filterState, {
+      includeTraining: false,
+      includePast: false,
+    });
+  }, [allSessions, filters?.sport, filters?.venue, filters?.date, filters?.country, filters?.medalsOnly]);
+
+  // Simulate initial load
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Refresh is a no-op for bundled data
+  const refresh = useCallback(async () => {
+    setLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    setLoading(false);
+  }, []);
+
+  return {
+    sessions,
+    allSessions,
+    loading,
+    refresh,
+  };
+}
+
+/**
+ * Hook for a single session by session_code
+ */
+export function useSession(sessionCode: string) {
+  const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const found = getSessionByCode(sessionCode);
+    setSession(found ?? null);
+    setLoading(false);
+  }, [sessionCode]);
+
+  return { session, loading };
 }

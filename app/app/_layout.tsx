@@ -140,6 +140,13 @@ export default function RootLayout() {
               headerTitle: '',
             }}
           />
+          <Stack.Screen
+            name="session/[code]"
+            options={{
+              presentation: 'modal',
+              headerTitle: '',
+            }}
+          />
         </Stack>
       </SafeAreaProvider>
     </GestureHandlerRootView>

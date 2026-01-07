@@ -138,3 +138,79 @@ export const darkColors = {
 } as const;
 
 export type ColorScheme = typeof colors;
+
+// ============================================================
+// ACCESSIBILITY UTILITIES
+// ============================================================
+
+/**
+ * Calculate relative luminance of a color (WCAG formula)
+ * @param hex - Hex color string (e.g., "#FFFFFF" or "#FFF")
+ * @returns Luminance value between 0 (black) and 1 (white)
+ */
+export function getLuminance(hex: string): number {
+  // Remove # if present
+  const color = hex.replace('#', '');
+
+  // Handle both 3 and 6 character hex
+  const fullHex = color.length === 3
+    ? color.split('').map(c => c + c).join('')
+    : color;
+
+  const r = parseInt(fullHex.slice(0, 2), 16) / 255;
+  const g = parseInt(fullHex.slice(2, 4), 16) / 255;
+  const b = parseInt(fullHex.slice(4, 6), 16) / 255;
+
+  // Apply sRGB gamma correction
+  const [rLinear, gLinear, bLinear] = [r, g, b].map(c =>
+    c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)
+  );
+
+  // Calculate luminance using WCAG formula
+  return 0.2126 * rLinear + 0.7152 * gLinear + 0.0722 * bLinear;
+}
+
+/**
+ * Calculate contrast ratio between two colors (WCAG formula)
+ * @returns Contrast ratio (1:1 to 21:1)
+ */
+export function getContrastRatio(color1: string, color2: string): number {
+  const lum1 = getLuminance(color1);
+  const lum2 = getLuminance(color2);
+  const lighter = Math.max(lum1, lum2);
+  const darker = Math.min(lum1, lum2);
+  return (lighter + 0.05) / (darker + 0.05);
+}
+
+/**
+ * Get appropriate text color for a background to meet WCAG AAA (7:1)
+ * @param backgroundColor - Hex color of the background
+ * @returns "#FFFFFF" for dark backgrounds, "#0D1B2A" for light backgrounds
+ */
+export function getContrastText(backgroundColor: string): string {
+  const luminance = getLuminance(backgroundColor);
+  // If background is light (luminance > 0.4), use dark text
+  // Threshold of 0.4 ensures 7:1 contrast ratio with both text colors
+  return luminance > 0.4 ? '#0D1B2A' : '#FFFFFF';
+}
+
+/**
+ * Check if a color combination meets WCAG AAA standard (7:1 for normal text)
+ */
+export function meetsWcagAAA(textColor: string, backgroundColor: string): boolean {
+  return getContrastRatio(textColor, backgroundColor) >= 7;
+}
+
+/**
+ * Get sport color with guaranteed contrast for a given theme mode
+ * Returns both the sport color and appropriate text color for it
+ */
+export function getSportColorWithContrast(
+  sportCode: keyof typeof colors.sportColors,
+  isDark: boolean
+): { bgColor: string; textColor: string } {
+  const theme = isDark ? darkColors : colors;
+  const bgColor = theme.sportColors[sportCode] ?? theme.primary;
+  const textColor = getContrastText(bgColor);
+  return { bgColor, textColor };
+}

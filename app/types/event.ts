@@ -105,9 +105,40 @@ export interface EventGroup {
   data: Event[];
 }
 
+/**
+ * A session groups multiple events that happen at the same time
+ * (e.g., 4 curling matches on different sheets)
+ */
+export interface Session {
+  session_code: string;
+
+  // Common properties (same for all events in session)
+  sport_code: SportCode;
+  sport: string;
+  event_name: string;
+  date: string;
+  start_time: string;
+  end_time: string;
+  venue: string | null;
+  is_medal_event: boolean;
+  is_training: boolean;
+  status: EventStatus;
+  ticketing_url: string | null;
+
+  // All events in this session (may have different matches/locations)
+  events: Event[];
+
+  // Matches (for team sports) - extracted from events
+  matches: MatchInfo[];
+
+  // All countries participating in this session
+  countries: string[];
+}
+
 export interface FilterState {
   sport: SportCode | null;
   venue: string | null;
   date: string | null;
+  country: string | null;
   medalsOnly: boolean;
 }

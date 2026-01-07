@@ -48,6 +48,10 @@
     "share": "Share Event",
     "openMap": "Open in Maps"
   },
+  "session": {
+    "matches": "{{count}} Matches",
+    "matches_one": "{{count}} Match"
+  },
   "favorites": {
     "title": "Favorites",
     "empty": "No favorites yet",
@@ -89,8 +93,7 @@
     "STK": "Skeleton",
     "SKN": "Short Track",
     "SJP": "Ski Jumping",
-    "SKM": "Ski Mountaineering",
-    "SMT": "Snowboard",
+    "SMT": "Ski Mountaineering",
     "SBD": "Snowboard",
     "SSK": "Speed Skating"
   },

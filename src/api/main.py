@@ -36,7 +36,7 @@ async def lifespan(app: FastAPI):
 
 async def load_mock_data_if_empty():
     """Load mock schedule data if the database is empty."""
-    mock_file = Path(__file__).parent.parent.parent / "data" / "mock_schedule.json"
+    mock_file = Path(__file__).parent.parent.parent / "data" / "schedule.json"
 
     if not mock_file.exists():
         log.warning("Mock data file not found", path=str(mock_file))

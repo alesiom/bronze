@@ -49,6 +49,10 @@
     "share": "Partager l'Événement",
     "openMap": "Ouvrir dans Plans"
   },
+  "session": {
+    "matches": "{{count}} Matchs",
+    "matches_one": "{{count}} Match"
+  },
   "favorites": {
     "title": "Favoris",
     "empty": "Aucun favori",
@@ -90,8 +94,7 @@
     "STK": "Skeleton",
     "SKN": "Short Track",
     "SJP": "Saut à Ski",
-    "SKM": "Ski-Alpinisme",
-    "SMT": "Snowboard",
+    "SMT": "Ski-Alpinisme",
     "SBD": "Snowboard",
     "SSK": "Patinage de Vitesse"
   },

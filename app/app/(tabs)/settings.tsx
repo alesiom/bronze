@@ -11,12 +11,14 @@ import {
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { colors, darkColors, spacing, sizing, typography, presets } from '../../theme';
 import type { ViewStyle } from 'react-native';
 import { supportedLanguages, type LanguageCode } from '../../i18n';
 import i18n from '../../i18n';
 import { useSettings, type ThemeMode } from '../../hooks/useSettings';
+import { useFavorites } from '../../hooks';
 import { Icons, SyncStatusIndicator } from '../../components';
 
 function SettingRow({
@@ -115,9 +117,48 @@ export default function SettingsScreen() {
   const theme = isDark ? darkColors : colors;
 
   const { settings, updateSettings, loading } = useSettings();
+  const { favorites, refresh: refreshFavorites } = useFavorites();
   const [showLanguagePicker, setShowLanguagePicker] = useState(false);
 
   const currentLanguage = supportedLanguages.find((l) => l.code === i18n.language);
+
+  const handleClearFavorites = async () => {
+    Alert.alert(
+      'Clear All Favorites',
+      `This will remove all ${favorites.length} favorites. Are you sure?`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Clear All',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await AsyncStorage.removeItem('@neve26_favorites');
+              await AsyncStorage.removeItem('@neve26_favorite_ids');
+              await AsyncStorage.removeItem('@neve26_pending_sync');
+              await refreshFavorites();
+              Alert.alert('Done', 'All favorites cleared');
+            } catch (error) {
+              console.error('Failed to clear favorites:', error);
+              Alert.alert('Error', 'Failed to clear favorites');
+            }
+          },
+        },
+      ]
+    );
+  };
+
+  const handleDebugFavorites = async () => {
+    const stored = await AsyncStorage.getItem('@neve26_favorites');
+    const storedIds = await AsyncStorage.getItem('@neve26_favorite_ids');
+    console.log('[DEBUG] Stored favorites raw:', stored);
+    console.log('[DEBUG] Stored favorite IDs raw:', storedIds);
+    const parsed = stored ? JSON.parse(stored) : [];
+    Alert.alert(
+      'Debug Info',
+      `Favorites in memory: ${favorites.length}\nFavorites in storage: ${parsed.length}\nIDs: ${parsed.map((e: any) => e.event_id?.substring(0, 20)).join(', ')}`
+    );
+  };
 
   const handleLanguageChange = (code: LanguageCode) => {
     i18n.changeLanguage(code);
@@ -233,6 +274,20 @@ export default function SettingsScreen() {
         <SectionHeader title={t('sync.synced')} />
         <View style={[styles.section, { backgroundColor: theme.surface }, presets.hardShadow as ViewStyle]}>
           <SyncStatusIndicator />
+        </View>
+
+        {/* Debug Section */}
+        <SectionHeader title="Debug" />
+        <View style={[styles.section, { backgroundColor: theme.surface }, presets.hardShadow as ViewStyle]}>
+          <SettingRow
+            label="Debug Favorites"
+            value={`${favorites.length} items`}
+            onPress={handleDebugFavorites}
+          />
+          <SettingRow
+            label="Clear All Favorites"
+            onPress={handleClearFavorites}
+          />
         </View>
 
         {/* About Section */}

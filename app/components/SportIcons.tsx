@@ -218,6 +218,7 @@ export const SportIconComponents: Record<string, React.FC<IconProps>> = {
   SBD: SBDIcon,
   SJP: SJPIcon,
   SKM: SKMIcon,
+  SMT: SKMIcon,  // Ski Mountaineering (SMT is the Olympic code)
   SKN: SKNIcon,
   SSK: SSKIcon,
   STK: STKIcon,

@@ -92,11 +92,17 @@ export function useDeviceRegistration() {
         return false;
       }
     } catch (error) {
-      console.error('Device registration error:', error);
+      // Network errors are expected when offline - don't log as error
+      const isNetworkError = error instanceof TypeError && error.message === 'Network request failed';
+      if (isNetworkError) {
+        console.log('[Device] Registration skipped - offline');
+      } else {
+        console.warn('[Device] Registration failed:', error);
+      }
       setState((prev) => ({
         ...prev,
         loading: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: isNetworkError ? null : (error instanceof Error ? error.message : 'Unknown error'),
       }));
       return false;
     }

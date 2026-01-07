@@ -39,6 +39,7 @@ export interface FavoritesState {
 let globalFavorites: Event[] = [];
 let globalFavoriteIds: Set<string> = new Set();
 let listeners: Set<() => void> = new Set();
+let hasLoadedFromStorage = false; // Track if we've loaded from storage
 
 function notifyListeners() {
   listeners.forEach((listener) => listener());
@@ -81,7 +82,22 @@ export function useFavorites() {
     loadPendingSync();
   }, []);
 
-  const loadFavorites = async () => {
+  const loadFavorites = async (forceReload = false) => {
+    // Only load from storage once to prevent overwriting fresh global state
+    // with potentially stale storage data
+    if (hasLoadedFromStorage && !forceReload) {
+      // Already loaded - just sync local state with global state
+      if (isMounted.current) {
+        setState((prev) => ({
+          ...prev,
+          favorites: globalFavorites,
+          favoriteIds: globalFavoriteIds,
+          loading: false,
+        }));
+      }
+      return;
+    }
+
     try {
       setState((prev) => ({ ...prev, loading: true }));
 
@@ -90,18 +106,17 @@ export function useFavorites() {
         AsyncStorage.getItem(FAVORITES_IDS_KEY),
       ]);
 
-      if (storedFavorites) {
-        globalFavorites = JSON.parse(storedFavorites);
-      }
+      // Always reset to stored values (or empty if nothing stored)
+      globalFavorites = storedFavorites ? JSON.parse(storedFavorites) : [];
 
-      if (storedIds) {
-        globalFavoriteIds = new Set(JSON.parse(storedIds));
-      } else if (globalFavorites.length > 0) {
-        // Migrate: if we have favorites but no IDs, extract them
-        globalFavoriteIds = new Set(globalFavorites.map((e) => e.event_id));
-        await AsyncStorage.setItem(FAVORITES_IDS_KEY, JSON.stringify([...globalFavoriteIds]));
-      }
+      // ALWAYS rebuild IDs from favorites (favorites array is the source of truth)
+      // This fixes any sync issues between favorites and IDs storage
+      globalFavoriteIds = new Set(globalFavorites.map((e) => e.event_id));
 
+      // Update stored IDs to match
+      await AsyncStorage.setItem(FAVORITES_IDS_KEY, JSON.stringify([...globalFavoriteIds]));
+
+      hasLoadedFromStorage = true;
       notifyListeners();
     } catch (error) {
       console.error('Failed to load favorites:', error);
@@ -124,22 +139,28 @@ export function useFavorites() {
   };
 
   const saveFavorites = async (favorites: Event[], ids: Set<string>) => {
+    // OPTIMISTIC UPDATE: Update global state IMMEDIATELY before async storage
+    // This ensures all components see the change instantly
+    globalFavorites = favorites;
+    globalFavoriteIds = ids;
+    notifyListeners();
+
+    if (isMounted.current) {
+      setState((prev) => ({ ...prev, pendingSync: true }));
+    }
+
+    // Then persist to storage in background
     try {
       await Promise.all([
         AsyncStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites)),
         AsyncStorage.setItem(FAVORITES_IDS_KEY, JSON.stringify([...ids])),
         AsyncStorage.setItem(PENDING_SYNC_KEY, 'true'),
       ]);
-
-      globalFavorites = favorites;
-      globalFavoriteIds = ids;
-      notifyListeners();
-
-      if (isMounted.current) {
-        setState((prev) => ({ ...prev, pendingSync: true }));
-      }
     } catch (error) {
       console.error('Failed to save favorites:', error);
+      // Note: On error, global state is already updated but storage failed
+      // This is acceptable for UX - user sees immediate feedback
+      // Storage will be retried on next operation
     }
   };
 
@@ -259,7 +280,8 @@ export function useFavorites() {
    * Refresh favorites (reload from storage)
    */
   const refresh = useCallback(async () => {
-    await loadFavorites();
+    // Force reload from storage when explicitly refreshing
+    await loadFavorites(true);
   }, [loadFavorites]);
 
   return {

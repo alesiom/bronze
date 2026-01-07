@@ -1,10 +1,10 @@
 """Pydantic models for API request/response schemas."""
 
-from datetime import date, time, datetime
-from typing import Optional
+from datetime import date, time as dt_time, datetime
+from typing import Optional, Any
 from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_serializer
 
 
 # ============================================================================
@@ -18,12 +18,18 @@ class EventBase(BaseModel):
     sport_code: str
     event_name: str
     date: date
-    time: Optional[time] = None
+    time: Optional[dt_time] = None
     venue: Optional[str] = None
     venue_city: Optional[str] = None
     status: str = "scheduled"
     session_code: Optional[str] = None
     medal_event: bool = False
+
+    @field_serializer('time')
+    def serialize_time(self, value: Optional[dt_time]) -> Optional[str]:
+        if value is None:
+            return None
+        return value.isoformat()
 
 
 class EventResponse(EventBase):

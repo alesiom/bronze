@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useCallback, useEffect } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -11,19 +11,43 @@ import {
   Animated,
   Dimensions,
 } from 'react-native';
-import { useRouter, useFocusEffect } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Swipeable } from 'react-native-gesture-handler';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { colors, darkColors, spacing, sizing, typography } from '../../theme';
-import { useEvents } from '../../hooks/useEvents';
-import { SportIcon, Icons } from '../../components';
+import { colors, darkColors, spacing, sizing, typography, getContrastText } from '../../theme';
+import { useSessions, useFilterOptions } from '../../hooks/useEvents';
+import { useFavorites } from '../../hooks';
+import { SportIcon, Icons, MatchBadges } from '../../components';
 import { formatHumanDateTime } from '../../utils';
-import type { Event, SportCode } from '../../types';
+import type { Session, Event, SportCode } from '../../types';
 
-const FAVORITES_KEY = '@neve26_favorites';
+// NOC (3-letter Olympic) to ISO 3166-1 alpha-2 (2-letter) mapping for flags
+const NOC_TO_ISO: Record<string, string> = {
+  AUS: 'AU', AUT: 'AT', BEL: 'BE', BLR: 'BY', BRA: 'BR',
+  CAN: 'CA', CHN: 'CN', CRO: 'HR', CZE: 'CZ', DEN: 'DK',
+  EST: 'EE', FIN: 'FI', FRA: 'FR', GBR: 'GB', GER: 'DE',
+  HUN: 'HU', ITA: 'IT', JPN: 'JP', KAZ: 'KZ', KOR: 'KR',
+  LAT: 'LV', NED: 'NL', NOR: 'NO', NZL: 'NZ', POL: 'PL',
+  ROU: 'RO', RSA: 'ZA', RUS: 'RU', SLO: 'SI', SRB: 'RS',
+  SUI: 'CH', SVK: 'SK', SWE: 'SE', UKR: 'UA', USA: 'US',
+};
+
+// Convert NOC code to flag emoji
+function countryCodeToFlag(code: string): string {
+  const upperCode = code.toUpperCase();
+  const isoCode = NOC_TO_ISO[upperCode] || (upperCode.length === 2 ? upperCode : null);
+  if (!isoCode) return '🏳️';
+
+  const base = 0x1F1E6;
+  try {
+    return isoCode.split('').map((char) => String.fromCodePoint(base + char.charCodeAt(0) - 65)).join('');
+  } catch {
+    return '🏳️';
+  }
+}
+
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SWIPE_ACTION_WIDTH = SCREEN_WIDTH * 0.35; // Swipe distance ~35% of screen
 const SWIPE_THRESHOLD = SWIPE_ACTION_WIDTH * 0.75; // Trigger at 75% of action width
@@ -44,6 +68,7 @@ const ALL_SPORTS: { code: SportCode; labelKey: string }[] = [
   { code: 'SKN', labelKey: 'sports.SKN' },
   { code: 'SJP', labelKey: 'sports.SJP' },
   { code: 'SMT', labelKey: 'sports.SMT' },
+  { code: 'SBD', labelKey: 'sports.SBD' },
   { code: 'SSK', labelKey: 'sports.SSK' },
 ];
 
@@ -64,6 +89,9 @@ function SportPill({
 
   const sportColor = sport ? theme.sportColors[sport.code] : theme.primary;
   const label = sport ? t(sport.labelKey) : t('filters.all');
+
+  // WCAG AAA: Get appropriate text color for sport color background
+  const selectedTextColor = getContrastText(sportColor);
 
   const getPillStyle = (pressed: boolean) => ({
     backgroundColor: isSelected ? sportColor : theme.surface,
@@ -88,13 +116,13 @@ function SportPill({
             <SportIcon
               sportCode={sport.code}
               size={18}
-              color={isSelected ? colors.snowWhite : sportColor}
+              color={isSelected ? selectedTextColor : sportColor}
             />
           )}
           <Text
             style={[
               styles.sportPillText,
-              { color: isSelected ? colors.snowWhite : theme.text },
+              { color: isSelected ? selectedTextColor : theme.text },
             ]}
           >
             {label}
@@ -149,9 +177,117 @@ function SportFilterBar({
   );
 }
 
+// Country filter pill component
+function CountryPill({
+  countryCode,
+  isSelected,
+  onPress,
+}: {
+  countryCode: string | null;
+  isSelected: boolean;
+  onPress: () => void;
+}) {
+  const { t } = useTranslation();
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
+  const theme = isDark ? darkColors : colors;
+
+  const flag = countryCode ? countryCodeToFlag(countryCode) : null;
+
+  const getPillStyle = (pressed: boolean) => ({
+    backgroundColor: isSelected ? theme.accent : theme.surface,
+    borderColor: theme.accent,
+    ...(pressed || isSelected
+      ? { transform: [{ translateX: 2 }, { translateY: 2 }] }
+      : {
+          shadowColor: theme.accent,
+          shadowOffset: { width: 2, height: 2 },
+          shadowOpacity: 0.6,
+          shadowRadius: 0,
+          elevation: 3,
+        }),
+  });
+
+  return (
+    <Pressable onPress={onPress}>
+      {({ pressed }) => (
+        <View style={[styles.countryPill, getPillStyle(pressed)]}>
+          {flag ? (
+            <Text style={styles.countryFlag}>{flag}</Text>
+          ) : (
+            <Text
+              style={[
+                styles.countryPillText,
+                { color: isSelected ? getContrastText(theme.accent) : theme.accent },
+              ]}
+            >
+              {t('filters.all')}
+            </Text>
+          )}
+        </View>
+      )}
+    </Pressable>
+  );
+}
+
+// Country filter bar
+function CountryFilterBar({
+  selectedCountry,
+  onSelectCountry,
+  availableCountries,
+}: {
+  selectedCountry: string | null;
+  onSelectCountry: (country: string | null) => void;
+  availableCountries: string[];
+}) {
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
+  const theme = isDark ? darkColors : colors;
+
+  // Only show if there are countries with matches
+  if (availableCountries.length === 0) {
+    return null;
+  }
+
+  return (
+    <View style={[styles.countryFilterBar, { backgroundColor: theme.background }]}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.filterScrollContent}
+      >
+        {/* "All" pill */}
+        <CountryPill
+          countryCode={null}
+          isSelected={selectedCountry === null}
+          onPress={() => onSelectCountry(null)}
+        />
+        {/* Country pills */}
+        {availableCountries.map((country) => (
+          <CountryPill
+            key={country}
+            countryCode={country}
+            isSelected={selectedCountry === country}
+            onPress={() => onSelectCountry(country)}
+          />
+        ))}
+      </ScrollView>
+    </View>
+  );
+}
+
 // Animated icon wrapper with scale animation (for heart → checkmark)
-function AnimatedIconScale({ icon, trigger }: { icon: React.ReactNode; trigger: boolean }) {
+function AnimatedIconScale({
+  iconBefore,
+  iconAfter,
+  trigger,
+}: {
+  iconBefore: React.ReactNode;
+  iconAfter: React.ReactNode;
+  trigger: boolean;
+}) {
   const scaleAnim = useRef(new Animated.Value(1)).current;
+  const [showAfterIcon, setShowAfterIcon] = useState(false);
   const isFirstRender = useRef(true);
 
   useEffect(() => {
@@ -160,25 +296,34 @@ function AnimatedIconScale({ icon, trigger }: { icon: React.ReactNode; trigger: 
       isFirstRender.current = false;
       return;
     }
-    // Animate out, then animate in with new icon
-    Animated.sequence([
+
+    if (trigger) {
+      // Animate: scale out (showing heart), swap icon, scale in (showing checkmark)
       Animated.timing(scaleAnim, {
         toValue: 0,
-        duration: 100,
+        duration: 120,
         useNativeDriver: true,
-      }),
-      Animated.spring(scaleAnim, {
-        toValue: 1,
-        friction: 8,
-        tension: 150,
-        useNativeDriver: true,
-      }),
-    ]).start();
+      }).start(() => {
+        // Swap to checkmark at the bottom of scale-out
+        setShowAfterIcon(true);
+        // Then scale back in
+        Animated.spring(scaleAnim, {
+          toValue: 1,
+          friction: 6,
+          tension: 200,
+          useNativeDriver: true,
+        }).start();
+      });
+    } else {
+      // Reset when trigger goes back to false
+      setShowAfterIcon(false);
+      scaleAnim.setValue(1);
+    }
   }, [trigger]);
 
   return (
     <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
-      {icon}
+      {showAfterIcon ? iconAfter : iconBefore}
     </Animated.View>
   );
 }
@@ -279,15 +424,15 @@ function SwipeActionBehind({ color, children, side }: { color: string; children:
   );
 }
 
-function EventCard({
-  event,
+function SessionCard({
+  session,
   onPress,
   sectionKey,
   onAddFavorite,
   onRemoveFavorite,
   isFavorite,
 }: {
-  event: Event;
+  session: Session;
   onPress: () => void;
   sectionKey?: string;
   onAddFavorite?: () => void;
@@ -300,17 +445,15 @@ function EventCard({
   const isDark = colorScheme === 'dark';
   const theme = isDark ? darkColors : colors;
 
-  const sportColor = theme.sportColors[event.sport_code] ?? theme.primary;
-  const isLive = event.status === 'live';
+  const sportColor = theme.sportColors[session.sport_code] ?? theme.primary;
+  const isLive = session.status === 'live';
   const isNowSection = sectionKey === 'now';
 
   // Shadow color matches the sport color (live badge handles the "live" indicator)
   const accentColor = sportColor;
 
-  // For team sports, show "Team1 vs Team2" instead of generic session name
-  const displayName = event.match?.team1 && event.match?.team2
-    ? `${event.match.team1.description} vs ${event.match.team2.description}`
-    : event.event_name;
+  // Has team matches to display?
+  const hasMatches = session.matches.length > 0;
 
   // Card wrapper with button effect (shadow + press transform)
   const getWrapperStyle = (pressed: boolean) => ({
@@ -338,16 +481,21 @@ function EventCard({
 
   const renderLeftActions = () => {
     if (!onAddFavorite) return null;
-    // Show checkmark if already favorited or just added, heart if not
-    const showCheck = isFavorite || justAdded;
+    // If already favorite (and not in the middle of add animation), show static checkmark
+    // Otherwise show animated heart → checkmark transition
+    if (isFavorite && !justAdded) {
+      return (
+        <SwipeActionBehind color={accentColor} side="left">
+          <Icons.Check size={32} color={colors.snowWhite} />
+        </SwipeActionBehind>
+      );
+    }
     return (
       <SwipeActionBehind color={accentColor} side="left">
         <AnimatedIconScale
           trigger={justAdded}
-          icon={showCheck
-            ? <Icons.Check size={32} color={colors.snowWhite} />
-            : <Icons.Heart size={32} color={colors.snowWhite} />
-          }
+          iconBefore={<Icons.Heart size={32} color={colors.snowWhite} />}
+          iconAfter={<Icons.Check size={32} color={colors.snowWhite} />}
         />
       </SwipeActionBehind>
     );
@@ -372,11 +520,11 @@ function EventCard({
     if (direction === 'left' && onAddFavorite && !isFavorite) {
       onAddFavorite();
       setJustAdded(true);
-      // Wait a moment to show the checkmark, then close
+      // Wait for heart→checkmark animation (120ms out + ~250ms spring in + buffer)
       setTimeout(() => {
         swipeableRef.current?.close();
         setJustAdded(false);
-      }, 400);
+      }, 550);
     } else if (direction === 'right' && onRemoveFavorite) {
       if (isFavorite) {
         onRemoveFavorite();
@@ -411,11 +559,12 @@ function EventCard({
         {/* Header band with icon and labels */}
         <View style={[styles.headerBand, { backgroundColor: sportColor + '15' }]}>
           <View style={[styles.cornerPin, { backgroundColor: sportColor }]}>
-            <SportIcon sportCode={event.sport_code} size={20} color={colors.snowWhite} />
+            <SportIcon sportCode={session.sport_code} size={20} color={getContrastText(sportColor)} />
           </View>
           <View style={styles.headerLabels}>
-            <Text style={[styles.sportName, { color: sportColor }]}>
-              {event.sport}
+            {/* WCAG AAA: Use theme.text for high contrast instead of sportColor */}
+            <Text style={[styles.sportName, { color: theme.text }]}>
+              {session.sport}
             </Text>
             {isLive && (
               <View style={[styles.liveBadge, { backgroundColor: colors.rossoCorsa }]}>
@@ -423,7 +572,7 @@ function EventCard({
                 <Text style={styles.liveText}>{t('schedule.liveNow')}</Text>
               </View>
             )}
-            {event.is_medal_event && (
+            {session.is_medal_event && (
               <View style={[styles.medalBadge, { backgroundColor: theme.warning + '25' }]}>
                 <Icons.Medal size={14} color={theme.warning} />
               </View>
@@ -437,20 +586,31 @@ function EventCard({
         {/* Card content */}
         <View style={styles.cardContent}>
           <Text style={[styles.eventName, { color: theme.text }]} numberOfLines={2}>
-            {displayName}
+            {session.event_name}
           </Text>
+
+          {/* Match badges for team sports */}
+          {hasMatches && (
+            <View style={styles.matchBadgesContainer}>
+              <MatchBadges
+                matches={session.matches}
+                maxVisible={4}
+                backgroundColor={sportColor + '20'}
+              />
+            </View>
+          )}
 
           <View style={styles.eventDetails}>
             <View style={styles.timeContainer}>
               <Icons.Clock size={14} color={theme.textSecondary} />
               <Text style={[styles.eventTime, { color: theme.textSecondary }]}>
-                {formatHumanDateTime(event.date, event.start_time, { t })}
+                {formatHumanDateTime(session.date, session.start_time, { t })}
               </Text>
             </View>
             <View style={styles.venueContainer}>
               <Icons.MapPin size={14} color={theme.textMuted} />
               <Text style={[styles.eventVenue, { color: theme.textMuted }]} numberOfLines={1}>
-                {event.venue || event.location}
+                {session.venue || session.events[0]?.location || ''}
               </Text>
             </View>
           </View>
@@ -511,63 +671,56 @@ export default function ScheduleScreen() {
   const isDark = colorScheme === 'dark';
   const theme = isDark ? darkColors : colors;
 
-  const { events, loading, refresh } = useEvents();
   const [refreshing, setRefreshing] = useState(false);
   const [selectedSport, setSelectedSport] = useState<SportCode | null>(null);
-  const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
 
-  // Load favorites on focus
-  const loadFavorites = useCallback(async () => {
-    try {
-      const stored = await AsyncStorage.getItem(FAVORITES_KEY);
-      if (stored) {
-        const favorites: Event[] = JSON.parse(stored);
-        setFavoriteIds(new Set(favorites.map((e) => e.event_id)));
-      }
-    } catch (error) {
-      console.error('Failed to load favorites:', error);
+  // Use centralized favorites management
+  const { favorites, favoriteIds, addFavorite, removeFavorite, isFavorite, refresh: refreshFavorites } = useFavorites();
+
+  // Compute favorite session codes from favoriteIds
+  const favoriteSessionCodes = useMemo(() => {
+    const sessionCodes = new Set<string>();
+    for (const event of favorites) {
+      sessionCodes.add(event.session_code);
     }
-  }, []);
+    return sessionCodes;
+  }, [favorites]);
 
-  useFocusEffect(
-    useCallback(() => {
-      loadFavorites();
-    }, [loadFavorites])
-  );
+  // Get filter options
+  const { countries: allCountries } = useFilterOptions();
 
-  const handleAddFavorite = async (event: Event) => {
-    try {
-      const stored = await AsyncStorage.getItem(FAVORITES_KEY);
-      const favorites: Event[] = stored ? JSON.parse(stored) : [];
-      if (!favorites.some((e) => e.event_id === event.event_id)) {
-        favorites.push(event);
-        await AsyncStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
-        setFavoriteIds(new Set(favorites.map((e) => e.event_id)));
+  // Get sessions with filters applied
+  const { sessions, allSessions, loading, refresh } = useSessions({
+    sport: selectedSport,
+    country: selectedCountry,
+  });
+
+  // Add all events in a session to favorites
+  const handleAddFavorite = async (session: Session) => {
+    // Add all events from this session that aren't already favorited
+    for (const event of session.events) {
+      if (!isFavorite(event.event_id)) {
+        await addFavorite(event);
       }
-    } catch (error) {
-      console.error('Failed to add favorite:', error);
     }
   };
 
-  const handleRemoveFavorite = async (eventId: string) => {
-    try {
-      const stored = await AsyncStorage.getItem(FAVORITES_KEY);
-      const favorites: Event[] = stored ? JSON.parse(stored) : [];
-      const updated = favorites.filter((e) => e.event_id !== eventId);
-      await AsyncStorage.setItem(FAVORITES_KEY, JSON.stringify(updated));
-      setFavoriteIds(new Set(updated.map((e) => e.event_id)));
-    } catch (error) {
-      console.error('Failed to remove favorite:', error);
+  // Remove all events in a session from favorites
+  const handleRemoveFavorite = async (session: Session) => {
+    // Remove all events in this session by their event_id (more reliable than session_code matching)
+    for (const event of session.events) {
+      await removeFavorite(event.event_id);
     }
   };
 
-  // Get unique sports that have events
+  // Get unique sports that have sessions (from all sessions, not filtered)
   const availableSports = useMemo(() => {
-    return new Set(events.map((e) => e.sport_code));
-  }, [events]);
+    return new Set(allSessions.map((s) => s.sport_code));
+  }, [allSessions]);
 
-  // Group events by section (Now, Today, Tomorrow, Upcoming)
-  const groupedEvents = useMemo(() => {
+  // Group sessions by section (Now, Today, Tomorrow, Upcoming)
+  const groupedSessions = useMemo(() => {
     const now = new Date();
     // Format as YYYY-MM-DD in local timezone
     const formatLocalDate = (d: Date) => {
@@ -582,47 +735,44 @@ export default function ScheduleScreen() {
     tomorrow.setDate(tomorrow.getDate() + 1);
     const tomorrowStr = formatLocalDate(tomorrow);
 
-    // Sort by start_time (ISO datetime comparison)
-    const sortByDateTime = (a: Event, b: Event) => {
-      return a.start_time.localeCompare(b.start_time);
+    // Sort by start_time (ISO datetime comparison, handle undefined)
+    const sortByDateTime = (a: Session, b: Session) => {
+      const aTime = a.start_time || '';
+      const bTime = b.start_time || '';
+      return aTime.localeCompare(bTime);
     };
 
-    // Filter by sport if selected
-    let filtered = events;
-    if (selectedSport) {
-      filtered = filtered.filter((e) => e.sport_code === selectedSport);
-    }
-
-    const live = filtered
-      .filter((e) => e.status === 'live')
+    // Sessions are already filtered by sport/country via useSessions hook
+    const live = sessions
+      .filter((s) => s.status === 'live')
       .sort(sortByDateTime);
-    const todayEvents = filtered
-      .filter((e) => e.date === today && e.status !== 'live')
+    const todaySessions = sessions
+      .filter((s) => s.date === today && s.status !== 'live')
       .sort(sortByDateTime);
-    const tomorrowEvents = filtered
-      .filter((e) => e.date === tomorrowStr && e.status !== 'live')
+    const tomorrowSessions = sessions
+      .filter((s) => s.date === tomorrowStr && s.status !== 'live')
       .sort(sortByDateTime);
-    const upcoming = filtered
-      .filter((e) => e.date > tomorrowStr && e.status !== 'live')
+    const upcoming = sessions
+      .filter((s) => s.date > tomorrowStr && s.status !== 'live')
       .sort(sortByDateTime);
 
-    const sections: { title: string; key: string; data: Event[] }[] = [];
+    const sections: { title: string; key: string; data: Session[] }[] = [];
 
     if (live.length > 0) {
       sections.push({ title: t('schedule.now'), key: 'now', data: live });
     }
-    if (todayEvents.length > 0) {
-      sections.push({ title: t('schedule.today'), key: 'today', data: todayEvents });
+    if (todaySessions.length > 0) {
+      sections.push({ title: t('schedule.today'), key: 'today', data: todaySessions });
     }
-    if (tomorrowEvents.length > 0) {
-      sections.push({ title: t('schedule.tomorrow'), key: 'tomorrow', data: tomorrowEvents });
+    if (tomorrowSessions.length > 0) {
+      sections.push({ title: t('schedule.tomorrow'), key: 'tomorrow', data: tomorrowSessions });
     }
     if (upcoming.length > 0) {
       sections.push({ title: t('schedule.upcoming'), key: 'upcoming', data: upcoming });
     }
 
     return sections;
-  }, [events, selectedSport, t]);
+  }, [sessions, t]);
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -630,18 +780,18 @@ export default function ScheduleScreen() {
     setRefreshing(false);
   };
 
-  const handleEventPress = (eventId: string) => {
-    router.push(`/event/${eventId}`);
+  const handleSessionPress = (sessionCode: string) => {
+    router.push(`/session/${sessionCode}`);
   };
 
   // Flatten sections for FlatList with headers
   const flatData = useMemo(() => {
-    const items: ((Event & { sectionKey: string }) | { type: 'header' | 'footer'; title: string; key: string })[] = [];
-    groupedEvents.forEach((section) => {
+    const items: ((Session & { sectionKey: string }) | { type: 'header' | 'footer'; title: string; key: string })[] = [];
+    groupedSessions.forEach((section) => {
       items.push({ type: 'header', title: section.title, key: section.key });
-      // Add section key to each event for styling
-      section.data.forEach((event) => {
-        items.push({ ...event, sectionKey: section.key });
+      // Add section key to each session for styling
+      section.data.forEach((session) => {
+        items.push({ ...session, sectionKey: section.key });
       });
       // Add footer after "now" section for bottom padding
       if (section.key === 'now') {
@@ -649,9 +799,9 @@ export default function ScheduleScreen() {
       }
     });
     return items;
-  }, [groupedEvents]);
+  }, [groupedSessions]);
 
-  const renderItem = ({ item }: { item: (Event & { sectionKey: string }) | { type: 'header' | 'footer'; title: string; key: string } }) => {
+  const renderItem = ({ item }: { item: (Session & { sectionKey: string }) | { type: 'header' | 'footer'; title: string; key: string } }) => {
     if ('type' in item && item.type === 'header') {
       return <SectionHeader title={item.title} sectionKey={item.key} />;
     }
@@ -659,15 +809,15 @@ export default function ScheduleScreen() {
       // Footer for "now" section - provides bottom padding with background
       return <View style={styles.nowSectionFooter} />;
     }
-    const eventItem = item as Event & { sectionKey: string };
+    const sessionItem = item as Session & { sectionKey: string };
     return (
-      <EventCard
-        event={eventItem}
-        onPress={() => handleEventPress(eventItem.event_id)}
-        sectionKey={eventItem.sectionKey}
-        onAddFavorite={() => handleAddFavorite(eventItem)}
-        onRemoveFavorite={() => handleRemoveFavorite(eventItem.event_id)}
-        isFavorite={favoriteIds.has(eventItem.event_id)}
+      <SessionCard
+        session={sessionItem}
+        onPress={() => handleSessionPress(sessionItem.session_code)}
+        sectionKey={sessionItem.sectionKey}
+        onAddFavorite={() => handleAddFavorite(sessionItem)}
+        onRemoveFavorite={() => handleRemoveFavorite(sessionItem)}
+        isFavorite={favoriteSessionCodes.has(sessionItem.session_code)}
       />
     );
   };
@@ -679,11 +829,16 @@ export default function ScheduleScreen() {
         onSelectSport={setSelectedSport}
         availableSports={availableSports}
       />
+      <CountryFilterBar
+        selectedCountry={selectedCountry}
+        onSelectCountry={setSelectedCountry}
+        availableCountries={allCountries}
+      />
       <FlatList
         data={flatData}
         renderItem={renderItem}
         keyExtractor={(item, index) =>
-          'type' in item ? `header-${index}` : `${item.event_id}-${index}`
+          'type' in item ? `header-${index}` : `${item.session_code}-${index}`
         }
         contentContainerStyle={styles.listContent}
         refreshControl={
@@ -736,6 +891,26 @@ const styles = StyleSheet.create({
   },
   sportPillText: {
     fontSize: typography.fontSize.md,
+    fontWeight: typography.fontWeight.semibold,
+  },
+  countryFilterBar: {
+    paddingBottom: spacing.md,
+    overflow: 'visible',
+  },
+  countryPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    borderRadius: sizing.radius.medium,
+    borderWidth: 2,
+  },
+  countryFlag: {
+    fontSize: 16,
+  },
+  countryPillText: {
+    fontSize: typography.fontSize.sm,
     fontWeight: typography.fontWeight.semibold,
   },
   listContent: {
@@ -835,6 +1010,9 @@ const styles = StyleSheet.create({
     fontWeight: typography.fontWeight.semibold,
     marginBottom: spacing.sm,
     lineHeight: typography.fontSize.lg * typography.lineHeight.normal,
+  },
+  matchBadgesContainer: {
+    marginBottom: spacing.sm,
   },
   eventDetails: {
     flexDirection: 'row',

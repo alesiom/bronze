@@ -47,6 +47,10 @@
     "share": "Event teilen",
     "openMap": "In Karten öffnen"
   },
+  "session": {
+    "matches": "{{count}} Spiele",
+    "matches_one": "{{count}} Spiel"
+  },
   "favorites": {
     "title": "Favoriten",
     "empty": "Noch keine Favoriten",
@@ -88,8 +92,7 @@
     "STK": "Skeleton",
     "SKN": "Shorttrack",
     "SJP": "Skispringen",
-    "SKM": "Skibergsteigen",
-    "SMT": "Snowboard",
+    "SMT": "Skibergsteigen",
     "SBD": "Snowboard",
     "SSK": "Eisschnelllauf"
   },

@@ -408,7 +408,7 @@ def main():
     output_dir = Path(__file__).parent.parent / "data"
     output_dir.mkdir(exist_ok=True)
 
-    output_file = output_dir / "mock_schedule.json"
+    output_file = output_dir / "schedule.json"
     with open(output_file, "w") as f:
         json.dump(events, f, indent=2)
 

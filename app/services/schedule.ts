@@ -3,7 +3,7 @@
  * Loads and queries the bundled schedule data
  */
 
-import type { Event, ScheduleData, SportCode, FilterState, Discipline } from '../types';
+import type { Event, ScheduleData, SportCode, FilterState, Discipline, Session, MatchInfo } from '../types';
 
 // Import bundled schedule data
 import scheduleData from '../assets/data/schedule.json';
@@ -144,6 +144,16 @@ export function filterEvents(
       return false;
     }
 
+    // Country filter - event must have this country participating
+    if (filters.country) {
+      const hasCountry =
+        event.match?.team1?.teamCode === filters.country ||
+        event.match?.team2?.teamCode === filters.country;
+      if (!hasCountry) {
+        return false;
+      }
+    }
+
     return true;
   });
 }
@@ -261,4 +271,188 @@ export function getEventDuration(event: Event): number {
   const start = new Date(event.start_time);
   const end = new Date(event.end_time);
   return Math.round((end.getTime() - start.getTime()) / (1000 * 60));
+}
+
+// ============================================
+// Session grouping (for team sports with multiple simultaneous matches)
+// ============================================
+
+/**
+ * Group events by session_code into Sessions
+ */
+export function groupEventsIntoSessions(events: Event[]): Session[] {
+  const sessionMap = new Map<string, Event[]>();
+
+  // Group events by session_code
+  for (const event of events) {
+    const existing = sessionMap.get(event.session_code) || [];
+    existing.push(event);
+    sessionMap.set(event.session_code, existing);
+  }
+
+  // Convert to Session objects
+  const sessions: Session[] = [];
+
+  for (const [sessionCode, sessionEvents] of sessionMap) {
+    // Sort events by start_time to ensure we use the earliest event for session properties
+    sessionEvents.sort((a, b) =>
+      new Date(a.start_time).getTime() - new Date(b.start_time).getTime()
+    );
+
+    // Use first (earliest) event for common properties
+    const first = sessionEvents[0];
+
+    // Extract matches and countries
+    const matches: MatchInfo[] = [];
+    const countryCodes = new Set<string>();
+
+    for (const event of sessionEvents) {
+      if (event.match) {
+        matches.push(event.match);
+        if (event.match.team1?.teamCode) {
+          countryCodes.add(event.match.team1.teamCode);
+        }
+        if (event.match.team2?.teamCode) {
+          countryCodes.add(event.match.team2.teamCode);
+        }
+      }
+    }
+
+    sessions.push({
+      session_code: sessionCode,
+      sport_code: first.sport_code,
+      sport: first.sport,
+      event_name: first.event_name,
+      date: first.date,
+      start_time: first.start_time,
+      end_time: first.end_time,
+      venue: first.venue,
+      is_medal_event: first.is_medal_event,
+      is_training: first.is_training,
+      status: first.status,
+      ticketing_url: first.ticketing_url,
+      events: sessionEvents,
+      matches,
+      countries: Array.from(countryCodes),
+    });
+  }
+
+  return sessions;
+}
+
+/**
+ * Get all sessions (events grouped by session_code)
+ */
+export function getAllSessions(): Session[] {
+  return groupEventsIntoSessions(schedule.events);
+}
+
+/**
+ * Get session by session_code
+ */
+export function getSessionByCode(sessionCode: string): Session | undefined {
+  const events = schedule.events.filter(e => e.session_code === sessionCode);
+  if (events.length === 0) return undefined;
+
+  const sessions = groupEventsIntoSessions(events);
+  return sessions[0];
+}
+
+/**
+ * Get all unique countries from schedule
+ */
+export function getCountries(): string[] {
+  const countries = new Set<string>();
+
+  for (const event of schedule.events) {
+    if (event.match?.team1?.teamCode) {
+      countries.add(event.match.team1.teamCode);
+    }
+    if (event.match?.team2?.teamCode) {
+      countries.add(event.match.team2.teamCode);
+    }
+  }
+
+  return Array.from(countries).sort();
+}
+
+/**
+ * Filter sessions based on filter state
+ */
+export function filterSessions(
+  sessions: Session[],
+  filters: FilterState,
+  options?: {
+    includeTraining?: boolean;
+    includePast?: boolean;
+  }
+): Session[] {
+  const now = new Date();
+  const { includeTraining = false, includePast = false } = options || {};
+
+  return sessions.filter((session) => {
+    // Filter out training sessions unless explicitly included
+    if (!includeTraining && session.is_training) {
+      return false;
+    }
+
+    // Filter out past sessions unless explicitly included
+    if (!includePast) {
+      const sessionEnd = new Date(session.end_time);
+      if (sessionEnd < now) {
+        return false;
+      }
+    }
+
+    // Sport filter
+    if (filters.sport && session.sport_code !== filters.sport) {
+      return false;
+    }
+
+    // Venue filter
+    if (filters.venue && session.venue !== filters.venue) {
+      return false;
+    }
+
+    // Date filter
+    if (filters.date && session.date !== filters.date) {
+      return false;
+    }
+
+    // Medal events only
+    if (filters.medalsOnly && !session.is_medal_event) {
+      return false;
+    }
+
+    // Country filter - session must have this country participating
+    if (filters.country && !session.countries.includes(filters.country)) {
+      return false;
+    }
+
+    return true;
+  });
+}
+
+/**
+ * Get sessions grouped by date
+ */
+export function getSessionsGroupedByDate(
+  sessions: Session[]
+): { date: string; sessions: Session[] }[] {
+  const grouped = new Map<string, Session[]>();
+
+  for (const session of sessions) {
+    const existing = grouped.get(session.date) || [];
+    existing.push(session);
+    grouped.set(session.date, existing);
+  }
+
+  return Array.from(grouped.entries())
+    .map(([date, dateSessions]) => ({
+      date,
+      sessions: dateSessions.sort(
+        (a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime()
+      ),
+    }))
+    .sort((a, b) => a.date.localeCompare(b.date));
 }

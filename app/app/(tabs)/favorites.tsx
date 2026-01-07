@@ -1,27 +1,26 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   FlatList,
   Pressable,
-  TouchableOpacity,
   useColorScheme,
   Dimensions,
   Animated,
 } from 'react-native';
-import { useRouter, useFocusEffect } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Swipeable } from 'react-native-gesture-handler';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { colors, darkColors, spacing, sizing, typography } from '../../theme';
-import { SportIcon, Icons } from '../../components';
+import { colors, darkColors, spacing, sizing, typography, getContrastText } from '../../theme';
+import { SportIcon, Icons, MatchBadges } from '../../components';
 import { formatHumanDateTime } from '../../utils';
-import type { Event, SportCode } from '../../types';
+import { groupEventsIntoSessions } from '../../services/schedule';
+import { useFavorites } from '../../hooks';
+import type { Session } from '../../types';
 
-const FAVORITES_KEY = '@neve26_favorites';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SWIPE_ACTION_WIDTH = SCREEN_WIDTH * 0.35; // Swipe distance ~35% of screen
 const SWIPE_THRESHOLD = SWIPE_ACTION_WIDTH * 0.75; // Trigger at 75% of action width
@@ -102,8 +101,8 @@ function SwipeActionBehind({ color, children, side }: { color: string; children:
   );
 }
 
-function EventCard({ event, onPress, onRemove }: {
-  event: Event;
+function SessionCard({ session, onPress, onRemove }: {
+  session: Session;
   onPress: () => void;
   onRemove: () => void;
 }) {
@@ -115,22 +114,17 @@ function EventCard({ event, onPress, onRemove }: {
   const isDark = colorScheme === 'dark';
   const theme = isDark ? darkColors : colors;
 
-  const sportColor = theme.sportColors[event.sport_code] ?? theme.primary;
-  const isLive = event.status === 'live';
+  const sportColor = theme.sportColors[session.sport_code] ?? theme.primary;
+  const isLive = session.status === 'live';
+  const hasMatches = session.matches.length > 0;
 
-  // Shadow color matches the sport color (live badge handles the "live" indicator)
+  // Shadow color matches the sport color
   const accentColor = sportColor;
-
-  // For team sports, show "Team1 vs Team2" instead of generic session name
-  const displayName = event.match?.team1 && event.match?.team2
-    ? `${event.match.team1.description} vs ${event.match.team2.description}`
-    : event.event_name;
 
   const getWrapperStyle = (pressed: boolean) => ({
     marginHorizontal: spacing.md,
     backgroundColor: theme.surface,
     borderRadius: sizing.radius.large,
-    // When pressed: move into the shadow hole, remove shadow
     ...(pressed ? {
       transform: [{ translateX: 4 }, { translateY: 4 }],
     } : {
@@ -142,7 +136,6 @@ function EventCard({ event, onPress, onRemove }: {
     }),
   });
 
-  // Swipe LEFT = card moves left, reveals action on right
   const renderRightActions = () => (
     <SwipeActionBehind color={accentColor} side="right">
       <AnimatedIconCrossfade
@@ -157,7 +150,6 @@ function EventCard({ event, onPress, onRemove }: {
     if (direction === 'right') {
       onRemove();
       setJustRemoved(true);
-      // Wait a moment to show the outline, then close
       setTimeout(() => {
         swipeableRef.current?.close();
         setJustRemoved(false);
@@ -190,11 +182,12 @@ function EventCard({ event, onPress, onRemove }: {
               {/* Header band with icon and labels */}
               <View style={[styles.headerBand, { backgroundColor: sportColor + '15' }]}>
                 <View style={[styles.cornerPin, { backgroundColor: sportColor }]}>
-                  <SportIcon sportCode={event.sport_code} size={20} color={colors.snowWhite} />
+                  <SportIcon sportCode={session.sport_code} size={20} color={getContrastText(sportColor)} />
                 </View>
                 <View style={styles.headerLabels}>
-                  <Text style={[styles.sportName, { color: sportColor }]}>
-                    {event.sport}
+                  {/* WCAG AAA: Use theme.text for high contrast instead of sportColor */}
+                  <Text style={[styles.sportName, { color: theme.text }]}>
+                    {session.sport}
                   </Text>
                   {isLive && (
                     <View style={[styles.liveBadge, { backgroundColor: colors.rossoCorsa }]}>
@@ -202,7 +195,7 @@ function EventCard({ event, onPress, onRemove }: {
                       <Text style={styles.liveText}>{t('schedule.liveNow')}</Text>
                     </View>
                   )}
-                  {event.is_medal_event && (
+                  {session.is_medal_event && (
                     <View style={[styles.medalBadge, { backgroundColor: theme.warning + '25' }]}>
                       <Icons.Medal size={14} color={theme.warning} />
                     </View>
@@ -213,20 +206,31 @@ function EventCard({ event, onPress, onRemove }: {
               {/* Card content */}
               <View style={styles.cardContent}>
                 <Text style={[styles.eventName, { color: theme.text }]} numberOfLines={2}>
-                  {displayName}
+                  {session.event_name}
                 </Text>
+
+                {/* Match badges for team sports */}
+                {hasMatches && (
+                  <View style={styles.matchBadgesContainer}>
+                    <MatchBadges
+                      matches={session.matches}
+                      maxVisible={4}
+                      backgroundColor={sportColor + '20'}
+                    />
+                  </View>
+                )}
 
                 <View style={styles.eventDetails}>
                   <View style={styles.detailRow}>
                     <Icons.Clock size={14} color={theme.textSecondary} />
                     <Text style={[styles.eventDate, { color: theme.textSecondary }]}>
-                      {formatHumanDateTime(event.date, event.start_time, { t })}
+                      {formatHumanDateTime(session.date, session.start_time, { t })}
                     </Text>
                   </View>
                   <View style={styles.detailRow}>
                     <Icons.MapPin size={14} color={theme.textMuted} />
                     <Text style={[styles.eventVenue, { color: theme.textMuted }]}>
-                      {event.venue || event.location}
+                      {session.venue || session.events[0]?.location || ''}
                     </Text>
                   </View>
                 </View>
@@ -246,44 +250,33 @@ export default function FavoritesScreen() {
   const isDark = colorScheme === 'dark';
   const theme = isDark ? darkColors : colors;
 
-  const [favorites, setFavorites] = useState<Event[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Use centralized favorites management
+  const { favorites, loading, removeFavorite } = useFavorites();
 
-  const loadFavorites = useCallback(async () => {
-    try {
-      setLoading(true);
-      const stored = await AsyncStorage.getItem(FAVORITES_KEY);
-      if (stored) {
-        setFavorites(JSON.parse(stored));
-      } else {
-        setFavorites([]);
-      }
-    } catch (error) {
-      console.error('Failed to load favorites:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  // Group favorites into sessions, sorted by start_time
+  const favoriteSessions = useMemo(() => {
+    if (favorites.length === 0) return [];
 
-  // Reload favorites every time this tab is focused
-  useFocusEffect(
-    useCallback(() => {
-      loadFavorites();
-    }, [loadFavorites])
-  );
+    const sessions = groupEventsIntoSessions(favorites);
 
-  const handleRemoveFavorite = async (eventId: string) => {
-    try {
-      const updated = favorites.filter((e) => e.event_id !== eventId);
-      setFavorites(updated);
-      await AsyncStorage.setItem(FAVORITES_KEY, JSON.stringify(updated));
-    } catch (error) {
-      console.error('Failed to remove favorite:', error);
+    // Sort by start_time (handle undefined values)
+    sessions.sort((a, b) => {
+      const aTime = a.start_time || '';
+      const bTime = b.start_time || '';
+      return aTime.localeCompare(bTime);
+    });
+    return sessions;
+  }, [favorites]);
+
+  const handleRemoveFavorite = async (session: Session) => {
+    // Remove all events in this session by their event_id
+    for (const event of session.events) {
+      await removeFavorite(event.event_id);
     }
   };
 
-  const handleEventPress = (eventId: string) => {
-    router.push(`/event/${eventId}`);
+  const handleSessionPress = (sessionCode: string) => {
+    router.push(`/session/${sessionCode}`);
   };
 
   if (loading) {
@@ -301,18 +294,18 @@ export default function FavoritesScreen() {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]} edges={['top', 'left', 'right']}>
       <FlatList
-        data={favorites}
+        data={favoriteSessions}
         renderItem={({ item }) => (
-          <EventCard
-            event={item}
-            onPress={() => handleEventPress(item.event_id)}
-            onRemove={() => handleRemoveFavorite(item.event_id)}
+          <SessionCard
+            session={item}
+            onPress={() => handleSessionPress(item.session_code)}
+            onRemove={() => handleRemoveFavorite(item)}
           />
         )}
-        keyExtractor={(item, index) => `${item.event_id}-${index}`}
+        keyExtractor={(item, index) => `${item.session_code}-${index}`}
         contentContainerStyle={[
           styles.listContent,
-          favorites.length === 0 && styles.emptyList,
+          favoriteSessions.length === 0 && styles.emptyList,
         ]}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
@@ -403,6 +396,9 @@ const styles = StyleSheet.create({
     fontWeight: typography.fontWeight.semibold,
     marginBottom: spacing.sm,
     lineHeight: typography.fontSize.lg * typography.lineHeight.normal,
+  },
+  matchBadgesContainer: {
+    marginBottom: spacing.sm,
   },
   eventDetails: {
     gap: spacing.xs,
