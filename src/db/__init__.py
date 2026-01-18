@@ -1,7 +1,7 @@
 """Database module for Neve26."""
 
 from .connection import get_session, init_db, close_db
-from .models import Base, Event, Device, Favorite, ScheduleChange, ScrapeLog
+from .models import Base, Event, Device, Favorite, ScheduleChange, ScrapeLog, Article, SocialPost
 from .queries import (
     # Event queries
     get_all_events,
@@ -25,6 +25,17 @@ from .queries import (
     # Scrape log queries
     create_scrape_log,
     complete_scrape_log,
+    # Article queries
+    get_articles,
+    get_article_by_slug,
+    get_featured_articles,
+    create_article,
+    update_article,
+    publish_article,
+    # Social post queries
+    get_recent_social_posts,
+    create_social_post,
+    get_content_type_counts,
 )
 
 __all__ = [
@@ -61,4 +72,17 @@ __all__ = [
     # Scrape log queries
     "create_scrape_log",
     "complete_scrape_log",
+    # Article model and queries
+    "Article",
+    "get_articles",
+    "get_article_by_slug",
+    "get_featured_articles",
+    "create_article",
+    "update_article",
+    "publish_article",
+    # Social post model and queries
+    "SocialPost",
+    "get_recent_social_posts",
+    "create_social_post",
+    "get_content_type_counts",
 ]

@@ -8,7 +8,7 @@ from sqlalchemy import delete, select, update, and_, or_
 from sqlalchemy.ext.asyncio import AsyncSession
 import structlog
 
-from .models import Event, Device, Favorite, ScheduleChange, ScrapeLog
+from .models import Event, Device, Favorite, ScheduleChange, ScrapeLog, Article, SocialPost
 
 log = structlog.get_logger()
 
@@ -352,3 +352,207 @@ async def complete_scrape_log(
             error_message=error_message,
         )
     )
+
+
+# ============================================================================
+# Article Queries
+# ============================================================================
+
+async def get_articles(
+    session: AsyncSession,
+    category: Optional[str] = None,
+    sport_code: Optional[str] = None,
+    limit: int = 20,
+    offset: int = 0,
+) -> tuple[list[Article], int]:
+    """
+    Get published articles with optional filters.
+
+    Returns:
+        Tuple of (articles list, total count)
+    """
+    # Base query for published articles
+    base_filter = Article.status == "published"
+
+    filters = [base_filter]
+
+    if category:
+        filters.append(Article.category == category)
+
+    if sport_code:
+        filters.append(Article.sport_code == sport_code.upper())
+
+    # Count total
+    count_query = select(Article).where(and_(*filters))
+    count_result = await session.execute(count_query)
+    total = len(count_result.scalars().all())
+
+    # Get paginated results
+    query = (
+        select(Article)
+        .where(and_(*filters))
+        .order_by(Article.published_at.desc())
+        .offset(offset)
+        .limit(limit)
+    )
+
+    result = await session.execute(query)
+    return list(result.scalars().all()), total
+
+
+async def get_article_by_slug(session: AsyncSession, slug: str) -> Optional[Article]:
+    """Get a single article by slug."""
+    result = await session.execute(
+        select(Article).where(Article.slug == slug)
+    )
+    return result.scalar_one_or_none()
+
+
+async def get_featured_articles(
+    session: AsyncSession,
+    limit: int = 5,
+) -> list[Article]:
+    """Get most recent published articles as featured."""
+    result = await session.execute(
+        select(Article)
+        .where(Article.status == "published")
+        .order_by(Article.published_at.desc())
+        .limit(limit)
+    )
+    return list(result.scalars().all())
+
+
+async def create_article(session: AsyncSession, article_data: dict) -> Article:
+    """Create a new article."""
+    article = Article(**article_data)
+    session.add(article)
+    await session.flush()
+    return article
+
+
+async def update_article(
+    session: AsyncSession,
+    slug: str,
+    article_data: dict,
+) -> Optional[Article]:
+    """Update an existing article."""
+    article = await get_article_by_slug(session, slug)
+    if not article:
+        return None
+
+    for key, value in article_data.items():
+        if hasattr(article, key):
+            setattr(article, key, value)
+
+    await session.flush()
+    return article
+
+
+async def publish_article(session: AsyncSession, slug: str) -> Optional[Article]:
+    """Publish an article (set status and published_at)."""
+    article = await get_article_by_slug(session, slug)
+    if not article:
+        return None
+
+    article.status = "published"
+    article.published_at = datetime.utcnow()
+    await session.flush()
+    return article
+
+
+# ============================================================================
+# Social Post Queries
+# ============================================================================
+
+async def get_recent_social_posts(
+    session: AsyncSession,
+    platform: Optional[str] = None,
+    limit: int = 10,
+) -> list[SocialPost]:
+    """
+    Get recent social posts for content variety tracking.
+
+    Args:
+        session: Database session
+        platform: Filter by platform (twitter, instagram)
+        limit: Number of recent posts to return
+
+    Returns:
+        List of recent SocialPost objects, newest first
+    """
+    query = select(SocialPost)
+
+    if platform:
+        query = query.where(SocialPost.platform == platform)
+
+    query = query.order_by(SocialPost.posted_at.desc()).limit(limit)
+
+    result = await session.execute(query)
+    return list(result.scalars().all())
+
+
+async def create_social_post(
+    session: AsyncSession,
+    content_type: str,
+    post_text: str,
+    platform: str,
+    athletes_mentioned: Optional[list[str]] = None,
+    sports_mentioned: Optional[list[str]] = None,
+    topics: Optional[list[str]] = None,
+    late_post_id: Optional[str] = None,
+) -> SocialPost:
+    """
+    Create a new social post record.
+
+    Args:
+        session: Database session
+        content_type: Type of content (quote, race_preview, etc.)
+        post_text: The actual post text
+        platform: Platform posted to (twitter, instagram)
+        athletes_mentioned: List of athlete slugs mentioned
+        sports_mentioned: List of sport codes mentioned
+        topics: List of topic tags
+        late_post_id: ID from Late.dev API response
+
+    Returns:
+        Created SocialPost object
+    """
+    post = SocialPost(
+        content_type=content_type,
+        post_text=post_text,
+        platform=platform,
+        athletes_mentioned=athletes_mentioned,
+        sports_mentioned=sports_mentioned,
+        topics=topics,
+        late_post_id=late_post_id,
+    )
+    session.add(post)
+    await session.flush()
+    return post
+
+
+async def get_content_type_counts(
+    session: AsyncSession,
+    days: int = 3,
+    platform: Optional[str] = None,
+) -> dict[str, int]:
+    """
+    Get counts of each content type posted in the last N days.
+
+    Useful for balancing content variety.
+    """
+    cutoff = datetime.utcnow() - timedelta(days=days)
+
+    query = select(SocialPost).where(SocialPost.posted_at >= cutoff)
+
+    if platform:
+        query = query.where(SocialPost.platform == platform)
+
+    result = await session.execute(query)
+    posts = result.scalars().all()
+
+    counts: dict[str, int] = {}
+    for post in posts:
+        counts[post.content_type] = counts.get(post.content_type, 0) + 1
+
+    return counts

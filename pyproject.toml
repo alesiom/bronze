@@ -27,6 +27,9 @@ dependencies = [
     "python-dotenv>=1.0.0",
     "structlog>=24.1.0",
     "tenacity>=8.2.0",  # Retry logic
+
+    # Templating
+    "jinja2>=3.1.0",
 ]
 
 [project.optional-dependencies]

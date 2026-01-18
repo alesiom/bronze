@@ -10,7 +10,7 @@ import structlog
 
 from config.settings import get_settings
 from src.db import init_db, close_db, get_session, upsert_events
-from src.api.routes import events_router, devices_router, health_router
+from src.api.routes import events_router, devices_router, health_router, articles_router, social_router, monitoring_router, sitemap_router
 
 log = structlog.get_logger()
 
@@ -36,27 +36,35 @@ async def lifespan(app: FastAPI):
 
 async def load_mock_data_if_empty():
     """Load mock schedule data if the database is empty."""
-    mock_file = Path(__file__).parent.parent.parent / "data" / "schedule.json"
+    try:
+        mock_file = Path(__file__).parent.parent.parent / "data" / "schedule.json"
 
-    if not mock_file.exists():
-        log.warning("Mock data file not found", path=str(mock_file))
-        return
-
-    async with get_session() as session:
-        # Check if we already have events
-        from src.db import get_all_events
-        existing = await get_all_events(session, include_past=True)
-
-        if existing:
-            log.info("Database already has events", count=len(existing))
+        if not mock_file.exists():
+            log.info("No mock data file found, skipping", path=str(mock_file))
             return
 
-        # Load mock data
-        with open(mock_file) as f:
-            events = json.load(f)
+        async with get_session() as session:
+            # Check if we already have events
+            from src.db import get_all_events
+            existing = await get_all_events(session, include_past=True)
 
-        count = await upsert_events(session, events)
-        log.info("Loaded mock schedule data", count=count)
+            if existing:
+                log.info("Database already has events", count=len(existing))
+                return
+
+            # Load mock data
+            with open(mock_file) as f:
+                events = json.load(f)
+
+            # Validate that events is a list of dicts
+            if not isinstance(events, list):
+                log.warning("Mock data is not a list, skipping")
+                return
+
+            count = await upsert_events(session, events)
+            log.info("Loaded mock schedule data", count=count)
+    except Exception as e:
+        log.warning("Failed to load mock data, continuing without it", error=str(e))
 
 
 def create_app() -> FastAPI:
@@ -85,6 +93,10 @@ def create_app() -> FastAPI:
     app.include_router(health_router, prefix="/api/v1")
     app.include_router(events_router, prefix="/api/v1")
     app.include_router(devices_router, prefix="/api/v1")
+    app.include_router(articles_router, prefix="/api/v1")
+    app.include_router(social_router, prefix="/api/v1")
+    app.include_router(monitoring_router, prefix="/api/v1")
+    app.include_router(sitemap_router, prefix="/api/v1")
 
     return app
 

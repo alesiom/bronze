@@ -143,3 +143,101 @@ class StatsResponse(BaseModel):
     total_devices: int
     total_favorites: int
     last_scrape: Optional[datetime] = None
+
+
+# ============================================================================
+# Article Schemas
+# ============================================================================
+
+class ArticleBase(BaseModel):
+    """Base article schema with localized fields."""
+    slug: str
+    title: str
+    excerpt: Optional[str] = None
+    category: str
+    sport_code: Optional[str] = None
+    venue: Optional[str] = None
+    venue_city: Optional[str] = None
+    featured_image: Optional[str] = None
+    image_alt: Optional[str] = None
+    published_at: Optional[datetime] = None
+
+
+class ArticleListItem(ArticleBase):
+    """Article item for list responses (no full content)."""
+    id: int
+
+    class Config:
+        from_attributes = True
+
+
+class ArticleDetail(ArticleBase):
+    """Full article with content."""
+    id: int
+    content: str
+    athlete_slugs: list[str] = []
+    updated_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True
+
+
+class ArticleListResponse(BaseModel):
+    """Response for list of articles."""
+    articles: list[ArticleListItem]
+    total: int
+    limit: int
+    offset: int
+
+
+class ArticleCreate(BaseModel):
+    """Schema for creating an article (used by n8n webhook)."""
+    slug: str
+    title: dict[str, str]  # {"en": "...", "de": "...", ...}
+    excerpt: Optional[dict[str, str]] = None
+    content: dict[str, str]
+    category: str
+    sport_code: Optional[str] = None
+    athlete_slugs: Optional[list[str]] = None
+    event_id: Optional[str] = None
+    venue: Optional[str] = None
+    venue_city: Optional[str] = None
+    meta_description: Optional[dict[str, str]] = None
+    featured_image: Optional[str] = None
+    image_alt: Optional[dict[str, str]] = None
+    image_credit: Optional[str] = None
+    status: str = "draft"
+    source_type: Optional[str] = None
+    source_data: Optional[dict] = None
+
+
+class ArticleRaw(BaseModel):
+    """Raw article with JSONB fields intact (for n8n HTML generator)."""
+    id: int
+    slug: str
+    title: dict[str, str]
+    excerpt: Optional[dict[str, str]] = None
+    content: dict[str, str]
+    meta_description: Optional[dict[str, str]] = None
+    category: str
+    sport_code: Optional[str] = None
+    athlete_slugs: list[str] = []
+    venue: Optional[str] = None
+    venue_city: Optional[str] = None
+    featured_image: Optional[str] = None
+    image_alt: Optional[dict[str, str]] = None
+    published_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+    structured_data: Optional[dict] = None
+
+    class Config:
+        from_attributes = True
+
+
+class ArticleTranslationUpdate(BaseModel):
+    """Schema for updating article translations."""
+    lang: str = Field(..., description="Language code (de, fr, it, es, pt, nl, ar, ja, zh, ko)")
+    title: str = Field(..., description="Translated title")
+    excerpt: Optional[str] = Field(None, description="Translated excerpt")
+    content: str = Field(..., description="Translated content with HTML preserved")
+    meta_description: Optional[str] = Field(None, description="Translated meta description")
