@@ -1,0 +1,34 @@
+{#
+  Header partial - Navigation and language selector
+  WCAG AAA: Proper landmarks, focus states, keyboard navigation
+
+  Variables:
+  - lang: Current language code
+  - lang_path: URL path prefix for language (empty for English)
+  - i18n: Translation dictionary
+  - languages: List of language configs for selector
+  - current_nav: Current nav item for aria-current (home, alpine, biathlon, athletes)
+#}
+<header class="site-header" role="banner">
+  <div class="header-container">
+    <a href="/{{ lang_path }}" class="site-logo" aria-label="Neve26 Home">
+      <img src="/logo-128.png" alt="" width="40" height="40">
+      <span>Neve26</span>
+    </a>
+    <nav class="header-nav" aria-label="Main navigation">
+      <ul class="nav-links">
+        <li><a href="/{{ lang_path }}"{% if current_nav == 'home' %} aria-current="page"{% endif %}>{{ i18n.nav_news }}</a></li>
+        <li><a href="/{{ lang_path }}alpine-skiing/"{% if current_nav == 'alpine' %} aria-current="page"{% endif %}>{{ i18n.nav_alpine }}</a></li>
+        <li><a href="/{{ lang_path }}biathlon/"{% if current_nav == 'biathlon' %} aria-current="page"{% endif %}>{{ i18n.nav_biathlon }}</a></li>
+        <li><a href="/{{ lang_path }}athletes/"{% if current_nav == 'athletes' %} aria-current="page"{% endif %}>{{ i18n.nav_athletes }}</a></li>
+        <li><a href="/app">{{ i18n.nav_app }}</a></li>
+      </ul>
+      <label for="langSelect" class="visually-hidden">{{ i18n.select_lang }}</label>
+      <select class="lang-selector" id="langSelect" aria-label="{{ i18n.select_lang }}" onchange="switchLang(this.value)">
+        {% for l in languages %}
+        <option value="{{ l.code }}"{% if l.code == lang %} selected{% endif %}>{{ l.name }}</option>
+        {% endfor %}
+      </select>
+    </nav>
+  </div>
+</header>

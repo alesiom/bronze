@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Homepage with all language alternates -->
+  <url>
+    <loc>https://neve26.com/</loc>
+    <lastmod>2026-01-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://neve26.com/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://neve26.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://neve26.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://neve26.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://neve26.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://neve26.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://neve26.com/nl/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://neve26.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://neve26.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://neve26.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://neve26.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://neve26.com/"/>
+  </url>
+
+  <!-- App page -->
+  <url>
+    <loc>https://neve26.com/app</loc>
+    <lastmod>2026-01-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Privacy policy -->
+  <url>
+    <loc>https://neve26.com/privacy</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Terms of service -->
+  <url>
+    <loc>https://neve26.com/terms</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Support -->
+  <url>
+    <loc>https://neve26.com/support</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+</urlset>

@@ -1,0 +1,69 @@
+{#
+  Index page template
+  Used for homepage and category listing pages
+
+  Variables:
+  - page_title: Page heading
+  - lang, dir, lang_path: Language settings
+  - i18n: Translation dictionary
+  - current_nav: Current nav item for aria-current
+  - articles: List of articles to display
+  - headline_article: Featured article for headline (optional)
+  - filters: List of filter options (optional)
+  - page_slug: Current page slug for URLs
+#}
+{% extends 'base.html.j2' %}
+
+{% block content %}
+<h1>{{ page_title }}</h1>
+
+{% if filters %}
+<div class="filters" role="group" aria-label="Filter articles">
+  {% for filter in filters %}
+  <button class="filter-btn{% if loop.first %} active{% endif %}" data-filter="{{ filter.data_filter }}">{{ filter.label }}</button>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% if headline_article %}
+{% include 'partials/headline.html.j2' %}
+{% endif %}
+
+<div class="articles-grid">
+  {% for article in articles %}
+  {% include 'partials/card.html.j2' %}
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function() {
+  var filters = document.querySelector('.filters');
+  if (!filters) return;
+
+  var buttons = filters.querySelectorAll('.filter-btn');
+  var articles = document.querySelectorAll('.article-card');
+
+  buttons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var filter = this.getAttribute('data-filter');
+
+      // Update active button
+      buttons.forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+
+      // Filter articles
+      articles.forEach(function(article) {
+        var category = article.getAttribute('data-filter');
+        if (filter === 'all' || category === filter || filter === category) {
+          article.style.display = '';
+        } else {
+          article.style.display = 'none';
+        }
+      });
+    });
+  });
+})();
+</script>
+{% endblock %}

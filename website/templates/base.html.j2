@@ -1,0 +1,81 @@
+{#
+  Neve26 Base Template
+  WCAG AAA Compliant - All pages extend this template
+
+  Variables required:
+  - lang: Language code (en, de, fr, etc.)
+  - dir: Text direction (ltr or rtl)
+  - title: Page title
+  - meta_description: Meta description for SEO
+  - canonical_url: Canonical URL for the page
+  - i18n: Translation dictionary
+
+  Optional:
+  - hreflang_links: Hreflang link tags for SEO
+  - structured_data: JSON-LD structured data
+#}
+<!DOCTYPE html>
+<html lang="{{ lang }}" dir="{{ dir }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }} - Neve26</title>
+  <meta name="description" content="{{ meta_description[:155] if meta_description else '' }}">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{ title }} - Neve26">
+  <meta property="og:description" content="{{ meta_description[:155] if meta_description else '' }}">
+  <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+  <meta property="og:url" content="{{ canonical_url }}">
+  <meta property="og:site_name" content="Neve26">
+  {% block og_extra %}{% endblock %}
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@neve2026">
+
+  <!-- Canonical and alternates -->
+  <link rel="canonical" href="{{ canonical_url }}">
+  {% if hreflang_links %}
+  {{ hreflang_links | safe }}
+  {% endif %}
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+  <!-- Consolidated CSS (external file for cacheability) -->
+  <link rel="stylesheet" href="/static/style.css">
+
+  {% block structured_data %}{% endblock %}
+  {% block head_extra %}{% endblock %}
+</head>
+<body>
+  <a href="#main-content" class="skip-link">{{ i18n.skip }}</a>
+
+  {% include 'partials/header.html.j2' %}
+
+  <main id="main-content" role="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include 'partials/footer.html.j2' %}
+
+  {% block scripts %}{% endblock %}
+
+  <!-- Matomo Analytics -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//matomo.neve26.com/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+</body>
+</html>

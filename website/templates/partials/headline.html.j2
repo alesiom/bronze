@@ -1,0 +1,21 @@
+{#
+  Headline card partial - Featured article on index pages
+
+  Variables:
+  - headline_article: Article object for the headline
+  - lang_path: URL path prefix for language
+
+  Helper variables set by parent:
+  - headline_article.category_path: URL path for category
+  - headline_article.category_label: Localized category name
+  - headline_article.title_localized: Localized title
+  - headline_article.excerpt_localized: Localized excerpt (longer than card)
+  - headline_article.date_iso: ISO date string
+  - headline_article.date_formatted: Formatted date string
+#}
+<article class="headline">
+  <span class="category-tag">{{ headline_article.category_label }}</span>
+  <h2><a href="/{{ lang_path }}{{ headline_article.category_path }}/{{ headline_article.slug }}/">{{ headline_article.title_localized }}</a></h2>
+  <p class="article-meta"><time datetime="{{ headline_article.date_iso }}">{{ headline_article.date_formatted }}</time></p>
+  <p class="excerpt">{{ headline_article.excerpt_localized }}</p>
+</article>

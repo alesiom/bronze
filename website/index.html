@@ -3,276 +3,967 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Neve26 - Winter Games Italy Schedule Tracker</title>
-  <meta name="description" content="Track every event at the Winter Games Italy 2026. Real-time schedule updates, favorites, and notifications.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❄️</text></svg>">
+  <title>Neve26 - Winter Sports News</title>
+  <meta name="description" content="Latest Alpine skiing, Biathlon, and winter sports news. FIS World Cup results, athlete profiles, and race coverage.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Neve26 - Winter Sports News">
+  <meta property="og:description" content="Latest FIS World Cup results, athlete profiles, and winter sports coverage.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://neve26.com">
+  <meta property="og:site_name" content="Neve26">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@neve2026">
+
+  <!-- Canonical and alternate languages -->
+  <link rel="canonical" href="https://neve26.com">
+  <link rel="alternate" hreflang="en" href="https://neve26.com">
+  <link rel="alternate" hreflang="de" href="https://neve26.com/de/">
+  <link rel="alternate" hreflang="fr" href="https://neve26.com/fr/">
+  <link rel="alternate" hreflang="it" href="https://neve26.com/it/">
+  <link rel="alternate" hreflang="es" href="https://neve26.com/es/">
+  <link rel="alternate" hreflang="pt" href="https://neve26.com/pt/">
+  <link rel="alternate" hreflang="nl" href="https://neve26.com/nl/">
+  <link rel="alternate" hreflang="ar" href="https://neve26.com/ar/">
+  <link rel="alternate" hreflang="ja" href="https://neve26.com/ja/">
+  <link rel="alternate" hreflang="zh" href="https://neve26.com/zh/">
+  <link rel="alternate" hreflang="ko" href="https://neve26.com/ko/">
+  <link rel="alternate" hreflang="x-default" href="https://neve26.com">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+  <!-- Structured Data: NewsMediaOrganization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NewsMediaOrganization",
+    "name": "Neve26",
+    "url": "https://neve26.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://neve26.com/logo-512.png",
+      "width": 512,
+      "height": 512
+    },
+    "sameAs": [
+      "https://x.com/neve2026",
+      "https://instagram.com/neve.2026"
+    ],
+    "description": "Winter sports news covering FIS World Cup, Biathlon World Cup, and athlete profiles."
+  }
+  </script>
+
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* === WCAG AAA Compliant Design System === */
+    :root {
+      /* Light mode (default) - 7:1+ contrast ratio for AAA */
+      --color-bg: #f8fafc;
+      --color-bg-elevated: #ffffff;
+      --color-bg-card: #f1f5f9;
+      --color-text: #0f172a;
+      --color-text-secondary: #475569;
+      --color-accent: #1e40af;
+      --color-accent-hover: #1e3a8a;
+      --color-border: #e2e8f0;
+
+      /* Focus states */
+      --focus-outline: 3px solid #1e40af;
+      --focus-offset: 2px;
+
+      /* Typography scale */
+      --font-base: 1rem;
+      --font-lg: 1.125rem;
+      --font-xl: 1.5rem;
+      --font-2xl: 2rem;
+      --font-3xl: 2.5rem;
+
+      /* Spacing */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+
+      /* Layout */
+      --max-width: 1200px;
+      --content-width: 800px;
+    }
+
+    /* Dark mode - auto-switch based on device preference */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-bg: #0a1628;
+        --color-bg-elevated: #0f1f35;
+        --color-bg-card: #152238;
+        --color-text: #ffffff;
+        --color-text-secondary: #c4d1e0;
+        --color-accent: #93c5fd;
+        --color-accent-hover: #bfdbfe;
+        --color-border: #2a3f5f;
+        --focus-outline: 3px solid #93c5fd;
+      }
+    }
+
+    /* Reset */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 100%;
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
       min-height: 100vh;
+    }
+
+    /* === Accessibility === */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-accent);
+      color: var(--color-bg);
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: 0 0 8px 8px;
+      font-weight: 600;
+      text-decoration: none;
+      z-index: 9999;
+    }
+
+    .skip-link:focus {
+      top: 0;
+      outline: var(--focus-outline);
+      outline-offset: var(--focus-offset);
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Focus states - WCAG AAA */
+    a:focus,
+    button:focus,
+    select:focus,
+    input:focus,
+    [tabindex]:focus {
+      outline: var(--focus-outline);
+      outline-offset: var(--focus-offset);
+    }
+
+    /* === Header === */
+    .site-header {
+      background: var(--color-bg-elevated);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-md) var(--space-lg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+
+    .site-logo {
       display: flex;
       align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #1e3a5f 0%, #0f1f33 100%);
-      color: white;
-      text-align: center;
-      padding: 2rem;
+      gap: var(--space-sm);
+      text-decoration: none;
+      color: var(--color-text);
     }
-    html[dir="rtl"] body { direction: rtl; }
-    .container { max-width: 480px; width: 100%; }
-    .lang-selector {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-    html[dir="rtl"] .lang-selector { right: auto; left: 1rem; }
-    .lang-selector:focus { outline: 2px solid white; }
-    .logo { font-size: 4rem; margin-bottom: 0.5rem; }
-    h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .tagline { font-size: 1.1rem; opacity: 0.85; margin-bottom: 2rem; }
 
-    .signup-form {
-      background: rgba(255,255,255,0.1);
-      border-radius: 16px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
+    .site-logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
     }
-    .signup-title { font-size: 1rem; margin-bottom: 1rem; opacity: 0.9; }
-    .input-group {
+
+    .site-logo span {
+      font-size: var(--font-xl);
+      font-weight: 700;
+    }
+
+    .header-nav {
       display: flex;
-      gap: 0.5rem;
+      align-items: center;
+      gap: var(--space-lg);
       flex-wrap: wrap;
     }
-    .signup-form input[type="email"] {
-      flex: 1;
-      min-width: 200px;
-      padding: 0.875rem 1rem;
-      border: none;
-      border-radius: 10px;
-      font-size: 1rem;
-      background: white;
-      color: #1e3a5f;
-    }
-    .signup-form input[type="email"]::placeholder { color: #666; }
-    .signup-form button {
-      padding: 0.875rem 1.5rem;
-      border: none;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-weight: 600;
-      background: #4a90d9;
-      color: white;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .signup-form button:hover { background: #3a7bc8; }
-    .signup-form button:disabled { opacity: 0.6; cursor: not-allowed; }
-    .form-message {
-      margin-top: 0.75rem;
-      font-size: 0.9rem;
-      min-height: 1.4em;
-    }
-    .form-message.success { color: #4ade80; }
-    .form-message.error { color: #f87171; }
 
-    .store-buttons {
+    .nav-links {
       display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      align-items: center;
+      list-style: none;
+      gap: var(--space-md);
     }
-    .store-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      background: white;
-      color: #1e3a5f;
+
+    .nav-links a {
+      color: var(--color-text-secondary);
       text-decoration: none;
-      padding: 0.875rem 1.5rem;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: 4px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a[aria-current="page"] {
+      color: var(--color-text);
+    }
+
+    .lang-selector {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: 6px;
+      font-size: var(--font-base);
+      cursor: pointer;
+    }
+
+    /* === Main Content === */
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: var(--space-xl) var(--space-lg);
+    }
+
+    /* === Featured Article === */
+    .featured-article {
+      background: var(--color-bg-card);
       border-radius: 12px;
+      padding: var(--space-xl);
+      margin-bottom: var(--space-2xl);
+      border: 1px solid var(--color-border);
+    }
+
+    .featured-label {
+      display: inline-block;
+      background: var(--color-accent);
+      color: var(--color-bg);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: 4px;
+      font-size: 0.875rem;
       font-weight: 600;
-      font-size: 1rem;
-      width: 220px;
+      margin-bottom: var(--space-md);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .featured-article h2 {
+      font-size: var(--font-2xl);
+      margin-bottom: var(--space-md);
+      line-height: 1.3;
+    }
+
+    .featured-article h2 a {
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    .featured-article h2 a:hover {
+      text-decoration: underline;
+    }
+
+    .article-meta {
+      display: flex;
+      gap: var(--space-md);
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .article-excerpt {
+      color: var(--color-text-secondary);
+      font-size: var(--font-lg);
+      line-height: 1.7;
+    }
+
+    /* === Article Grid === */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-lg);
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+
+    .section-header h2 {
+      font-size: var(--font-xl);
+    }
+
+    .view-all {
+      color: var(--color-accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .view-all:hover {
+      text-decoration: underline;
+    }
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .article-card {
+      background: var(--color-bg-card);
+      border-radius: 10px;
+      padding: var(--space-lg);
+      border: 1px solid var(--color-border);
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    .store-btn:hover {
+
+    .article-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     }
-    .store-btn svg { width: 28px; height: 28px; }
-    .coming-soon {
-      margin-top: 2rem;
+
+    .article-card .category-tag {
+      display: inline-block;
+      background: var(--color-bg);
+      color: var(--color-accent);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+      text-transform: uppercase;
+    }
+
+    .article-card h3 {
+      font-size: var(--font-lg);
+      margin-bottom: var(--space-sm);
+      line-height: 1.4;
+    }
+
+    .article-card h3 a {
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    .article-card h3 a:hover {
+      text-decoration: underline;
+    }
+
+    .article-card .excerpt {
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* === Categories Filter === */
+    .categories-nav {
+      display: flex;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-xl);
+      flex-wrap: wrap;
+    }
+
+    .category-btn {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: 20px;
       font-size: 0.9rem;
-      opacity: 0.7;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .category-btn:hover,
+    .category-btn[aria-pressed="true"] {
+      background: var(--color-accent);
+      color: var(--color-bg);
+      border-color: var(--color-accent);
+    }
+
+    /* === App Banner === */
+    .app-banner {
+      background: linear-gradient(135deg, var(--color-bg-card) 0%, var(--color-bg-elevated) 100%);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: var(--space-xl);
+      text-align: center;
+      margin-top: var(--space-2xl);
+    }
+
+    .app-banner h2 {
+      font-size: var(--font-xl);
+      margin-bottom: var(--space-sm);
+    }
+
+    .app-banner p {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-lg);
+    }
+
+    .app-link {
+      display: inline-block;
+      background: var(--color-accent);
+      color: var(--color-bg);
+      padding: var(--space-sm) var(--space-xl);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .app-link:hover {
+      background: var(--color-accent-hover);
+    }
+
+    /* === Footer === */
+    .site-footer {
+      background: var(--color-bg-elevated);
+      border-top: 1px solid var(--color-border);
+      padding: var(--space-xl) var(--space-lg);
+      margin-top: var(--space-2xl);
+    }
+
+    .footer-container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-lg);
+    }
+
+    .footer-links a {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--color-text);
+    }
+
+    .copyright {
+      text-align: center;
+      color: var(--color-text-secondary);
+      font-size: 0.85rem;
+    }
+
+    /* === RTL Support === */
+    html[dir="rtl"] {
+      direction: rtl;
+    }
+
+    html[dir="rtl"] .header-container {
+      flex-direction: row-reverse;
+    }
+
+    /* === Responsive === */
+    @media (max-width: 768px) {
+      .header-nav {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .featured-article h2 {
+        font-size: var(--font-xl);
+      }
+
+      .articles-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* === High Contrast Mode === */
+    @media (prefers-contrast: high) {
+      :root {
+        --color-bg: #000000;
+        --color-bg-elevated: #000000;
+        --color-bg-card: #1a1a1a;
+        --color-text: #ffffff;
+        --color-text-secondary: #ffffff;
+        --color-border: #ffffff;
+      }
+    }
+
+    /* === Reduced Motion === */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    /* === Print Styles === */
+    @media print {
+      .site-header,
+      .app-banner,
+      .site-footer,
+      .lang-selector {
+        display: none;
+      }
+
+      body {
+        background: white;
+        color: black;
+      }
+
+      .article-card,
+      .featured-article {
+        border: 1px solid #ccc;
+        break-inside: avoid;
+      }
     }
   </style>
 </head>
 <body>
-  <select class="lang-selector" id="langSelect" aria-label="Select language">
-    <option value="en">English</option>
-    <option value="de">Deutsch</option>
-    <option value="fr">Français</option>
-    <option value="it">Italiano</option>
-    <option value="es">Español</option>
-    <option value="pt">Português</option>
-    <option value="nl">Nederlands</option>
-    <option value="ar">العربية</option>
-    <option value="ja">日本語</option>
-    <option value="zh">中文</option>
-    <option value="ko">한국어</option>
-  </select>
+  <a href="#main-content" class="skip-link" data-i18n="skipToContent">Skip to main content</a>
 
-  <div class="container">
-    <div class="logo">❄️</div>
-    <h1>Neve26</h1>
-    <p class="tagline" data-i18n="tagline">Track every event. Every update.</p>
-
-    <form class="signup-form" id="signupForm">
-      <p class="signup-title" data-i18n="notifyMe">Get notified when the app launches</p>
-      <div class="input-group">
-        <input type="email" id="email" required placeholder="email@example.com" data-i18n-placeholder="emailPlaceholder">
-        <button type="submit" data-i18n="subscribe">Notify me</button>
-      </div>
-      <p class="form-message" id="formMessage"></p>
-    </form>
-
-    <div class="store-buttons">
-      <a href="#" class="store-btn" aria-label="Download on the App Store">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-        </svg>
-        App Store
+  <header class="site-header" role="banner">
+    <div class="header-container">
+      <a href="/" class="site-logo" aria-label="Neve26 Home">
+        <img src="/logo-128.png" alt="" width="40" height="40">
+        <span>Neve26</span>
       </a>
-      <a href="#" class="store-btn" aria-label="Get it on Google Play">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
-        </svg>
-        Google Play
-      </a>
+
+      <nav class="header-nav" aria-label="Main navigation">
+        <ul class="nav-links">
+          <li><a href="/" aria-current="page" data-i18n="navNews">News</a></li>
+          <li><a href="/alpine-skiing/" data-i18n="navAlpine">Alpine</a></li>
+          <li><a href="/biathlon/" data-i18n="navBiathlon">Biathlon</a></li>
+          <li><a href="/athletes/" data-i18n="navAthletes">Athletes</a></li>
+          <li><a href="/app" data-i18n="navApp">Get App</a></li>
+        </ul>
+
+        <label for="langSelect" class="visually-hidden" data-i18n="selectLanguage">Select language</label>
+        <select class="lang-selector" id="langSelect" aria-label="Select language">
+          <option value="en">English</option>
+          <option value="de">Deutsch</option>
+          <option value="fr">Français</option>
+          <option value="it">Italiano</option>
+          <option value="es">Español</option>
+          <option value="pt">Português</option>
+          <option value="nl">Nederlands</option>
+          <option value="ar">العربية</option>
+          <option value="ja">日本語</option>
+          <option value="zh">中文</option>
+          <option value="ko">한국어</option>
+        </select>
+      </nav>
     </div>
+  </header>
 
-    <p class="coming-soon" data-i18n="comingSoon">Coming February 2026</p>
-  </div>
+  <main id="main-content" role="main">
+    <h1 class="visually-hidden" data-i18n="pageTitle">Winter Sports News</h1>
 
+    <!-- Featured Article -->
+    <article class="featured-article">
+      <span class="featured-label" data-i18n="featured">Featured</span>
+      <h2><a href="/adelboden-giant-slalom-preview-2026/">Adelboden Giant Slalom Preview: Odermatt Eyes Fourth Consecutive Victory</a></h2>
+      <div class="article-meta">
+        <time datetime="2026-01-08">January 8, 2026</time>
+        <span>Alpine Skiing</span>
+        <span>5 min read</span>
+      </div>
+      <p class="article-excerpt">
+        Marco Odermatt seeks his fourth straight victory on the Chuenisbärgli as the FIS Alpine World Cup
+        returns to Adelboden. Full preview with contenders, course analysis, and predictions.
+      </p>
+    </article>
+
+    <!-- Categories Filter -->
+    <nav class="categories-nav" aria-label="Filter by category">
+      <a href="/" class="category-btn" aria-pressed="true" data-i18n="filterAll">All</a>
+      <a href="/alpine-skiing/" class="category-btn" data-i18n="filterAlpine">Alpine Skiing</a>
+      <a href="/biathlon/" class="category-btn" data-i18n="filterBiathlon">Biathlon</a>
+      <a href="/cross-country/" class="category-btn" data-i18n="filterXC">Cross-Country</a>
+      <a href="/athletes/" class="category-btn" data-i18n="filterAthletes">Athletes</a>
+    </nav>
+
+    <!-- Latest Articles -->
+    <section aria-labelledby="latest-heading">
+      <div class="section-header">
+        <h2 id="latest-heading" data-i18n="latestNews">Latest News</h2>
+      </div>
+
+      <div class="articles-grid">
+        <!-- Real Article -->
+        <article class="article-card">
+          <span class="category-tag">Alpine Skiing</span>
+          <h3><a href="/adelboden-giant-slalom-preview-2026/">Adelboden Giant Slalom Preview</a></h3>
+          <div class="article-meta">
+            <time datetime="2026-01-08">Jan 8, 2026</time>
+          </div>
+          <p class="excerpt">
+            Marco Odermatt seeks his fourth straight victory on the Chuenisbärgli as the FIS Alpine World Cup returns to Adelboden.
+          </p>
+        </article>
+      </div>
+
+      <p style="text-align: center; color: var(--color-text-secondary); margin-top: var(--space-lg);">
+        More coverage coming soon. Follow us on <a href="https://x.com/neve2026" style="color: var(--color-accent);">X @neve2026</a> for updates.
+      </p>
+    </section>
+
+    <!-- App Banner -->
+    <aside class="app-banner">
+      <h2 data-i18n="appBannerTitle">Never Miss a Race Start</h2>
+      <p data-i18n="appBannerText">Get push notifications for your favorite athletes and events.</p>
+      <a href="/app" class="app-link" data-i18n="appBannerCta">Get the App</a>
+    </aside>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-container">
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/app" data-i18n="footerApp">Get App</a>
+        <a href="/privacy" data-i18n="footerPrivacy">Privacy Policy</a>
+        <a href="/support" data-i18n="footerSupport">Support</a>
+        <a href="https://x.com/neve2026" target="_blank" rel="noopener noreferrer">X @neve2026</a>
+        <a href="https://instagram.com/neve.2026" target="_blank" rel="noopener noreferrer">Instagram</a>
+      </nav>
+      <p class="copyright">© 2026 Neve26. <span data-i18n="footerDisclaimer">Independent winter sports coverage.</span></p>
+    </div>
+  </footer>
+
+  <!-- Matomo Analytics -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//matomo.neve26.com/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <noscript>
+    <img referrerpolicy="no-referrer-when-downgrade" src="//matomo.neve26.com/matomo.php?idsite=1&amp;rec=1" style="border:0" alt="">
+  </noscript>
+
+  <!-- Language Switching -->
   <script>
     const translations = {
       en: {
-        tagline: "Track every event. Every update.",
-        notifyMe: "Get notified when the app launches",
-        emailPlaceholder: "email@example.com",
-        subscribe: "Notify me",
-        comingSoon: "Coming February 2026",
-        success: "You're on the list!",
-        error: "Something went wrong. Please try again.",
-        invalid: "Please enter a valid email"
+        skipToContent: "Skip to main content",
+        selectLanguage: "Select language",
+        pageTitle: "Winter Sports News",
+        navNews: "News",
+        navAlpine: "Alpine",
+        navBiathlon: "Biathlon",
+        navAthletes: "Athletes",
+        navApp: "Get App",
+        featured: "Featured",
+        filterAll: "All",
+        filterAlpine: "Alpine Skiing",
+        filterBiathlon: "Biathlon",
+        filterXC: "Cross-Country",
+        filterAthletes: "Athletes",
+        latestNews: "Latest News",
+        viewAll: "View all articles",
+        appBannerTitle: "Never Miss a Race Start",
+        appBannerText: "Get push notifications for your favorite athletes and events.",
+        appBannerCta: "Get the App",
+        footerApp: "Get App",
+        footerPrivacy: "Privacy Policy",
+        footerSupport: "Support",
+        footerDisclaimer: "Independent winter sports coverage."
       },
       de: {
-        tagline: "Jedes Event. Jedes Update.",
-        notifyMe: "Benachrichtigt werden, wenn die App startet",
-        emailPlaceholder: "email@beispiel.de",
-        subscribe: "Benachrichtigen",
-        comingSoon: "Kommt Februar 2026",
-        success: "Du bist auf der Liste!",
-        error: "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
-        invalid: "Bitte gib eine gültige E-Mail ein"
+        skipToContent: "Zum Hauptinhalt springen",
+        selectLanguage: "Sprache wählen",
+        pageTitle: "Wintersport-Nachrichten",
+        navNews: "Nachrichten",
+        navAlpine: "Ski Alpin",
+        navBiathlon: "Biathlon",
+        navAthletes: "Athleten",
+        navApp: "App laden",
+        featured: "Highlight",
+        filterAll: "Alle",
+        filterAlpine: "Ski Alpin",
+        filterBiathlon: "Biathlon",
+        filterXC: "Langlauf",
+        filterAthletes: "Athleten",
+        latestNews: "Aktuelle Nachrichten",
+        viewAll: "Alle Artikel anzeigen",
+        appBannerTitle: "Keinen Rennstart verpassen",
+        appBannerText: "Push-Benachrichtigungen für Ihre Lieblings-Athleten und Events.",
+        appBannerCta: "App laden",
+        footerApp: "App laden",
+        footerPrivacy: "Datenschutz",
+        footerSupport: "Support",
+        footerDisclaimer: "Unabhängige Wintersport-Berichterstattung."
       },
       fr: {
-        tagline: "Chaque événement. Chaque mise à jour.",
-        notifyMe: "Soyez notifié au lancement de l'app",
-        emailPlaceholder: "email@exemple.fr",
-        subscribe: "Me notifier",
-        comingSoon: "Disponible en février 2026",
-        success: "Vous êtes inscrit !",
-        error: "Une erreur s'est produite. Veuillez réessayer.",
-        invalid: "Veuillez entrer un email valide"
+        skipToContent: "Aller au contenu principal",
+        selectLanguage: "Choisir la langue",
+        pageTitle: "Actualités Sports d'hiver",
+        navNews: "Actualités",
+        navAlpine: "Ski Alpin",
+        navBiathlon: "Biathlon",
+        navAthletes: "Athlètes",
+        navApp: "Télécharger",
+        featured: "À la une",
+        filterAll: "Tout",
+        filterAlpine: "Ski Alpin",
+        filterBiathlon: "Biathlon",
+        filterXC: "Ski de fond",
+        filterAthletes: "Athlètes",
+        latestNews: "Dernières actualités",
+        viewAll: "Voir tous les articles",
+        appBannerTitle: "Ne manquez aucun départ",
+        appBannerText: "Notifications push pour vos athlètes et événements favoris.",
+        appBannerCta: "Télécharger l'app",
+        footerApp: "Télécharger",
+        footerPrivacy: "Confidentialité",
+        footerSupport: "Assistance",
+        footerDisclaimer: "Couverture indépendante des sports d'hiver."
       },
       it: {
-        tagline: "Ogni evento. Ogni aggiornamento.",
-        notifyMe: "Ricevi una notifica al lancio dell'app",
-        emailPlaceholder: "email@esempio.it",
-        subscribe: "Avvisami",
-        comingSoon: "In arrivo a febbraio 2026",
-        success: "Sei nella lista!",
-        error: "Qualcosa è andato storto. Riprova.",
-        invalid: "Inserisci un'email valida"
+        skipToContent: "Vai al contenuto principale",
+        selectLanguage: "Seleziona lingua",
+        pageTitle: "Notizie Sport Invernali",
+        navNews: "Notizie",
+        navAlpine: "Sci Alpino",
+        navBiathlon: "Biathlon",
+        navAthletes: "Atleti",
+        navApp: "Scarica App",
+        featured: "In evidenza",
+        filterAll: "Tutti",
+        filterAlpine: "Sci Alpino",
+        filterBiathlon: "Biathlon",
+        filterXC: "Sci di fondo",
+        filterAthletes: "Atleti",
+        latestNews: "Ultime notizie",
+        viewAll: "Vedi tutti gli articoli",
+        appBannerTitle: "Non perdere mai una partenza",
+        appBannerText: "Notifiche push per i tuoi atleti ed eventi preferiti.",
+        appBannerCta: "Scarica l'App",
+        footerApp: "Scarica App",
+        footerPrivacy: "Privacy",
+        footerSupport: "Supporto",
+        footerDisclaimer: "Copertura indipendente degli sport invernali."
       },
       es: {
-        tagline: "Cada evento. Cada actualización.",
-        notifyMe: "Recibe una notificación cuando lance la app",
-        emailPlaceholder: "email@ejemplo.es",
-        subscribe: "Notificarme",
-        comingSoon: "Disponible en febrero 2026",
-        success: "¡Estás en la lista!",
-        error: "Algo salió mal. Por favor, inténtalo de nuevo.",
-        invalid: "Por favor, introduce un email válido"
+        skipToContent: "Ir al contenido principal",
+        selectLanguage: "Seleccionar idioma",
+        pageTitle: "Noticias de Deportes de Invierno",
+        navNews: "Noticias",
+        navAlpine: "Esquí Alpino",
+        navBiathlon: "Biatlón",
+        navAthletes: "Atletas",
+        navApp: "Descargar App",
+        featured: "Destacado",
+        filterAll: "Todo",
+        filterAlpine: "Esquí Alpino",
+        filterBiathlon: "Biatlón",
+        filterXC: "Esquí de fondo",
+        filterAthletes: "Atletas",
+        latestNews: "Últimas noticias",
+        viewAll: "Ver todos los artículos",
+        appBannerTitle: "No te pierdas ninguna salida",
+        appBannerText: "Notificaciones push para tus atletas y eventos favoritos.",
+        appBannerCta: "Descargar App",
+        footerApp: "Descargar App",
+        footerPrivacy: "Privacidad",
+        footerSupport: "Soporte",
+        footerDisclaimer: "Cobertura independiente de deportes de invierno."
       },
       pt: {
-        tagline: "Cada evento. Cada atualização.",
-        notifyMe: "Seja notificado quando o app for lançado",
-        emailPlaceholder: "email@exemplo.pt",
-        subscribe: "Notificar-me",
-        comingSoon: "Disponível em fevereiro de 2026",
-        success: "Você está na lista!",
-        error: "Algo deu errado. Por favor, tente novamente.",
-        invalid: "Por favor, insira um email válido"
+        skipToContent: "Ir para o conteúdo principal",
+        selectLanguage: "Selecionar idioma",
+        pageTitle: "Notícias de Esportes de Inverno",
+        navNews: "Notícias",
+        navAlpine: "Esqui Alpino",
+        navBiathlon: "Biatlo",
+        navAthletes: "Atletas",
+        navApp: "Baixar App",
+        featured: "Destaque",
+        filterAll: "Todos",
+        filterAlpine: "Esqui Alpino",
+        filterBiathlon: "Biatlo",
+        filterXC: "Esqui cross-country",
+        filterAthletes: "Atletas",
+        latestNews: "Últimas notícias",
+        viewAll: "Ver todos os artigos",
+        appBannerTitle: "Nunca perca uma largada",
+        appBannerText: "Notificações push para seus atletas e eventos favoritos.",
+        appBannerCta: "Baixar App",
+        footerApp: "Baixar App",
+        footerPrivacy: "Privacidade",
+        footerSupport: "Suporte",
+        footerDisclaimer: "Cobertura independente de esportes de inverno."
       },
       nl: {
-        tagline: "Elk evenement. Elke update.",
-        notifyMe: "Ontvang een melding wanneer de app live gaat",
-        emailPlaceholder: "email@voorbeeld.nl",
-        subscribe: "Meld mij aan",
-        comingSoon: "Beschikbaar februari 2026",
-        success: "Je staat op de lijst!",
-        error: "Er is iets misgegaan. Probeer het opnieuw.",
-        invalid: "Voer een geldig e-mailadres in"
+        skipToContent: "Ga naar hoofdinhoud",
+        selectLanguage: "Selecteer taal",
+        pageTitle: "Wintersport Nieuws",
+        navNews: "Nieuws",
+        navAlpine: "Alpineskiën",
+        navBiathlon: "Biathlon",
+        navAthletes: "Atleten",
+        navApp: "Download App",
+        featured: "Uitgelicht",
+        filterAll: "Alles",
+        filterAlpine: "Alpineskiën",
+        filterBiathlon: "Biathlon",
+        filterXC: "Langlaufen",
+        filterAthletes: "Atleten",
+        latestNews: "Laatste nieuws",
+        viewAll: "Bekijk alle artikelen",
+        appBannerTitle: "Mis nooit een starttijd",
+        appBannerText: "Push-meldingen voor je favoriete atleten en evenementen.",
+        appBannerCta: "Download App",
+        footerApp: "Download App",
+        footerPrivacy: "Privacy",
+        footerSupport: "Ondersteuning",
+        footerDisclaimer: "Onafhankelijke wintersport coverage."
       },
       ar: {
-        tagline: "كل حدث. كل تحديث.",
-        notifyMe: "احصل على إشعار عند إطلاق التطبيق",
-        emailPlaceholder: "email@example.com",
-        subscribe: "أبلغني",
-        comingSoon: "قريباً في فبراير 2026",
-        success: "أنت في القائمة!",
-        error: "حدث خطأ. يرجى المحاولة مرة أخرى.",
-        invalid: "يرجى إدخال بريد إلكتروني صالح"
+        skipToContent: "انتقل إلى المحتوى الرئيسي",
+        selectLanguage: "اختر اللغة",
+        pageTitle: "أخبار الرياضات الشتوية",
+        navNews: "الأخبار",
+        navAlpine: "التزلج",
+        navBiathlon: "البياتلون",
+        navAthletes: "الرياضيون",
+        navApp: "تحميل التطبيق",
+        featured: "مميز",
+        filterAll: "الكل",
+        filterAlpine: "التزلج",
+        filterBiathlon: "البياتلون",
+        filterXC: "التزلج الريفي",
+        filterAthletes: "الرياضيون",
+        latestNews: "آخر الأخبار",
+        viewAll: "عرض جميع المقالات",
+        appBannerTitle: "لا تفوت أي انطلاقة",
+        appBannerText: "إشعارات فورية للرياضيين والأحداث المفضلة لديك.",
+        appBannerCta: "تحميل التطبيق",
+        footerApp: "تحميل التطبيق",
+        footerPrivacy: "الخصوصية",
+        footerSupport: "الدعم",
+        footerDisclaimer: "تغطية مستقلة للرياضات الشتوية."
       },
       ja: {
-        tagline: "すべてのイベント。すべての更新。",
-        notifyMe: "アプリのリリース時に通知を受け取る",
-        emailPlaceholder: "email@example.com",
-        subscribe: "通知する",
-        comingSoon: "2026年2月公開予定",
-        success: "リストに登録されました！",
-        error: "エラーが発生しました。もう一度お試しください。",
-        invalid: "有効なメールアドレスを入力してください"
+        skipToContent: "メインコンテンツへスキップ",
+        selectLanguage: "言語を選択",
+        pageTitle: "ウィンタースポーツニュース",
+        navNews: "ニュース",
+        navAlpine: "アルペン",
+        navBiathlon: "バイアスロン",
+        navAthletes: "選手",
+        navApp: "アプリを入手",
+        featured: "注目",
+        filterAll: "すべて",
+        filterAlpine: "アルペンスキー",
+        filterBiathlon: "バイアスロン",
+        filterXC: "クロスカントリー",
+        filterAthletes: "選手",
+        latestNews: "最新ニュース",
+        viewAll: "すべての記事を見る",
+        appBannerTitle: "スタートを見逃さない",
+        appBannerText: "お気に入りの選手とイベントのプッシュ通知を受け取る。",
+        appBannerCta: "アプリを入手",
+        footerApp: "アプリを入手",
+        footerPrivacy: "プライバシー",
+        footerSupport: "サポート",
+        footerDisclaimer: "独立したウィンタースポーツ報道。"
       },
       zh: {
-        tagline: "追踪每个赛事。每次更新。",
-        notifyMe: "应用上线时通知我",
-        emailPlaceholder: "email@example.com",
-        subscribe: "通知我",
-        comingSoon: "2026年2月上线",
-        success: "您已加入名单！",
-        error: "出错了，请重试。",
-        invalid: "请输入有效的电子邮件"
+        skipToContent: "跳至主要内容",
+        selectLanguage: "选择语言",
+        pageTitle: "冬季运动新闻",
+        navNews: "新闻",
+        navAlpine: "高山滑雪",
+        navBiathlon: "冬季两项",
+        navAthletes: "运动员",
+        navApp: "获取应用",
+        featured: "精选",
+        filterAll: "全部",
+        filterAlpine: "高山滑雪",
+        filterBiathlon: "冬季两项",
+        filterXC: "越野滑雪",
+        filterAthletes: "运动员",
+        latestNews: "最新新闻",
+        viewAll: "查看所有文章",
+        appBannerTitle: "不错过任何比赛开始",
+        appBannerText: "获取您喜爱的运动员和赛事的推送通知。",
+        appBannerCta: "获取应用",
+        footerApp: "获取应用",
+        footerPrivacy: "隐私政策",
+        footerSupport: "支持",
+        footerDisclaimer: "独立冬季运动报道。"
       },
       ko: {
-        tagline: "모든 이벤트. 모든 업데이트.",
-        notifyMe: "앱 출시 알림 받기",
-        emailPlaceholder: "email@example.com",
-        subscribe: "알림 받기",
-        comingSoon: "2026년 2월 출시 예정",
-        success: "등록되었습니다!",
-        error: "문제가 발생했습니다. 다시 시도해 주세요.",
-        invalid: "유효한 이메일을 입력해 주세요"
+        skipToContent: "주요 콘텐츠로 건너뛰기",
+        selectLanguage: "언어 선택",
+        pageTitle: "겨울 스포츠 뉴스",
+        navNews: "뉴스",
+        navAlpine: "알파인",
+        navBiathlon: "바이애슬론",
+        navAthletes: "선수",
+        navApp: "앱 다운로드",
+        featured: "주목",
+        filterAll: "전체",
+        filterAlpine: "알파인 스키",
+        filterBiathlon: "바이애슬론",
+        filterXC: "크로스컨트리",
+        filterAthletes: "선수",
+        latestNews: "최신 뉴스",
+        viewAll: "모든 기사 보기",
+        appBannerTitle: "경기 시작을 놓치지 마세요",
+        appBannerText: "좋아하는 선수와 이벤트의 푸시 알림을 받으세요.",
+        appBannerCta: "앱 다운로드",
+        footerApp: "앱 다운로드",
+        footerPrivacy: "개인정보 처리방침",
+        footerSupport: "지원",
+        footerDisclaimer: "독립적인 겨울 스포츠 보도."
       }
     };
 
@@ -291,12 +982,12 @@
         if (t[key]) el.textContent = t[key];
       });
 
-      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-        const key = el.getAttribute('data-i18n-placeholder');
-        if (t[key]) el.placeholder = t[key];
-      });
-
       localStorage.setItem('neve26_lang', lang);
+
+      // Track language change in Matomo
+      if (window._paq) {
+        _paq.push(['setCustomVariable', 1, 'Language', lang, 'visit']);
+      }
     }
 
     // Detect language
@@ -309,52 +1000,6 @@
 
     document.getElementById('langSelect').addEventListener('change', (e) => {
       setLanguage(e.target.value);
-    });
-
-    // Form submission
-    const N8N_WEBHOOK_URL = '__N8N_WEBHOOK_URL__'; // Replace with actual n8n webhook URL
-
-    document.getElementById('signupForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const message = document.getElementById('formMessage');
-      const button = e.target.querySelector('button');
-      const t = translations[currentLang];
-
-      if (!email || !email.includes('@')) {
-        message.textContent = t.invalid;
-        message.className = 'form-message error';
-        return;
-      }
-
-      button.disabled = true;
-      message.textContent = '';
-
-      try {
-        const response = await fetch(N8N_WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email,
-            language: currentLang,
-            source: 'landing_page',
-            timestamp: new Date().toISOString()
-          })
-        });
-
-        if (response.ok) {
-          message.textContent = t.success;
-          message.className = 'form-message success';
-          document.getElementById('email').value = '';
-        } else {
-          throw new Error('Failed');
-        }
-      } catch (err) {
-        message.textContent = t.error;
-        message.className = 'form-message error';
-      } finally {
-        button.disabled = false;
-      }
     });
   </script>
 </body>

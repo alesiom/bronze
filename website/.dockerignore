@@ -1,0 +1,14 @@
+# Development and automation files (not for deployment)
+CONTENT_AUTOMATION.md
+Dockerfile
+.dockerignore
+
+# Directories not for public deployment
+templates/
+scripts/
+workflows/
+data/
+
+# System files
+.DS_Store
+*.md

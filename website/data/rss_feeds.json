@@ -1,0 +1,78 @@
+{
+  "feeds": [
+    {
+      "id": "fis-alpine",
+      "name": "FIS Alpine Skiing",
+      "url": "https://www.fis-ski.com/DB/general/feed.html?sectorcode=AL",
+      "category": "alpine-skiing",
+      "priority": "high",
+      "check_interval_minutes": 15
+    },
+    {
+      "id": "ibu-biathlon",
+      "name": "IBU Biathlon World",
+      "url": "https://www.biathlonworld.com/feed",
+      "category": "biathlon",
+      "priority": "high",
+      "check_interval_minutes": 15
+    },
+    {
+      "id": "eurosport-wintersports",
+      "name": "Eurosport Winter Sports",
+      "url": "https://www.eurosport.com/rss/winter-sports.xml",
+      "category": "winter-sports",
+      "priority": "medium",
+      "check_interval_minutes": 30
+    },
+    {
+      "id": "fis-cross-country",
+      "name": "FIS Cross-Country",
+      "url": "https://www.fis-ski.com/DB/general/feed.html?sectorcode=CC",
+      "category": "cross-country",
+      "priority": "medium",
+      "check_interval_minutes": 30
+    },
+    {
+      "id": "fis-ski-jumping",
+      "name": "FIS Ski Jumping",
+      "url": "https://www.fis-ski.com/DB/general/feed.html?sectorcode=JP",
+      "category": "ski-jumping",
+      "priority": "medium",
+      "check_interval_minutes": 30
+    },
+    {
+      "id": "fis-freestyle",
+      "name": "FIS Freestyle",
+      "url": "https://www.fis-ski.com/DB/general/feed.html?sectorcode=FS",
+      "category": "freestyle",
+      "priority": "medium",
+      "check_interval_minutes": 30
+    },
+    {
+      "id": "fis-snowboard",
+      "name": "FIS Snowboard",
+      "url": "https://www.fis-ski.com/DB/general/feed.html?sectorcode=SB",
+      "category": "snowboard",
+      "priority": "medium",
+      "check_interval_minutes": 30
+    }
+  ],
+  "keywords": {
+    "breaking": ["breaking", "injury", "withdrawal", "cancelled", "postponed", "delayed"],
+    "results": ["wins", "victory", "results", "podium", "standings", "champion", "winner"],
+    "preview": ["preview", "ahead", "watch", "favorites", "contenders"]
+  },
+  "legal_blocklist": [
+    "olympic",
+    "olympics",
+    "olympiad",
+    "paralympic",
+    "milano cortina 2026",
+    "winter games 2026",
+    "games of 2026",
+    "going for gold",
+    "medal hopes",
+    "team usa",
+    "team italy"
+  ]
+}

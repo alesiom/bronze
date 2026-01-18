@@ -1,0 +1,22 @@
+{#
+  Article card partial - Used in article grids
+
+  Variables (from loop context):
+  - article: Article object with slug, title, excerpt, category, published_at
+  - lang_path: URL path prefix for language
+
+  Helper variables set by parent:
+  - article.category_path: URL path for category
+  - article.category_label: Localized category name
+  - article.filter_category: Category for client-side filtering
+  - article.title_localized: Localized title
+  - article.excerpt_localized: Localized excerpt (truncated)
+  - article.date_iso: ISO date string
+  - article.date_formatted: Formatted date string
+#}
+<article class="article-card" data-filter="{{ article.filter_category }}">
+  <span class="category-tag">{{ article.category_label }}</span>
+  <h2><a href="/{{ lang_path }}{{ article.category_path }}/{{ article.slug }}/">{{ article.title_localized }}</a></h2>
+  <p class="article-meta"><time datetime="{{ article.date_iso }}">{{ article.date_formatted }}</time></p>
+  <p class="excerpt">{{ article.excerpt_localized }}</p>
+</article>

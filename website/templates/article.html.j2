@@ -1,0 +1,83 @@
+{#
+  Article page template
+  Extends base template for single article display
+
+  Variables:
+  - article: Article object with title, content, excerpt, etc.
+  - lang, dir, lang_path: Language settings
+  - i18n: Translation dictionary
+  - category_path: URL path for category
+  - category_label: Localized category name
+  - published_date: Formatted publish date
+  - published_iso: ISO format date for datetime attribute
+  - reading_time: Formatted reading time string
+  - featured_image_html: Pre-rendered featured image section (optional)
+  - hreflang_links: SEO alternate language links
+#}
+{% extends 'base.html.j2' %}
+
+{% block og_type %}article{% endblock %}
+
+{% block og_extra %}
+{% if article.featured_image %}
+<meta property="og:image" content="{{ article.featured_image }}">
+{% endif %}
+{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ title | e }}",
+  "datePublished": "{{ published_iso }}",
+  "author": {"@type": "Organization", "name": "Neve26"},
+  "publisher": {
+    "@type": "Organization",
+    "name": "Neve26",
+    "logo": {"@type": "ImageObject", "url": "https://neve26.com/logo-512.png"}
+  }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="/{{ lang_path }}">{{ i18n.nav_news }}</a>
+  <span class="breadcrumb-separator" aria-hidden="true">›</span>
+  <a href="/{{ lang_path }}{{ category_path }}/">{{ category_label }}</a>
+  <span class="breadcrumb-separator" aria-hidden="true">›</span>
+  <span aria-current="page">{{ title }}</span>
+</nav>
+
+<article>
+  <header class="article-header">
+    <span class="category-tag">{{ category_label }}</span>
+    <h1 class="article-title">{{ title }}</h1>
+    <div class="article-meta">
+      <time datetime="{{ published_iso }}">{{ published_date }}</time>
+      <span>·</span>
+      <span>{{ reading_time }}</span>
+    </div>
+  </header>
+
+  {% if featured_image_html %}
+  {{ featured_image_html | safe }}
+  {% endif %}
+
+  <div class="article-content">
+    {{ content | safe }}
+  </div>
+</article>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function switchLang(lang) {
+    const categoryPath = '{{ category_path }}';
+    const slug = '{{ article.slug }}';
+    const langPaths = { en: '', de: 'de/', fr: 'fr/', it: 'it/', es: 'es/', pt: 'pt/', nl: 'nl/', ar: 'ar/', ja: 'ja/', zh: 'zh/', ko: 'ko/' };
+    window.location.href = '/' + langPaths[lang] + categoryPath + '/' + slug + '/';
+  }
+</script>
+{% endblock %}

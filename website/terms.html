@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service - Neve26</title>
+  <meta name="description" content="Neve26 Terms of Service. Review our terms for using the Neve26 app and website.">
+  <meta property="og:title" content="Terms of Service - Neve26">
+  <meta property="og:description" content="Neve26 Terms of Service. Review our terms for using the Neve26 app and website.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://neve26.com/terms">
+  <link rel="canonical" href="https://neve26.com/terms">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <style>
+    :root {
+      --color-bg: #0a1628;
+      --color-bg-light: #152238;
+      --color-text: #ffffff;
+      --color-text-muted: #b8c5d6;
+      --color-accent: #5ba3e0;
+      --color-accent-hover: #4a8fcc;
+      --focus-outline: 3px solid #5ba3e0;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      font-size: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+    }
+
+    /* Skip Link for Accessibility */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-accent);
+      color: var(--color-bg);
+      padding: 0.75rem 1.5rem;
+      border-radius: 0 0 8px 8px;
+      font-weight: 600;
+      z-index: 1000;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      top: 0;
+      outline: var(--focus-outline);
+      outline-offset: 2px;
+    }
+
+    /* Focus styles - WCAG AAA */
+    a:focus, button:focus, select:focus, input:focus {
+      outline: var(--focus-outline);
+      outline-offset: 2px;
+    }
+
+    /* Header */
+    header {
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--color-bg-light);
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--color-text);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .header-brand:hover {
+      color: var(--color-accent);
+    }
+
+    .lang-selector {
+      background: var(--color-bg-light);
+      border: 1px solid var(--color-text-muted);
+      color: var(--color-text);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    /* Main Content */
+    main {
+      flex: 1;
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .last-updated {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: var(--color-text);
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: var(--color-text);
+    }
+
+    ul {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+    li {
+      margin-bottom: 0.5rem;
+      color: var(--color-text);
+    }
+
+    a {
+      color: var(--color-accent);
+      text-decoration: underline;
+    }
+    a:hover {
+      color: var(--color-accent-hover);
+    }
+
+    .contact-email {
+      font-weight: 600;
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem;
+      text-align: center;
+      border-top: 1px solid var(--color-bg-light);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links a {
+      color: var(--color-text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.25rem 0.5rem;
+    }
+    .footer-links a:hover {
+      color: var(--color-text);
+    }
+
+    .footer-separator {
+      color: var(--color-bg-light);
+    }
+
+    .copyright {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+    }
+
+    /* RTL Support */
+    html[dir="rtl"] {
+      direction: rtl;
+    }
+    html[dir="rtl"] ul {
+      padding-left: 0;
+      padding-right: 1.5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      header { padding: 1rem; flex-direction: column; gap: 1rem; }
+      main { padding: 1.5rem 1rem; }
+      h1 { font-size: 1.75rem; }
+      h2 { font-size: 1.2rem; }
+    }
+
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+      :root {
+        --color-bg: #000000;
+        --color-text: #ffffff;
+        --color-text-muted: #ffffff;
+      }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link" data-i18n="skipToContent">Skip to content</a>
+
+  <header role="banner">
+    <a href="/" class="header-brand" aria-label="Neve26 - Back to home">
+      <img src="/favicon-32.png" alt="" width="24" height="24" aria-hidden="true">
+      <span>Neve26</span>
+    </a>
+    <label for="langSelect" class="visually-hidden" data-i18n="selectLanguage">Select language</label>
+    <select class="lang-selector" id="langSelect" aria-label="Select language">
+      <option value="en">English</option>
+      <option value="de">Deutsch</option>
+      <option value="fr">Francais</option>
+      <option value="it">Italiano</option>
+      <option value="es">Espanol</option>
+      <option value="pt">Portugues</option>
+      <option value="nl">Nederlands</option>
+      <option value="ar">العربية</option>
+      <option value="ja">日本語</option>
+      <option value="zh">中文</option>
+      <option value="ko">한국어</option>
+    </select>
+  </header>
+
+  <main id="main-content" role="main">
+    <article>
+      <h1 data-i18n="title">Terms of Service</h1>
+      <p class="last-updated" data-i18n="lastUpdated">Last updated: January 2026</p>
+
+      <section aria-labelledby="intro-heading">
+        <h2 id="intro-heading" data-i18n="introTitle">Introduction</h2>
+        <p data-i18n="introText">Welcome to Neve26. By downloading, installing, or using the Neve26 mobile application or visiting our website, you agree to be bound by these Terms of Service.</p>
+      </section>
+
+      <section aria-labelledby="app-heading">
+        <h2 id="app-heading" data-i18n="appTitle">About Neve26</h2>
+        <p data-i18n="appText">Neve26 is an independent winter sports news and schedule application. We provide schedules, notifications, and news coverage for FIS World Cup and IBU World Cup events. Neve26 is not affiliated with any sports federation, governing body, or event organizer.</p>
+      </section>
+
+      <section aria-labelledby="purchase-heading">
+        <h2 id="purchase-heading" data-i18n="purchaseTitle">Purchase and Pricing</h2>
+        <p data-i18n="purchaseIntro">The Neve26 app is available for a one-time purchase:</p>
+        <ul>
+          <li data-i18n="purchasePrice"><strong>Price:</strong> $2.99 USD (or equivalent in your local currency)</li>
+          <li data-i18n="purchaseType"><strong>Type:</strong> One-time purchase, no subscription required</li>
+          <li data-i18n="purchaseAccess"><strong>Access:</strong> Full access to all app features after purchase</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="refund-heading">
+        <h2 id="refund-heading" data-i18n="refundTitle">Refunds</h2>
+        <p data-i18n="refundText">Refunds are handled according to the policies of the platform where you purchased the app. For iOS purchases, refunds are governed by Apple App Store policies. For Android purchases, refunds are governed by Google Play Store policies. Please contact the respective app store for refund requests.</p>
+      </section>
+
+      <section aria-labelledby="content-heading">
+        <h2 id="content-heading" data-i18n="contentTitle">Content and Accuracy</h2>
+        <p data-i18n="contentText">We strive to provide accurate and up-to-date information about winter sports events. However, schedules and event details may change without notice. We are not responsible for any decisions made based on information provided in the app or on our website.</p>
+      </section>
+
+      <section aria-labelledby="privacy-heading">
+        <h2 id="privacy-heading" data-i18n="privacyTitle">Privacy</h2>
+        <p data-i18n="privacyText">Your privacy is important to us. Our data collection practices are described in our <a href="/privacy">Privacy Policy</a>. By using Neve26, you also agree to our Privacy Policy.</p>
+      </section>
+
+      <section aria-labelledby="gdpr-heading">
+        <h2 id="gdpr-heading" data-i18n="gdprTitle">European Users (GDPR)</h2>
+        <p data-i18n="gdprText">If you are located in the European Union, you have rights under the General Data Protection Regulation (GDPR), including the right to access, correct, or delete your personal data. For data requests, please contact us at the email address below.</p>
+      </section>
+
+      <section aria-labelledby="access-heading">
+        <h2 id="access-heading" data-i18n="accessTitle">Accessibility</h2>
+        <p data-i18n="accessText">Neve26 is committed to accessibility. We design our app and website to meet WCAG AAA standards, ensuring that users of all abilities can access our content. If you encounter any accessibility barriers, please contact us.</p>
+      </section>
+
+      <section aria-labelledby="prohibited-heading">
+        <h2 id="prohibited-heading" data-i18n="prohibitedTitle">Prohibited Use</h2>
+        <p data-i18n="prohibitedIntro">You agree not to:</p>
+        <ul>
+          <li data-i18n="prohibitedCopy">Copy, modify, or distribute app content without permission</li>
+          <li data-i18n="prohibitedReverse">Reverse engineer or attempt to extract source code from the app</li>
+          <li data-i18n="prohibitedMisuse">Use the app for any unlawful purpose</li>
+          <li data-i18n="prohibitedInterfere">Interfere with or disrupt the app or its servers</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="disclaimer-heading">
+        <h2 id="disclaimer-heading" data-i18n="disclaimerTitle">Disclaimer</h2>
+        <p data-i18n="disclaimerText">Neve26 is provided "as is" without warranties of any kind. We do not guarantee uninterrupted or error-free service. To the fullest extent permitted by law, we disclaim all warranties and shall not be liable for any damages arising from your use of the app.</p>
+      </section>
+
+      <section aria-labelledby="changes-heading">
+        <h2 id="changes-heading" data-i18n="changesTitle">Changes to These Terms</h2>
+        <p data-i18n="changesText">We may update these Terms of Service from time to time. Changes will be posted on this page with an updated revision date. Continued use of Neve26 after changes constitutes acceptance of the new terms.</p>
+      </section>
+
+      <section aria-labelledby="contact-heading">
+        <h2 id="contact-heading" data-i18n="contactTitle">Contact Us</h2>
+        <p data-i18n="contactText">For questions about these Terms of Service, please contact us at:</p>
+        <p><a href="mailto:support@neve26.com" class="contact-email">support@neve26.com</a></p>
+      </section>
+    </article>
+  </main>
+
+  <footer role="contentinfo">
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="/" data-i18n="home">Home</a>
+      <span class="footer-separator" aria-hidden="true">&#8226;</span>
+      <a href="/privacy" data-i18n="privacy">Privacy</a>
+      <span class="footer-separator" aria-hidden="true">&#8226;</span>
+      <a href="/support" data-i18n="support">Support</a>
+      <span class="footer-separator" aria-hidden="true">&#8226;</span>
+      <a href="https://x.com/neve2026" target="_blank" rel="noopener noreferrer">X @neve2026</a>
+      <span class="footer-separator" aria-hidden="true">&#8226;</span>
+      <a href="https://instagram.com/neve.2026" target="_blank" rel="noopener noreferrer">Instagram</a>
+    </nav>
+    <p class="copyright">&copy; 2026 Neve26</p>
+  </footer>
+
+  <script>
+    const translations = {
+      en: {
+        title: "Terms of Service",
+        lastUpdated: "Last updated: January 2026",
+        introTitle: "Introduction",
+        introText: "Welcome to Neve26. By downloading, installing, or using the Neve26 mobile application or visiting our website, you agree to be bound by these Terms of Service.",
+        appTitle: "About Neve26",
+        appText: "Neve26 is an independent winter sports news and schedule application. We provide schedules, notifications, and news coverage for FIS World Cup and IBU World Cup events. Neve26 is not affiliated with any sports federation, governing body, or event organizer.",
+        purchaseTitle: "Purchase and Pricing",
+        purchaseIntro: "The Neve26 app is available for a one-time purchase:",
+        purchasePrice: "Price: $2.99 USD (or equivalent in your local currency)",
+        purchaseType: "Type: One-time purchase, no subscription required",
+        purchaseAccess: "Access: Full access to all app features after purchase",
+        refundTitle: "Refunds",
+        refundText: "Refunds are handled according to the policies of the platform where you purchased the app. For iOS purchases, refunds are governed by Apple App Store policies. For Android purchases, refunds are governed by Google Play Store policies. Please contact the respective app store for refund requests.",
+        contentTitle: "Content and Accuracy",
+        contentText: "We strive to provide accurate and up-to-date information about winter sports events. However, schedules and event details may change without notice. We are not responsible for any decisions made based on information provided in the app or on our website.",
+        privacyTitle: "Privacy",
+        privacyText: "Your privacy is important to us. Our data collection practices are described in our Privacy Policy. By using Neve26, you also agree to our Privacy Policy.",
+        gdprTitle: "European Users (GDPR)",
+        gdprText: "If you are located in the European Union, you have rights under the General Data Protection Regulation (GDPR), including the right to access, correct, or delete your personal data. For data requests, please contact us at the email address below.",
+        accessTitle: "Accessibility",
+        accessText: "Neve26 is committed to accessibility. We design our app and website to meet WCAG AAA standards, ensuring that users of all abilities can access our content. If you encounter any accessibility barriers, please contact us.",
+        prohibitedTitle: "Prohibited Use",
+        prohibitedIntro: "You agree not to:",
+        prohibitedCopy: "Copy, modify, or distribute app content without permission",
+        prohibitedReverse: "Reverse engineer or attempt to extract source code from the app",
+        prohibitedMisuse: "Use the app for any unlawful purpose",
+        prohibitedInterfere: "Interfere with or disrupt the app or its servers",
+        disclaimerTitle: "Disclaimer",
+        disclaimerText: "Neve26 is provided \"as is\" without warranties of any kind. We do not guarantee uninterrupted or error-free service. To the fullest extent permitted by law, we disclaim all warranties and shall not be liable for any damages arising from your use of the app.",
+        changesTitle: "Changes to These Terms",
+        changesText: "We may update these Terms of Service from time to time. Changes will be posted on this page with an updated revision date. Continued use of Neve26 after changes constitutes acceptance of the new terms.",
+        contactTitle: "Contact Us",
+        contactText: "For questions about these Terms of Service, please contact us at:",
+        home: "Home",
+        privacy: "Privacy",
+        support: "Support",
+        skipToContent: "Skip to content",
+        selectLanguage: "Select language"
+      },
+      de: {
+        title: "Nutzungsbedingungen",
+        lastUpdated: "Zuletzt aktualisiert: Januar 2026",
+        introTitle: "Einleitung",
+        introText: "Willkommen bei Neve26. Durch das Herunterladen, Installieren oder Nutzen der Neve26-App oder den Besuch unserer Website stimmen Sie diesen Nutzungsbedingungen zu.",
+        appTitle: "Uber Neve26",
+        appText: "Neve26 ist eine unabhangige Wintersport-Nachrichten- und Zeitplan-App. Wir bieten Zeitplane, Benachrichtigungen und Berichterstattung uber FIS Weltcup und IBU Weltcup Veranstaltungen. Neve26 ist nicht mit Sportverbanden oder Veranstaltern verbunden.",
+        purchaseTitle: "Kauf und Preise",
+        purchaseIntro: "Die Neve26-App ist als Einmalkauf erhaltlich:",
+        purchasePrice: "Preis: 2,99 USD (oder Gegenwert in Ihrer lokalen Wahrung)",
+        purchaseType: "Art: Einmaliger Kauf, kein Abonnement erforderlich",
+        purchaseAccess: "Zugang: Voller Zugriff auf alle App-Funktionen nach dem Kauf",
+        refundTitle: "Ruckerstattungen",
+        refundText: "Ruckerstattungen werden nach den Richtlinien der Plattform bearbeitet, uber die Sie die App gekauft haben. Fur iOS-Kaufe gelten die Apple App Store Richtlinien. Fur Android-Kaufe gelten die Google Play Store Richtlinien. Bitte kontaktieren Sie den jeweiligen App Store fur Ruckerstattungsanfragen.",
+        contentTitle: "Inhalt und Genauigkeit",
+        contentText: "Wir bemuhen uns, genaue und aktuelle Informationen uber Wintersportveranstaltungen bereitzustellen. Zeitplane und Veranstaltungsdetails konnen sich jedoch ohne Vorankundigung andern. Wir sind nicht verantwortlich fur Entscheidungen, die auf Grundlage der in der App oder auf unserer Website bereitgestellten Informationen getroffen werden.",
+        privacyTitle: "Datenschutz",
+        privacyText: "Ihre Privatsphare ist uns wichtig. Unsere Datenerhebungspraktiken werden in unserer Datenschutzrichtlinie beschrieben. Mit der Nutzung von Neve26 stimmen Sie auch unserer Datenschutzrichtlinie zu.",
+        gdprTitle: "Europaische Nutzer (DSGVO)",
+        gdprText: "Wenn Sie sich in der Europaischen Union befinden, haben Sie Rechte nach der Datenschutz-Grundverordnung (DSGVO), einschliesslich des Rechts auf Zugang, Berichtigung oder Loschung Ihrer personlichen Daten. Fur Datenanfragen kontaktieren Sie uns bitte unter der unten angegebenen E-Mail-Adresse.",
+        accessTitle: "Barrierefreiheit",
+        accessText: "Neve26 setzt sich fur Barrierefreiheit ein. Wir gestalten unsere App und Website nach WCAG AAA-Standards, damit Nutzer aller Fahigkeiten auf unsere Inhalte zugreifen konnen. Wenn Sie auf Barrieren stossen, kontaktieren Sie uns bitte.",
+        prohibitedTitle: "Verbotene Nutzung",
+        prohibitedIntro: "Sie stimmen zu, Folgendes nicht zu tun:",
+        prohibitedCopy: "App-Inhalte ohne Erlaubnis kopieren, andern oder verteilen",
+        prohibitedReverse: "Die App reverse-engineeren oder versuchen, den Quellcode zu extrahieren",
+        prohibitedMisuse: "Die App fur rechtswidrige Zwecke nutzen",
+        prohibitedInterfere: "Die App oder ihre Server storen oder beeintrachtigen",
+        disclaimerTitle: "Haftungsausschluss",
+        disclaimerText: "Neve26 wird ohne Garantien jeglicher Art bereitgestellt. Wir garantieren keinen ununterbrochenen oder fehlerfreien Dienst. Im gesetzlich zulassigen Umfang lehnen wir alle Garantien ab und haften nicht fur Schaden, die aus Ihrer Nutzung der App entstehen.",
+        changesTitle: "Anderungen dieser Bedingungen",
+        changesText: "Wir konnen diese Nutzungsbedingungen von Zeit zu Zeit aktualisieren. Anderungen werden auf dieser Seite mit aktualisiertem Datum veroffentlicht. Die weitere Nutzung von Neve26 nach Anderungen gilt als Annahme der neuen Bedingungen.",
+        contactTitle: "Kontakt",
+        contactText: "Bei Fragen zu diesen Nutzungsbedingungen kontaktieren Sie uns unter:",
+        home: "Startseite",
+        privacy: "Datenschutz",
+        support: "Support",
+        skipToContent: "Zum Inhalt springen",
+        selectLanguage: "Sprache wahlen"
+      },
+      fr: {
+        title: "Conditions d'utilisation",
+        lastUpdated: "Derniere mise a jour : janvier 2026",
+        introTitle: "Introduction",
+        introText: "Bienvenue sur Neve26. En telechargeant, installant ou utilisant l'application mobile Neve26 ou en visitant notre site web, vous acceptez d'etre lie par ces conditions d'utilisation.",
+        appTitle: "A propos de Neve26",
+        appText: "Neve26 est une application independante de nouvelles et de calendrier des sports d'hiver. Nous fournissons des calendriers, des notifications et une couverture des evenements de la Coupe du Monde FIS et IBU. Neve26 n'est affilie a aucune federation sportive ou organisateur d'evenements.",
+        purchaseTitle: "Achat et tarification",
+        purchaseIntro: "L'application Neve26 est disponible en achat unique :",
+        purchasePrice: "Prix : 2,99 USD (ou equivalent dans votre devise locale)",
+        purchaseType: "Type : Achat unique, aucun abonnement requis",
+        purchaseAccess: "Acces : Acces complet a toutes les fonctionnalites apres l'achat",
+        refundTitle: "Remboursements",
+        refundText: "Les remboursements sont traites selon les politiques de la plateforme ou vous avez achete l'application. Pour les achats iOS, les remboursements sont regis par les politiques de l'App Store d'Apple. Pour les achats Android, les remboursements sont regis par les politiques du Google Play Store. Veuillez contacter l'app store respectif pour les demandes de remboursement.",
+        contentTitle: "Contenu et exactitude",
+        contentText: "Nous nous efforcons de fournir des informations precises et a jour sur les evenements de sports d'hiver. Cependant, les horaires et les details des evenements peuvent changer sans preavis. Nous ne sommes pas responsables des decisions prises sur la base des informations fournies dans l'application ou sur notre site web.",
+        privacyTitle: "Confidentialite",
+        privacyText: "Votre vie privee est importante pour nous. Nos pratiques de collecte de donnees sont decrites dans notre politique de confidentialite. En utilisant Neve26, vous acceptez egalement notre politique de confidentialite.",
+        gdprTitle: "Utilisateurs europeens (RGPD)",
+        gdprText: "Si vous vous trouvez dans l'Union europeenne, vous avez des droits en vertu du Reglement general sur la protection des donnees (RGPD), notamment le droit d'acceder, de corriger ou de supprimer vos donnees personnelles. Pour les demandes de donnees, veuillez nous contacter a l'adresse e-mail ci-dessous.",
+        accessTitle: "Accessibilite",
+        accessText: "Neve26 s'engage pour l'accessibilite. Nous concevons notre application et notre site web pour respecter les normes WCAG AAA, garantissant que les utilisateurs de toutes capacites peuvent acceder a notre contenu. Si vous rencontrez des obstacles d'accessibilite, veuillez nous contacter.",
+        prohibitedTitle: "Utilisation interdite",
+        prohibitedIntro: "Vous acceptez de ne pas :",
+        prohibitedCopy: "Copier, modifier ou distribuer le contenu de l'application sans autorisation",
+        prohibitedReverse: "Faire de l'ingenierie inverse ou tenter d'extraire le code source de l'application",
+        prohibitedMisuse: "Utiliser l'application a des fins illegales",
+        prohibitedInterfere: "Interferer avec ou perturber l'application ou ses serveurs",
+        disclaimerTitle: "Avertissement",
+        disclaimerText: "Neve26 est fourni \"tel quel\" sans garantie d'aucune sorte. Nous ne garantissons pas un service ininterrompu ou sans erreur. Dans toute la mesure permise par la loi, nous declinons toute garantie et ne serons pas responsables des dommages resultant de votre utilisation de l'application.",
+        changesTitle: "Modifications de ces conditions",
+        changesText: "Nous pouvons mettre a jour ces conditions d'utilisation de temps en temps. Les modifications seront publiees sur cette page avec une date de revision mise a jour. L'utilisation continue de Neve26 apres les modifications constitue une acceptation des nouvelles conditions.",
+        contactTitle: "Nous contacter",
+        contactText: "Pour toute question concernant ces conditions d'utilisation, veuillez nous contacter a :",
+        home: "Accueil",
+        privacy: "Confidentialite",
+        support: "Assistance",
+        skipToContent: "Aller au contenu",
+        selectLanguage: "Choisir la langue"
+      },
+      it: {
+        title: "Termini di Servizio",
+        lastUpdated: "Ultimo aggiornamento: gennaio 2026",
+        introTitle: "Introduzione",
+        introText: "Benvenuto su Neve26. Scaricando, installando o utilizzando l'applicazione mobile Neve26 o visitando il nostro sito web, accetti di essere vincolato da questi Termini di Servizio.",
+        appTitle: "Informazioni su Neve26",
+        appText: "Neve26 e un'applicazione indipendente di notizie e calendario per gli sport invernali. Forniamo calendari, notifiche e copertura degli eventi della Coppa del Mondo FIS e IBU. Neve26 non e affiliata a nessuna federazione sportiva o organizzatore di eventi.",
+        purchaseTitle: "Acquisto e prezzi",
+        purchaseIntro: "L'app Neve26 e disponibile con acquisto unico:",
+        purchasePrice: "Prezzo: $2,99 USD (o equivalente nella tua valuta locale)",
+        purchaseType: "Tipo: Acquisto unico, nessun abbonamento richiesto",
+        purchaseAccess: "Accesso: Accesso completo a tutte le funzionalita dopo l'acquisto",
+        refundTitle: "Rimborsi",
+        refundText: "I rimborsi sono gestiti secondo le politiche della piattaforma dove hai acquistato l'app. Per gli acquisti iOS, i rimborsi sono regolati dalle politiche dell'App Store di Apple. Per gli acquisti Android, i rimborsi sono regolati dalle politiche del Google Play Store. Contatta il rispettivo app store per richieste di rimborso.",
+        contentTitle: "Contenuto e accuratezza",
+        contentText: "Ci impegniamo a fornire informazioni accurate e aggiornate sugli eventi degli sport invernali. Tuttavia, i calendari e i dettagli degli eventi possono cambiare senza preavviso. Non siamo responsabili per le decisioni prese sulla base delle informazioni fornite nell'app o sul nostro sito web.",
+        privacyTitle: "Privacy",
+        privacyText: "La tua privacy e importante per noi. Le nostre pratiche di raccolta dati sono descritte nella nostra Informativa sulla Privacy. Utilizzando Neve26, accetti anche la nostra Informativa sulla Privacy.",
+        gdprTitle: "Utenti europei (GDPR)",
+        gdprText: "Se ti trovi nell'Unione Europea, hai diritti ai sensi del Regolamento Generale sulla Protezione dei Dati (GDPR), incluso il diritto di accedere, correggere o eliminare i tuoi dati personali. Per richieste sui dati, contattaci all'indirizzo email qui sotto.",
+        accessTitle: "Accessibilita",
+        accessText: "Neve26 e impegnata nell'accessibilita. Progettiamo la nostra app e il nostro sito web per soddisfare gli standard WCAG AAA, garantendo che gli utenti di tutte le abilita possano accedere ai nostri contenuti. Se riscontri barriere di accessibilita, contattaci.",
+        prohibitedTitle: "Uso vietato",
+        prohibitedIntro: "Accetti di non:",
+        prohibitedCopy: "Copiare, modificare o distribuire contenuti dell'app senza autorizzazione",
+        prohibitedReverse: "Fare reverse engineering o tentare di estrarre il codice sorgente dall'app",
+        prohibitedMisuse: "Utilizzare l'app per scopi illegali",
+        prohibitedInterfere: "Interferire con o interrompere l'app o i suoi server",
+        disclaimerTitle: "Esclusione di responsabilita",
+        disclaimerText: "Neve26 e fornito \"cosi com'e\" senza garanzie di alcun tipo. Non garantiamo un servizio ininterrotto o privo di errori. Nella misura massima consentita dalla legge, decliniamo tutte le garanzie e non saremo responsabili per eventuali danni derivanti dall'uso dell'app.",
+        changesTitle: "Modifiche a questi Termini",
+        changesText: "Potremmo aggiornare questi Termini di Servizio di tanto in tanto. Le modifiche saranno pubblicate su questa pagina con una data di revisione aggiornata. L'uso continuato di Neve26 dopo le modifiche costituisce accettazione dei nuovi termini.",
+        contactTitle: "Contattaci",
+        contactText: "Per domande su questi Termini di Servizio, contattaci a:",
+        home: "Home",
+        privacy: "Privacy",
+        support: "Supporto",
+        skipToContent: "Vai al contenuto",
+        selectLanguage: "Seleziona lingua"
+      },
+      es: {
+        title: "Terminos de Servicio",
+        lastUpdated: "Ultima actualizacion: enero 2026",
+        introTitle: "Introduccion",
+        introText: "Bienvenido a Neve26. Al descargar, instalar o usar la aplicacion movil Neve26 o visitar nuestro sitio web, aceptas estar sujeto a estos Terminos de Servicio.",
+        appTitle: "Acerca de Neve26",
+        appText: "Neve26 es una aplicacion independiente de noticias y calendario de deportes de invierno. Proporcionamos calendarios, notificaciones y cobertura de eventos de la Copa del Mundo FIS e IBU. Neve26 no esta afiliada a ninguna federacion deportiva u organizador de eventos.",
+        purchaseTitle: "Compra y precios",
+        purchaseIntro: "La aplicacion Neve26 esta disponible con compra unica:",
+        purchasePrice: "Precio: $2.99 USD (o equivalente en tu moneda local)",
+        purchaseType: "Tipo: Compra unica, sin suscripcion requerida",
+        purchaseAccess: "Acceso: Acceso completo a todas las funciones despues de la compra",
+        refundTitle: "Reembolsos",
+        refundText: "Los reembolsos se manejan segun las politicas de la plataforma donde compraste la aplicacion. Para compras en iOS, los reembolsos se rigen por las politicas de la App Store de Apple. Para compras en Android, los reembolsos se rigen por las politicas de Google Play Store. Contacta la tienda de aplicaciones respectiva para solicitudes de reembolso.",
+        contentTitle: "Contenido y precision",
+        contentText: "Nos esforzamos por proporcionar informacion precisa y actualizada sobre eventos de deportes de invierno. Sin embargo, los horarios y detalles de eventos pueden cambiar sin previo aviso. No somos responsables de las decisiones tomadas basadas en la informacion proporcionada en la aplicacion o en nuestro sitio web.",
+        privacyTitle: "Privacidad",
+        privacyText: "Tu privacidad es importante para nosotros. Nuestras practicas de recopilacion de datos se describen en nuestra Politica de Privacidad. Al usar Neve26, tambien aceptas nuestra Politica de Privacidad.",
+        gdprTitle: "Usuarios europeos (RGPD)",
+        gdprText: "Si te encuentras en la Union Europea, tienes derechos bajo el Reglamento General de Proteccion de Datos (RGPD), incluyendo el derecho a acceder, corregir o eliminar tus datos personales. Para solicitudes de datos, contactanos en la direccion de correo electronico a continuacion.",
+        accessTitle: "Accesibilidad",
+        accessText: "Neve26 esta comprometido con la accesibilidad. Disenamos nuestra aplicacion y sitio web para cumplir con los estandares WCAG AAA, asegurando que usuarios de todas las capacidades puedan acceder a nuestro contenido. Si encuentras barreras de accesibilidad, contactanos.",
+        prohibitedTitle: "Uso prohibido",
+        prohibitedIntro: "Aceptas no:",
+        prohibitedCopy: "Copiar, modificar o distribuir contenido de la aplicacion sin permiso",
+        prohibitedReverse: "Hacer ingenieria inversa o intentar extraer el codigo fuente de la aplicacion",
+        prohibitedMisuse: "Usar la aplicacion para fines ilegales",
+        prohibitedInterfere: "Interferir con o interrumpir la aplicacion o sus servidores",
+        disclaimerTitle: "Descargo de responsabilidad",
+        disclaimerText: "Neve26 se proporciona \"tal cual\" sin garantias de ningun tipo. No garantizamos un servicio ininterrumpido o libre de errores. En la maxima medida permitida por la ley, rechazamos todas las garantias y no seremos responsables de ningun dano derivado de tu uso de la aplicacion.",
+        changesTitle: "Cambios en estos Terminos",
+        changesText: "Podemos actualizar estos Terminos de Servicio de vez en cuando. Los cambios se publicaran en esta pagina con una fecha de revision actualizada. El uso continuado de Neve26 despues de los cambios constituye la aceptacion de los nuevos terminos.",
+        contactTitle: "Contactanos",
+        contactText: "Para preguntas sobre estos Terminos de Servicio, contactanos en:",
+        home: "Inicio",
+        privacy: "Privacidad",
+        support: "Soporte",
+        skipToContent: "Ir al contenido",
+        selectLanguage: "Seleccionar idioma"
+      },
+      pt: {
+        title: "Termos de Servico",
+        lastUpdated: "Ultima atualizacao: janeiro de 2026",
+        introTitle: "Introducao",
+        introText: "Bem-vindo ao Neve26. Ao baixar, instalar ou usar o aplicativo movel Neve26 ou visitar nosso site, voce concorda em estar vinculado a estes Termos de Servico.",
+        appTitle: "Sobre o Neve26",
+        appText: "Neve26 e um aplicativo independente de noticias e calendario de esportes de inverno. Fornecemos calendarios, notificacoes e cobertura de eventos da Copa do Mundo FIS e IBU. Neve26 nao e afiliado a nenhuma federacao esportiva ou organizador de eventos.",
+        purchaseTitle: "Compra e precos",
+        purchaseIntro: "O aplicativo Neve26 esta disponivel para compra unica:",
+        purchasePrice: "Preco: $2,99 USD (ou equivalente na sua moeda local)",
+        purchaseType: "Tipo: Compra unica, sem assinatura necessaria",
+        purchaseAccess: "Acesso: Acesso completo a todos os recursos apos a compra",
+        refundTitle: "Reembolsos",
+        refundText: "Os reembolsos sao tratados de acordo com as politicas da plataforma onde voce comprou o aplicativo. Para compras no iOS, os reembolsos sao regidos pelas politicas da App Store da Apple. Para compras no Android, os reembolsos sao regidos pelas politicas da Google Play Store. Entre em contato com a loja de aplicativos respectiva para solicitacoes de reembolso.",
+        contentTitle: "Conteudo e precisao",
+        contentText: "Nos esforçamos para fornecer informacoes precisas e atualizadas sobre eventos de esportes de inverno. No entanto, horarios e detalhes de eventos podem mudar sem aviso previo. Nao somos responsaveis por decisoes tomadas com base nas informacoes fornecidas no aplicativo ou em nosso site.",
+        privacyTitle: "Privacidade",
+        privacyText: "Sua privacidade e importante para nos. Nossas praticas de coleta de dados sao descritas em nossa Politica de Privacidade. Ao usar o Neve26, voce tambem concorda com nossa Politica de Privacidade.",
+        gdprTitle: "Usuarios europeus (RGPD)",
+        gdprText: "Se voce esta localizado na Uniao Europeia, voce tem direitos sob o Regulamento Geral de Protecao de Dados (RGPD), incluindo o direito de acessar, corrigir ou excluir seus dados pessoais. Para solicitacoes de dados, entre em contato conosco no endereco de e-mail abaixo.",
+        accessTitle: "Acessibilidade",
+        accessText: "Neve26 esta comprometido com a acessibilidade. Projetamos nosso aplicativo e site para atender aos padroes WCAG AAA, garantindo que usuarios de todas as habilidades possam acessar nosso conteudo. Se voce encontrar barreiras de acessibilidade, entre em contato conosco.",
+        prohibitedTitle: "Uso proibido",
+        prohibitedIntro: "Voce concorda em nao:",
+        prohibitedCopy: "Copiar, modificar ou distribuir conteudo do aplicativo sem permissao",
+        prohibitedReverse: "Fazer engenharia reversa ou tentar extrair o codigo-fonte do aplicativo",
+        prohibitedMisuse: "Usar o aplicativo para fins ilegais",
+        prohibitedInterfere: "Interferir ou interromper o aplicativo ou seus servidores",
+        disclaimerTitle: "Aviso legal",
+        disclaimerText: "Neve26 e fornecido \"como esta\" sem garantias de qualquer tipo. Nao garantimos servico ininterrupto ou livre de erros. Na maxima extensao permitida por lei, rejeitamos todas as garantias e nao seremos responsaveis por quaisquer danos decorrentes do seu uso do aplicativo.",
+        changesTitle: "Alteracoes nestes Termos",
+        changesText: "Podemos atualizar estes Termos de Servico de tempos em tempos. As alteracoes serao publicadas nesta pagina com uma data de revisao atualizada. O uso continuado do Neve26 apos as alteracoes constitui aceitacao dos novos termos.",
+        contactTitle: "Entre em contato",
+        contactText: "Para perguntas sobre estes Termos de Servico, entre em contato conosco em:",
+        home: "Inicio",
+        privacy: "Privacidade",
+        support: "Suporte",
+        skipToContent: "Ir para o conteudo",
+        selectLanguage: "Selecionar idioma"
+      },
+      nl: {
+        title: "Gebruiksvoorwaarden",
+        lastUpdated: "Laatst bijgewerkt: januari 2026",
+        introTitle: "Inleiding",
+        introText: "Welkom bij Neve26. Door de Neve26 mobiele applicatie te downloaden, installeren of gebruiken of onze website te bezoeken, gaat u akkoord met deze Gebruiksvoorwaarden.",
+        appTitle: "Over Neve26",
+        appText: "Neve26 is een onafhankelijke wintersport nieuws- en schema-applicatie. We bieden schema's, meldingen en verslaggeving van FIS Wereldbeker en IBU Wereldbeker evenementen. Neve26 is niet gelieerd aan sportfederaties of evenementorganisatoren.",
+        purchaseTitle: "Aankoop en prijzen",
+        purchaseIntro: "De Neve26-app is beschikbaar als eenmalige aankoop:",
+        purchasePrice: "Prijs: $2,99 USD (of equivalent in uw lokale valuta)",
+        purchaseType: "Type: Eenmalige aankoop, geen abonnement vereist",
+        purchaseAccess: "Toegang: Volledige toegang tot alle app-functies na aankoop",
+        refundTitle: "Terugbetalingen",
+        refundText: "Terugbetalingen worden afgehandeld volgens het beleid van het platform waar u de app hebt gekocht. Voor iOS-aankopen gelden de Apple App Store richtlijnen. Voor Android-aankopen gelden de Google Play Store richtlijnen. Neem contact op met de betreffende app store voor terugbetalingsverzoeken.",
+        contentTitle: "Inhoud en nauwkeurigheid",
+        contentText: "We streven ernaar nauwkeurige en actuele informatie over wintersportevenementen te bieden. Schema's en evenementdetails kunnen echter zonder voorafgaande kennisgeving wijzigen. We zijn niet verantwoordelijk voor beslissingen die worden genomen op basis van informatie in de app of op onze website.",
+        privacyTitle: "Privacy",
+        privacyText: "Uw privacy is belangrijk voor ons. Onze gegevensverzamelingspraktijken worden beschreven in ons Privacybeleid. Door Neve26 te gebruiken, gaat u ook akkoord met ons Privacybeleid.",
+        gdprTitle: "Europese gebruikers (AVG)",
+        gdprText: "Als u zich in de Europese Unie bevindt, heeft u rechten onder de Algemene Verordening Gegevensbescherming (AVG), waaronder het recht om uw persoonsgegevens in te zien, te corrigeren of te verwijderen. Voor gegevensverzoeken kunt u contact met ons opnemen via het onderstaande e-mailadres.",
+        accessTitle: "Toegankelijkheid",
+        accessText: "Neve26 zet zich in voor toegankelijkheid. We ontwerpen onze app en website om te voldoen aan WCAG AAA-normen, zodat gebruikers van alle vaardigheden toegang hebben tot onze inhoud. Als u toegankelijkheidsproblemen ondervindt, neem dan contact met ons op.",
+        prohibitedTitle: "Verboden gebruik",
+        prohibitedIntro: "U gaat ermee akkoord om niet:",
+        prohibitedCopy: "App-inhoud te kopieren, wijzigen of verspreiden zonder toestemming",
+        prohibitedReverse: "Reverse engineering te doen of te proberen de broncode uit de app te halen",
+        prohibitedMisuse: "De app te gebruiken voor onwettige doeleinden",
+        prohibitedInterfere: "De app of de servers ervan te verstoren of te onderbreken",
+        disclaimerTitle: "Disclaimer",
+        disclaimerText: "Neve26 wordt geleverd \"zoals het is\" zonder enige garantie. We garanderen geen ononderbroken of foutloze service. Voor zover wettelijk toegestaan wijzen we alle garanties af en zijn we niet aansprakelijk voor schade die voortvloeit uit uw gebruik van de app.",
+        changesTitle: "Wijzigingen in deze voorwaarden",
+        changesText: "We kunnen deze Gebruiksvoorwaarden van tijd tot tijd bijwerken. Wijzigingen worden op deze pagina gepubliceerd met een bijgewerkte revisiedatum. Voortgezet gebruik van Neve26 na wijzigingen betekent acceptatie van de nieuwe voorwaarden.",
+        contactTitle: "Contact",
+        contactText: "Voor vragen over deze Gebruiksvoorwaarden kunt u contact met ons opnemen via:",
+        home: "Home",
+        privacy: "Privacy",
+        support: "Ondersteuning",
+        skipToContent: "Ga naar inhoud",
+        selectLanguage: "Selecteer taal"
+      },
+      ar: {
+        title: "شروط الخدمة",
+        lastUpdated: "اخر تحديث: يناير 2026",
+        introTitle: "مقدمة",
+        introText: "مرحبا بك في Neve26. بتحميل او تثبيت او استخدام تطبيق Neve26 للهاتف المحمول او زيارة موقعنا الالكتروني، فانك توافق على الالتزام بشروط الخدمة هذه.",
+        appTitle: "حول Neve26",
+        appText: "Neve26 هو تطبيق مستقل للاخبار والجداول الزمنية للرياضات الشتوية. نقدم الجداول الزمنية والاشعارات وتغطية احداث كاس العالم FIS وIBU. Neve26 غير تابع لاي اتحاد رياضي او منظم فعاليات.",
+        purchaseTitle: "الشراء والاسعار",
+        purchaseIntro: "تطبيق Neve26 متاح للشراء لمرة واحدة:",
+        purchasePrice: "السعر: 2.99 دولار امريكي (او ما يعادلها بعملتك المحلية)",
+        purchaseType: "النوع: شراء لمرة واحدة، لا يلزم اشتراك",
+        purchaseAccess: "الوصول: وصول كامل لجميع ميزات التطبيق بعد الشراء",
+        refundTitle: "الاسترداد",
+        refundText: "يتم التعامل مع طلبات الاسترداد وفقا لسياسات المنصة التي اشتريت منها التطبيق. لمشتريات iOS، تخضع عمليات الاسترداد لسياسات متجر تطبيقات Apple. لمشتريات Android، تخضع عمليات الاسترداد لسياسات متجر Google Play. يرجى الاتصال بمتجر التطبيقات المعني لطلبات الاسترداد.",
+        contentTitle: "المحتوى والدقة",
+        contentText: "نسعى لتقديم معلومات دقيقة ومحدثة حول احداث الرياضات الشتوية. ومع ذلك، قد تتغير الجداول الزمنية وتفاصيل الاحداث دون اشعار مسبق. نحن غير مسؤولين عن اي قرارات يتم اتخاذها بناء على المعلومات المقدمة في التطبيق او على موقعنا.",
+        privacyTitle: "الخصوصية",
+        privacyText: "خصوصيتك مهمة لنا. ممارسات جمع البيانات لدينا موضحة في سياسة الخصوصية الخاصة بنا. باستخدام Neve26، فانك توافق ايضا على سياسة الخصوصية الخاصة بنا.",
+        gdprTitle: "المستخدمون الاوروبيون (GDPR)",
+        gdprText: "اذا كنت موجودا في الاتحاد الاوروبي، لديك حقوق بموجب اللائحة العامة لحماية البيانات (GDPR)، بما في ذلك الحق في الوصول الى بياناتك الشخصية او تصحيحها او حذفها. لطلبات البيانات، يرجى الاتصال بنا على عنوان البريد الالكتروني ادناه.",
+        accessTitle: "امكانية الوصول",
+        accessText: "Neve26 ملتزم بامكانية الوصول. نصمم تطبيقنا وموقعنا لتلبية معايير WCAG AAA، مما يضمن ان المستخدمين من جميع القدرات يمكنهم الوصول الى محتوانا. اذا واجهت اي عوائق في الوصول، يرجى الاتصال بنا.",
+        prohibitedTitle: "الاستخدام المحظور",
+        prohibitedIntro: "انت توافق على عدم:",
+        prohibitedCopy: "نسخ او تعديل او توزيع محتوى التطبيق دون اذن",
+        prohibitedReverse: "الهندسة العكسية او محاولة استخراج الكود المصدري من التطبيق",
+        prohibitedMisuse: "استخدام التطبيق لاي غرض غير قانوني",
+        prohibitedInterfere: "التدخل في التطبيق او خوادمه او تعطيلها",
+        disclaimerTitle: "اخلاء المسؤولية",
+        disclaimerText: "يتم تقديم Neve26 \"كما هو\" دون اي ضمانات من اي نوع. نحن لا نضمن خدمة غير منقطعة او خالية من الاخطاء. الى اقصى حد يسمح به القانون، نخلي مسؤوليتنا عن جميع الضمانات ولن نكون مسؤولين عن اي اضرار ناتجة عن استخدامك للتطبيق.",
+        changesTitle: "التغييرات على هذه الشروط",
+        changesText: "قد نقوم بتحديث شروط الخدمة هذه من وقت لاخر. سيتم نشر التغييرات على هذه الصفحة مع تاريخ مراجعة محدث. الاستمرار في استخدام Neve26 بعد التغييرات يشكل قبولا للشروط الجديدة.",
+        contactTitle: "اتصل بنا",
+        contactText: "للاسئلة حول شروط الخدمة هذه، يرجى الاتصال بنا على:",
+        home: "الرئيسية",
+        privacy: "الخصوصية",
+        support: "الدعم",
+        skipToContent: "انتقل الى المحتوى",
+        selectLanguage: "اختر اللغة"
+      },
+      ja: {
+        title: "利用規約",
+        lastUpdated: "最終更新日：2026年1月",
+        introTitle: "はじめに",
+        introText: "Neve26へようこそ。Neve26モバイルアプリケーションをダウンロード、インストール、または使用するか、当社のウェブサイトにアクセスすることにより、お客様はこの利用規約に拘束されることに同意したものとみなされます。",
+        appTitle: "Neve26について",
+        appText: "Neve26は独立したウィンタースポーツニュースおよびスケジュールアプリケーションです。FISワールドカップおよびIBUワールドカップイベントのスケジュール、通知、ニュースを提供しています。Neve26はスポーツ連盟やイベント主催者とは提携していません。",
+        purchaseTitle: "購入と価格",
+        purchaseIntro: "Neve26アプリは1回限りの購入で利用可能です：",
+        purchasePrice: "価格：2.99米ドル（またはお住まいの地域の通貨での相当額）",
+        purchaseType: "タイプ：1回限りの購入、サブスクリプション不要",
+        purchaseAccess: "アクセス：購入後、すべてのアプリ機能にフルアクセス",
+        refundTitle: "返金",
+        refundText: "返金は、アプリを購入したプラットフォームのポリシーに従って処理されます。iOSでの購入の場合、返金はApple App Storeのポリシーに準拠します。Androidでの購入の場合、返金はGoogle Play Storeのポリシーに準拠します。返金リクエストについては、各アプリストアにお問い合わせください。",
+        contentTitle: "コンテンツと正確性",
+        contentText: "ウィンタースポーツイベントに関する正確で最新の情報を提供するよう努めていますが、スケジュールやイベントの詳細は予告なく変更される場合があります。アプリまたは当社ウェブサイトで提供される情報に基づいて行われた判断について、当社は責任を負いません。",
+        privacyTitle: "プライバシー",
+        privacyText: "お客様のプライバシーは当社にとって重要です。当社のデータ収集慣行はプライバシーポリシーに記載されています。Neve26を使用することにより、お客様は当社のプライバシーポリシーにも同意したことになります。",
+        gdprTitle: "欧州ユーザー（GDPR）",
+        gdprText: "お客様が欧州連合にお住まいの場合、一般データ保護規則（GDPR）に基づく権利があります。これには、個人データへのアクセス、修正、削除の権利が含まれます。データリクエストについては、以下のメールアドレスまでお問い合わせください。",
+        accessTitle: "アクセシビリティ",
+        accessText: "Neve26はアクセシビリティに取り組んでいます。すべての能力のユーザーがコンテンツにアクセスできるよう、WCAG AAA基準を満たすようにアプリとウェブサイトを設計しています。アクセシビリティの障壁に遭遇した場合は、お問い合わせください。",
+        prohibitedTitle: "禁止事項",
+        prohibitedIntro: "お客様は以下の行為を行わないことに同意します：",
+        prohibitedCopy: "許可なくアプリのコンテンツをコピー、変更、配布すること",
+        prohibitedReverse: "アプリのリバースエンジニアリングやソースコードの抽出を試みること",
+        prohibitedMisuse: "違法な目的でアプリを使用すること",
+        prohibitedInterfere: "アプリまたはそのサーバーに干渉または妨害すること",
+        disclaimerTitle: "免責事項",
+        disclaimerText: "Neve26は「現状のまま」提供され、いかなる種類の保証もありません。中断のない、またはエラーのないサービスを保証するものではありません。法律で認められる最大限の範囲で、当社はすべての保証を否認し、アプリの使用から生じるいかなる損害についても責任を負いません。",
+        changesTitle: "本規約の変更",
+        changesText: "当社は本利用規約を随時更新することがあります。変更は、更新された改訂日とともにこのページに掲載されます。変更後もNeve26を継続して使用することは、新しい規約に同意したものとみなされます。",
+        contactTitle: "お問い合わせ",
+        contactText: "本利用規約に関するご質問は、以下までお問い合わせください：",
+        home: "ホーム",
+        privacy: "プライバシー",
+        support: "サポート",
+        skipToContent: "コンテンツへスキップ",
+        selectLanguage: "言語を選択"
+      },
+      zh: {
+        title: "服务条款",
+        lastUpdated: "最后更新：2026年1月",
+        introTitle: "介绍",
+        introText: "欢迎使用Neve26。通过下载、安装或使用Neve26移动应用程序或访问我们的网站，您同意受这些服务条款的约束。",
+        appTitle: "关于Neve26",
+        appText: "Neve26是一个独立的冬季运动新闻和赛程应用程序。我们提供FIS世界杯和IBU世界杯赛事的赛程、通知和新闻报道。Neve26不隶属于任何体育联合会或赛事组织者。",
+        purchaseTitle: "购买和定价",
+        purchaseIntro: "Neve26应用程序可一次性购买：",
+        purchasePrice: "价格：2.99美元（或您当地货币的等值金额）",
+        purchaseType: "类型：一次性购买，无需订阅",
+        purchaseAccess: "访问权限：购买后可完全访问所有应用功能",
+        refundTitle: "退款",
+        refundText: "退款按照您购买应用程序的平台政策处理。对于iOS购买，退款受Apple App Store政策管辖。对于Android购买，退款受Google Play Store政策管辖。请联系相应的应用商店进行退款请求。",
+        contentTitle: "内容和准确性",
+        contentText: "我们努力提供准确和最新的冬季运动赛事信息。但是，赛程和赛事详情可能会在没有通知的情况下更改。我们不对基于应用程序或网站提供的信息所做的任何决定负责。",
+        privacyTitle: "隐私",
+        privacyText: "您的隐私对我们很重要。我们的数据收集做法在我们的隐私政策中有描述。使用Neve26，即表示您也同意我们的隐私政策。",
+        gdprTitle: "欧洲用户（GDPR）",
+        gdprText: "如果您位于欧盟，您拥有《通用数据保护条例》（GDPR）规定的权利，包括访问、更正或删除您的个人数据的权利。如需数据请求，请通过以下电子邮件地址与我们联系。",
+        accessTitle: "无障碍访问",
+        accessText: "Neve26致力于无障碍访问。我们设计应用程序和网站以符合WCAG AAA标准，确保所有能力的用户都能访问我们的内容。如果您遇到任何无障碍障碍，请与我们联系。",
+        prohibitedTitle: "禁止使用",
+        prohibitedIntro: "您同意不：",
+        prohibitedCopy: "未经许可复制、修改或分发应用程序内容",
+        prohibitedReverse: "对应用程序进行逆向工程或尝试提取源代码",
+        prohibitedMisuse: "将应用程序用于任何非法目的",
+        prohibitedInterfere: "干扰或破坏应用程序或其服务器",
+        disclaimerTitle: "免责声明",
+        disclaimerText: "Neve26按\"原样\"提供，不提供任何形式的保证。我们不保证服务不中断或无错误。在法律允许的最大范围内，我们否认所有保证，并且不对您使用应用程序所产生的任何损害承担责任。",
+        changesTitle: "本条款的变更",
+        changesText: "我们可能会不时更新这些服务条款。变更将在本页面上发布，并附有更新的修订日期。在变更后继续使用Neve26即表示接受新条款。",
+        contactTitle: "联系我们",
+        contactText: "如有关于这些服务条款的问题，请通过以下方式联系我们：",
+        home: "首页",
+        privacy: "隐私",
+        support: "支持",
+        skipToContent: "跳至内容",
+        selectLanguage: "选择语言"
+      },
+      ko: {
+        title: "서비스 약관",
+        lastUpdated: "최종 업데이트: 2026년 1월",
+        introTitle: "소개",
+        introText: "Neve26에 오신 것을 환영합니다. Neve26 모바일 애플리케이션을 다운로드, 설치 또는 사용하거나 당사 웹사이트를 방문함으로써 귀하는 본 서비스 약관에 동의하게 됩니다.",
+        appTitle: "Neve26 소개",
+        appText: "Neve26은 독립적인 겨울 스포츠 뉴스 및 일정 애플리케이션입니다. FIS 월드컵 및 IBU 월드컵 이벤트의 일정, 알림 및 뉴스를 제공합니다. Neve26은 스포츠 연맹이나 이벤트 주최자와 제휴하지 않습니다.",
+        purchaseTitle: "구매 및 가격",
+        purchaseIntro: "Neve26 앱은 일회성 구매로 이용 가능합니다:",
+        purchasePrice: "가격: $2.99 USD (또는 현지 통화로 동등한 금액)",
+        purchaseType: "유형: 일회성 구매, 구독 불필요",
+        purchaseAccess: "접근: 구매 후 모든 앱 기능에 대한 전체 접근",
+        refundTitle: "환불",
+        refundText: "환불은 앱을 구매한 플랫폼의 정책에 따라 처리됩니다. iOS 구매의 경우 Apple App Store 정책이 적용됩니다. Android 구매의 경우 Google Play Store 정책이 적용됩니다. 환불 요청은 해당 앱 스토어에 문의하세요.",
+        contentTitle: "콘텐츠 및 정확성",
+        contentText: "당사는 겨울 스포츠 이벤트에 대한 정확하고 최신 정보를 제공하기 위해 노력합니다. 그러나 일정 및 이벤트 세부 정보는 예고 없이 변경될 수 있습니다. 앱이나 웹사이트에서 제공하는 정보를 기반으로 한 결정에 대해 당사는 책임지지 않습니다.",
+        privacyTitle: "개인정보 보호",
+        privacyText: "귀하의 개인정보는 당사에 중요합니다. 당사의 데이터 수집 관행은 개인정보 처리방침에 설명되어 있습니다. Neve26을 사용함으로써 귀하는 당사의 개인정보 처리방침에도 동의하게 됩니다.",
+        gdprTitle: "유럽 사용자 (GDPR)",
+        gdprText: "귀하가 유럽 연합에 거주하는 경우, 개인 데이터에 대한 접근, 수정 또는 삭제 권리를 포함한 일반 데이터 보호 규정(GDPR)에 따른 권리가 있습니다. 데이터 요청은 아래 이메일 주소로 연락하세요.",
+        accessTitle: "접근성",
+        accessText: "Neve26은 접근성을 위해 노력합니다. 모든 능력의 사용자가 콘텐츠에 접근할 수 있도록 WCAG AAA 표준을 충족하도록 앱과 웹사이트를 설계합니다. 접근성 장벽을 발견하면 문의하세요.",
+        prohibitedTitle: "금지된 사용",
+        prohibitedIntro: "귀하는 다음 행위를 하지 않기로 동의합니다:",
+        prohibitedCopy: "허가 없이 앱 콘텐츠를 복사, 수정 또는 배포",
+        prohibitedReverse: "앱의 리버스 엔지니어링 또는 소스 코드 추출 시도",
+        prohibitedMisuse: "불법적인 목적으로 앱 사용",
+        prohibitedInterfere: "앱 또는 서버 방해 또는 중단",
+        disclaimerTitle: "면책 조항",
+        disclaimerText: "Neve26은 어떠한 종류의 보증도 없이 \"있는 그대로\" 제공됩니다. 중단 없는 또는 오류 없는 서비스를 보장하지 않습니다. 법이 허용하는 최대 범위 내에서 당사는 모든 보증을 부인하며 앱 사용으로 인한 손해에 대해 책임지지 않습니다.",
+        changesTitle: "본 약관의 변경",
+        changesText: "당사는 본 서비스 약관을 수시로 업데이트할 수 있습니다. 변경 사항은 업데이트된 수정 날짜와 함께 이 페이지에 게시됩니다. 변경 후 Neve26을 계속 사용하면 새 약관에 동의한 것으로 간주됩니다.",
+        contactTitle: "문의하기",
+        contactText: "본 서비스 약관에 대한 질문은 다음으로 연락하세요:",
+        home: "홈",
+        privacy: "개인정보",
+        support: "지원",
+        skipToContent: "콘텐츠로 건너뛰기",
+        selectLanguage: "언어 선택"
+      }
+    };
+
+    const rtlLangs = ['ar'];
+    let currentLang = 'en';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      const t = translations[lang] || translations.en;
+
+      document.documentElement.lang = lang;
+      document.documentElement.dir = rtlLangs.includes(lang) ? 'rtl' : 'ltr';
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key]) {
+          // Handle elements with HTML content (like <strong>)
+          if (el.innerHTML.includes('<strong>')) {
+            el.innerHTML = t[key].replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+          } else {
+            el.textContent = t[key];
+          }
+        }
+      });
+
+      localStorage.setItem('neve26_lang', lang);
+    }
+
+    // Detect language
+    const savedLang = localStorage.getItem('neve26_lang');
+    const browserLang = navigator.language.split('-')[0];
+    const detectedLang = savedLang || (translations[browserLang] ? browserLang : 'en');
+
+    document.getElementById('langSelect').value = detectedLang;
+    setLanguage(detectedLang);
+
+    document.getElementById('langSelect').addEventListener('change', (e) => {
+      setLanguage(e.target.value);
+    });
+  </script>
+</body>
+</html>

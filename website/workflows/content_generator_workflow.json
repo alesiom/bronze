@@ -1,0 +1,279 @@
+{
+  "name": "Neve26 Content Generator",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 15
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Check RSS Every 15min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.feed_url }}",
+        "options": {}
+      },
+      "id": "rss-read",
+      "name": "Read RSS Feed",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "legal-check",
+              "leftValue": "={{ $json.title + ' ' + $json.content }}",
+              "rightValue": "olympic|olympics|olympiad|milano cortina 2026|winter games 2026|paralympic",
+              "operator": {
+                "type": "string",
+                "operation": "notRegex"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "legal-filter",
+      "name": "Legal Compliance Filter",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [440, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "anthropicApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 4096,\n  \"system\": \"You are a winter sports journalist writing for Neve26, an independent winter sports news website.\\n\\nBRAND IDENTITY:\\n- Independent, ad-free, privacy-first winter sports coverage\\n- WCAG AAA accessible (write clearly, avoid complex jargon)\\n- Focus on World Cup events and athlete stories\\n\\nCRITICAL LEGAL RULES - NEVER VIOLATE:\\n- NEVER use: Olympic, Olympics, Olympiad, Paralympic\\n- NEVER use: Milano Cortina 2026, Winter Games 2026\\n- NEVER use: going for gold, medal hopes, Team USA/Italy\\n- NEVER reference the February 2026 event in Italy by name\\n\\nWRITING STYLE:\\n- Clear, accessible language\\n- Short paragraphs (2-3 sentences max)\\n- Active voice preferred\\n- Include relevant statistics\\n- Engaging but factual tone\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Write an original news article based on this source:\\n\\nTitle: \" + $json.title + \"\\nContent: \" + ($json.content || $json.contentSnippet || \"\") + \"\\nSource: \" + $json.link + \"\\nDate: \" + $json.pubDate + \"\\n\\nCreate a JSON response with:\\n1. title: SEO-optimized title (max 60 chars)\\n2. slug: URL-friendly slug\\n3. meta_description: (max 155 chars)\\n4. category: one of [alpine-skiing, biathlon, cross-country, figure-skating, ice-hockey, winter-sports]\\n5. content: Full article HTML (600-800 words) with <h2>, <p>, <strong> tags\\n6. reading_time: estimated minutes\\n\\nRespond ONLY with valid JSON.\"\n    }\n  ]\n}) }}"
+      },
+      "id": "claude-generate",
+      "name": "Generate Article (Claude)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [660, 0],
+      "credentials": {
+        "anthropicApi": {
+          "id": "anthropic-api",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse Claude response and prepare for translation\nconst response = JSON.parse($input.first().json.content[0].text);\n\nconst languages = ['de', 'fr', 'it', 'es', 'pt', 'nl', 'ar', 'ja', 'zh', 'ko'];\n\nreturn languages.map(lang => ({\n  json: {\n    target_lang: lang,\n    original: response,\n    source_title: response.title,\n    source_content: response.content,\n    source_description: response.meta_description\n  }\n}));"
+      },
+      "id": "prepare-translations",
+      "name": "Prepare Translation Batches",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [880, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "anthropicApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 4096,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Translate this article to \" + $json.target_lang + \".\\n\\nORIGINAL:\\nTitle: \" + $json.source_title + \"\\nDescription: \" + $json.source_description + \"\\nContent: \" + $json.source_content + \"\\n\\nRULES:\\n1. Keep exact HTML structure and tags\\n2. Keep athlete/venue names unchanged\\n3. Natural translation, not literal\\n4. For Arabic: prepare for RTL\\n\\nRespond with JSON: {title, description, content}\"\n    }\n  ]\n}) }}"
+      },
+      "id": "claude-translate",
+      "name": "Translate Article",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1100, 0],
+      "credentials": {
+        "anthropicApi": {
+          "id": "anthropic-api",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Aggregate all translations and generate HTML files\nconst items = $input.all();\nconst fs = require('fs');\n\n// Load template and locales\nconst template = `<!DOCTYPE html>\n<html lang=\"{{LANG}}\" dir=\"{{DIR}}\">\n<!-- Template content loaded from file -->\n</html>`;\n\nconst locales = {\n  en: { dir: 'ltr', lang_path: '' },\n  de: { dir: 'ltr', lang_path: 'de/' },\n  fr: { dir: 'ltr', lang_path: 'fr/' },\n  it: { dir: 'ltr', lang_path: 'it/' },\n  es: { dir: 'ltr', lang_path: 'es/' },\n  pt: { dir: 'ltr', lang_path: 'pt/' },\n  nl: { dir: 'ltr', lang_path: 'nl/' },\n  ar: { dir: 'rtl', lang_path: 'ar/' },\n  ja: { dir: 'ltr', lang_path: 'ja/' },\n  zh: { dir: 'ltr', lang_path: 'zh/' },\n  ko: { dir: 'ltr', lang_path: 'ko/' }\n};\n\nconst files = [];\n\n// Process each translation\nfor (const item of items) {\n  const lang = item.json.target_lang;\n  const translation = JSON.parse(item.json.content[0].text);\n  const original = item.json.original;\n  \n  files.push({\n    lang: lang,\n    path: locales[lang].lang_path + original.slug + '/index.html',\n    title: translation.title,\n    content: translation.content,\n    description: translation.description,\n    slug: original.slug,\n    category: original.category,\n    reading_time: original.reading_time\n  });\n}\n\n// Add English version\nconst englishOriginal = items[0].json.original;\nfiles.unshift({\n  lang: 'en',\n  path: englishOriginal.slug + '/index.html',\n  title: englishOriginal.title,\n  content: englishOriginal.content,\n  description: englishOriginal.meta_description,\n  slug: englishOriginal.slug,\n  category: englishOriginal.category,\n  reading_time: englishOriginal.reading_time\n});\n\nreturn files.map(f => ({ json: f }));"
+      },
+      "id": "aggregate-files",
+      "name": "Generate HTML Files",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1320, 0]
+    },
+    {
+      "parameters": {
+        "authentication": "privateKey",
+        "resource": "file",
+        "operation": "upload",
+        "path": "=/var/www/neve26.com/{{ $json.path }}",
+        "binaryPropertyName": "data"
+      },
+      "id": "sftp-deploy",
+      "name": "Deploy to VPS",
+      "type": "n8n-nodes-base.ssh",
+      "typeVersion": 1,
+      "position": [1540, 0],
+      "credentials": {
+        "sshPrivateKey": {
+          "id": "ssh-neve26",
+          "name": "Neve26 VPS SSH"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Neve26 Content Generator Workflow\n\n### Flow:\n1. **Schedule Trigger** - Every 15 minutes\n2. **RSS Read** - Fetch winter sports feeds\n3. **Legal Filter** - Block Olympic terms\n4. **Claude Generate** - Create original article\n5. **Prepare Batches** - Split for 10 translations\n6. **Claude Translate** - Translate to each language\n7. **Generate HTML** - Create files from template\n8. **Deploy** - SFTP to VPS\n\n### Required Credentials:\n- Anthropic API key\n- SSH private key for VPS",
+        "height": 340,
+        "width": 320
+      },
+      "id": "sticky-note",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-300, -100]
+    }
+  ],
+  "connections": {
+    "Check RSS Every 15min": {
+      "main": [
+        [
+          {
+            "node": "Read RSS Feed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read RSS Feed": {
+      "main": [
+        [
+          {
+            "node": "Legal Compliance Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Legal Compliance Filter": {
+      "main": [
+        [
+          {
+            "node": "Generate Article (Claude)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Article (Claude)": {
+      "main": [
+        [
+          {
+            "node": "Prepare Translation Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Translation Batches": {
+      "main": [
+        [
+          {
+            "node": "Translate Article",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Translate Article": {
+      "main": [
+        [
+          {
+            "node": "Generate HTML Files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate HTML Files": {
+      "main": [
+        [
+          {
+            "node": "Deploy to VPS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "content",
+      "id": "content-tag"
+    },
+    {
+      "name": "automation",
+      "id": "automation-tag"
+    }
+  ],
+  "pinData": {},
+  "versionId": "1"
+}
