@@ -55,3 +55,8 @@ web-build/
 dist/
 *.hprof
 Admin/
+.mcp.json
+
+# Local development
+.claude/
+.playwright-mcp/

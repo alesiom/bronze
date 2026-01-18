@@ -1,0 +1,369 @@
+{
+  "name": "FIS Article Generator",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 5
+            }
+          ]
+        }
+      },
+      "id": "cron-trigger",
+      "name": "Race Day Cron",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [0, 0],
+      "notes": "Runs every 5 minutes. Disable on non-race days."
+    },
+    {
+      "parameters": {
+        "url": "=https://www.fis-ski.com/DB/general/results.html?sectorcode=AL&raceid={{ $json.race_id }}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        },
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Neve26-Bot/1.0 (news aggregator; hello@neve26.com)"
+            }
+          ]
+        }
+      },
+      "id": "fetch-fis-results",
+      "name": "Fetch FIS Results",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse FIS results HTML\nconst html = $input.first().json.body;\n\n// Extract window.fisProperties metadata\nconst metadataMatch = html.match(/window\\.fisProperties\\s*=\\s*({[^}]+})/s);\nlet metadata = {};\nif (metadataMatch) {\n  try {\n    metadata = JSON.parse(metadataMatch[1]);\n  } catch (e) {\n    metadata = { error: 'Failed to parse metadata' };\n  }\n}\n\n// Simple regex extraction for results table\n// Format: Rank, Name, Nation, Run1, Run2, Total, Diff\nconst results = [];\nconst rowPattern = /<tr[^>]*>\\s*<td[^>]*>\\s*(\\d+|DNF|DNS|DSQ)\\s*<\\/td>.*?<td[^>]*>.*?<a[^>]*>([^<]+)<\\/a>.*?<td[^>]*>\\s*(\\w{3})\\s*<\\/td>.*?<td[^>]*>\\s*([\\d:.]+)\\s*<\\/td>.*?<td[^>]*>\\s*([\\d:.]+)\\s*<\\/td>.*?<td[^>]*>\\s*([\\d:.]+)\\s*<\\/td>.*?<td[^>]*>\\s*([+\\d.]+|—)\\s*<\\/td>/gs;\n\nlet match;\nwhile ((match = rowPattern.exec(html)) !== null) {\n  results.push({\n    rank: match[1],\n    name: match[2].trim(),\n    nation: match[3],\n    run1: match[4],\n    run2: match[5],\n    total: match[6],\n    diff: match[7]\n  });\n}\n\n// Generate content hash for change detection\nconst crypto = require('crypto');\nconst contentHash = crypto.createHash('md5').update(JSON.stringify(results)).digest('hex');\n\nreturn {\n  metadata,\n  results,\n  contentHash,\n  resultCount: results.length,\n  winner: results[0] || null,\n  podium: results.slice(0, 3),\n  fetchedAt: new Date().toISOString()\n};"
+      },
+      "id": "parse-results",
+      "name": "Parse FIS HTML",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [440, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-results",
+              "leftValue": "={{ $json.resultCount }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "check-has-results",
+      "name": "Has Results?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [660, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "={{ $credentials.anthropicApiKey }}"
+            },
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 2000,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Write a news article about this FIS Alpine Skiing World Cup race result.\\n\\nRACE DATA:\\n{{ JSON.stringify($json.podium) }}\\n\\nWINNER: {{ $json.winner.name }} ({{ $json.winner.nation }}) - {{ $json.winner.total }}\\n\\nRULES:\\n1. Write in English, 200-300 words\\n2. Focus on the winner and podium\\n3. Include specific times and margins\\n4. NEVER use these banned terms: Olympic, Olympics, Milano Cortina 2026, Winter Games 2026, going for gold, Team USA, Team Italy\\n5. Use only: FIS World Cup, Alpine Skiing, athlete names, venue names\\n6. Professional sports journalism tone\\n7. Include a compelling headline\\n\\nFormat as JSON:\\n{\\n  \\\"headline\\\": \\\"...\\\",\\n  \\\"excerpt\\\": \\\"One sentence summary...\\\",\\n  \\\"content\\\": \\\"Full article HTML with <p> tags...\\\"\\n}\"\n    }\n  ]\n}"
+      },
+      "id": "claude-generate",
+      "name": "Generate Article (Claude)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [880, -100],
+      "notes": "Uses Claude API to generate article from race results"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse Claude response and extract article\nconst response = $input.first().json;\nconst content = response.content[0].text;\n\n// Parse the JSON from Claude's response\nlet article;\ntry {\n  // Find JSON in response (Claude sometimes adds explanation text)\n  const jsonMatch = content.match(/\\{[\\s\\S]*\\}/);\n  if (jsonMatch) {\n    article = JSON.parse(jsonMatch[0]);\n  } else {\n    throw new Error('No JSON found in response');\n  }\n} catch (e) {\n  return {\n    error: 'Failed to parse article JSON',\n    rawContent: content\n  };\n}\n\n// Legal blocklist check\nconst blocklist = [\n  'olympic', 'olympics', 'olympiad', 'olimpico', 'olimpiade',\n  'paralympic', 'paralimpico',\n  'milano cortina 2026', 'cortina 2026', 'milano 2026',\n  'winter games 2026', 'games of 2026', 'the games',\n  'going for gold', 'medal hopes',\n  'team usa', 'team italy', 'team canada', 'team france', 'team germany'\n];\n\nconst fullText = (article.headline + ' ' + article.excerpt + ' ' + article.content).toLowerCase();\nconst violations = blocklist.filter(term => fullText.includes(term));\n\nif (violations.length > 0) {\n  return {\n    error: 'LEGAL_VIOLATION',\n    violations,\n    article\n  };\n}\n\n// Generate slug from headline\nconst slug = article.headline\n  .toLowerCase()\n  .replace(/[^a-z0-9]+/g, '-')\n  .replace(/^-|-$/g, '')\n  .substring(0, 80);\n\nreturn {\n  slug,\n  headline: article.headline,\n  excerpt: article.excerpt,\n  content: article.content,\n  category: 'alpine-skiing',\n  sport_code: 'ALP',\n  status: 'draft',\n  legalCheck: 'passed',\n  generatedAt: new Date().toISOString()\n};"
+      },
+      "id": "parse-and-validate",
+      "name": "Parse & Legal Check",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1100, -100]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "legal-check",
+              "leftValue": "={{ $json.legalCheck }}",
+              "rightValue": "passed",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "legal-gate",
+      "name": "Legal Check Passed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1320, -100]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.neve26.com/api/v1/articles",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"slug\": \"{{ $json.slug }}\",\n  \"title\": {\n    \"en\": \"{{ $json.headline }}\"\n  },\n  \"excerpt\": {\n    \"en\": \"{{ $json.excerpt }}\"\n  },\n  \"content\": {\n    \"en\": \"{{ $json.content }}\"\n  },\n  \"category\": \"{{ $json.category }}\",\n  \"sport_code\": \"{{ $json.sport_code }}\",\n  \"status\": \"draft\"\n}"
+      },
+      "id": "post-to-api",
+      "name": "Create Article in API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1540, -200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://n8n.neve26.com/webhook/translate-article",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"article_id\": \"{{ $json.id }}\",\n  \"slug\": \"{{ $json.slug }}\",\n  \"source_lang\": \"en\",\n  \"target_langs\": [\"de\", \"fr\", \"it\", \"es\", \"pt\", \"nl\", \"ar\", \"ja\", \"zh\", \"ko\"]\n}"
+      },
+      "id": "trigger-translation",
+      "name": "Trigger Translation Workflow",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1760, -200],
+      "notes": "Calls separate workflow to translate to 10 other languages"
+    },
+    {
+      "parameters": {
+        "content": "## FIS Article Generator Workflow\n\n**Purpose**: Automatically generate news articles from FIS World Cup race results\n\n**Trigger**: Every 5 minutes on race days\n\n**Process**:\n1. Fetch FIS results page\n2. Parse HTML for results table\n3. Generate article via Claude API\n4. Validate against legal blocklist\n5. Create article in Neve26 API\n6. Trigger translation workflow\n\n**Legal Blocklist**:\n- Olympic, Olympics, Milano Cortina 2026\n- Winter Games 2026, Team USA/Italy\n- Going for gold, medal hopes\n\n**Configuration Required**:\n- Set `race_id` in workflow variables\n- Add Anthropic API credentials\n- Add Neve26 API credentials",
+        "height": 400,
+        "width": 350
+      },
+      "id": "sticky-notes",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-300, -200]
+    },
+    {
+      "parameters": {
+        "content": "## Error Handling\n\nLegal violations are logged but article is NOT published.\n\nManual review required for:\n- Legal violations\n- Parse failures\n- Empty results",
+        "height": 200,
+        "width": 250,
+        "color": 5
+      },
+      "id": "error-notes",
+      "name": "Error Notes",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [1320, 100]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "error_type",
+              "value": "LEGAL_VIOLATION"
+            },
+            {
+              "name": "violations",
+              "value": "={{ $json.violations.join(', ') }}"
+            }
+          ]
+        }
+      },
+      "id": "log-legal-error",
+      "name": "Log Legal Violation",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [1540, 0],
+      "notes": "Log for manual review - do not auto-publish"
+    },
+    {
+      "parameters": {},
+      "id": "no-results-stop",
+      "name": "No Results - Stop",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [880, 100],
+      "notes": "Race not finished or no data available"
+    }
+  ],
+  "connections": {
+    "Race Day Cron": {
+      "main": [
+        [
+          {
+            "node": "Fetch FIS Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch FIS Results": {
+      "main": [
+        [
+          {
+            "node": "Parse FIS HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse FIS HTML": {
+      "main": [
+        [
+          {
+            "node": "Has Results?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Results?": {
+      "main": [
+        [
+          {
+            "node": "Generate Article (Claude)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Results - Stop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Article (Claude)": {
+      "main": [
+        [
+          {
+            "node": "Parse & Legal Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse & Legal Check": {
+      "main": [
+        [
+          {
+            "node": "Legal Check Passed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Legal Check Passed?": {
+      "main": [
+        [
+          {
+            "node": "Create Article in API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log Legal Violation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Article in API": {
+      "main": [
+        [
+          {
+            "node": "Trigger Translation Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "neve26",
+      "id": "1"
+    },
+    {
+      "name": "fis",
+      "id": "2"
+    },
+    {
+      "name": "articles",
+      "id": "3"
+    }
+  ],
+  "triggerCount": 1,
+  "pinData": {}
+}

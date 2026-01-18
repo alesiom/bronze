@@ -1,0 +1,166 @@
+{
+  "name": "Article HTML Generator",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "generate-html",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook - Article Created",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "generate-html"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://api.neve26.com/api/v1/articles/{{ $json.slug }}",
+        "options": {}
+      },
+      "id": "fetch-article",
+      "name": "Fetch Article from API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Define all 11 languages\nconst languages = [\n  { code: 'en', name: 'English', dir: 'ltr', path: '' },\n  { code: 'de', name: 'Deutsch', dir: 'ltr', path: 'de/' },\n  { code: 'fr', name: 'Français', dir: 'ltr', path: 'fr/' },\n  { code: 'it', name: 'Italiano', dir: 'ltr', path: 'it/' },\n  { code: 'es', name: 'Español', dir: 'ltr', path: 'es/' },\n  { code: 'pt', name: 'Português', dir: 'ltr', path: 'pt/' },\n  { code: 'nl', name: 'Nederlands', dir: 'ltr', path: 'nl/' },\n  { code: 'ar', name: 'العربية', dir: 'rtl', path: 'ar/' },\n  { code: 'ja', name: '日本語', dir: 'ltr', path: 'ja/' },\n  { code: 'zh', name: '中文', dir: 'ltr', path: 'zh/' },\n  { code: 'ko', name: '한국어', dir: 'ltr', path: 'ko/' }\n];\n\nconst article = $input.first().json;\nconst output = [];\n\nfor (const lang of languages) {\n  output.push({\n    json: {\n      ...article,\n      langCode: lang.code,\n      langName: lang.name,\n      langDir: lang.dir,\n      langPath: lang.path\n    }\n  });\n}\n\nreturn output;"
+      },
+      "id": "split-languages",
+      "name": "Split into Languages",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// UI translations for each language\nconst uiStrings = {\n  en: {\n    skipLink: 'Skip to main content',\n    navLabel: 'Main navigation',\n    navNews: 'News',\n    navAlpine: 'Alpine',\n    navBiathlon: 'Biathlon',\n    navAthletes: 'Athletes',\n    navApp: 'Get App',\n    selectLang: 'Select language',\n    appBannerTitle: 'Never Miss a Race Start',\n    appBannerText: 'Get push notifications for your favorite athletes and events.',\n    appBannerCta: 'Get the App',\n    footerApp: 'Get App',\n    footerPrivacy: 'Privacy Policy',\n    footerSupport: 'Support',\n    footerDisclaimer: 'Independent winter sports coverage.',\n    readingTime: '{min} min read'\n  },\n  de: {\n    skipLink: 'Zum Hauptinhalt springen',\n    navLabel: 'Hauptnavigation',\n    navNews: 'Nachrichten',\n    navAlpine: 'Ski Alpin',\n    navBiathlon: 'Biathlon',\n    navAthletes: 'Athleten',\n    navApp: 'App laden',\n    selectLang: 'Sprache wählen',\n    appBannerTitle: 'Keinen Rennstart verpassen',\n    appBannerText: 'Push-Benachrichtigungen für Ihre Lieblings-Athleten und Events.',\n    appBannerCta: 'App laden',\n    footerApp: 'App laden',\n    footerPrivacy: 'Datenschutz',\n    footerSupport: 'Support',\n    footerDisclaimer: 'Unabhängige Wintersport-Berichterstattung.',\n    readingTime: '{min} Min. Lesezeit'\n  },\n  fr: {\n    skipLink: 'Aller au contenu principal',\n    navLabel: 'Navigation principale',\n    navNews: 'Actualités',\n    navAlpine: 'Ski Alpin',\n    navBiathlon: 'Biathlon',\n    navAthletes: 'Athlètes',\n    navApp: 'Télécharger',\n    selectLang: 'Choisir la langue',\n    appBannerTitle: 'Ne manquez aucun départ',\n    appBannerText: 'Notifications push pour vos athlètes et événements favoris.',\n    appBannerCta: \"Télécharger l'app\",\n    footerApp: 'Télécharger',\n    footerPrivacy: 'Confidentialité',\n    footerSupport: 'Assistance',\n    footerDisclaimer: \"Couverture indépendante des sports d'hiver.\",\n    readingTime: '{min} min de lecture'\n  },\n  it: {\n    skipLink: 'Vai al contenuto principale',\n    navLabel: 'Navigazione principale',\n    navNews: 'Notizie',\n    navAlpine: 'Sci Alpino',\n    navBiathlon: 'Biathlon',\n    navAthletes: 'Atleti',\n    navApp: 'Scarica App',\n    selectLang: 'Seleziona lingua',\n    appBannerTitle: 'Non perdere mai una partenza',\n    appBannerText: 'Notifiche push per i tuoi atleti ed eventi preferiti.',\n    appBannerCta: \"Scarica l'App\",\n    footerApp: 'Scarica App',\n    footerPrivacy: 'Privacy',\n    footerSupport: 'Supporto',\n    footerDisclaimer: 'Copertura indipendente degli sport invernali.',\n    readingTime: '{min} min di lettura'\n  },\n  es: {\n    skipLink: 'Ir al contenido principal',\n    navLabel: 'Navegación principal',\n    navNews: 'Noticias',\n    navAlpine: 'Esquí Alpino',\n    navBiathlon: 'Biatlón',\n    navAthletes: 'Atletas',\n    navApp: 'Descargar App',\n    selectLang: 'Seleccionar idioma',\n    appBannerTitle: 'No te pierdas ninguna salida',\n    appBannerText: 'Notificaciones push para tus atletas y eventos favoritos.',\n    appBannerCta: 'Descargar App',\n    footerApp: 'Descargar App',\n    footerPrivacy: 'Privacidad',\n    footerSupport: 'Soporte',\n    footerDisclaimer: 'Cobertura independiente de deportes de invierno.',\n    readingTime: '{min} min de lectura'\n  },\n  pt: {\n    skipLink: 'Ir para o conteúdo principal',\n    navLabel: 'Navegação principal',\n    navNews: 'Notícias',\n    navAlpine: 'Esqui Alpino',\n    navBiathlon: 'Biatlo',\n    navAthletes: 'Atletas',\n    navApp: 'Baixar App',\n    selectLang: 'Selecionar idioma',\n    appBannerTitle: 'Nunca perca uma largada',\n    appBannerText: 'Notificações push para seus atletas e eventos favoritos.',\n    appBannerCta: 'Baixar App',\n    footerApp: 'Baixar App',\n    footerPrivacy: 'Privacidade',\n    footerSupport: 'Suporte',\n    footerDisclaimer: 'Cobertura independente de esportes de inverno.',\n    readingTime: '{min} min de leitura'\n  },\n  nl: {\n    skipLink: 'Ga naar hoofdinhoud',\n    navLabel: 'Hoofdnavigatie',\n    navNews: 'Nieuws',\n    navAlpine: 'Alpineskiën',\n    navBiathlon: 'Biathlon',\n    navAthletes: 'Atleten',\n    navApp: 'Download App',\n    selectLang: 'Selecteer taal',\n    appBannerTitle: 'Mis nooit een starttijd',\n    appBannerText: 'Push-meldingen voor je favoriete atleten en evenementen.',\n    appBannerCta: 'Download App',\n    footerApp: 'Download App',\n    footerPrivacy: 'Privacy',\n    footerSupport: 'Ondersteuning',\n    footerDisclaimer: 'Onafhankelijke wintersport coverage.',\n    readingTime: '{min} min leestijd'\n  },\n  ar: {\n    skipLink: 'انتقل إلى المحتوى الرئيسي',\n    navLabel: 'التنقل الرئيسي',\n    navNews: 'الأخبار',\n    navAlpine: 'التزلج',\n    navBiathlon: 'البياتلون',\n    navAthletes: 'الرياضيون',\n    navApp: 'تحميل التطبيق',\n    selectLang: 'اختر اللغة',\n    appBannerTitle: 'لا تفوت أي انطلاقة',\n    appBannerText: 'إشعارات فورية للرياضيين والأحداث المفضلة لديك.',\n    appBannerCta: 'تحميل التطبيق',\n    footerApp: 'تحميل التطبيق',\n    footerPrivacy: 'الخصوصية',\n    footerSupport: 'الدعم',\n    footerDisclaimer: 'تغطية مستقلة للرياضات الشتوية.',\n    readingTime: '{min} دقائق للقراءة'\n  },\n  ja: {\n    skipLink: 'メインコンテンツへスキップ',\n    navLabel: 'メインナビゲーション',\n    navNews: 'ニュース',\n    navAlpine: 'アルペン',\n    navBiathlon: 'バイアスロン',\n    navAthletes: '選手',\n    navApp: 'アプリを入手',\n    selectLang: '言語を選択',\n    appBannerTitle: 'スタートを見逃さない',\n    appBannerText: 'お気に入りの選手とイベントのプッシュ通知を受け取る。',\n    appBannerCta: 'アプリを入手',\n    footerApp: 'アプリを入手',\n    footerPrivacy: 'プライバシー',\n    footerSupport: 'サポート',\n    footerDisclaimer: '独立したウィンタースポーツ報道。',\n    readingTime: '{min}分で読めます'\n  },\n  zh: {\n    skipLink: '跳至主要内容',\n    navLabel: '主导航',\n    navNews: '新闻',\n    navAlpine: '高山滑雪',\n    navBiathlon: '冬季两项',\n    navAthletes: '运动员',\n    navApp: '获取应用',\n    selectLang: '选择语言',\n    appBannerTitle: '不错过任何比赛开始',\n    appBannerText: '获取您喜爱的运动员和赛事的推送通知。',\n    appBannerCta: '获取应用',\n    footerApp: '获取应用',\n    footerPrivacy: '隐私政策',\n    footerSupport: '支持',\n    footerDisclaimer: '独立冬季运动报道。',\n    readingTime: '{min}分钟阅读'\n  },\n  ko: {\n    skipLink: '주요 콘텐츠로 건너뛰기',\n    navLabel: '메인 내비게이션',\n    navNews: '뉴스',\n    navAlpine: '알파인',\n    navBiathlon: '바이애슬론',\n    navAthletes: '선수',\n    navApp: '앱 다운로드',\n    selectLang: '언어 선택',\n    appBannerTitle: '경기 시작을 놓치지 마세요',\n    appBannerText: '좋아하는 선수와 이벤트의 푸시 알림을 받으세요.',\n    appBannerCta: '앱 다운로드',\n    footerApp: '앱 다운로드',\n    footerPrivacy: '개인정보 처리방침',\n    footerSupport: '지원',\n    footerDisclaimer: '독립적인 겨울 스포츠 보도.',\n    readingTime: '{min}분 소요'\n  }\n};\n\n// Category name translations\nconst categoryNames = {\n  'alpine-skiing': {\n    en: 'Alpine Skiing', de: 'Ski Alpin', fr: 'Ski Alpin', it: 'Sci Alpino',\n    es: 'Esquí Alpino', pt: 'Esqui Alpino', nl: 'Alpineskiën', ar: 'التزلج على المنحدرات',\n    ja: 'アルペンスキー', zh: '高山滑雪', ko: '알파인 스키'\n  },\n  'biathlon': {\n    en: 'Biathlon', de: 'Biathlon', fr: 'Biathlon', it: 'Biathlon',\n    es: 'Biatlón', pt: 'Biatlo', nl: 'Biathlon', ar: 'البياتلون',\n    ja: 'バイアスロン', zh: '冬季两项', ko: '바이애슬론'\n  },\n  'cross-country': {\n    en: 'Cross-Country', de: 'Langlauf', fr: 'Ski de fond', it: 'Sci di fondo',\n    es: 'Esquí de fondo', pt: 'Esqui cross-country', nl: 'Langlaufen', ar: 'التزلج الريفي',\n    ja: 'クロスカントリー', zh: '越野滑雪', ko: '크로스컨트리'\n  },\n  'athletes': {\n    en: 'Athletes', de: 'Athleten', fr: 'Athlètes', it: 'Atleti',\n    es: 'Atletas', pt: 'Atletas', nl: 'Atleten', ar: 'الرياضيون',\n    ja: '選手', zh: '运动员', ko: '선수'\n  }\n};\n\nconst article = $input.first().json;\nconst lang = article.langCode;\nconst ui = uiStrings[lang] || uiStrings.en;\n\n// Extract content for this language\nconst title = article.title[lang] || article.title.en;\nconst excerpt = article.excerpt?.[lang] || article.excerpt?.en || '';\nconst content = article.content[lang] || article.content.en;\nconst metaDesc = article.meta_description?.[lang] || article.meta_description?.en || excerpt;\n\n// Get category name\nconst categoryName = categoryNames[article.category]?.[lang] || article.category;\n\n// Calculate reading time (rough estimate: 200 words per minute)\nconst wordCount = content.replace(/<[^>]*>/g, '').split(/\\s+/).length;\nconst readingMinutes = Math.max(1, Math.ceil(wordCount / 200));\nconst readingTime = ui.readingTime.replace('{min}', readingMinutes);\n\n// Format published date\nconst pubDate = new Date(article.published_at);\nconst dateFormatters = {\n  en: { month: 'long', day: 'numeric', year: 'numeric' },\n  de: { day: 'numeric', month: 'long', year: 'numeric' },\n  fr: { day: 'numeric', month: 'long', year: 'numeric' },\n  it: { day: 'numeric', month: 'long', year: 'numeric' },\n  es: { day: 'numeric', month: 'long', year: 'numeric' },\n  pt: { day: 'numeric', month: 'long', year: 'numeric' },\n  nl: { day: 'numeric', month: 'long', year: 'numeric' },\n  ar: { day: 'numeric', month: 'long', year: 'numeric' },\n  ja: { year: 'numeric', month: 'long', day: 'numeric' },\n  zh: { year: 'numeric', month: 'long', day: 'numeric' },\n  ko: { year: 'numeric', month: 'long', day: 'numeric' }\n};\nconst publishedDate = pubDate.toLocaleDateString(lang, dateFormatters[lang] || dateFormatters.en);\n\n// Language selector\nconst langSelected = {};\n['en','de','fr','it','es','pt','nl','ar','ja','zh','ko'].forEach(l => {\n  langSelected[l] = l === lang ? 'selected' : '';\n});\n\nreturn {\n  json: {\n    slug: article.slug,\n    lang: lang,\n    langPath: article.langPath,\n    dir: article.langDir,\n    outputPath: article.langPath ? `${article.langPath}${article.slug}/index.html` : `${article.slug}/index.html`,\n    \n    // Article content\n    title: title,\n    excerpt: excerpt,\n    content: content,\n    metaDescription: metaDesc,\n    publishedISO: article.published_at,\n    publishedDate: publishedDate,\n    readingTime: readingTime,\n    \n    // Category\n    category: article.category,\n    categoryName: categoryName,\n    \n    // Structured data\n    structuredData: JSON.stringify(article.structured_data || {}, null, 2),\n    \n    // UI strings\n    ui: ui,\n    \n    // Language selector states\n    langSelected: langSelected\n  }\n};"
+      },
+      "id": "prepare-template-data",
+      "name": "Prepare Template Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// HTML Template - Read from file or use inline\nconst template = `<!DOCTYPE html>\n<html lang=\"{{lang}}\" dir=\"{{dir}}\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>{{title}} - Neve26</title>\n  <meta name=\"description\" content=\"{{metaDescription}}\">\n  <meta property=\"og:title\" content=\"{{title}}\">\n  <meta property=\"og:description\" content=\"{{excerpt}}\">\n  <meta property=\"og:type\" content=\"article\">\n  <meta property=\"og:url\" content=\"https://neve26.com/{{langPath}}{{slug}}/\">\n  <meta property=\"og:site_name\" content=\"Neve26\">\n  <meta property=\"article:published_time\" content=\"{{publishedISO}}\">\n  <meta name=\"twitter:card\" content=\"summary_large_image\">\n  <meta name=\"twitter:site\" content=\"@neve2026\">\n  <link rel=\"canonical\" href=\"https://neve26.com/{{langPath}}{{slug}}/\">\n  <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon-32.png\">\n  <link rel=\"icon\" type=\"image/png\" sizes=\"64x64\" href=\"/favicon-64.png\">\n  <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/apple-touch-icon.png\">\n  <script type=\"application/ld+json\">{{structuredData}}</script>\n  <style>\n    :root{--color-bg:#0a1628;--color-bg-elevated:#0f1f35;--color-bg-card:#152238;--color-text:#fff;--color-text-secondary:#c4d1e0;--color-accent:#5ba3e0;--color-accent-hover:#7bb8eb;--color-border:#2a3f5f;--focus-outline:3px solid #5ba3e0;--max-width:1200px;--content-width:720px}*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{font-size:100%;scroll-behavior:smooth}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:var(--color-bg);color:var(--color-text);line-height:1.6;min-height:100vh}.skip-link{position:absolute;top:-100%;left:50%;transform:translateX(-50%);background:var(--color-accent);color:var(--color-bg);padding:.5rem 1.5rem;border-radius:0 0 8px 8px;font-weight:600;text-decoration:none;z-index:9999}.skip-link:focus{top:0;outline:var(--focus-outline)}.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}a:focus,button:focus,select:focus{outline:var(--focus-outline);outline-offset:2px}.site-header{background:var(--color-bg-elevated);border-bottom:1px solid var(--color-border);padding:1rem 1.5rem;position:sticky;top:0;z-index:100}.header-container{max-width:var(--max-width);margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}.site-logo{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--color-text)}.site-logo img{width:40px;height:40px;border-radius:8px}.site-logo span{font-size:1.5rem;font-weight:700}.header-nav{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}.nav-links{display:flex;list-style:none;gap:1rem}.nav-links a{color:var(--color-text-secondary);text-decoration:none;padding:.25rem .5rem;border-radius:4px;transition:color .2s}.nav-links a:hover{color:var(--color-text)}.lang-selector{background:var(--color-bg-card);border:1px solid var(--color-border);color:var(--color-text);padding:.5rem 1rem;border-radius:6px;font-size:1rem;cursor:pointer}main{max-width:var(--max-width);margin:0 auto;padding:2rem 1.5rem}.article-container{max-width:var(--content-width);margin:0 auto}.breadcrumb{margin-bottom:1.5rem;font-size:.9rem}.breadcrumb a{color:var(--color-accent);text-decoration:none}.breadcrumb a:hover{text-decoration:underline}.breadcrumb span{color:var(--color-text-secondary)}.article-header{margin-bottom:2rem}.category-tag{display:inline-block;background:var(--color-accent);color:var(--color-bg);padding:.25rem .75rem;border-radius:4px;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:1rem}.article-title{font-size:2.5rem;font-weight:700;line-height:1.2;margin-bottom:1rem}.article-meta{display:flex;flex-wrap:wrap;gap:1rem;color:var(--color-text-secondary);font-size:.95rem}.article-content{font-size:1.125rem;line-height:1.8}.article-content p{margin-bottom:1.5rem}.article-content h2{font-size:1.75rem;margin-top:2.5rem;margin-bottom:1rem}.article-content h3{font-size:1.4rem;margin-top:2rem;margin-bottom:.75rem}.article-content a{color:var(--color-accent);text-decoration:underline}.article-content strong{font-weight:600}.article-content ul,.article-content ol{margin-bottom:1.5rem;padding-left:1.5rem}.article-content li{margin-bottom:.5rem}.article-content blockquote{border-left:4px solid var(--color-accent);padding-left:1.5rem;margin:1.5rem 0;font-style:italic;color:var(--color-text-secondary)}.app-banner{background:linear-gradient(135deg,var(--color-bg-card) 0%,var(--color-bg-elevated) 100%);border:1px solid var(--color-border);border-radius:12px;padding:2rem;text-align:center;margin-top:3rem}.app-banner h2{font-size:1.25rem;margin-bottom:.5rem}.app-banner p{color:var(--color-text-secondary);margin-bottom:1rem}.app-link{display:inline-block;background:var(--color-accent);color:var(--color-bg);padding:.75rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:600;transition:background .2s}.app-link:hover{background:var(--color-accent-hover)}.site-footer{background:var(--color-bg-elevated);border-top:1px solid var(--color-border);padding:2rem 1.5rem;margin-top:3rem}.footer-container{max-width:var(--max-width);margin:0 auto}.footer-links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:1rem}.footer-links a{color:var(--color-text-secondary);text-decoration:none;font-size:.9rem}.footer-links a:hover{color:var(--color-text)}.copyright{text-align:center;color:var(--color-text-secondary);font-size:.85rem}html[dir=\"rtl\"]{direction:rtl}html[dir=\"rtl\"] .article-content blockquote{border-left:none;border-right:4px solid var(--color-accent);padding-left:0;padding-right:1.5rem}@media(max-width:768px){.article-title{font-size:1.75rem}.article-content{font-size:1rem}.nav-links{display:none}.header-nav{width:100%;justify-content:flex-end}}@media(prefers-contrast:high){:root{--color-bg:#000;--color-bg-elevated:#000;--color-bg-card:#1a1a1a;--color-text:#fff;--color-text-secondary:#fff;--color-border:#fff}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}html{scroll-behavior:auto}}@media print{.site-header,.app-banner,.site-footer,.lang-selector{display:none}body{background:#fff;color:#000}}\n  </style>\n</head>\n<body>\n  <a href=\"#main-content\" class=\"skip-link\">{{ui.skipLink}}</a>\n  <header class=\"site-header\" role=\"banner\">\n    <div class=\"header-container\">\n      <a href=\"/{{langPath}}\" class=\"site-logo\" aria-label=\"Neve26 Home\">\n        <img src=\"/logo-128.png\" alt=\"\" width=\"40\" height=\"40\">\n        <span>Neve26</span>\n      </a>\n      <nav class=\"header-nav\" aria-label=\"{{ui.navLabel}}\">\n        <ul class=\"nav-links\">\n          <li><a href=\"/{{langPath}}\">{{ui.navNews}}</a></li>\n          <li><a href=\"/{{langPath}}alpine-skiing/\">{{ui.navAlpine}}</a></li>\n          <li><a href=\"/{{langPath}}biathlon/\">{{ui.navBiathlon}}</a></li>\n          <li><a href=\"/{{langPath}}athletes/\">{{ui.navAthletes}}</a></li>\n          <li><a href=\"/app\">{{ui.navApp}}</a></li>\n        </ul>\n        <label for=\"langSelect\" class=\"visually-hidden\">{{ui.selectLang}}</label>\n        <select class=\"lang-selector\" id=\"langSelect\" aria-label=\"{{ui.selectLang}}\">\n          <option value=\"en\" {{langSelected.en}}>English</option>\n          <option value=\"de\" {{langSelected.de}}>Deutsch</option>\n          <option value=\"fr\" {{langSelected.fr}}>Français</option>\n          <option value=\"it\" {{langSelected.it}}>Italiano</option>\n          <option value=\"es\" {{langSelected.es}}>Español</option>\n          <option value=\"pt\" {{langSelected.pt}}>Português</option>\n          <option value=\"nl\" {{langSelected.nl}}>Nederlands</option>\n          <option value=\"ar\" {{langSelected.ar}}>العربية</option>\n          <option value=\"ja\" {{langSelected.ja}}>日本語</option>\n          <option value=\"zh\" {{langSelected.zh}}>中文</option>\n          <option value=\"ko\" {{langSelected.ko}}>한국어</option>\n        </select>\n      </nav>\n    </div>\n  </header>\n  <main id=\"main-content\" role=\"main\">\n    <article class=\"article-container\">\n      <nav class=\"breadcrumb\" aria-label=\"Breadcrumb\">\n        <a href=\"/{{langPath}}\">{{ui.navNews}}</a>\n        <span aria-hidden=\"true\"> › </span>\n        <a href=\"/{{langPath}}{{category}}/\">{{categoryName}}</a>\n        <span aria-hidden=\"true\"> › </span>\n        <span aria-current=\"page\">{{title}}</span>\n      </nav>\n      <header class=\"article-header\">\n        <span class=\"category-tag\">{{categoryName}}</span>\n        <h1 class=\"article-title\">{{title}}</h1>\n        <div class=\"article-meta\">\n          <time datetime=\"{{publishedISO}}\">{{publishedDate}}</time>\n          <span>{{readingTime}}</span>\n        </div>\n      </header>\n      <div class=\"article-content\">{{content}}</div>\n      <aside class=\"app-banner\">\n        <h2>{{ui.appBannerTitle}}</h2>\n        <p>{{ui.appBannerText}}</p>\n        <a href=\"/app\" class=\"app-link\">{{ui.appBannerCta}}</a>\n      </aside>\n    </article>\n  </main>\n  <footer class=\"site-footer\" role=\"contentinfo\">\n    <div class=\"footer-container\">\n      <nav class=\"footer-links\" aria-label=\"Footer\">\n        <a href=\"/app\">{{ui.footerApp}}</a>\n        <a href=\"/privacy\">{{ui.footerPrivacy}}</a>\n        <a href=\"/support\">{{ui.footerSupport}}</a>\n        <a href=\"https://x.com/neve2026\" target=\"_blank\" rel=\"noopener noreferrer\">X @neve2026</a>\n        <a href=\"https://instagram.com/neve.2026\" target=\"_blank\" rel=\"noopener noreferrer\">Instagram</a>\n      </nav>\n      <p class=\"copyright\">© 2026 Neve26. {{ui.footerDisclaimer}}</p>\n    </div>\n  </footer>\n  <script>var _paq=window._paq=window._paq||[];_paq.push(['trackPageView']);_paq.push(['enableLinkTracking']);(function(){var u=\"//matomo.neve26.com/\";_paq.push(['setTrackerUrl',u+'matomo.php']);_paq.push(['setSiteId','1']);var d=document,g=d.createElement('script'),s=d.getElementsByTagName('script')[0];g.async=true;g.src=u+'matomo.js';s.parentNode.insertBefore(g,s);})();</script>\n  <script>document.getElementById('langSelect').addEventListener('change',function(e){var l=e.target.value,s='{{slug}}',p=l==='en'?'/'+s+'/':'/'+l+'/'+s+'/';window.location.href=p;});</script>\n</body>\n</html>`;\n\nconst data = $input.first().json;\n\n// Simple template replacement\nlet html = template;\n\n// Replace simple values\nhtml = html.replace(/\\{\\{lang\\}\\}/g, data.lang);\nhtml = html.replace(/\\{\\{dir\\}\\}/g, data.dir);\nhtml = html.replace(/\\{\\{slug\\}\\}/g, data.slug);\nhtml = html.replace(/\\{\\{langPath\\}\\}/g, data.langPath);\nhtml = html.replace(/\\{\\{title\\}\\}/g, data.title);\nhtml = html.replace(/\\{\\{excerpt\\}\\}/g, data.excerpt);\nhtml = html.replace(/\\{\\{metaDescription\\}\\}/g, data.metaDescription);\nhtml = html.replace(/\\{\\{publishedISO\\}\\}/g, data.publishedISO);\nhtml = html.replace(/\\{\\{publishedDate\\}\\}/g, data.publishedDate);\nhtml = html.replace(/\\{\\{readingTime\\}\\}/g, data.readingTime);\nhtml = html.replace(/\\{\\{category\\}\\}/g, data.category);\nhtml = html.replace(/\\{\\{categoryName\\}\\}/g, data.categoryName);\nhtml = html.replace(/\\{\\{structuredData\\}\\}/g, data.structuredData);\nhtml = html.replace(/\\{\\{content\\}\\}/g, data.content);\n\n// Replace UI strings\nfor (const [key, value] of Object.entries(data.ui)) {\n  html = html.replace(new RegExp(`\\\\{\\\\{ui\\\\.${key}\\\\}\\\\}`, 'g'), value);\n}\n\n// Replace language selected states\nfor (const [key, value] of Object.entries(data.langSelected)) {\n  html = html.replace(new RegExp(`\\\\{\\\\{langSelected\\\\.${key}\\\\}\\\\}`, 'g'), value);\n}\n\nreturn {\n  json: {\n    outputPath: data.outputPath,\n    html: html,\n    lang: data.lang,\n    slug: data.slug\n  }\n};"
+      },
+      "id": "generate-html",
+      "name": "Generate HTML",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 300]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=/var/www/neve26.com/{{ $json.outputPath }}",
+        "fileContent": "={{ $json.html }}",
+        "options": {}
+      },
+      "id": "write-file",
+      "name": "Write HTML File",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [1340, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ success: true, filesGenerated: $items().length, slug: $items()[0].json.slug }) }}"
+      },
+      "id": "respond-success",
+      "name": "Respond Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1560, 300]
+    }
+  ],
+  "connections": {
+    "Webhook - Article Created": {
+      "main": [
+        [
+          {
+            "node": "Fetch Article from API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Article from API": {
+      "main": [
+        [
+          {
+            "node": "Split into Languages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split into Languages": {
+      "main": [
+        [
+          {
+            "node": "Prepare Template Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Template Data": {
+      "main": [
+        [
+          {
+            "node": "Generate HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate HTML": {
+      "main": [
+        [
+          {
+            "node": "Write HTML File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write HTML File": {
+      "main": [
+        [
+          {
+            "node": "Respond Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "neve26",
+      "createdAt": "2026-01-08T12:00:00.000Z",
+      "updatedAt": "2026-01-08T12:00:00.000Z"
+    }
+  ],
+  "pinData": {},
+  "active": false
+}
