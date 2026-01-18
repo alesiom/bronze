@@ -5,6 +5,7 @@
   },
   "tabs": {
     "schedule": "Programma",
+    "news": "Notizie",
     "favorites": "Preferiti",
     "settings": "Impostazioni"
   },
@@ -122,7 +123,26 @@
   "time": {
     "hours": "{{count}}h",
     "minutes": "{{count}}m",
-    "justNow": "Adesso"
+    "justNow": "Adesso",
+    "hoursAgo": "{{count}}h fa",
+    "hoursAgo_one": "1h fa",
+    "yesterday": "Ieri",
+    "daysAgo": "{{count}} giorni fa",
+    "daysAgo_one": "1 giorno fa"
+  },
+  "news": {
+    "title": "Notizie",
+    "empty": "Nessun articolo ancora",
+    "emptyHint": "Torna più tardi per le ultime notizie sugli sport invernali",
+    "loading": "Caricamento articoli...",
+    "error": "Impossibile caricare gli articoli",
+    "pullToRefresh": "Trascina per aggiornare"
+  },
+  "article": {
+    "readingTime": "{{minutes}} min di lettura",
+    "readingTime_one": "1 min di lettura",
+    "publishedAt": "Pubblicato il {{date}}",
+    "relatedArticles": "Articoli correlati"
   },
   "humanTime": {
     "now": "ora",

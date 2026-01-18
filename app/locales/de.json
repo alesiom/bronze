@@ -5,6 +5,7 @@
   },
   "tabs": {
     "schedule": "Zeitplan",
+    "news": "Neuigkeiten",
     "favorites": "Favoriten",
     "settings": "Einstellungen"
   },
@@ -120,7 +121,26 @@
   "time": {
     "hours": "{{count}}h",
     "minutes": "{{count}}m",
-    "justNow": "Gerade eben"
+    "justNow": "Gerade eben",
+    "hoursAgo": "vor {{count}}h",
+    "hoursAgo_one": "vor 1h",
+    "yesterday": "Gestern",
+    "daysAgo": "vor {{count}} Tagen",
+    "daysAgo_one": "vor 1 Tag"
+  },
+  "news": {
+    "title": "Neuigkeiten",
+    "empty": "Noch keine Artikel",
+    "emptyHint": "Schau später für die neuesten Wintersport-News",
+    "loading": "Artikel werden geladen...",
+    "error": "Artikel konnten nicht geladen werden",
+    "pullToRefresh": "Zum Aktualisieren ziehen"
+  },
+  "article": {
+    "readingTime": "{{minutes}} Min. Lesezeit",
+    "readingTime_one": "1 Min. Lesezeit",
+    "publishedAt": "Veröffentlicht {{date}}",
+    "relatedArticles": "Verwandte Artikel"
   },
   "humanTime": {
     "now": "jetzt",

@@ -2,6 +2,7 @@
   "expo": {
     "name": "Neve26",
     "slug": "neve26",
+    "owner": "neve26",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,7 +16,12 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.neve26.app"
+      "bundleIdentifier": "com.neve26.app",
+      "buildNumber": "1",
+      "associatedDomains": ["applinks:neve26.com"],
+      "infoPlist": {
+        "NSUserTrackingUsageDescription": "We do not track users. This disclosure is required by Apple for transparency."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -23,6 +29,8 @@
         "backgroundColor": "#008C45"
       },
       "package": "com.neve26.app",
+      "versionCode": 1,
+      "permissions": ["RECEIVE_BOOT_COMPLETED"],
       "edgeToEdgeEnabled": true
     },
     "web": {
@@ -31,7 +39,25 @@
     },
     "plugins": [
       "expo-router",
-      "expo-localization"
+      "expo-localization",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "privacyManifests": {
+              "NSPrivacyTracking": false,
+              "NSPrivacyCollectedDataTypes": [],
+              "NSPrivacyTrackingDomains": [],
+              "NSPrivacyAccessedAPITypes": [
+                {
+                  "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
+                  "NSPrivacyAccessedAPITypeReasons": ["CA92.1"]
+                }
+              ]
+            }
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

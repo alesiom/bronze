@@ -5,6 +5,7 @@
   },
   "tabs": {
     "schedule": "Schedule",
+    "news": "News",
     "favorites": "Favorites",
     "settings": "Settings"
   },
@@ -121,7 +122,26 @@
   "time": {
     "hours": "{{count}}h",
     "minutes": "{{count}}m",
-    "justNow": "Just now"
+    "justNow": "Just now",
+    "hoursAgo": "{{count}}h ago",
+    "hoursAgo_one": "1h ago",
+    "yesterday": "Yesterday",
+    "daysAgo": "{{count}} days ago",
+    "daysAgo_one": "1 day ago"
+  },
+  "news": {
+    "title": "News",
+    "empty": "No articles yet",
+    "emptyHint": "Check back later for the latest winter sports news",
+    "loading": "Loading articles...",
+    "error": "Could not load articles",
+    "pullToRefresh": "Pull to refresh"
+  },
+  "article": {
+    "readingTime": "{{minutes}} min read",
+    "readingTime_one": "1 min read",
+    "publishedAt": "Published {{date}}",
+    "relatedArticles": "Related Articles"
   },
   "humanTime": {
     "now": "now",

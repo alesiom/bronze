@@ -5,6 +5,7 @@
   },
   "tabs": {
     "schedule": "일정",
+    "news": "뉴스",
     "favorites": "즐겨찾기",
     "settings": "설정"
   },
@@ -114,6 +115,79 @@
   "time": {
     "hours": "{{count}}시간",
     "minutes": "{{count}}분",
-    "justNow": "방금"
+    "justNow": "방금",
+    "hoursAgo": "{{count}}시간 전",
+    "hoursAgo_one": "1시간 전",
+    "yesterday": "어제",
+    "daysAgo": "{{count}}일 전",
+    "daysAgo_one": "1일 전"
+  },
+  "news": {
+    "title": "뉴스",
+    "empty": "아직 기사가 없습니다",
+    "emptyHint": "최신 동계 스포츠 뉴스를 나중에 확인하세요",
+    "loading": "기사 로딩 중...",
+    "error": "기사를 불러올 수 없습니다",
+    "pullToRefresh": "당겨서 새로고침"
+  },
+  "article": {
+    "readingTime": "{{minutes}}분 소요",
+    "readingTime_one": "1분 소요",
+    "publishedAt": "{{date}} 게시됨",
+    "relatedArticles": "관련 기사"
+  },
+  "session": {
+    "matches": "{{count}}경기",
+    "matches_one": "{{count}}경기"
+  },
+  "humanTime": {
+    "now": "지금",
+    "inMinutes": "{{count}}분 후",
+    "inMinutesAt": "{{count}}분 후 ({{time}})",
+    "inHours": "{{count}}시간 후",
+    "inHoursAt": "{{count}}시간 후 ({{time}})",
+    "today": "오늘 {{time}}",
+    "thisMorning": "오늘 아침 {{time}}",
+    "thisAfternoon": "오늘 오후 {{time}}",
+    "thisEvening": "오늘 저녁 {{time}}",
+    "thisNight": "오늘 밤 {{time}}",
+    "tomorrow": "내일 {{time}}",
+    "onDay": "{{day}} {{time}}",
+    "onDate": "{{month}} {{day}}일 {{time}}",
+    "todayShort": "오늘",
+    "tomorrowShort": "내일",
+    "minShort": "{{count}}분",
+    "hourShort": "{{count}}시간"
+  },
+  "days": {
+    "monday": "월요일",
+    "tuesday": "화요일",
+    "wednesday": "수요일",
+    "thursday": "목요일",
+    "friday": "금요일",
+    "saturday": "토요일",
+    "sunday": "일요일"
+  },
+  "sync": {
+    "online": "온라인",
+    "offline": "오프라인",
+    "syncing": "동기화 중...",
+    "synced": "동기화됨",
+    "pendingSync": "동기화 대기 중",
+    "lastSync": "마지막 동기화 {{time}}",
+    "never": "동기화되지 않음",
+    "justNow": "방금",
+    "minutesAgo": "{{count}}분 전",
+    "hoursAgo": "{{count}}시간 전",
+    "daysAgo": "{{count}}일 전",
+    "tapToSync": "탭하여 동기화"
+  },
+  "notifications": {
+    "reminderTitle": "{{sport}}이(가) 2시간 후 시작",
+    "reminderBody": "{{venue}}에서 {{eventName}}",
+    "permissionTitle": "알림 활성화",
+    "permissionMessage": "즐겨찾기 시작 2시간 전에 알림을 받으세요",
+    "permissionAllow": "허용",
+    "permissionDeny": "나중에"
   }
 }

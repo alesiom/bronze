@@ -5,6 +5,7 @@
   },
   "tabs": {
     "schedule": "Calendário",
+    "news": "Notícias",
     "favorites": "Favoritos",
     "settings": "Definições"
   },
@@ -114,6 +115,79 @@
   "time": {
     "hours": "{{count}}h",
     "minutes": "{{count}}m",
-    "justNow": "Agora"
+    "justNow": "Agora",
+    "hoursAgo": "há {{count}}h",
+    "hoursAgo_one": "há 1h",
+    "yesterday": "Ontem",
+    "daysAgo": "há {{count}} dias",
+    "daysAgo_one": "há 1 dia"
+  },
+  "news": {
+    "title": "Notícias",
+    "empty": "Ainda não há artigos",
+    "emptyHint": "Volte mais tarde para as últimas notícias de desportos de inverno",
+    "loading": "A carregar artigos...",
+    "error": "Não foi possível carregar os artigos",
+    "pullToRefresh": "Puxe para atualizar"
+  },
+  "article": {
+    "readingTime": "{{minutes}} min de leitura",
+    "readingTime_one": "1 min de leitura",
+    "publishedAt": "Publicado {{date}}",
+    "relatedArticles": "Artigos Relacionados"
+  },
+  "session": {
+    "matches": "{{count}} Jogos",
+    "matches_one": "{{count}} Jogo"
+  },
+  "humanTime": {
+    "now": "agora",
+    "inMinutes": "em {{count}} min",
+    "inMinutesAt": "em {{count}} min ({{time}})",
+    "inHours": "em {{count}}h",
+    "inHoursAt": "em {{count}}h ({{time}})",
+    "today": "hoje, {{time}}",
+    "thisMorning": "esta manhã, {{time}}",
+    "thisAfternoon": "esta tarde, {{time}}",
+    "thisEvening": "esta noite, {{time}}",
+    "thisNight": "esta noite, {{time}}",
+    "tomorrow": "amanhã, {{time}}",
+    "onDay": "{{day}}, {{time}}",
+    "onDate": "{{day}} de {{month}}, {{time}}",
+    "todayShort": "hoje",
+    "tomorrowShort": "amanhã",
+    "minShort": "{{count}}m",
+    "hourShort": "{{count}}h"
+  },
+  "days": {
+    "monday": "Segunda-feira",
+    "tuesday": "Terça-feira",
+    "wednesday": "Quarta-feira",
+    "thursday": "Quinta-feira",
+    "friday": "Sexta-feira",
+    "saturday": "Sábado",
+    "sunday": "Domingo"
+  },
+  "sync": {
+    "online": "Online",
+    "offline": "Offline",
+    "syncing": "A sincronizar...",
+    "synced": "Sincronizado",
+    "pendingSync": "Sincronização pendente",
+    "lastSync": "Última sincronização {{time}}",
+    "never": "Nunca sincronizado",
+    "justNow": "agora mesmo",
+    "minutesAgo": "há {{count}}m",
+    "hoursAgo": "há {{count}}h",
+    "daysAgo": "há {{count}}d",
+    "tapToSync": "Toque para sincronizar"
+  },
+  "notifications": {
+    "reminderTitle": "{{sport}} começa em 2 horas",
+    "reminderBody": "{{eventName}} em {{venue}}",
+    "permissionTitle": "Ativar Notificações",
+    "permissionMessage": "Receba lembretes 2 horas antes dos seus favoritos",
+    "permissionAllow": "Permitir",
+    "permissionDeny": "Agora não"
   }
 }

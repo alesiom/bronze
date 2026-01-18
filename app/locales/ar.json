@@ -5,6 +5,7 @@
   },
   "tabs": {
     "schedule": "الجدول",
+    "news": "الأخبار",
     "favorites": "المفضلة",
     "settings": "الإعدادات"
   },
@@ -114,6 +115,79 @@
   "time": {
     "hours": "{{count}} ساعة",
     "minutes": "{{count}} دقيقة",
-    "justNow": "الآن"
+    "justNow": "الآن",
+    "hoursAgo": "منذ {{count}} ساعة",
+    "hoursAgo_one": "منذ ساعة",
+    "yesterday": "أمس",
+    "daysAgo": "منذ {{count}} أيام",
+    "daysAgo_one": "منذ يوم"
+  },
+  "news": {
+    "title": "الأخبار",
+    "empty": "لا توجد مقالات بعد",
+    "emptyHint": "عد لاحقاً لآخر أخبار الرياضات الشتوية",
+    "loading": "جاري تحميل المقالات...",
+    "error": "تعذر تحميل المقالات",
+    "pullToRefresh": "اسحب للتحديث"
+  },
+  "article": {
+    "readingTime": "{{minutes}} دقيقة للقراءة",
+    "readingTime_one": "دقيقة واحدة للقراءة",
+    "publishedAt": "نُشر {{date}}",
+    "relatedArticles": "مقالات ذات صلة"
+  },
+  "session": {
+    "matches": "{{count}} مباريات",
+    "matches_one": "مباراة واحدة"
+  },
+  "humanTime": {
+    "now": "الآن",
+    "inMinutes": "خلال {{count}} دقيقة",
+    "inMinutesAt": "خلال {{count}} دقيقة ({{time}})",
+    "inHours": "خلال {{count}} ساعة",
+    "inHoursAt": "خلال {{count}} ساعة ({{time}})",
+    "today": "اليوم، {{time}}",
+    "thisMorning": "هذا الصباح، {{time}}",
+    "thisAfternoon": "بعد الظهر، {{time}}",
+    "thisEvening": "هذا المساء، {{time}}",
+    "thisNight": "الليلة، {{time}}",
+    "tomorrow": "غداً، {{time}}",
+    "onDay": "{{day}}، {{time}}",
+    "onDate": "{{day}} {{month}}، {{time}}",
+    "todayShort": "اليوم",
+    "tomorrowShort": "غداً",
+    "minShort": "{{count}}د",
+    "hourShort": "{{count}}س"
+  },
+  "days": {
+    "monday": "الإثنين",
+    "tuesday": "الثلاثاء",
+    "wednesday": "الأربعاء",
+    "thursday": "الخميس",
+    "friday": "الجمعة",
+    "saturday": "السبت",
+    "sunday": "الأحد"
+  },
+  "sync": {
+    "online": "متصل",
+    "offline": "غير متصل",
+    "syncing": "جاري المزامنة...",
+    "synced": "تمت المزامنة",
+    "pendingSync": "مزامنة معلقة",
+    "lastSync": "آخر مزامنة {{time}}",
+    "never": "لم تتم المزامنة",
+    "justNow": "الآن",
+    "minutesAgo": "منذ {{count}}د",
+    "hoursAgo": "منذ {{count}}س",
+    "daysAgo": "منذ {{count}}ي",
+    "tapToSync": "اضغط للمزامنة"
+  },
+  "notifications": {
+    "reminderTitle": "{{sport}} يبدأ خلال ساعتين",
+    "reminderBody": "{{eventName}} في {{venue}}",
+    "permissionTitle": "تفعيل الإشعارات",
+    "permissionMessage": "احصل على تذكيرات قبل ساعتين من مفضلاتك",
+    "permissionAllow": "السماح",
+    "permissionDeny": "ليس الآن"
   }
 }

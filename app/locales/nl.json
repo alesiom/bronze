@@ -5,6 +5,7 @@
   },
   "tabs": {
     "schedule": "Schema",
+    "news": "Nieuws",
     "favorites": "Favorieten",
     "settings": "Instellingen"
   },
@@ -114,6 +115,79 @@
   "time": {
     "hours": "{{count}}u",
     "minutes": "{{count}}m",
-    "justNow": "Zojuist"
+    "justNow": "Zojuist",
+    "hoursAgo": "{{count}}u geleden",
+    "hoursAgo_one": "1u geleden",
+    "yesterday": "Gisteren",
+    "daysAgo": "{{count}} dagen geleden",
+    "daysAgo_one": "1 dag geleden"
+  },
+  "news": {
+    "title": "Nieuws",
+    "empty": "Nog geen artikelen",
+    "emptyHint": "Kom later terug voor het laatste wintersportnieuws",
+    "loading": "Artikelen laden...",
+    "error": "Kon artikelen niet laden",
+    "pullToRefresh": "Trek om te vernieuwen"
+  },
+  "article": {
+    "readingTime": "{{minutes}} min leestijd",
+    "readingTime_one": "1 min leestijd",
+    "publishedAt": "Gepubliceerd {{date}}",
+    "relatedArticles": "Gerelateerde Artikelen"
+  },
+  "session": {
+    "matches": "{{count}} Wedstrijden",
+    "matches_one": "{{count}} Wedstrijd"
+  },
+  "humanTime": {
+    "now": "nu",
+    "inMinutes": "over {{count}} min",
+    "inMinutesAt": "over {{count}} min ({{time}})",
+    "inHours": "over {{count}}u",
+    "inHoursAt": "over {{count}}u ({{time}})",
+    "today": "vandaag, {{time}}",
+    "thisMorning": "vanochtend, {{time}}",
+    "thisAfternoon": "vanmiddag, {{time}}",
+    "thisEvening": "vanavond, {{time}}",
+    "thisNight": "vannacht, {{time}}",
+    "tomorrow": "morgen, {{time}}",
+    "onDay": "{{day}}, {{time}}",
+    "onDate": "{{day}} {{month}}, {{time}}",
+    "todayShort": "vandaag",
+    "tomorrowShort": "morgen",
+    "minShort": "{{count}}m",
+    "hourShort": "{{count}}u"
+  },
+  "days": {
+    "monday": "Maandag",
+    "tuesday": "Dinsdag",
+    "wednesday": "Woensdag",
+    "thursday": "Donderdag",
+    "friday": "Vrijdag",
+    "saturday": "Zaterdag",
+    "sunday": "Zondag"
+  },
+  "sync": {
+    "online": "Online",
+    "offline": "Offline",
+    "syncing": "Synchroniseren...",
+    "synced": "Gesynchroniseerd",
+    "pendingSync": "Synchronisatie in afwachting",
+    "lastSync": "Laatst gesynchroniseerd {{time}}",
+    "never": "Nooit gesynchroniseerd",
+    "justNow": "zojuist",
+    "minutesAgo": "{{count}}m geleden",
+    "hoursAgo": "{{count}}u geleden",
+    "daysAgo": "{{count}}d geleden",
+    "tapToSync": "Tik om te synchroniseren"
+  },
+  "notifications": {
+    "reminderTitle": "{{sport}} begint over 2 uur",
+    "reminderBody": "{{eventName}} in {{venue}}",
+    "permissionTitle": "Meldingen Inschakelen",
+    "permissionMessage": "Ontvang herinneringen 2 uur voor je favorieten",
+    "permissionAllow": "Toestaan",
+    "permissionDeny": "Nu niet"
   }
 }

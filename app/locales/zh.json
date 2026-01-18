@@ -5,6 +5,7 @@
   },
   "tabs": {
     "schedule": "赛程",
+    "news": "新闻",
     "favorites": "收藏",
     "settings": "设置"
   },
@@ -114,6 +115,79 @@
   "time": {
     "hours": "{{count}}小时",
     "minutes": "{{count}}分钟",
-    "justNow": "刚刚"
+    "justNow": "刚刚",
+    "hoursAgo": "{{count}}小时前",
+    "hoursAgo_one": "1小时前",
+    "yesterday": "昨天",
+    "daysAgo": "{{count}}天前",
+    "daysAgo_one": "1天前"
+  },
+  "news": {
+    "title": "新闻",
+    "empty": "暂无文章",
+    "emptyHint": "稍后回来查看最新的冬季运动新闻",
+    "loading": "正在加载文章...",
+    "error": "无法加载文章",
+    "pullToRefresh": "下拉刷新"
+  },
+  "article": {
+    "readingTime": "阅读时间 {{minutes}} 分钟",
+    "readingTime_one": "阅读时间 1 分钟",
+    "publishedAt": "发布于 {{date}}",
+    "relatedArticles": "相关文章"
+  },
+  "session": {
+    "matches": "{{count}} 场比赛",
+    "matches_one": "{{count}} 场比赛"
+  },
+  "humanTime": {
+    "now": "现在",
+    "inMinutes": "{{count}}分钟后",
+    "inMinutesAt": "{{count}}分钟后 ({{time}})",
+    "inHours": "{{count}}小时后",
+    "inHoursAt": "{{count}}小时后 ({{time}})",
+    "today": "今天 {{time}}",
+    "thisMorning": "今天上午 {{time}}",
+    "thisAfternoon": "今天下午 {{time}}",
+    "thisEvening": "今晚 {{time}}",
+    "thisNight": "今夜 {{time}}",
+    "tomorrow": "明天 {{time}}",
+    "onDay": "{{day}} {{time}}",
+    "onDate": "{{month}}{{day}}日 {{time}}",
+    "todayShort": "今天",
+    "tomorrowShort": "明天",
+    "minShort": "{{count}}分",
+    "hourShort": "{{count}}时"
+  },
+  "days": {
+    "monday": "星期一",
+    "tuesday": "星期二",
+    "wednesday": "星期三",
+    "thursday": "星期四",
+    "friday": "星期五",
+    "saturday": "星期六",
+    "sunday": "星期日"
+  },
+  "sync": {
+    "online": "在线",
+    "offline": "离线",
+    "syncing": "同步中...",
+    "synced": "已同步",
+    "pendingSync": "待同步",
+    "lastSync": "上次同步 {{time}}",
+    "never": "从未同步",
+    "justNow": "刚刚",
+    "minutesAgo": "{{count}}分钟前",
+    "hoursAgo": "{{count}}小时前",
+    "daysAgo": "{{count}}天前",
+    "tapToSync": "点击同步"
+  },
+  "notifications": {
+    "reminderTitle": "{{sport}}将在2小时后开始",
+    "reminderBody": "{{eventName}} 在 {{venue}}",
+    "permissionTitle": "开启通知",
+    "permissionMessage": "在您收藏的赛事开始前2小时收到提醒",
+    "permissionAllow": "允许",
+    "permissionDeny": "暂不"
   }
 }
