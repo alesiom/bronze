@@ -1,313 +1,323 @@
-# Neve26 - Winter Games Italy 2026 Schedule Tracker
+# CLAUDE.md
 
-## Project Overview
+Behavioral rules for Claude Code when working on Neve26.
 
-Neve26 is a mobile app that helps tourists attending the Milano Cortina 2026 Winter Games track event schedules, receive change notifications, and plan their visit.
+## Quick Reference
 
-**This is a one-time, time-boxed project** — the app is only relevant from late January to late February 2026.
+| Document | Purpose |
+|----------|---------|
+| `docs/PROJECT.md` | Vision, product structure, business model, differentiators |
+| `docs/ARCHITECTURE.md` | URL structure, content filtering, database schema |
+| `docs/INTEGRATIONS.md` | API examples for Late.dev, Firebase, Matomo, etc. |
 
-## Business Model
+## Repository Structure
 
-- **Freemium mobile app** (iOS + Android via React Native or Flutter)
-- Free: Browse schedule, save favorites
-- Paid ($4.99 one-time): Push notifications for schedule changes, offline mode
-- Revenue window: ~6 weeks (mid-January to end of February 2026)
-
-## Architecture
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        NEVE26 SYSTEM                            │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌─────────────┐     ┌─────────────┐     ┌─────────────┐       │
-│  │   Scraper   │────▶│  Diff Eng.  │────▶│  Push Svc   │       │
-│  │   Service   │     │             │     │  (FCM/APNs) │       │
-│  └──────┬──────┘     └─────────────┘     └─────────────┘       │
-│         │                                                       │
-│         ▼                                                       │
-│  ┌─────────────┐     ┌─────────────┐     ┌─────────────┐       │
-│  │   Proxy     │     │  PostgreSQL │     │   REST API  │       │
-│  │   Rotator   │     │  (Supabase) │◀───▶│  (FastAPI)  │       │
-│  └─────────────┘     └─────────────┘     └──────┬──────┘       │
-│                                                  │              │
-└──────────────────────────────────────────────────┼──────────────┘
-                                                   │
-                                                   ▼
-                                          ┌─────────────┐
-                                          │ Mobile App  │
-                                          │ (RN/Flutter)│
-                                          └─────────────┘
-```
-
-## Key Components
-
-### 1. Scraper Service (`src/scraper/`)
-- Adaptive frequency: night (30min) → day (5min) → pre-event (90s) → live (30s)
-- Proxy rotation via IPRoyal or similar ($7/GB)
-- Targets: olympics.com schedule pages
-- Output: Parsed event data
-
-### 2. Diff Engine (`src/scraper/diff.py`)
-- Compares schedule snapshots
-- Detects: time changes, venue changes, cancellations, delays
-- Generates change events for notification service
-
-### 3. API Service (`src/api/`)
-- FastAPI backend
-- Endpoints: /events, /events/{id}, /favorites, /user
-- Auth: Simple JWT or Supabase Auth
-- Hosted on: Railway, Render, or Fly.io
-
-### 4. Notification Service (`src/notifications/`)
-- Firebase Cloud Messaging (FCM) for Android
-- APNs for iOS
-- Triggered by diff engine when user's favorited events change
-
-### 5. Database (`src/db/`)
-- PostgreSQL via Supabase (free tier)
-- Tables: events, users, favorites, schedule_changes, scrape_logs
-
-## Tech Stack
-
-| Component | Technology | Why |
-|-----------|------------|-----|
-| Backend | Python + FastAPI | Fast to build, async support |
-| Database | Supabase (PostgreSQL) | Free tier, built-in auth |
-| Scraping | httpx + BeautifulSoup | Async, lightweight |
-| Proxy | IPRoyal residential | $7/GB, pay-as-you-go |
-| Push | Firebase Cloud Messaging | Free, cross-platform |
-| Hosting | Railway or Render | Simple deploy, cheap |
-| Mobile | React Native or Flutter | Cross-platform |
-
-## Data Sources
-
-### Primary: Olympics.com
-- URL: `https://olympics.com/en/milano-cortina-2026/schedule`
-- Sport-specific: `https://olympics.com/en/milano-cortina-2026/schedule/{sport-code}`
-- Sport codes: ALP, BTH, BOB, CCS, CUR, FSK, FRS, IHO, LUG, NCB, STK, SKN, SJP, SMT, SBD, SSK
-
-### Data Structure (expected)
-```json
-{
-  "event_id": "ALP-001-M-DH-0001",
-  "sport": "Alpine Skiing",
-  "sport_code": "ALP",
-  "event_name": "Men's Downhill",
-  "date": "2026-02-07",
-  "time": "11:00",
-  "venue": "Stelvio Ski Centre",
-  "venue_city": "Bormio",
-  "status": "scheduled",
-  "session_code": "ALP01"
-}
-```
-
-## Scraping Strategy
-
-### Adaptive Frequency
-```python
-INTERVALS = {
-    "night": 1800,      # 00:00-06:00 CET: every 30 min
-    "day": 300,         # 06:00-24:00 CET: every 5 min
-    "pre_event": 90,    # 2h before any event: every 90 sec
-    "live": 30,         # During active sessions: every 30 sec
-}
-```
-
-### Anti-Detection
-- Rotate residential proxies (IPRoyal)
-- Randomize User-Agent
-- Add jitter (±10%) to intervals
-- Respect rate limits, back off on 429
-
-## Database Schema
-
-```sql
--- Core tables
-CREATE TABLE events (
-    event_id VARCHAR(50) PRIMARY KEY,
-    sport VARCHAR(50) NOT NULL,
-    sport_code VARCHAR(10) NOT NULL,
-    event_name VARCHAR(255) NOT NULL,
-    date DATE NOT NULL,
-    time TIME,
-    venue VARCHAR(100),
-    venue_city VARCHAR(50),
-    status VARCHAR(50) DEFAULT 'scheduled',
-    session_code VARCHAR(20),
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
-CREATE TABLE users (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    device_token VARCHAR(255),  -- FCM/APNs token
-    platform VARCHAR(10),       -- ios/android
-    is_premium BOOLEAN DEFAULT FALSE,
-    created_at TIMESTAMPTZ DEFAULT NOW()
-);
-
-CREATE TABLE favorites (
-    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-    event_id VARCHAR(50) REFERENCES events(event_id) ON DELETE CASCADE,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    PRIMARY KEY (user_id, event_id)
-);
-
-CREATE TABLE schedule_changes (
-    id SERIAL PRIMARY KEY,
-    event_id VARCHAR(50) REFERENCES events(event_id),
-    change_type VARCHAR(50) NOT NULL,
-    old_value TEXT,
-    new_value TEXT,
-    detected_at TIMESTAMPTZ DEFAULT NOW()
-);
-
-CREATE INDEX idx_events_date ON events(date);
-CREATE INDEX idx_events_sport ON events(sport_code);
-CREATE INDEX idx_favorites_user ON favorites(user_id);
-```
-
-## API Endpoints
-
-```
-GET  /api/v1/events                  # List all events (filterable)
-GET  /api/v1/events/{event_id}       # Get single event
-GET  /api/v1/events/live             # Currently happening events
-GET  /api/v1/sports                  # List sports
-GET  /api/v1/venues                  # List venues
-
-POST /api/v1/users                   # Register device
-GET  /api/v1/users/{id}/favorites    # Get user favorites
-POST /api/v1/users/{id}/favorites    # Add favorite
-DEL  /api/v1/users/{id}/favorites/{event_id}  # Remove favorite
-
-POST /api/v1/webhooks/schedule-change  # Internal: trigger notifications
-```
-
-## Environment Variables
-
-```bash
-# Database
-DATABASE_URL=postgresql://user:pass@host:5432/neve26
-
-# Proxy
-PROXY_PROVIDER=iproyal
-PROXY_USERNAME=xxx
-PROXY_PASSWORD=xxx
-
-# Push Notifications
-FIREBASE_CREDENTIALS_JSON=xxx
-APNS_KEY_ID=xxx
-APNS_TEAM_ID=xxx
-
-# App
-ENV=development
-LOG_LEVEL=INFO
-SCRAPE_ENABLED=true
-```
-
-## Project Timeline
-
-| Phase | Dates | Deliverables |
-|-------|-------|--------------|
-| **MVP Backend** | Now - Jan 15 | Scraper, API, DB |
-| **Mobile App** | Jan 1 - Jan 25 | React Native app |
-| **Testing** | Jan 20 - Jan 31 | Load testing, bug fixes |
-| **Launch** | Feb 1 | App Store / Play Store |
-| **Live Ops** | Feb 4 - Feb 22 | Monitor, support |
-| **Sunset** | Mar 1 | Archive, post-mortem |
-
-## File Structure
+Neve26 is a **single repo** with multiple components:
 
 ```
 neve26/
-├── CLAUDE.md              # This file
-├── README.md              # Public readme
-├── pyproject.toml         # Python dependencies
-├── .env.example           # Environment template
-├── config/
-│   └── settings.py        # App configuration
-├── src/
-│   ├── __init__.py
-│   ├── scraper/
-│   │   ├── __init__.py
-│   │   ├── main.py        # Scraper entry point
-│   │   ├── scheduler.py   # Adaptive scheduling
-│   │   ├── parser.py      # HTML/JSON parsing
-│   │   ├── diff.py        # Change detection
-│   │   └── proxy.py       # Proxy rotation
-│   ├── api/
-│   │   ├── __init__.py
-│   │   ├── main.py        # FastAPI app
-│   │   ├── routes/
-│   │   │   ├── events.py
-│   │   │   ├── users.py
-│   │   │   └── health.py
-│   │   └── models.py      # Pydantic models
-│   ├── notifications/
-│   │   ├── __init__.py
-│   │   └── push.py        # FCM/APNs integration
-│   └── db/
-│       ├── __init__.py
-│       ├── connection.py
-│       └── queries.py
-├── scripts/
-│   ├── seed_schedule.py   # Initial data load
-│   └── migrate.py         # DB migrations
-├── tests/
-│   ├── test_scraper.py
-│   ├── test_diff.py
-│   └── test_api.py
-└── docker-compose.yml     # Local development
+├── CLAUDE.md             ← This file (behavioral rules)
+├── app/                  ← Mobile app (Expo/React Native)
+│   ├── app/             # Screens (file-based routing)
+│   ├── components/      # UI components
+│   ├── hooks/           # Custom hooks
+│   ├── services/        # API services
+│   └── locales/         # i18n (11 languages)
+├── website/              ← Static website (nginx)
+│   ├── templates/       # Jinja2 templates
+│   ├── i18n/            # Template translations
+│   ├── scripts/         # Sitemap generator, utilities
+│   └── static/          # Assets (CSS, images)
+├── src/                  ← Backend (Python/FastAPI)
+│   ├── api/             # FastAPI routes
+│   ├── db/              # SQLAlchemy models
+│   ├── scraper/         # FIS/IBU scrapers
+│   └── notifications/   # Push notification service
+├── migrations/           ← SQL migrations
+├── docs/                 ← Documentation (see Quick Reference)
+├── n8n-workflows/        ← Exported n8n workflow JSON
+└── docker-compose.yml
 ```
 
-## Commands
+## Development Environment
+
+### Services (Docker)
 
 ```bash
-# Setup
-python -m venv venv
-source venv/bin/activate
-pip install -e ".[dev]"
-
-# Run scraper locally
-python -m src.scraper.main
-
-# Run API locally
-uvicorn src.api.main:app --reload
-
-# Run tests
-pytest tests/
-
-# Docker
+# Start all services
 docker-compose up -d
+
+# Check status
+docker-compose ps
+
+# Follow API logs
+docker-compose logs -f api
 ```
 
-## Legal Notes
+### Local URLs
 
-- **DO NOT** use "Olympic", "Olympics", "Milano Cortina 2026" anywhere
-- App name: "Neve26" (neve = snow in Italian)
-- Tagline: "Winter Games Italy Schedule Tracker"
-- Data source: Publicly available schedule information
-- No official logos, rings, or torch imagery
+| Service | URL |
+|---------|-----|
+| Website | http://localhost:80 |
+| API | http://localhost:8000 |
+| n8n | http://localhost:5678 |
+| PostgreSQL | localhost:5432 |
 
-## Current Status
+### Production URLs
 
-- [x] Architecture defined
-- [x] Domain secured (neve26.app, neve26.com)
-- [ ] Scraper prototype
-- [ ] Database setup
-- [ ] API implementation
-- [ ] Mobile app
-- [ ] App Store submission
+| Service | URL |
+|---------|-----|
+| Website | https://neve26.com |
+| API | https://api.neve26.com |
+| n8n | https://n8n.neve26.com |
+| Matomo | https://matomo.neve26.com |
 
-## Next Steps for Claude Code
+### VPS Access
 
-1. **First**: Test scraping olympics.com to understand actual HTML/JSON structure
-2. **Then**: Implement parser based on real data format
-3. **Then**: Build out full scraper with proxy rotation
-4. **Then**: Set up Supabase and implement API
-5. **Finally**: Notification service
+```bash
+ssh neve26   # Alias configured in ~/.ssh/config
+cd /home/ubuntu/neve26/
+```
 
-Start with: `python src/scraper/main.py --test` to probe the live site.
+## Legal Compliance
+
+**CRITICAL: Italian Law 31/2020 prohibits using Olympic-related terms.**
+**Fines: €100,000 to €2,500,000**
+
+### Blocked Terms (NEVER use)
+
+| Term | Category |
+|------|----------|
+| olympic, olympics, olympiad | Olympic |
+| olimpico, olimpiade | Olympic (IT) |
+| paralympic, paralimpico | Paralympic |
+| milano cortina 2026, cortina 2026, milano 2026 | Trademark |
+| winter games 2026, games of 2026, the games | Trademark |
+| going for gold, medal hopes | Marketing |
+| team usa, team italy, team canada, etc. | Team names |
+
+### Safe Alternatives
+
+- "FIS World Cup" instead of "Olympics"
+- "IBU World Cup" instead of "the games"
+- "Norway's national team" instead of "Team Norway"
+- "France's athletes" instead of "French Team"
+- Athlete names, career stats, venue names (without 2026)
+
+### Validation
+
+All content MUST pass `legal_blocklist` validation before publishing.
+Check exists in n8n workflow and API create/update endpoints.
+
+## Code Standards
+
+### Python (Backend)
+
+- **Style**: Black + isort
+- **Typing**: Use type hints for all functions
+- **Docstrings**: Brief, purpose-focused
+- **Max lines**: 400 per file (soft), 500 (hard)
+
+### TypeScript (Mobile App)
+
+- **Style**: Prettier + ESLint (Expo defaults)
+- **Components**: Functional with hooks
+- **Accessibility**: All interactive elements need accessible labels
+
+### HTML Templates (Website)
+
+- **System**: Jinja2 templates (`USE_JINJA_TEMPLATES=true`)
+- **Path**: `website/templates/`
+- **i18n**: `website/i18n/`
+- **CSS**: External file at `/static/styles.css` (not inline)
+
+## Content Standards
+
+### WCAG AAA Compliance
+
+All content must meet WCAG AAA accessibility standards:
+- Contrast ratio: 7:1 minimum
+- All images: descriptive alt text
+- All interactive elements: keyboard accessible
+- Screen reader friendly structure
+
+### Multilingual Content
+
+11 languages supported: EN, DE, FR, IT, ES, PT, NL, AR, JA, ZH, KO
+
+- Content stored as JSONB: `{"en": "...", "de": "...", ...}`
+- URLs: `/article/` (EN), `/{lang}/article/` (others)
+- RTL support required for Arabic (`ar`)
+
+## GitLab Workflow
+
+### Branching
+
+- **Branch naming**: `feat-<description>` or `fix-<description>`
+- `main` is protected - always production-ready
+- **ALL work on branches** - no exceptions
+
+```bash
+# Start new feature/fix
+git checkout -b feat-article-images
+
+# Work, commit incrementally
+git add . && git commit -m "Add image support to articles"
+```
+
+### Commits
+
+- **Never** mention "Claude" or "AI" in commit messages
+- Reference issue: `Closes #N` or `Fixes #N`
+- Keep messages concise and descriptive
+
+### Before Committing Code
+
+1. Tests pass (`pytest tests/`)
+2. Lint passes (`ruff check src/`)
+3. **Alex confirms it works** (manual testing)
+
+### Merge to Main
+
+```bash
+# On feature branch, after testing
+git checkout main
+git merge feat-article-images
+
+# Test main locally
+docker-compose up -d
+# Verify functionality
+
+# Push when confirmed working
+git push origin main
+```
+
+### Deployment
+
+```bash
+# SSH to VPS
+ssh neve26
+
+# Pull and restart
+cd /home/ubuntu/neve26
+git pull
+docker-compose up -d --build
+```
+
+## Project Management
+
+### GitLab CLI
+
+```bash
+# List issues
+glab issue list -R neve-26/neve26-backend
+
+# View issue
+glab issue view 42
+
+# Create issue
+glab issue create -t "Add image generation workflow" -d "..."
+```
+
+### Milestone Rules
+
+- **NEVER work on tickets in `backlog`** - these are unprioritized
+- Only work on tickets in active milestones (P1, P2, P3)
+- Complete all issues in current phase before moving to next
+- New ideas: create ticket in backlog, don't auto-assign
+
+### Issue Template
+
+```markdown
+## Context
+[Why this is needed]
+
+## Proposal
+[The solution or approach]
+
+## Todos
+- [ ] Todo 1
+- [ ] Todo 2
+```
+
+### Labels
+
+| Label | Usage |
+|-------|-------|
+| `bug` | Something is broken |
+| `content` | Content-related (articles, translations) |
+| `infra` | Infrastructure, deployment |
+| `mobile` | Mobile app specific |
+| `website` | Website specific |
+
+## Session Workflow
+
+### Session Start
+
+1. Check for uncommitted work:
+```bash
+cd /Users/alex/kDrive/Privé/Neve26 && git status -s
+```
+
+2. If uncommitted changes exist: ask Alex before proceeding
+
+3. Check current milestone progress:
+```bash
+glab issue list -R neve-26/neve26-backend --state opened
+```
+
+4. Read relevant docs for context:
+   - `docs/KNOWLEDGE.md` for recent decisions
+   - `docs/PROGRESS.md` for ticket status
+
+### Session End
+
+- If work is complete: commit with proper message
+- If work is incomplete: commit as WIP: `git commit -m "WIP: partial progress on #N"`
+- Push to remote as backup
+- Update `docs/KNOWLEDGE.md` with any new discoveries
+
+**Never leave uncommitted changes across sessions.**
+
+### During Work
+
+- Complete task: close issue
+- Discover new task: create issue in backlog
+- Find blocker: document in `docs/KNOWLEDGE.md`
+- Make architectural decision: document in `docs/ARCHITECTURE.md`
+
+## Key Technical Details
+
+### n8n Workflows
+
+| Workflow | ID | Purpose |
+|----------|-----|---------|
+| FIS Article Generator | `kBp7MyP9YugCOMC3` | Generate articles from FIS results |
+| Social Media Posting | `2ITk8EuErxxlBHsE` | Post to X and Instagram via Late.dev |
+
+### API Endpoints
+
+```
+GET  /api/v1/articles              # List articles
+GET  /api/v1/articles/{slug}       # Single article
+POST /api/v1/articles              # Create article
+POST /api/v1/articles/{slug}/generate-html  # Generate HTML
+
+GET  /api/v1/events                # List events
+GET  /api/v1/events/upcoming       # Next events
+GET  /api/v1/events/live           # Currently happening
+```
+
+### Docker Volumes
+
+| Volume | Mount Point | Purpose |
+|--------|-------------|---------|
+| `html_content` | `/var/www/neve26.com` | Generated HTML articles |
+| `html_content_images` | `/var/www/neve26.com/images` | Article and social images |
+
+### Late.dev Social Media
+
+- **Profile ID**: `6961bcd2da641c56044760a5`
+- **X Account**: `6961bcdc4207e06f4ca84a79` (@neve2026)
+- **Instagram Account**: `6961bd064207e06f4ca84a7a` (@neve.2026)
+- Instagram requires `mediaItems` - text-only posts only work on X
