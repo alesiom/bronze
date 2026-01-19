@@ -21,9 +21,12 @@ class EventBase(BaseModel):
     time: Optional[dt_time] = None
     venue: Optional[str] = None
     venue_city: Optional[str] = None
+    country: Optional[str] = None
     status: str = "scheduled"
     session_code: Optional[str] = None
     medal_event: bool = False
+    federation: Optional[str] = None  # FIS, IBU, IBSF, FIL, ISU, WCF, IOC
+    series: Optional[str] = None  # World Cup, Tour de Ski, Four Hills, etc.
 
     @field_serializer('time')
     def serialize_time(self, value: Optional[dt_time]) -> Optional[str]:
@@ -43,6 +46,36 @@ class EventListResponse(BaseModel):
     """Response for list of events."""
     events: list[EventResponse]
     total: int
+
+
+class EventCreate(BaseModel):
+    """Schema for creating/importing an event."""
+    event_id: str
+    sport: str
+    sport_code: str
+    event_name: str
+    date: date
+    time: Optional[dt_time] = None
+    venue: Optional[str] = None
+    venue_city: Optional[str] = None
+    country: Optional[str] = None
+    status: str = "scheduled"
+    session_code: Optional[str] = None
+    medal_event: bool = False
+    federation: Optional[str] = None
+    series: Optional[str] = None
+
+
+class EventBulkImport(BaseModel):
+    """Schema for bulk importing events."""
+    events: list[EventCreate]
+    replace_all: bool = False  # If True, delete existing events first
+
+
+class EventBulkImportResponse(BaseModel):
+    """Response for bulk import."""
+    imported: int
+    message: str
 
 
 # ============================================================================

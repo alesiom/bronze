@@ -566,6 +566,13 @@ function SessionCard({
             <Text style={[styles.sportName, { color: theme.text }]}>
               {session.sport}
             </Text>
+            {session.federation && session.federation !== 'IOC' && (
+              <View style={[styles.federationBadge, { backgroundColor: theme.textSecondary + '20' }]}>
+                <Text style={[styles.federationText, { color: theme.textSecondary }]}>
+                  {session.federation}
+                </Text>
+              </View>
+            )}
             {isLive && (
               <View style={[styles.liveBadge, { backgroundColor: colors.rossoCorsa }]}>
                 <Icons.Zap size={12} color={colors.snowWhite} />
@@ -988,6 +995,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.sm,
     paddingVertical: spacing.xs,
     borderRadius: sizing.radius.small,
+  },
+  federationBadge: {
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xs,
+    borderRadius: sizing.radius.small,
+  },
+  federationText: {
+    fontSize: typography.fontSize.xs,
+    fontWeight: typography.fontWeight.bold,
+    letterSpacing: 0.5,
   },
   favoriteBadge: {
     flexDirection: 'row',

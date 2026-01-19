@@ -39,6 +39,15 @@ export interface MatchInfo {
   team2: TeamInfo | null;
 }
 
+export type FederationCode =
+  | 'FIS' // International Ski Federation
+  | 'IBU' // International Biathlon Union
+  | 'IBSF' // International Bobsled & Skeleton Federation
+  | 'FIL' // International Luge Federation
+  | 'ISU' // International Skating Union
+  | 'WCF' // World Curling Federation
+  | 'IOC'; // International Olympic Committee
+
 export interface Event {
   // Core identifiers
   event_id: string;
@@ -47,6 +56,10 @@ export interface Event {
   // Sport/discipline
   sport_code: SportCode;
   sport: string;
+
+  // Federation info
+  federation?: FederationCode;
+  series?: string; // e.g., "World Cup", "Four Hills Tournament", "Tour de Ski"
 
   // Event details
   event_name: string;
@@ -124,6 +137,10 @@ export interface Session {
   is_training: boolean;
   status: EventStatus;
   ticketing_url: string | null;
+
+  // Federation info
+  federation?: FederationCode;
+  series?: string;
 
   // All events in this session (may have different matches/locations)
   events: Event[];

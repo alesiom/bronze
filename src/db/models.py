@@ -26,7 +26,7 @@ class Base(DeclarativeBase):
 
 
 class Event(Base):
-    """Olympic event in the schedule."""
+    """Winter sports event in the schedule."""
 
     __tablename__ = "events"
 
@@ -38,9 +38,15 @@ class Event(Base):
     time = Column(Time, nullable=True)
     venue = Column(String(100), nullable=True)
     venue_city = Column(String(50), nullable=True, index=True)
+    country = Column(String(3), nullable=True)  # ISO country code
     status = Column(String(50), default="scheduled")
     session_code = Column(String(20), nullable=True)
     medal_event = Column(Boolean, default=False)
+
+    # Federation and series info
+    federation = Column(String(10), nullable=True, index=True)  # FIS, IBU, IBSF, FIL, ISU, WCF, IOC
+    series = Column(String(50), nullable=True)  # World Cup, Tour de Ski, Four Hills, etc.
+
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -63,9 +69,12 @@ class Event(Base):
             "time": self.time.isoformat() if self.time else None,
             "venue": self.venue,
             "venue_city": self.venue_city,
+            "country": self.country,
             "status": self.status,
             "session_code": self.session_code,
             "medal_event": self.medal_event,
+            "federation": self.federation,
+            "series": self.series,
         }
 
 

@@ -4,6 +4,7 @@ from datetime import date
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy import delete
 from sqlalchemy.ext.asyncio import AsyncSession
 import structlog
 
@@ -15,12 +16,16 @@ from src.db import (
     get_upcoming_events,
     get_sports,
     get_venues,
+    upsert_events,
 )
+from src.db.models import Event
 from src.api.models import (
     EventResponse,
     EventListResponse,
     SportResponse,
     VenueResponse,
+    EventBulkImport,
+    EventBulkImportResponse,
 )
 
 log = structlog.get_logger()
@@ -132,3 +137,39 @@ async def get_event(
         raise HTTPException(status_code=404, detail="Event not found")
 
     return EventResponse.model_validate(event)
+
+
+@router.post("/seed", response_model=EventBulkImportResponse)
+async def seed_events(
+    data: EventBulkImport,
+    session: AsyncSession = Depends(get_db),
+):
+    """
+    Bulk import events (for seeding World Cup calendar data).
+
+    If replace_all is True, deletes all existing events first.
+    Otherwise, upserts events (updates existing, inserts new).
+    """
+    try:
+        if data.replace_all:
+            # Delete all existing events
+            await session.execute(delete(Event))
+            log.info("Deleted all existing events for replacement")
+
+        # Convert Pydantic models to dicts for upsert
+        events_data = [event.model_dump() for event in data.events]
+
+        count = await upsert_events(session, events_data)
+        await session.commit()
+
+        log.info("Seeded events", count=count, replace_all=data.replace_all)
+
+        return EventBulkImportResponse(
+            imported=count,
+            message=f"Successfully imported {count} events"
+            + (" (replaced all existing)" if data.replace_all else ""),
+        )
+    except Exception as e:
+        await session.rollback()
+        log.error("Failed to seed events", error=str(e))
+        raise HTTPException(status_code=500, detail=f"Failed to seed events: {str(e)}")
