@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Sitemap Generator for Neve26
+Sitemap Generator for Bronze
 Generates sitemap-news.xml and sitemap-articles.xml from the API.
 
 Usage:
@@ -26,8 +26,8 @@ from xml.dom import minidom
 # Configuration
 DEFAULT_API_URL = "http://localhost:8000"
 DEFAULT_OUTPUT_DIR = Path(__file__).parent.parent  # website/ directory
-SITE_URL = "https://neve26.com"
-LANGUAGES = ["en", "de", "fr", "it", "es", "pt", "nl", "ar", "ja", "zh", "ko"]
+SITE_URL = "https://bronze.news"
+LANGUAGES = ["en", "de", "fr"]
 
 # News sitemap only includes articles from last 2 days (Google requirement)
 NEWS_MAX_AGE_DAYS = 2
@@ -106,7 +106,7 @@ def generate_news_sitemap(articles: list, output_path: Path) -> int:
             news = SubElement(url_elem, "news:news")
 
             publication = SubElement(news, "news:publication")
-            SubElement(publication, "news:name").text = "Neve26"
+            SubElement(publication, "news:name").text = "Bronze"
             SubElement(publication, "news:language").text = lang
 
             SubElement(news, "news:publication_date").text = pub_date.strftime("%Y-%m-%dT%H:%M:%S+00:00")
@@ -230,7 +230,7 @@ def generate_sitemap_index(output_dir: Path):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate sitemaps for Neve26")
+    parser = argparse.ArgumentParser(description="Generate sitemaps for Bronze")
     parser.add_argument("--api-url", default=DEFAULT_API_URL, help="API base URL")
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR, help="Output directory")
     args = parser.parse_args()

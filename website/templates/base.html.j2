@@ -1,10 +1,10 @@
 {#
-  Neve26 Base Template
+  Bronze Base Template
   WCAG AAA Compliant - All pages extend this template
 
   Variables required:
-  - lang: Language code (en, de, fr, etc.)
-  - dir: Text direction (ltr or rtl)
+  - lang: Language code (en, de, fr)
+  - dir: Text direction (ltr)
   - title: Page title
   - meta_description: Meta description for SEO
   - canonical_url: Canonical URL for the page
@@ -19,20 +19,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ title }} - Neve26</title>
+  <title>{{ title }} - Bronze
   <meta name="description" content="{{ meta_description[:155] if meta_description else '' }}">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="{{ title }} - Neve26">
+  <meta property="og:title" content="{{ title }} - Bronze">
   <meta property="og:description" content="{{ meta_description[:155] if meta_description else '' }}">
   <meta property="og:type" content="{% block og_type %}website{% endblock %}">
   <meta property="og:url" content="{{ canonical_url }}">
-  <meta property="og:site_name" content="Neve26">
+  <meta property="og:site_name" content="Bronze">
   {% block og_extra %}{% endblock %}
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@neve2026">
+  <meta name="twitter:site" content="@bronzenews">
 
   <!-- Canonical and alternates -->
   <link rel="canonical" href="{{ canonical_url }}">
@@ -70,7 +70,7 @@
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
     (function() {
-      var u="//matomo.neve26.com/";
+      var u="//matomo.bronze.news/";
       _paq.push(['setTrackerUrl', u+'matomo.php']);
       _paq.push(['setSiteId', '1']);
       var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];

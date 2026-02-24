@@ -1,16 +1,16 @@
-# Neve26 n8n Workflows
+# Bronze n8n Workflows
 
-This directory contains n8n workflow definitions for automating Neve26 content operations.
+This directory contains n8n workflow definitions for automating Bronze content operations.
 
 ## Workflows
 
 ### 1. HTML Generator Workflow (`html-generator-workflow.json`)
 
-Generates static HTML article pages from the database in all 11 languages.
+Generates static HTML article pages from the database in all 3 languages.
 
 #### Import Instructions
 
-1. Open n8n at `https://n8n.neve26.com`
+1. Open n8n at `https://n8n.bronze.news`
 2. Go to **Workflows** → **Import from File**
 3. Select `html-generator-workflow.json`
 4. Activate the workflow
@@ -24,7 +24,7 @@ Webhook Trigger
 Fetch Article from API
     │
     ▼
-Split into 11 Languages
+Split into 3 Languages
     │
     ▼
 Prepare Template Data (for each language)
@@ -43,46 +43,45 @@ Respond with Success
 
 **Webhook URL:**
 ```
-POST https://n8n.neve26.com/webhook/generate-html
+POST https://n8n.bronze.news/webhook/generate-html
 ```
 
 **Payload:**
 ```json
 {
-  "slug": "adelboden-giant-slalom-preview-2026"
+  "slug": "mbappe-champions-league-hat-trick-2026"
 }
 ```
 
 **File Output Location:**
-Files are written to `/var/www/neve26.com/` with this structure:
+Files are written to `/var/www/bronze.news/` with this structure:
 ```
-/var/www/neve26.com/
-├── adelboden-giant-slalom-preview-2026/
+/var/www/bronze.news/
+├── mbappe-champions-league-hat-trick-2026/
 │   └── index.html           # English (default)
 ├── de/
-│   └── adelboden-giant-slalom-preview-2026/
+│   └── mbappe-champions-league-hat-trick-2026/
 │       └── index.html       # German
-├── fr/
-│   └── adelboden-giant-slalom-preview-2026/
-│       └── index.html       # French
-└── ... (all 11 languages)
+└── fr/
+    └── mbappe-champions-league-hat-trick-2026/
+        └── index.html       # French
 ```
 
 #### Environment Requirements
 
-- n8n must have filesystem access to `/var/www/neve26.com/`
-- API must be accessible at `https://api.neve26.com`
+- n8n must have filesystem access to `/var/www/bronze.news/`
+- API must be accessible at `https://api.bronze.news`
 - Node: `Read/Write File` node requires appropriate permissions
 
 #### Testing Locally
 
 1. Import the workflow
-2. Replace file output path with local path (e.g., `/tmp/neve26/`)
+2. Replace file output path with local path (e.g., `/tmp/bronze/`)
 3. Trigger manually with test payload:
    ```bash
-   curl -X POST https://n8n.neve26.com/webhook/generate-html \
+   curl -X POST https://n8n.bronze.news/webhook/generate-html \
      -H "Content-Type: application/json" \
-     -d '{"slug": "adelboden-giant-slalom-preview-2026"}'
+     -d '{"slug": "mbappe-champions-league-hat-trick-2026"}'
    ```
 
 ---
@@ -94,14 +93,6 @@ Files are written to `/var/www/neve26.com/` with this structure:
 | en | English | LTR |
 | de | Deutsch | LTR |
 | fr | Français | LTR |
-| it | Italiano | LTR |
-| es | Español | LTR |
-| pt | Português | LTR |
-| nl | Nederlands | LTR |
-| ar | العربية | RTL |
-| ja | 日本語 | LTR |
-| zh | 中文 | LTR |
-| ko | 한국어 | LTR |
 
 ---
 
@@ -109,13 +100,13 @@ Files are written to `/var/www/neve26.com/` with this structure:
 
 | Language | URL Pattern |
 |----------|-------------|
-| English | `neve26.com/{slug}/` |
-| Others | `neve26.com/{lang}/{slug}/` |
+| English | `bronze.news/{slug}/` |
+| Others | `bronze.news/{lang}/{slug}/` |
 
 Examples:
-- `neve26.com/adelboden-giant-slalom-preview-2026/`
-- `neve26.com/de/adelboden-giant-slalom-preview-2026/`
-- `neve26.com/ar/adelboden-giant-slalom-preview-2026/`
+- `bronze.news/mbappe-champions-league-hat-trick-2026/`
+- `bronze.news/de/mbappe-champions-league-hat-trick-2026/`
+- `bronze.news/fr/mbappe-champions-league-hat-trick-2026/`
 
 ---
 
@@ -126,13 +117,12 @@ The HTML generator workflow is triggered automatically by the Article Generation
 ```
 Article Creation Workflow
     │
-    ├─ 1. Scrape results from FIS/IBU
-    ├─ 2. Generate article via Claude API
-    ├─ 3. Validate legal compliance
-    ├─ 4. Translate to 11 languages
-    ├─ 5. Store in PostgreSQL
+    ├─ 1. Generate article via Claude API
+    ├─ 2. Validate legal compliance
+    ├─ 3. Translate to 3 languages
+    ├─ 4. Store in PostgreSQL
     │
-    └─ 6. Call HTML Generator Webhook ──► Generates static files
+    └─ 5. Call HTML Generator Webhook ──► Generates static files
 ```
 
 ---
@@ -143,19 +133,19 @@ Article Creation Workflow
 
 1. Check n8n has write permissions:
    ```bash
-   ls -la /var/www/neve26.com/
+   ls -la /var/www/bronze.news/
    ```
 
 2. Ensure target directories exist:
    ```bash
-   mkdir -p /var/www/neve26.com/{de,fr,it,es,pt,nl,ar,ja,zh,ko}
+   mkdir -p /var/www/bronze.news/{de,fr}
    ```
 
 ### API returns 404
 
 1. Verify article exists:
    ```bash
-   curl https://api.neve26.com/api/v1/articles/your-article-slug
+   curl https://api.bronze.news/api/v1/articles/your-article-slug
    ```
 
 2. Check article is published (status = 'published')
@@ -174,7 +164,7 @@ If you need to regenerate HTML for an existing article:
 
 ```bash
 # Via webhook
-curl -X POST https://n8n.neve26.com/webhook/generate-html \
+curl -X POST https://n8n.bronze.news/webhook/generate-html \
   -H "Content-Type: application/json" \
   -d '{"slug": "article-slug-here"}'
 
@@ -207,32 +197,20 @@ Key template variables:
 
 ## Performance Notes
 
-- Generates 11 HTML files per article
-- Typical execution time: 2-5 seconds
+- Generates 3 HTML files per article
+- Typical execution time: 1-3 seconds
 - Files are ~15-25 KB each (minified CSS)
-- Total output per article: ~180-250 KB across all languages
+- Total output per article: ~50-75 KB across all languages
 
 ---
 
 ## Social Media Workflows
 
-These workflows are hosted directly in n8n (not as JSON files). Created January 2026.
+These workflows are hosted directly in n8n (not as JSON files).
 
 ### 2. Quote Posts (`1ahAetO3d4KY71iW`)
 
-Automated 8x daily scheduled quote posts for Phase 1 brand building.
-
-**Schedule (CET):**
-| Time | Content |
-|------|---------|
-| 07:00 | Alpine Skiing |
-| 09:00 | General Motivation |
-| 11:00 | Alpine Skiing |
-| 13:00 | Biathlon |
-| 15:00 | Sport Explainer |
-| 17:00 | General Motivation |
-| 19:00 | Figure Skating |
-| 21:00 | Snowboarding |
+Automated scheduled quote posts for brand building.
 
 **Flow:**
 ```
@@ -243,67 +221,21 @@ Schedule Trigger → Quote Database → Format Post → Post to X → Record Pos
 1. Add X/Twitter OAuth2 credentials to the "Post to X" node
 2. Activate workflow
 
-**Phase 1 Rules (Jan 7-17):**
-- NO app mentions
-- NO website links
-- Just engaging winter sports content + hashtags
-
 ---
 
-### 3. Race Day Alerts (`qZ3EyJinwJi6XnKv`)
+### 3. Article Generator (`kBp7MyP9YugCOMC3`)
 
-Webhook-triggered alerts for live race updates and results.
-
-**Webhook URL:**
-```
-POST https://n8n.neve26.com/webhook/race-alert
-```
-
-**Payload:**
-```json
-{
-  "type": "result",
-  "event": "Adelboden Giant Slalom",
-  "winner": "Marco Odermatt",
-  "handle": "@marcodermatt",
-  "sport": "alpine-skiing"
-}
-```
-
-**Alert Types:**
-- `start` - Race starting soon
-- `live` - Race in progress
-- `result` - Race finished with winner
-
-**Configuration Required:**
-1. Add X/Twitter OAuth2 credentials
-2. Activate workflow
-3. Call webhook from external trigger (FIS scraper, manual, etc.)
-
----
-
-### 4. FIS Article Generator (`kBp7MyP9YugCOMC3`)
-
-Auto-generates news articles from FIS race results using Claude API.
+Auto-generates news articles using Claude API.
 
 **Flow:**
 ```
-Webhook → Fetch FIS Results → Claude Article Generation → Legal Validation →
-Translate to 11 Languages → Store in PostgreSQL → Trigger HTML Generator
+Webhook → Source Data → Claude Article Generation → Legal Validation →
+Translate to 3 Languages → Store in PostgreSQL → Trigger HTML Generator
 ```
 
 **Webhook URL:**
 ```
-POST https://n8n.neve26.com/webhook/generate-article
-```
-
-**Payload:**
-```json
-{
-  "race_id": "12345",
-  "event": "Adelboden Giant Slalom",
-  "date": "2026-01-11"
-}
+POST https://n8n.bronze.news/webhook/generate-article
 ```
 
 **Configuration Required:**
@@ -311,46 +243,17 @@ POST https://n8n.neve26.com/webhook/generate-article
 2. Configure PostgreSQL connection
 3. Activate workflow
 
-**Legal Safeguards:**
-- Auto-checks against `legal_blocklist` table
-- Blocks: Olympic, Olympics, Milano Cortina, Winter Games 2026, Team USA/Italy, etc.
-- Fine risk: €100K-€2.5M (Italian Law 31/2020)
-
 ---
 
-### 5. Engagement Auto-Reply (`pw0FjV5zOTM0n6T2`)
+### 4. Engagement Auto-Reply (`pw0FjV5zOTM0n6T2`)
 
 Monitors mentions and auto-replies with human-like timing.
 
 **Polling:** Every 15 minutes (matches X API Free tier rate limit)
 
-**Rate Limits (X API Free Tier):**
-| Resource | Limit | Our Usage |
-|----------|-------|-----------|
-| GET mentions | 1/15 min (96/day) | ✅ Plenty |
-| POST tweets | 17/day total | 8 quotes + 9 replies |
-
-**Daily Caps:**
-- Quote Posts: 8/day (scheduled)
-- Replies: 9/day (auto-limited in workflow)
-- Total: 17/day (matches Free tier limit)
-
-**Response Timing (Human-like):**
-| Context | Delay Range |
-|---------|-------------|
-| CET daytime (07:00-22:00) | 8-67 minutes |
-| CET nighttime (22:00-07:00) | 2-5 hours |
-
-**Bot Personality:**
-- Sports nerd energy (obscure stats, historic moments)
-- Funny, quirky, cheeky
-- ULTRA SHORT replies: "right?", "let's go!", "yep.", "100%", "absolute legend 🔥"
-- Slang OK: "lowkey", "ngl", "fr fr", "massive W"
-- Emojis sparingly: ⛷️🎿🔥
-
 **Flow:**
 ```
-Schedule (15 min) → Search to:neve2026 → Check daily limit (9 max) →
+Schedule (15 min) → Search to:bronzenews → Check daily limit →
 Filter already replied → Calculate delay → Wait → Generate reply (Claude) → Post reply → Update counter
 ```
 
@@ -358,11 +261,6 @@ Filter already replied → Calculate delay → Wait → Generate reply (Claude) 
 1. Add X/Twitter OAuth2 credentials
 2. Set `ANTHROPIC_API_KEY` environment variable
 3. Activate workflow
-
-**Banned Terms in Replies:**
-- Olympic, Olympics
-- Milano Cortina, Winter Games 2026
-- Team USA, Team Italy, etc.
 
 ---
 
@@ -372,8 +270,7 @@ Filter already replied → Calculate delay → Wait → Generate reply (Claude) 
 |----|------|--------|-------|
 | - | HTML Generator | JSON file | Import + activate |
 | `1ahAetO3d4KY71iW` | Quote Posts | Created | X credentials + activate |
-| `qZ3EyJinwJi6XnKv` | Race Day Alerts | Created | X credentials + activate |
-| `kBp7MyP9YugCOMC3` | FIS Article Generator | Created | Claude API key + PostgreSQL + activate |
+| `kBp7MyP9YugCOMC3` | Article Generator | Created | Claude API key + PostgreSQL + activate |
 | `pw0FjV5zOTM0n6T2` | Engagement Auto-Reply | Created | X credentials + Claude API key + activate |
 
 ---
@@ -399,6 +296,6 @@ Filter already replied → Calculate delay → Wait → Generate reply (Claude) 
 1. In n8n: Settings → Credentials → Add "Postgres"
 2. Configure:
    - Host: `localhost` (or Docker network name)
-   - Database: `neve26`
+   - Database: `neve26` (legacy name, intentional)
    - User: `postgres`
    - Password: (from docker-compose.yml)

@@ -31,11 +31,11 @@
   "@type": "Article",
   "headline": "{{ title | e }}",
   "datePublished": "{{ published_iso }}",
-  "author": {"@type": "Organization", "name": "Neve26"},
+  "author": {"@type": "Organization", "name": "Bronze"},
   "publisher": {
     "@type": "Organization",
-    "name": "Neve26",
-    "logo": {"@type": "ImageObject", "url": "https://neve26.com/logo-512.png"}
+    "name": "Bronze",
+    "logo": {"@type": "ImageObject", "url": "https://bronze.news/logo-512.png"}
   }
 }
 </script>
@@ -76,7 +76,7 @@
   function switchLang(lang) {
     const categoryPath = '{{ category_path }}';
     const slug = '{{ article.slug }}';
-    const langPaths = { en: '', de: 'de/', fr: 'fr/', it: 'it/', es: 'es/', pt: 'pt/', nl: 'nl/', ar: 'ar/', ja: 'ja/', zh: 'zh/', ko: 'ko/' };
+    const langPaths = { en: '', de: 'de/', fr: 'fr/' };
     window.location.href = '/' + langPaths[lang] + categoryPath + '/' + slug + '/';
   }
 </script>
