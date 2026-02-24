@@ -1,4 +1,4 @@
-"""Neve26 API module."""
+"""Bronze API module."""
 
 from .main import app, create_app
 

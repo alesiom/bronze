@@ -1,4 +1,4 @@
-"""SQLAlchemy models for Neve26 database."""
+"""SQLAlchemy models for Bronze database."""
 
 from datetime import datetime, date, time
 from typing import Optional
@@ -26,7 +26,7 @@ class Base(DeclarativeBase):
 
 
 class Event(Base):
-    """Winter sports event in the schedule."""
+    """Sports event in the schedule."""
 
     __tablename__ = "events"
 

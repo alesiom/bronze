@@ -1,4 +1,4 @@
-"""Database query functions for Neve26."""
+"""Database query functions for Bronze."""
 
 from datetime import date, datetime, time, timedelta
 from typing import Optional

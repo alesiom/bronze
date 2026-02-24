@@ -17,15 +17,15 @@ log = structlog.get_logger()
 router = APIRouter(prefix="/sitemap", tags=["sitemap"])
 
 # Configuration
-BASE_URL = "https://neve26.com"
-LANGUAGES = ["en", "de", "fr", "it", "es", "pt", "nl", "ar", "ja", "zh", "ko"]
-HTML_OUTPUT_PATH = os.getenv("HTML_OUTPUT_PATH", "/var/www/neve26.com")
+BASE_URL = "https://bronze.news"
+LANGUAGES = ["en", "fr", "de"]
+HTML_OUTPUT_PATH = os.getenv("HTML_OUTPUT_PATH", "/var/www/bronze.news")
 
 # Categories for URL structure
 CATEGORIES = [
-    "athletes", "venues", "history", "guides",
-    "alpine-skiing", "biathlon", "cross-country", "ski-jumping",
-    "nordic-combined", "freestyle", "snowboard", "news"
+    "news", "athletes", "guides",
+    "football", "tennis", "athletics", "cycling",
+    "motorsport", "winter-sports", "swimming", "other"
 ]
 
 
@@ -108,7 +108,7 @@ def generate_sitemap_news(articles: list[Article]) -> str:
     <loc>{url}</loc>
     <news:news>
       <news:publication>
-        <news:name>Neve26</news:name>
+        <news:name>Bronze</news:name>
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>{pub_date_str}</news:publication_date>

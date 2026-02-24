@@ -1,4 +1,4 @@
-"""Database module for Neve26."""
+"""Database module for Bronze."""
 
 from .connection import get_session, init_db, close_db
 from .models import Base, Event, Device, Favorite, ScheduleChange, ScrapeLog, Article, SocialPost

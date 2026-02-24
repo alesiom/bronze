@@ -1,7 +1,6 @@
 """
-Monitoring and health reporting for Neve26.
+Monitoring and health reporting for Bronze.
 
-Part of Phase 6: Agent-Driven Monitoring.
 Provides health checks, daily reports, and alerting.
 """
 
@@ -21,7 +20,7 @@ log = structlog.get_logger()
 ALERT_WEBHOOK_URL = os.environ.get("ALERT_WEBHOOK_URL", "")
 
 # HTML output path
-HTML_OUTPUT_PATH = Path(os.environ.get("HTML_OUTPUT_PATH", "/var/www/neve26.com"))
+HTML_OUTPUT_PATH = Path(os.environ.get("HTML_OUTPUT_PATH", "/var/www/bronze.news"))
 
 
 async def send_alert(
@@ -159,10 +158,9 @@ def check_html_files_integrity(categories: list = None) -> dict:
     """
     if categories is None:
         categories = [
-            "athletes", "venues", "guides", "history",
-            "alpine-skiing", "biathlon", "cross-country",
-            "ski-jumping", "nordic-combined", "freestyle",
-            "snowboard", "news"
+            "news", "athletes", "guides",
+            "football", "tennis", "athletics", "cycling",
+            "motorsport", "winter-sports", "swimming", "other"
         ]
 
     missing_files = []
@@ -284,7 +282,7 @@ async def check_system_health(session: AsyncSession) -> dict:
     i18n_path = Path(os.environ.get("I18N_PATH", "/app/website/i18n"))
     i18n_count = len(list(i18n_path.glob("*.json"))) if i18n_path.exists() else 0
     health["checks"]["i18n"] = {
-        "status": "ok" if i18n_count >= 11 else "warning",
+        "status": "ok" if i18n_count >= 3 else "warning",
         "languages_found": i18n_count
     }
 

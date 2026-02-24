@@ -189,7 +189,7 @@ async def update_templates(session: AsyncSession = Depends(get_db)):
 # =============================================================================
 
 class TestAlertRequest(BaseModel):
-    message: str = "Test alert from Neve26"
+    message: str = "Test alert from Bronze"
     severity: str = "info"
 
 

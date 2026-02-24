@@ -9,7 +9,7 @@ Usage:
     python scripts/translations_to_sql.py > translations.sql
 
     # Then run on database:
-    docker exec -i neve26-db psql -U postgres -d neve26 < translations.sql
+    docker exec -i bronze-db psql -U postgres -d neve26 < translations.sql
 """
 
 import json
@@ -100,12 +100,12 @@ def main():
         print("-- No translation files found", file=sys.stderr)
         sys.exit(1)
 
-    print("-- Neve26 Translation SQL")
+    print("-- Bronze Translation SQL")
     print("-- Generated from translations/*.json files")
     print(f"-- Files: {len(json_files)}")
     print("--")
     print("-- Run with:")
-    print("--   docker exec -i neve26-db psql -U postgres -d neve26 < translations.sql")
+    print("--   docker exec -i bronze-db psql -U postgres -d neve26 < translations.sql")
     print("")
     print("BEGIN;")
 

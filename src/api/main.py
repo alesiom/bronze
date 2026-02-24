@@ -1,4 +1,4 @@
-"""FastAPI application for Neve26 API."""
+"""FastAPI application for Bronze API."""
 
 import json
 from contextlib import asynccontextmanager
@@ -19,7 +19,7 @@ log = structlog.get_logger()
 async def lifespan(app: FastAPI):
     """Application lifespan handler."""
     # Startup
-    log.info("Starting Neve26 API")
+    log.info("Starting Bronze API")
 
     # Initialize database
     await init_db()
@@ -30,7 +30,7 @@ async def lifespan(app: FastAPI):
     yield
 
     # Shutdown
-    log.info("Shutting down Neve26 API")
+    log.info("Shutting down Bronze API")
     await close_db()
 
 
@@ -72,8 +72,8 @@ def create_app() -> FastAPI:
     settings = get_settings()
 
     app = FastAPI(
-        title="Neve26 API",
-        description="Winter Games Italy 2026 Schedule Tracker API",
+        title="Bronze API",
+        description="Independent sports news platform API",
         version="0.1.0",
         lifespan=lifespan,
         docs_url="/docs" if settings.debug else None,

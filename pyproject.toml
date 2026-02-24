@@ -1,7 +1,7 @@
 [project]
-name = "neve26"
-version = "0.1.0"
-description = "Winter Games Italy 2026 Schedule Tracker"
+name = "bronze"
+version = "0.2.0"
+description = "Independent sports news platform"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [

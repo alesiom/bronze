@@ -1,5 +1,5 @@
 """
-Article and HTML validation for Neve26.
+Article and HTML validation for Bronze.
 
 This module is the automated gatekeeper - no human review needed.
 All content must pass validation before being written to files.
@@ -42,7 +42,7 @@ LEGAL_WARNINGS = [
     '2026 games', 'winter 2026',
 ]
 
-SUPPORTED_LANGUAGES = ['en', 'de', 'fr', 'it', 'es', 'pt', 'nl', 'ar', 'ja', 'zh', 'ko']
+SUPPORTED_LANGUAGES = ['en', 'fr', 'de']
 
 
 # =============================================================================

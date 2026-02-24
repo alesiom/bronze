@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Check translation status for all Neve26 articles.
+Check translation status for all Bronze articles.
 
 This script identifies which articles have incomplete translations
 (less than 80% of English content length).
@@ -13,8 +13,8 @@ import json
 import urllib.request
 from typing import Optional
 
-API_BASE = "https://api.neve26.com/api/v1"
-LANGUAGES = ["de", "fr", "it", "es", "pt", "nl", "ar", "ja", "zh", "ko"]
+API_BASE = "https://api.bronze.news/api/v1"
+LANGUAGES = ["de", "fr"]
 COMPLETENESS_THRESHOLD = 0.80  # 80% of English content length
 
 

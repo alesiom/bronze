@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     
     # Database
     database_url: str = Field(
-        default="postgresql://postgres:postgres@localhost:5432/neve26",
+        default="postgresql://postgres:postgres@localhost:5432/neve26",  # DB name is legacy, intentional
         description="PostgreSQL connection string"
     )
     
@@ -32,9 +32,8 @@ class Settings(BaseSettings):
     scrape_interval_pre_event: int = 90    # 1.5 minutes
     scrape_interval_live: int = 30         # 30 seconds
     
-    # Target URLs
-    olympics_base_url: str = "https://www.olympics.com/en/milano-cortina-2026"
-    olympics_schedule_url: str = "https://www.olympics.com/en/milano-cortina-2026/schedule/overview"
+    # Website
+    site_url: str = "https://bronze.news"
     
     # Push notifications
     firebase_credentials_json: str = ""
@@ -62,76 +61,17 @@ def get_settings() -> Settings:
     return Settings()
 
 
-# Sport codes for Milano Cortina 2026
-SPORT_CODES = {
-    "ALP": "Alpine Skiing",
-    "BTH": "Biathlon",
-    "BOB": "Bobsleigh",
-    "CCS": "Cross-Country Skiing",
-    "CUR": "Curling",
-    "FSK": "Figure Skating",
-    "FRS": "Freestyle Skiing",
-    "IHO": "Ice Hockey",
-    "LUG": "Luge",
-    "NCB": "Nordic Combined",
-    "STK": "Short Track Speed Skating",
-    "SKN": "Skeleton",
-    "SJP": "Ski Jumping",
-    "SMT": "Ski Mountaineering",
-    "SBD": "Snowboard",
-    "SSK": "Speed Skating",
+# Content categories
+CONTENT_CATEGORIES = {
+    "news": "General Sports News",
+    "athlete-profile": "Athlete Profiles",
+    "sport-explainer": "Sport Explainers",
+    "football": "Football",
+    "tennis": "Tennis",
+    "athletics": "Athletics",
+    "cycling": "Cycling",
+    "motorsport": "Motorsport",
+    "winter-sports": "Winter Sports",
+    "swimming": "Swimming",
+    "other": "Other Sports",
 }
-
-# Venue information
-VENUES = {
-    "milano": {
-        "name": "Milano",
-        "venues": [
-            "Milano Ice Skating Arena",
-            "Milano San Siro Olympic Stadium",
-            "Milano Santagiulia Ice Hockey Arena",
-            "Milano Speed Skating Stadium",
-            "Milano Rho Ice Hockey Arena",
-        ]
-    },
-    "cortina": {
-        "name": "Cortina d'Ampezzo",
-        "venues": [
-            "Cortina Curling Olympic Stadium",
-            "Cortina Sliding Centre",
-            "Tofane Alpine Skiing Centre",
-        ]
-    },
-    "bormio": {
-        "name": "Bormio",
-        "venues": ["Stelvio Ski Centre"]
-    },
-    "livigno": {
-        "name": "Livigno",
-        "venues": [
-            "Livigno Snow Park",
-            "Livigno Aerials & Moguls Park",
-        ]
-    },
-    "anterselva": {
-        "name": "Anterselva/Antholz",
-        "venues": ["Anterselva Biathlon Arena"]
-    },
-    "tesero": {
-        "name": "Tesero",
-        "venues": ["Tesero Cross-Country Skiing Stadium"]
-    },
-    "predazzo": {
-        "name": "Predazzo",
-        "venues": ["Predazzo Ski Jumping Stadium"]
-    },
-    "verona": {
-        "name": "Verona",
-        "venues": ["Verona Olympic Arena"]
-    },
-}
-
-# Games dates
-GAMES_START = "2026-02-06"
-GAMES_END = "2026-02-22"
-COMPETITIONS_START = "2026-02-04"  # Curling starts early

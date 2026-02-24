@@ -43,7 +43,7 @@ log = structlog.get_logger()
 router = APIRouter(prefix="/articles", tags=["articles"])
 
 # Supported languages
-SUPPORTED_LANGS = {"en", "de", "fr", "it", "es", "pt", "nl", "ar", "ja", "zh", "ko"}
+SUPPORTED_LANGS = {"en", "fr", "de"}
 
 # =============================================================================
 # Jinja2 Template Environment
@@ -158,9 +158,9 @@ def render_article_jinja(
         alt_code = alt_lang["code"]
         alt_path = alt_lang["path"]
         hreflang_parts.append(
-            f'<link rel="alternate" hreflang="{alt_code}" href="https://neve26.com/{alt_path}{category_path}/{article.slug}/">'
+            f'<link rel="alternate" hreflang="{alt_code}" href="https://bronze.news/{alt_path}{category_path}/{article.slug}/">'
         )
-    hreflang_parts.append(f'<link rel="alternate" hreflang="x-default" href="https://neve26.com/{category_path}/{article.slug}/">')
+    hreflang_parts.append(f'<link rel="alternate" hreflang="x-default" href="https://bronze.news/{category_path}/{article.slug}/">')
     hreflang_links = "\n  ".join(hreflang_parts)
 
     # Render template
@@ -176,7 +176,7 @@ def render_article_jinja(
         title=title,
         content=content,
         meta_description=meta_desc,
-        canonical_url=f"https://neve26.com/{lang_config['path']}{category_path}/{article.slug}/",
+        canonical_url=f"https://bronze.news/{lang_config['path']}{category_path}/{article.slug}/",
 
         # Category
         category_path=category_path,
@@ -287,7 +287,7 @@ def render_index_jinja(
             })
 
     # Get page title
-    page_title = page_config["heading"].get(lang) or page_config["heading"].get("en", "Neve26")
+    page_title = page_config["heading"].get(lang) or page_config["heading"].get("en", "Bronze")
     meta_desc = page_config["meta"].get(lang) or page_config["meta"].get("en", "")
 
     html = template.render(
@@ -298,7 +298,7 @@ def render_index_jinja(
         title=page_title,
         page_title=page_title,
         meta_description=meta_desc,
-        canonical_url=f"https://neve26.com/{lang_config['path']}{page_config['slug']}",
+        canonical_url=f"https://bronze.news/{lang_config['path']}{page_config['slug']}",
         current_nav=page_config.get("nav_current", ""),
         i18n=i18n,  # From JSON files
         articles=prepared_articles,
@@ -340,7 +340,7 @@ async def generate_article_html_internal(slug: str) -> dict:
             }
 
         # Base path for HTML files
-        base_path = Path(os.environ.get("HTML_OUTPUT_PATH", "/var/www/neve26.com"))
+        base_path = Path(os.environ.get("HTML_OUTPUT_PATH", "/var/www/bronze.news"))
         generated_paths = []
 
         for lang_config in LANGUAGES:
@@ -405,9 +405,9 @@ async def generate_article_html_internal(slug: str) -> dict:
                     alt_code = alt_lang["code"]
                     alt_path = alt_lang["path"]
                     hreflang_parts.append(
-                        f'<link rel="alternate" hreflang="{alt_code}" href="https://neve26.com/{alt_path}{category_path}/{slug}/">'
+                        f'<link rel="alternate" hreflang="{alt_code}" href="https://bronze.news/{alt_path}{category_path}/{slug}/">'
                     )
-                hreflang_parts.append(f'<link rel="alternate" hreflang="x-default" href="https://neve26.com/{category_path}/{slug}/">')
+                hreflang_parts.append(f'<link rel="alternate" hreflang="x-default" href="https://bronze.news/{category_path}/{slug}/">')
                 hreflang_links = "\n  ".join(hreflang_parts)
 
                 lang_selections = {
@@ -1153,22 +1153,22 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title} - Neve26</title>
+  <title>{title} - Bronze</title>
   <meta name="description" content="{meta_description}">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="{title} - Neve26">
+  <meta property="og:title" content="{title} - Bronze">
   <meta property="og:description" content="{meta_description}">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://neve26.com/{lang_path}{category_path}/{slug}/">
-  <meta property="og:site_name" content="Neve26">
+  <meta property="og:url" content="https://bronze.news/{lang_path}{category_path}/{slug}/">
+  <meta property="og:site_name" content="Bronze">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@neve2026">
 
   <!-- Canonical and alternates -->
-  <link rel="canonical" href="https://neve26.com/{lang_path}{category_path}/{slug}/">
+  <link rel="canonical" href="https://bronze.news/{lang_path}{category_path}/{slug}/">
   {hreflang_links}
 
   <!-- Favicons -->
@@ -1183,8 +1183,8 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
     "@type": "Article",
     "headline": "{title}",
     "datePublished": "{published_iso}",
-    "author": {{"@type": "Organization", "name": "Neve26"}},
-    "publisher": {{"@type": "Organization", "name": "Neve26", "logo": {{"@type": "ImageObject", "url": "https://neve26.com/logo-512.png"}}}}
+    "author": {{"@type": "Organization", "name": "Bronze"}},
+    "publisher": {{"@type": "Organization", "name": "Bronze", "logo": {{"@type": "ImageObject", "url": "https://bronze.news/logo-512.png"}}}}
   }}
   </script>
 
@@ -1195,9 +1195,9 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
 
   <header class="site-header" role="banner">
     <div class="header-container">
-      <a href="/{lang_path}" class="site-logo" aria-label="Neve26 Home">
+      <a href="/{lang_path}" class="site-logo" aria-label="Bronze Home">
         <img src="/logo-128.png" alt="" width="40" height="40">
-        <span>Neve26</span>
+        <span>Bronze</span>
       </a>
       <nav class="header-nav" aria-label="Main navigation">
         <ul class="nav-links">
@@ -1262,7 +1262,7 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
         <a href="https://x.com/neve2026" target="_blank" rel="noopener noreferrer">X @neve2026</a>
         <a href="https://instagram.com/neve.2026" target="_blank" rel="noopener noreferrer">Instagram</a>
       </nav>
-      <p class="copyright">© 2026 Neve26. {ui_footer_disclaimer}</p>
+      <p class="copyright">© 2026 Bronze. {ui_footer_disclaimer}</p>
     </div>
   </footer>
 
@@ -1281,7 +1281,7 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
     (function() {{
-      var u="//matomo.neve26.com/";
+      var u="//matomo.bronze.news/";
       _paq.push(['setTrackerUrl', u+'matomo.php']);
       _paq.push(['setSiteId', '1']);
       var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
@@ -1308,7 +1308,7 @@ async def generate_article_html(
     """
     Generate static HTML files for an article in all 11 languages.
 
-    Files are written to /var/www/neve26.com/{lang_path}{slug}/index.html
+    Files are written to /var/www/bronze.news/{lang_path}{slug}/index.html
     """
     article = await get_article_by_slug(session, slug)
 
@@ -1316,7 +1316,7 @@ async def generate_article_html(
         raise HTTPException(status_code=404, detail="Article not found")
 
     # Base path for HTML files
-    base_path = Path(os.environ.get("HTML_OUTPUT_PATH", "/var/www/neve26.com"))
+    base_path = Path(os.environ.get("HTML_OUTPUT_PATH", "/var/www/bronze.news"))
     generated_paths = []
 
     for lang_config in LANGUAGES:
@@ -1371,9 +1371,9 @@ async def generate_article_html(
             alt_code = alt_lang["code"]
             alt_path = alt_lang["path"]
             hreflang_parts.append(
-                f'<link rel="alternate" hreflang="{alt_code}" href="https://neve26.com/{alt_path}{category_path}/{slug}/">'
+                f'<link rel="alternate" hreflang="{alt_code}" href="https://bronze.news/{alt_path}{category_path}/{slug}/">'
             )
-        hreflang_parts.append(f'<link rel="alternate" hreflang="x-default" href="https://neve26.com/{category_path}/{slug}/">')
+        hreflang_parts.append(f'<link rel="alternate" hreflang="x-default" href="https://bronze.news/{category_path}/{slug}/">')
         hreflang_links = "\n  ".join(hreflang_parts)
 
         # Generate HTML (Jinja2 templates or legacy inline template)
@@ -1516,9 +1516,9 @@ INDEX_TEMPLATE = '''<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{page_title} - Neve26</title>
+    <title>{page_title} - Bronze</title>
     <meta name="description" content="{meta_description}">
-    <link rel="canonical" href="https://neve26.com/{lang_path}{page_slug}">
+    <link rel="canonical" href="https://bronze.news/{lang_path}{page_slug}">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="stylesheet" href="/static/style.css">
@@ -1529,7 +1529,7 @@ INDEX_TEMPLATE = '''<!DOCTYPE html>
         <div class="header-inner">
             <a href="/{lang_path}" class="logo">
                 <img src="/logo-128.png" alt="">
-                <span>Neve26</span>
+                <span>Bronze</span>
             </a>
             <nav aria-label="Main navigation">
                 <ul>
@@ -1557,7 +1557,7 @@ INDEX_TEMPLATE = '''<!DOCTYPE html>
             <a href="/support">Support</a>
             <a href="https://x.com/neve2026">X @neve2026</a>
         </nav>
-        <p class="copyright">&copy; 2026 Neve26. Independent winter sports coverage.</p>
+        <p class="copyright">&copy; 2026 Bronze. Independent winter sports coverage.</p>
     </footer>
     <script>
     (function() {{
@@ -1803,7 +1803,7 @@ async def generate_index_pages(
                           and (a.sport_code == "SB" or a.category == "snowboard")]
 
     # Base path
-    base_path = Path(os.environ.get("HTML_OUTPUT_PATH", "/var/www/neve26.com"))
+    base_path = Path(os.environ.get("HTML_OUTPUT_PATH", "/var/www/bronze.news"))
     pages_path = base_path / "_pages"
     generated_pages = []
 
@@ -2014,7 +2014,7 @@ async def generate_index_pages(
             nav_current = page_config["nav_current"]
 
             # Generate page HTML (Jinja2 templates or legacy inline template)
-            page_title = page_config["heading"].get(lang) or page_config["heading"].get("en", "Neve26")
+            page_title = page_config["heading"].get(lang) or page_config["heading"].get("en", "Bronze")
             meta_desc = page_config["meta"].get(lang) or page_config["meta"].get("en", "")
 
             if USE_JINJA_TEMPLATES:

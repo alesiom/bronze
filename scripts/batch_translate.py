@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Batch translation script for Neve26 articles.
+Batch translation script for Bronze articles.
 Uses Claude Batch API for cost-effective full translations.
 
 Usage:
@@ -19,14 +19,6 @@ from pathlib import Path
 LANGUAGES = {
     "de": "German",
     "fr": "French",
-    "it": "Italian",
-    "es": "Spanish",
-    "pt": "Portuguese",
-    "nl": "Dutch",
-    "ar": "Arabic",
-    "ja": "Japanese",
-    "zh": "Chinese (Simplified)",
-    "ko": "Korean"
 }
 
 TRANSLATION_PROMPT = """You are a professional translator for a winter sports news website. Translate the following article from English to {language}.
@@ -62,8 +54,8 @@ Only output the JSON, nothing else."""
 def get_articles_from_db():
     """Fetch all published articles from database."""
     result = subprocess.run([
-        "ssh", "ubuntu@neve26.com",
-        "docker exec neve26-db psql -U postgres -d neve26 -t -A -c \"SELECT json_agg(json_build_object('slug', slug, 'title_en', title->>'en', 'content_en', content->>'en', 'excerpt_en', COALESCE(excerpt->>'en', ''), 'category', category)) FROM articles WHERE status='published'\""
+        "ssh", "bronze",
+        "docker exec bronze-db psql -U postgres -d neve26 -t -A -c \"SELECT json_agg(json_build_object('slug', slug, 'title_en', title->>'en', 'content_en', content->>'en', 'excerpt_en', COALESCE(excerpt->>'en', ''), 'category', category)) FROM articles WHERE status='published'\""
     ], capture_output=True, text=True)
 
     if result.returncode != 0:
@@ -205,7 +197,7 @@ def update_database(results):
         escaped_content = update['content'].replace("'", "''")
         escaped_excerpt = update['excerpt'].replace("'", "''")
 
-        cmd = f"""docker exec neve26-db psql -U postgres -d neve26 -c "
+        cmd = f"""docker exec bronze-db psql -U postgres -d neve26 -c "
         UPDATE articles SET
             title = jsonb_set(title, '{{\"{update['lang']}\"}}', '\"{escaped_title}\"'::jsonb),
             content = jsonb_set(content, '{{\"{update['lang']}\"}}', to_jsonb('{escaped_content}'::text)),
@@ -213,7 +205,7 @@ def update_database(results):
         WHERE slug = '{update['slug']}'
         " """
 
-        subprocess.run(["ssh", "ubuntu@neve26.com", cmd], capture_output=True)
+        subprocess.run(["ssh", "bronze", cmd], capture_output=True)
         print(f"Updated {update['slug']} - {update['lang']}")
 
     print(f"Updated {len(updates)} translations in database")

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Translate Neve26 articles from English to 10 languages.
+Translate Bronze articles from English to supported languages.
 
 This script:
 1. Fetches articles needing translation from the API
@@ -38,21 +38,13 @@ import urllib.request
 from typing import Optional
 
 # API configuration
-API_BASE = "https://api.neve26.com/api/v1"
+API_BASE = "https://api.bronze.news/api/v1"
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
 
 # Language configurations
 LANGUAGES = {
     "de": {"name": "German", "native": "Deutsch"},
     "fr": {"name": "French", "native": "Français"},
-    "it": {"name": "Italian", "native": "Italiano"},
-    "es": {"name": "Spanish", "native": "Español"},
-    "pt": {"name": "Portuguese", "native": "Português"},
-    "nl": {"name": "Dutch", "native": "Nederlands"},
-    "ar": {"name": "Arabic", "native": "العربية"},
-    "ja": {"name": "Japanese", "native": "日本語"},
-    "zh": {"name": "Chinese (Simplified)", "native": "中文"},
-    "ko": {"name": "Korean", "native": "한국어"},
 }
 
 COMPLETENESS_THRESHOLD = 0.80
@@ -257,7 +249,7 @@ def get_incomplete_translations(slug: str = None) -> list:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Translate Neve26 articles")
+    parser = argparse.ArgumentParser(description="Translate Bronze articles")
     parser.add_argument("--slug", help="Specific article slug to translate")
     parser.add_argument("--lang", help="Specific language to translate to")
     parser.add_argument("--dry-run", action="store_true", help="Don't save translations")
@@ -269,7 +261,7 @@ def main():
         sys.exit(1)
 
     print("="*60)
-    print("NEVE26 ARTICLE TRANSLATION")
+    print("BRONZE ARTICLE TRANSLATION")
     print("="*60)
 
     # Get articles needing translation
