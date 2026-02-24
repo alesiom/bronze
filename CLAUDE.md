@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Behavioral rules for Claude Code when working on Neve26.
+Behavioral rules for Claude Code when working on Bronze.
 
 ## Quick Reference
 
@@ -12,17 +12,17 @@ Behavioral rules for Claude Code when working on Neve26.
 
 ## Repository Structure
 
-Neve26 is a **single repo** with multiple components:
+Bronze is a **single repo** with multiple components:
 
 ```
-neve26/
+bronze/
 ├── CLAUDE.md             ← This file (behavioral rules)
 ├── app/                  ← Mobile app (Expo/React Native)
 │   ├── app/             # Screens (file-based routing)
 │   ├── components/      # UI components
 │   ├── hooks/           # Custom hooks
 │   ├── services/        # API services
-│   └── locales/         # i18n (11 languages)
+│   └── locales/         # i18n (3 languages: EN-GB, FR, DE)
 ├── website/              ← Static website (nginx)
 │   ├── templates/       # Jinja2 templates
 │   ├── i18n/            # Template translations
@@ -31,7 +31,7 @@ neve26/
 ├── src/                  ← Backend (Python/FastAPI)
 │   ├── api/             # FastAPI routes
 │   ├── db/              # SQLAlchemy models
-│   ├── scraper/         # FIS/IBU scrapers
+│   ├── scraper/         # Data scrapers (FIS, IBU, and expanding)
 │   └── notifications/   # Push notification service
 ├── migrations/           ← SQL migrations
 ├── docs/                 ← Documentation (see Quick Reference)
@@ -67,47 +67,17 @@ docker-compose logs -f api
 
 | Service | URL |
 |---------|-----|
-| Website | https://neve26.com |
-| API | https://api.neve26.com |
-| n8n | https://n8n.neve26.com |
-| Matomo | https://matomo.neve26.com |
+| Website | https://bronze.news |
+| API | https://api.bronze.news |
+| n8n | https://n8n.bronze.news |
+| Matomo | https://matomo.bronze.news |
 
 ### VPS Access
 
 ```bash
-ssh neve26   # Alias configured in ~/.ssh/config
-cd /home/ubuntu/neve26/
+ssh bronze   # Alias configured in ~/.ssh/config
+cd /home/ubuntu/bronze/
 ```
-
-## Legal Compliance
-
-**CRITICAL: Italian Law 31/2020 prohibits using Olympic-related terms.**
-**Fines: €100,000 to €2,500,000**
-
-### Blocked Terms (NEVER use)
-
-| Term | Category |
-|------|----------|
-| olympic, olympics, olympiad | Olympic |
-| olimpico, olimpiade | Olympic (IT) |
-| paralympic, paralimpico | Paralympic |
-| milano cortina 2026, cortina 2026, milano 2026 | Trademark |
-| winter games 2026, games of 2026, the games | Trademark |
-| going for gold, medal hopes | Marketing |
-| team usa, team italy, team canada, etc. | Team names |
-
-### Safe Alternatives
-
-- "FIS World Cup" instead of "Olympics"
-- "IBU World Cup" instead of "the games"
-- "Norway's national team" instead of "Team Norway"
-- "France's athletes" instead of "French Team"
-- Athlete names, career stats, venue names (without 2026)
-
-### Validation
-
-All content MUST pass `legal_blocklist` validation before publishing.
-Check exists in n8n workflow and API create/update endpoints.
 
 ## Code Standards
 
@@ -143,11 +113,10 @@ All content must meet WCAG AAA accessibility standards:
 
 ### Multilingual Content
 
-11 languages supported: EN, DE, FR, IT, ES, PT, NL, AR, JA, ZH, KO
+3 languages supported: EN-GB, FR, DE
 
-- Content stored as JSONB: `{"en": "...", "de": "...", ...}`
+- Content stored as JSONB: `{"en": "...", "fr": "...", "de": "..."}`
 - URLs: `/article/` (EN), `/{lang}/article/` (others)
-- RTL support required for Arabic (`ar`)
 
 ## GitLab Workflow
 
@@ -196,10 +165,10 @@ git push origin main
 
 ```bash
 # SSH to VPS
-ssh neve26
+ssh bronze
 
 # Pull and restart
-cd /home/ubuntu/neve26
+cd /home/ubuntu/bronze
 git pull
 docker-compose up -d --build
 ```
@@ -210,7 +179,7 @@ docker-compose up -d --build
 
 ```bash
 # List issues
-glab issue list -R neve-26/neve26-backend
+glab issue list -R bronzenews/bronze
 
 # View issue
 glab issue view 42
@@ -256,26 +225,21 @@ glab issue create -t "Add image generation workflow" -d "..."
 
 1. Check for uncommitted work:
 ```bash
-cd /Users/alex/kDrive/Privé/Neve26 && git status -s
+cd /Users/alex/kDrive/Privé/Bronze && git status -s
 ```
 
 2. If uncommitted changes exist: ask Alex before proceeding
 
 3. Check current milestone progress:
 ```bash
-glab issue list -R neve-26/neve26-backend --state opened
+glab issue list -R bronzenews/bronze --state opened
 ```
-
-4. Read relevant docs for context:
-   - `docs/KNOWLEDGE.md` for recent decisions
-   - `docs/PROGRESS.md` for ticket status
 
 ### Session End
 
 - If work is complete: commit with proper message
 - If work is incomplete: commit as WIP: `git commit -m "WIP: partial progress on #N"`
 - Push to remote as backup
-- Update `docs/KNOWLEDGE.md` with any new discoveries
 
 **Never leave uncommitted changes across sessions.**
 
@@ -283,7 +247,6 @@ glab issue list -R neve-26/neve26-backend --state opened
 
 - Complete task: close issue
 - Discover new task: create issue in backlog
-- Find blocker: document in `docs/KNOWLEDGE.md`
 - Make architectural decision: document in `docs/ARCHITECTURE.md`
 
 ## Key Technical Details
@@ -292,7 +255,7 @@ glab issue list -R neve-26/neve26-backend --state opened
 
 | Workflow | ID | Purpose |
 |----------|-----|---------|
-| FIS Article Generator | `kBp7MyP9YugCOMC3` | Generate articles from FIS results |
+| Article Generator | `kBp7MyP9YugCOMC3` | Generate articles from sports data sources |
 | Social Media Posting | `2ITk8EuErxxlBHsE` | Post to X and Instagram via Late.dev |
 
 ### API Endpoints
@@ -312,12 +275,12 @@ GET  /api/v1/events/live           # Currently happening
 
 | Volume | Mount Point | Purpose |
 |--------|-------------|---------|
-| `html_content` | `/var/www/neve26.com` | Generated HTML articles |
-| `html_content_images` | `/var/www/neve26.com/images` | Article and social images |
+| `html_content` | `/var/www/bronze.news` | Generated HTML articles |
+| `html_content_images` | `/var/www/bronze.news/images` | Article and social images |
 
 ### Late.dev Social Media
 
 - **Profile ID**: `6961bcd2da641c56044760a5`
-- **X Account**: `6961bcdc4207e06f4ca84a79` (@neve2026)
-- **Instagram Account**: `6961bd064207e06f4ca84a7a` (@neve.2026)
+- **X Account**: `6961bcdc4207e06f4ca84a79` (handle rename pending — see ticket)
+- **Instagram Account**: `6961bd064207e06f4ca84a7a` (handle rename pending — see ticket)
 - Instagram requires `mediaItems` - text-only posts only work on X

@@ -1,12 +1,12 @@
-# Neve26 Architecture Decisions
+# Bronze Architecture Decisions
 
-This document records key architectural decisions for the Neve26 platform.
+This document records key architectural decisions for the Bronze platform.
 
 ---
 
 ## URL Structure
 
-**Decision Date:** 2026-01-11
+**Decision Date:** 2026-01-11 (Neve26), updated 2026-02-23 (Bronze pivot)
 
 ### Hierarchical URL Pattern
 
@@ -21,46 +21,40 @@ All content follows a hierarchical URL structure for better SEO and user navigat
 
 | Category | URL Path | Content Type |
 |----------|----------|--------------|
-| `athlete-profile` | `/athletes/` | Athlete profiles and bios |
-| `venue-guide` | `/venues/` | Venue/location guides |
-| `historical` | `/history/` | Historical articles |
+| `news` | `/news/` | General sports news |
+| `athlete-profile` | `/athletes/` | Athlete profiles and features |
 | `sport-explainer` | `/guides/` | Sport explainers and how-to |
-| `alpine-skiing` | `/alpine-skiing/` | Alpine skiing news |
-| `biathlon` | `/biathlon/` | Biathlon news |
-| `cross-country` | `/cross-country/` | Cross-country skiing news |
-| `ski-jumping` | `/ski-jumping/` | Ski jumping news |
-| `freestyle` | `/freestyle/` | Freestyle skiing news |
-| `snowboard` | `/snowboard/` | Snowboard news |
-| `nordic-combined` | `/nordic-combined/` | Nordic combined news |
-| `news` | `/news/` | General winter sports news |
+| `football` | `/football/` | Football coverage |
+| `tennis` | `/tennis/` | Tennis coverage |
+| `athletics` | `/athletics/` | Athletics / track & field |
+| `cycling` | `/cycling/` | Cycling coverage |
+| `motorsport` | `/motorsport/` | F1, MotoGP, etc. |
+| `winter-sports` | `/winter-sports/` | Alpine, biathlon, XC, etc. |
+| `swimming` | `/swimming/` | Swimming & aquatics |
+| `other` | `/other/` | Everything else worth writing about |
+
+> Category list will evolve. Start broad, refine based on what we actually cover.
 
 ### URL Examples
 
 ```
-# Athletes (actual slugs from database)
-/athletes/marco-odermatt-profile/
-/de/athletes/marco-odermatt-profile/
-/athletes/mikaela-shiffrin-profile/
-/fr/athletes/johannes-thingnes-boe-profile/
-
-# Venues
-/venues/kitzbuehel-venue-guide/
-/venues/anterselva-antholz-venue-guide/
-/de/venues/cortina-dampezzo-venue-guide/
-
-# History
-/history/the-streif-kitzbuehel-history/
-/history/biathlon-world-cup-history/
-/it/history/history-of-alpine-skiing/
+# Athletes
+/athletes/carlos-alcaraz-profile/
+/de/athletes/carlos-alcaraz-profile/
+/athletes/sydney-mclaughlin-levrone-profile/
+/fr/athletes/tadej-pogacar-profile/
 
 # Sport Guides
-/guides/alpine-skiing-disciplines-explained/
-/guides/biathlon-explained-skiing-meets-shooting/
-/ja/guides/ski-jumping-scoring-technique-explained/
+/guides/tennis-scoring-explained/
+/guides/cycling-grand-tours-explained/
+/de/guides/football-offside-rule-explained/
 
-# News by Sport (when news articles exist)
-/alpine-skiing/adelboden-preview-2026/
-/biathlon/giacomel-oberhof-victory/
+# News by Sport
+/football/champions-league-quarter-finals-recap/
+/tennis/australian-open-final-preview/
+/cycling/tour-de-france-stage-12-recap/
+/winter-sports/biathlon-world-cup-ruhpolding/
+/motorsport/f1-bahrain-gp-qualifying/
 ```
 
 ### Internal Link Rules
@@ -69,14 +63,13 @@ All content follows a hierarchical URL structure for better SEO and user navigat
 
 | Content Language | Link Format |
 |-----------------|-------------|
-| English (`en`) | `/athletes/marco-odermatt-profile/` |
-| German (`de`) | `/de/athletes/marco-odermatt-profile/` |
-| French (`fr`) | `/fr/athletes/marco-odermatt-profile/` |
-| ... | `/{lang}/...` |
+| English (`en`) | `/athletes/carlos-alcaraz-profile/` |
+| German (`de`) | `/de/athletes/carlos-alcaraz-profile/` |
+| French (`fr`) | `/fr/athletes/carlos-alcaraz-profile/` |
 
 This applies to:
 - Links to other articles
-- Links to category pages (`/alpine-skiing/`, `/biathlon/`, etc.)
+- Links to category pages (`/football/`, `/tennis/`, etc.)
 - Navigation links in article content
 
 **Exception:** Static pages (`/app`, `/privacy`, `/support`) don't use language prefixes.
@@ -87,7 +80,7 @@ This applies to:
 
 ### Homepage (`/`)
 - Shows ALL content types by default
-- Filter buttons: All | News | Athletes | Venues | History | Guides
+- Filter buttons: All | News | Athletes | Guides
 - Default filter: "All" (shows everything, most recent first)
 
 ### Category Pages
@@ -95,11 +88,15 @@ This applies to:
 | Page | Shows | Excludes |
 |------|-------|----------|
 | `/athletes/` | Only `athlete-profile` | Everything else |
-| `/venues/` | Only `venue-guide` | Everything else |
-| `/history/` | Only `historical` | Everything else |
 | `/guides/` | Only `sport-explainer` | Everything else |
-| `/alpine-skiing/` | Alpine news + alpine venues + alpine history | Athletes, other sports |
-| `/biathlon/` | Biathlon news + biathlon venues + biathlon history | Athletes, other sports |
+| `/football/` | Football news | Athletes, other sports |
+| `/tennis/` | Tennis news | Athletes, other sports |
+| `/athletics/` | Athletics news | Athletes, other sports |
+| `/cycling/` | Cycling news | Athletes, other sports |
+| `/motorsport/` | Motorsport news | Athletes, other sports |
+| `/winter-sports/` | Winter sports news | Athletes, other sports |
+| `/swimming/` | Swimming news | Athletes, other sports |
+| `/other/` | Other sports news | Athletes, other sports |
 
 **Key Rule:** Athletes NEVER appear on sport-specific pages. They only appear on:
 1. Homepage (when "All" or "Athletes" filter is selected)
@@ -111,12 +108,14 @@ This applies to:
 
 ### Main Navigation
 ```
-News | Alpine | Biathlon | Athletes | Get App
+News | Football | Tennis | Cycling | Athletes | Get App
 ```
+
+> Navigation will evolve as coverage grows. Start with the most popular sports.
 
 ### Homepage Filters
 ```
-All | News | Athletes | Venues | History | Guides
+All | News | Athletes | Guides
 ```
 
 ### Breadcrumbs Pattern
@@ -125,9 +124,9 @@ Home > Category > Article Title
 ```
 
 Examples:
-- Home > Athletes > Marco Odermatt
-- Home > Venues > Kitzbühel
-- Home > Alpine Skiing > Adelboden Preview
+- Home > Athletes > Carlos Alcaraz
+- Home > Football > Champions League Recap
+- Home > Cycling > Tour de France Stage 12
 
 ---
 
@@ -150,7 +149,7 @@ IT, ES, PT, NL, AR, JA, ZH, KO — may be re-added if/when local LLM generation 
 ## File Storage
 
 ### Article HTML Files
-- Location: `/var/www/neve26.com/` (Docker volume `html_content`)
+- Location: `/var/www/bronze.news/` (Docker volume `html_content`)
 - Pattern: `/{category}/{slug}/index.html`
 - Language versions: `/{lang}/{category}/{slug}/index.html`
 
@@ -164,28 +163,19 @@ IT, ES, PT, NL, AR, JA, ZH, KO — may be re-added if/when local LLM generation 
 
 ### Articles Table - Category Values
 The `category` column uses these exact values:
-- `athlete-profile`
-- `venue-guide`
-- `historical`
-- `sport-explainer`
-- `alpine-skiing`
-- `biathlon`
-- `cross-country`
-- `ski-jumping`
-- `freestyle`
-- `snowboard`
-- `nordic-combined`
 - `news`
+- `athlete-profile`
+- `sport-explainer`
+- `football`
+- `tennis`
+- `athletics`
+- `cycling`
+- `motorsport`
+- `winter-sports`
+- `swimming`
+- `other`
 
-### Sport Codes
-Used for filtering content by sport:
-- `ALP` / `AS` - Alpine Skiing
-- `BT` / `BTH` - Biathlon
-- `CC` - Cross-Country
-- `SJ` - Ski Jumping
-- `NC` - Nordic Combined
-- `FS` - Freestyle
-- `SB` - Snowboard
+> Legacy Neve26 categories (`venue-guide`, `historical`, `alpine-skiing`, `biathlon`, `cross-country`, `ski-jumping`, `freestyle`, `snowboard`, `nordic-combined`) may still exist in the database for older articles. New content uses the categories above.
 
 ---
 
@@ -212,11 +202,15 @@ See `docs/archive/DECISION_social_media_api.md` for full research.
 ## Change Log
 
 ### 2026-02-23
+- **REBRAND**: Neve26 → Bronze
 - **PIVOT**: Reduced languages from 11 to 3 (EN-GB, FR, DE)
 - Scope expanded from winter sports to all sports
-- Content categories updated (sport-specific categories replacing winter-only ones)
-- Navigation structure will be updated once new brand name is decided
+- Content categories updated to general sports (football, tennis, cycling, etc.)
+- Navigation structure updated for general sports
+- Database category values updated
+- File storage paths updated to bronze.news
 - AI-generated image requirements added to content pipeline
+- URL examples updated for general sports
 
 ### 2026-01-12
 - Added Internal Link Rules section documenting language-aware linking

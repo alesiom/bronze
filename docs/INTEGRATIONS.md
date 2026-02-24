@@ -15,8 +15,8 @@ API examples and configuration for third-party services.
 | Platform | Account ID | Handle |
 |----------|------------|--------|
 | Profile | `6961bcd2da641c56044760a5` | Default Profile |
-| X | `6961bcdc4207e06f4ca84a79` | @neve2026 |
-| Instagram | `6961bd064207e06f4ca84a7a` | @neve.2026 |
+| X | `6961bcdc4207e06f4ca84a79` | Rename pending (was @neve2026) |
+| Instagram | `6961bd064207e06f4ca84a7a` | Rename pending (was @neve.2026) |
 
 ### API Reference
 
@@ -56,7 +56,7 @@ POST /posts
       "accountId": "6961bd064207e06f4ca84a7a",
       "mediaItems": [
         {
-          "url": "https://neve26.com/images/social/post-image.jpg"
+          "url": "https://bronze.news/images/social/post-image.jpg"
         }
       ]
     }
@@ -114,7 +114,7 @@ GET https://graph.instagram.com/refresh_access_token
 
 ### Configuration
 
-- **Project:** neve26-app
+- **Project:** neve26-app (rename to bronze pending)
 - **Server Key:** In `config/firebase-admin.json` (not in repo)
 - **App Config:** `app/app.json` → `expo.android.googleServicesFile`
 
@@ -130,7 +130,7 @@ Headers:
   "to": "{device_token}",
   "notification": {
     "title": "Event Starting Soon",
-    "body": "Men's Downhill at Kitzbühel starts in 2 hours"
+    "body": "Champions League semi-final starts in 2 hours"
   },
   "data": {
     "event_id": "123",
@@ -143,7 +143,7 @@ Headers:
 
 ## Matomo (Analytics)
 
-**Instance:** https://matomo.neve26.com
+**Instance:** https://matomo.bronze.news
 **Site ID:** 1
 
 ### Tracking Code
@@ -153,7 +153,7 @@ Already embedded in website templates via `base.html.j2`.
 ### API Access
 
 ```
-GET https://matomo.neve26.com/index.php
+GET https://matomo.bronze.news/index.php
   ?module=API
   &method=VisitsSummary.get
   &idSite=1
@@ -179,26 +179,14 @@ Use "HTTP Request" node with:
 
 ---
 
-## Unsplash (Stock Images)
+## AI Image Generation
 
-**Purpose:** Fallback images when no rights-free source available
-**Cost:** Free (with attribution)
+**Purpose:** Key visual + secondary image for every article
+**Status:** Pipeline TBD
 
-### API Access
+All article images are AI-generated with a clearly stylised aesthetic (not photorealistic). Images are labelled as AI-generated and always include descriptive alt text (WCAG AAA).
 
-```
-GET https://api.unsplash.com/search/photos
-  ?query=alpine+skiing
-  &per_page=10
-Headers:
-  Authorization: Client-ID {access_key}
-```
-
-### Attribution Required
-
-```html
-Photo by <a href="{photographer_url}">Photographer Name</a> on <a href="https://unsplash.com">Unsplash</a>
-```
+See `docs/PROJECT.md` → Visual Strategy for full principles.
 
 ---
 

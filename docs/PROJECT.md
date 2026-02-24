@@ -26,8 +26,11 @@ The voice is **smart-funny** — witty, warm, celebrating sports and sportsmansh
 - WCAG AAA accessible
 - Independent, no federation affiliation
 - Privacy-first (Matomo)
-- Same tech stack (FastAPI, PostgreSQL, nginx, n8n, Expo)
-- Same product split (free website + paid app)
+- Same tech stack (FastAPI, PostgreSQL, Caddy, n8n, Expo)
+- Same product split (free website + paid app, now subscription)
+- **NEW**: No brand deals, no sponsors, no "brought to you by" — ever
+- **NEW**: App moves to low monthly subscription (from one-time purchase)
+- **NEW**: Fully open source
 
 ---
 
@@ -48,18 +51,24 @@ The voice is **smart-funny** — witty, warm, celebrating sports and sportsmansh
 │  ├─ AI-generated visuals (clearly labelled)                    │
 │  └─ NO schedule, NO notifications, NO favorites                │
 │                                                                 │
-│  APP (iOS + Android) - PAID $2.99                              │
+│  APP (iOS + Android) - SUBSCRIPTION                            │
 │  ├─ Event schedule/calendar                                    │
 │  ├─ Push notifications                                         │
 │  ├─ Favorites (athletes, events, sports)                       │
 │  ├─ Offline mode                                               │
 │  ├─ News (same content as website)                             │
+│  ├─ Reactions & polls (Bronze social features)                 │
 │  ├─ 3 languages (EN-GB, FR, DE)                                │
 │  └─ WCAG AAA accessible                                        │
 │                                                                 │
+│  OPEN SOURCE                                                   │
+│  ├─ Full codebase public on GitHub                              │
+│  ├─ Community contributions welcome                            │
+│  └─ Transparent by default                                     │
+│                                                                 │
 │  Clear separation:                                              │
-│  Website = News destination (free)                             │
-│  App = Utility tool (paid)                                     │
+│  Website = News destination (free, forever, no brand)          │
+│  App = Utility + perks (subscription)                          │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -68,14 +77,28 @@ The voice is **smart-funny** — witty, warm, celebrating sports and sportsmansh
 
 ## Business Model
 
+### Website: Free. Forever. No compromises.
+- No ads, no sponsors, no brand deals, no paywalls — ever
+- All content freely accessible to everyone
+- This is the principle, not a strategy. It doesn't change.
+
+### App: Low monthly subscription
 | Platform | Price | Rationale |
 |----------|-------|-----------|
-| iOS | $2.99 | Unified pricing, lower friction |
-| Android | $2.99 | Same price, simpler messaging |
+| iOS | TBD/month | Low enough to not think about it |
+| Android | TBD/month | Same price, same experience |
 
-- **No free tier on app** - Full paid app, no freemium
-- **No paid tier on website** - Full free access to all news
-- **Premium positioning**: Differentiate on accessibility + ad-free + personality
+- Subscription covers infrastructure costs (hosting, APIs, generation)
+- App perks: schedule, notifications, favourites, reactions, polls, offline mode
+- The content is the same — you pay for the utility and the experience
+
+### Open Source
+- **Licence**: MIT
+- **Public repo**: GitHub (under personal account)
+- **Private dev repo**: GitLab ([gitlab.com/bronzenews/bronze](https://gitlab.com/bronzenews/bronze))
+- Transparent about how everything works — the code, the AI generation, the editorial process
+- Community contributions welcome
+- Aligns with the independence principle: if we disappear, the project lives on
 
 ---
 
@@ -164,9 +187,10 @@ Every article gets:
 | Differentiator | What It Means | Competitive Advantage |
 |----------------|---------------|----------------------|
 | **WCAG AAA** | Highest accessibility standard | Only sports platform at this level |
-| **Ad-free** | No ads anywhere, ever | Clean experience |
+| **No ads, no brands, ever** | No ads, no sponsors, no "brought to you by" | Pure, uncompromised experience |
 | **Smart-funny voice** | Personality-driven writing | Stand out from wire-service rewrites |
 | **AI-generated visuals** | Consistent, original, honest | No stock photo fatigue, transparent about AI |
+| **Open source (MIT)** | Full codebase on GitHub | Transparent, community-driven, outlives us |
 | **Independent** | Not affiliated with any org | Neutral, opinionated coverage |
 | **Privacy-first** | Matomo only, no tracking | Respects users |
 
@@ -178,7 +202,7 @@ Every article gets:
 |-----------|------------|-------|
 | Backend | Python + FastAPI | Async, fast |
 | Database | PostgreSQL (Docker) | JSONB for multilingual |
-| Website | Static HTML + nginx | WCAG AAA, fast |
+| Website | Static HTML + nginx (Caddy reverse proxy) | WCAG AAA, fast |
 | Automation | n8n | Article generation workflows |
 | Analytics | Self-hosted Matomo | Privacy-friendly |
 | Mobile | Expo (React Native) | Cross-platform |
@@ -210,15 +234,15 @@ Every article gets:
 
 | Domain | Purpose | Status |
 |--------|---------|--------|
-| bronze.news | Main website | To acquire |
-| bronzenews.com | Redirect to bronze.news | Available ($9) |
+| bronze.news | Main website | Live |
+| bronzenews.com | Redirect to bronze.news | Available ($9) — buy later if needed |
 | api.bronze.news | REST API | Subdomain |
 | n8n.bronze.news | Workflow automation | Subdomain |
 | matomo.bronze.news | Analytics | Subdomain |
 
 > bronze.com is not available ($750K). bronze.news is the primary domain.
 > bronzenews.com redirects to bronze.news — catches the people who type .com by reflex.
-> Neve26.com will redirect to bronze.news once established.
+> Neve26.com redirects to bronze.news (expires Dec 2026, will not renew).
 
 ---
 
@@ -246,7 +270,7 @@ Every article gets:
 
 | Domain | Purpose | Status |
 |--------|---------|--------|
-| bronze.news | Primary website | To acquire |
+| bronze.news | Primary website | Live |
 | bronze.sports | Future primary (when .sports TLD launches) | Monitor |
 | bronzenot.gold | Campaign/merch URL | To acquire if .gold available |
 
