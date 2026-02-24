@@ -133,19 +133,17 @@ Examples:
 
 ## Supported Languages
 
+> **Updated Feb 2026**: Reduced from 11 to 3 languages to cut LLM generation costs.
+
 | Code | Name | Direction | URL Path |
 |------|------|-----------|----------|
-| en | English | LTR | `/` (default) |
-| de | Deutsch | LTR | `/de/` |
+| en | English (UK) | LTR | `/` (default) |
 | fr | Français | LTR | `/fr/` |
-| it | Italiano | LTR | `/it/` |
-| es | Español | LTR | `/es/` |
-| pt | Português | LTR | `/pt/` |
-| nl | Nederlands | LTR | `/nl/` |
-| ar | العربية | RTL | `/ar/` |
-| ja | 日本語 | LTR | `/ja/` |
-| zh | 中文 | LTR | `/zh/` |
-| ko | 한국어 | LTR | `/ko/` |
+| de | Deutsch | LTR | `/de/` |
+
+### Removed Languages (from Neve26 era)
+
+IT, ES, PT, NL, AR, JA, ZH, KO — may be re-added if/when local LLM generation becomes viable.
 
 ---
 
@@ -212,6 +210,13 @@ See `docs/archive/DECISION_social_media_api.md` for full research.
 ---
 
 ## Change Log
+
+### 2026-02-23
+- **PIVOT**: Reduced languages from 11 to 3 (EN-GB, FR, DE)
+- Scope expanded from winter sports to all sports
+- Content categories updated (sport-specific categories replacing winter-only ones)
+- Navigation structure will be updated once new brand name is decided
+- AI-generated image requirements added to content pipeline
 
 ### 2026-01-12
 - Added Internal Link Rules section documenting language-aware linking

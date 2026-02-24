@@ -1,8 +1,33 @@
-# Neve26 Project Vision
+# Project Vision
 
-**Neve26** is an **ad-free, fully accessible (WCAG AAA) independent sports news platform** with a companion mobile app for schedules and notifications.
+> **STATUS: REBRANDING (Feb 2026)**
+> Evolved from Neve26 (winter-only, 2026-scoped) to **Bronze** — a general sports platform.
 
-**This is a time-boxed project** — Phase 1 covers the Winter 2026 season (January-April 2026).
+**Bronze** is an **ad-free, fully accessible (WCAG AAA), independent sports news platform** with a companion mobile app for schedules and notifications.
+
+The voice is **smart-funny** — witty, warm, celebrating sports and sportsmanship. Think: the friend who actually watches the race and has something clever to say about it.
+
+---
+
+## What Changed (Feb 2026 Pivot)
+
+| Before (Neve26) | After (Bronze) |
+|------------------|-------------|
+| Winter sports only | All sports |
+| Tied to 2026 season | Ongoing / no expiry |
+| 11 languages | 3 languages (EN-GB, FR, DE) |
+| Neutral/informative tone | Smart-funny, celebratory |
+| No visual identity per article | Key visual + secondary image per article |
+| Stock/rights-free photos | 100% AI-generated images, clearly styled as AI |
+
+### What Stays
+
+- Ad-free, always
+- WCAG AAA accessible
+- Independent, no federation affiliation
+- Privacy-first (Matomo)
+- Same tech stack (FastAPI, PostgreSQL, nginx, n8n, Expo)
+- Same product split (free website + paid app)
 
 ---
 
@@ -10,16 +35,17 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                         NEVE26 ECOSYSTEM                         │
+│                         Bronze ECOSYSTEM                         │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│  WEBSITE (neve26.com) - FREE                                   │
+│  WEBSITE (bronze.news) - FREE                                   │
 │  ├─ All news articles                                          │
 │  ├─ Athlete profiles                                           │
 │  ├─ Sport explainers                                           │
-│  ├─ 11 languages                                               │
+│  ├─ 3 languages (EN-GB, FR, DE)                                │
 │  ├─ WCAG AAA accessible                                        │
 │  ├─ Ad-free                                                    │
+│  ├─ AI-generated visuals (clearly labelled)                    │
 │  └─ NO schedule, NO notifications, NO favorites                │
 │                                                                 │
 │  APP (iOS + Android) - PAID $2.99                              │
@@ -28,7 +54,7 @@
 │  ├─ Favorites (athletes, events, sports)                       │
 │  ├─ Offline mode                                               │
 │  ├─ News (same content as website)                             │
-│  ├─ 11 languages                                               │
+│  ├─ 3 languages (EN-GB, FR, DE)                                │
 │  └─ WCAG AAA accessible                                        │
 │                                                                 │
 │  Clear separation:                                              │
@@ -49,7 +75,7 @@
 
 - **No free tier on app** - Full paid app, no freemium
 - **No paid tier on website** - Full free access to all news
-- **Premium positioning**: Differentiate on accessibility + ad-free
+- **Premium positioning**: Differentiate on accessibility + ad-free + personality
 
 ---
 
@@ -57,9 +83,35 @@
 
 | Segment | Description | Why They Pay |
 |---------|-------------|--------------|
-| Event attendees | Tourists/fans physically at events | Need schedule + alerts |
+| Event attendees | Fans physically at events | Need schedule + alerts |
 | Accessibility community | Blind/low-vision sports fans | Finally a platform that works |
-| Casual fans | Follow sports casually | Want reminders for favorite events |
+| Casual fans | Follow sports casually | Want reminders + enjoy the tone |
+| Sports-curious | Not hardcore fans, but enjoy good writing | The voice draws them in |
+
+---
+
+## Editorial Voice
+
+### Tone: Smart-Funny
+
+- **Witty, not snarky** — we celebrate athletes, we don't mock them
+- **Warm, not detached** — we genuinely love sport and it shows
+- **Clever, not try-hard** — the joke lands because the writing is sharp, not because we forced a pun
+- **Inclusive** — sportsmanship and sportswomanship, always. Equal weight to all athletes
+- **Honest** — if something was boring, we say so (kindly). If it was extraordinary, we lose our minds a little
+
+### What We're NOT
+
+- Not a hot-take factory
+- Not ironic-detached sports Twitter
+- Not a stats dump with no personality
+- Not gendered in coverage (women's sport gets the same energy)
+
+### Reference Points (for tone, not to copy)
+
+- The Guardian's sports writing at its best
+- Defector (the warmth, the specificity)
+- Secret Base / Jon Bois (the love letter to sport angle)
 
 ---
 
@@ -67,39 +119,43 @@
 
 ### What We Cover
 
-- **FIS World Cup**: Alpine skiing, cross-country, ski jumping, Nordic combined
-- **IBU Biathlon World Cup**: All races and standings
-- **Other winter events**: X Games, freestyle, snowboard
-- **Athlete profiles**: Career stats, World Cup victories, bios
+- **All major sports**: Football, tennis, athletics, cycling, swimming, motorsport, winter sports, and more
+- **Big events**: World Cups, Grand Slams, Championships, Grand Tours
+- **Athlete profiles**: Career arcs, personality, what makes them interesting
+- **Sport explainers**: Make any sport accessible to newcomers
+- **The moments**: The stories within the results — drama, joy, heartbreak, absurdity
 
 ### Content Categories
 
 | Category | URL Path | Content Type |
 |----------|----------|--------------|
-| `athlete-profile` | `/athletes/` | Athlete profiles and bios |
-| `venue-guide` | `/venues/` | Venue/location guides |
-| `historical` | `/history/` | Historical articles |
+| `news` | `/news/` | General sports news |
+| `athlete-profile` | `/athletes/` | Athlete profiles and features |
 | `sport-explainer` | `/guides/` | Sport explainers and how-to |
-| `alpine-skiing` | `/alpine-skiing/` | Alpine skiing news |
-| `biathlon` | `/biathlon/` | Biathlon news |
-| `cross-country` | `/cross-country/` | Cross-country skiing news |
-| `ski-jumping` | `/ski-jumping/` | Ski jumping news |
-| `freestyle` | `/freestyle/` | Freestyle skiing news |
-| `snowboard` | `/snowboard/` | Snowboard news |
-| `nordic-combined` | `/nordic-combined/` | Nordic combined news |
-| `news` | `/news/` | General winter sports news |
+| `football` | `/football/` | Football coverage |
+| `tennis` | `/tennis/` | Tennis coverage |
+| `athletics` | `/athletics/` | Athletics / track & field |
+| `cycling` | `/cycling/` | Cycling coverage |
+| `motorsport` | `/motorsport/` | F1, MotoGP, etc. |
+| `winter-sports` | `/winter-sports/` | Alpine, biathlon, XC, etc. |
+| `swimming` | `/swimming/` | Swimming & aquatics |
+| `other` | `/other/` | Everything else worth writing about |
 
-### Current Content Inventory (2026-01-12)
+> Category list will evolve. Start broad, refine based on what we actually cover.
 
-| Category | Count | Status |
-|----------|-------|--------|
-| Athlete Profiles | 37 | 93% complete |
-| Sport Explainers | 11 | 92% complete |
-| Venue Guides | 15 | 100% complete |
-| Historical | 15 | 100% complete |
-| **Total** | **78** | **95%** |
+### Visual Strategy
 
-See `docs/content-plan.md` for full inventory.
+Every article gets:
+
+1. **Key visual** — AI-generated hero image, bold and stylised
+2. **Secondary image** — AI-generated, in-article illustration or moment capture
+
+**AI image principles:**
+- Clearly AI-generated aesthetic — stylised, not photorealistic
+- Consistent visual language across the platform (TBD: style guide)
+- Alt text always (WCAG AAA)
+- Labelled: "Image: AI-generated illustration" or similar
+- No attempt to pass as photography
 
 ---
 
@@ -109,7 +165,9 @@ See `docs/content-plan.md` for full inventory.
 |----------------|---------------|----------------------|
 | **WCAG AAA** | Highest accessibility standard | Only sports platform at this level |
 | **Ad-free** | No ads anywhere, ever | Clean experience |
-| **Independent** | Not affiliated with any org | Neutral coverage |
+| **Smart-funny voice** | Personality-driven writing | Stand out from wire-service rewrites |
+| **AI-generated visuals** | Consistent, original, honest | No stock photo fatigue, transparent about AI |
+| **Independent** | Not affiliated with any org | Neutral, opinionated coverage |
 | **Privacy-first** | Matomo only, no tracking | Respects users |
 
 ---
@@ -126,40 +184,74 @@ See `docs/content-plan.md` for full inventory.
 | Mobile | Expo (React Native) | Cross-platform |
 | Push | Firebase Cloud Messaging | Free, cross-platform |
 | Social | Late.dev + Instagram API | Hybrid posting + engagement |
+| AI Images | TBD | Key visual + secondary image generation |
 
 ---
 
 ## Time Horizon
 
-### Phase 1: Winter 2026 (Jan - Apr 2026)
+### Phase 1b: Relaunch (Feb-Mar 2026)
 
-- Cover FIS/IBU World Cup season
-- Validate business model
-- Learn what works
+- Rebrand from Neve26 to Bronze
+- Reduce languages to EN-GB, FR, DE
+- Establish new editorial voice
+- Set up AI image generation pipeline
+- Expand to general sports coverage
 
-### Phase 2: Decision Point (May 2026)
+### Phase 2: Growth (Apr 2026+)
 
-- Evaluate: Revenue? User satisfaction?
-- If yes: Expand to summer sports
-- If no: Post-mortem and close gracefully
+- Build audience through consistent voice + visuals
+- Evaluate: engagement, app revenue, content quality
+- Expand sport coverage based on what resonates
 
 ---
 
 ## Domains
 
-| Domain | Purpose |
-|--------|---------|
-| neve26.com | Main website |
-| neve26.app | App Store redirect |
-| api.neve26.com | REST API |
-| n8n.neve26.com | Workflow automation |
-| matomo.neve26.com | Analytics |
+| Domain | Purpose | Status |
+|--------|---------|--------|
+| bronze.news | Main website | To acquire |
+| bronzenews.com | Redirect to bronze.news | Available ($9) |
+| api.bronze.news | REST API | Subdomain |
+| n8n.bronze.news | Workflow automation | Subdomain |
+| matomo.bronze.news | Analytics | Subdomain |
+
+> bronze.com is not available ($750K). bronze.news is the primary domain.
+> bronzenews.com redirects to bronze.news — catches the people who type .com by reflex.
+> Neve26.com will redirect to bronze.news once established.
 
 ---
 
 ## Brand Identity
 
-- **Name**: Neve26 (neve = snow in Italian)
-- **Tagline**: "Independent Winter Sports News"
-- **Languages**: 11 (EN, DE, FR, IT, ES, PT, NL, AR, JA, ZH, KO)
-- **Design**: Clean, accessible, no visual clutter
+- **Name**: Bronze
+- **Domain**: bronze.news
+- **Tagline**: "Not everything has to be gold."
+- **Philosophy**: Celebrating sport, sportsmanship, and the humans who show up — not just the winners
+- **Languages**: 3 (EN-GB, FR, DE)
+- **Design**: Clean, accessible, visually bold, personality-forward
+- **Voice**: Smart-funny, warm, celebratory
+- **Inspiration**: Beckett — "Fail again. Fail better."
+
+### Why Bronze
+
+- The word works in EN, FR, and DE — same spelling, universally understood
+- Bronze medalists are scientifically proven to be happier than silver medalists
+- It celebrates effort and presence, not just victory
+- Short, one word, strong on a logo and app icon
+- No existing sports news competitor uses the name
+- The name carries meaning without needing explanation
+
+### Future Domains
+
+| Domain | Purpose | Status |
+|--------|---------|--------|
+| bronze.news | Primary website | To acquire |
+| bronze.sports | Future primary (when .sports TLD launches) | Monitor |
+| bronzenot.gold | Campaign/merch URL | To acquire if .gold available |
+
+---
+
+## Legacy: Neve26
+
+The original Neve26 project (Jan 2026) focused on winter sports coverage for the 2026 season. 78 articles were published covering athlete profiles, venue guides, sport explainers, and historical pieces across 11 languages. The core infrastructure and lessons learned carry forward into the new platform.
