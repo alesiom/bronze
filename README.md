@@ -28,7 +28,9 @@ bronze/
 
 ```bash
 # Clone
-git clone https://gitlab.com/bronzenews/bronze.git
+git clone https://github.com/alesiom/bronze.git
+# or from GitLab:
+# git clone https://gitlab.com/bronzenews/bronze.git
 cd bronze
 
 # Start all services
