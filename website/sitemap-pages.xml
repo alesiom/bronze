@@ -4,27 +4,19 @@
 
   <!-- Homepage with all language alternates -->
   <url>
-    <loc>https://neve26.com/</loc>
+    <loc>https://bronze.news/</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://neve26.com/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://neve26.com/de/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://neve26.com/fr/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://neve26.com/it/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://neve26.com/es/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://neve26.com/pt/"/>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://neve26.com/nl/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://neve26.com/ar/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://neve26.com/ja/"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://neve26.com/zh/"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://neve26.com/ko/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://neve26.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bronze.news/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bronze.news/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bronze.news/fr/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bronze.news/"/>
   </url>
 
   <!-- App page -->
   <url>
-    <loc>https://neve26.com/app</loc>
+    <loc>https://bronze.news/app</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -32,7 +24,7 @@
 
   <!-- Privacy policy -->
   <url>
-    <loc>https://neve26.com/privacy</loc>
+    <loc>https://bronze.news/privacy</loc>
     <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
@@ -40,7 +32,7 @@
 
   <!-- Terms of service -->
   <url>
-    <loc>https://neve26.com/terms</loc>
+    <loc>https://bronze.news/terms</loc>
     <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
@@ -48,7 +40,7 @@
 
   <!-- Support -->
   <url>
-    <loc>https://neve26.com/support</loc>
+    <loc>https://bronze.news/support</loc>
     <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>

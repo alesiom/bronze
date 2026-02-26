@@ -1,13 +1,13 @@
-# Neve26 - Winter Sports News
-# https://neve26.com
+# Bronze - Sports News
+# https://bronze.news
 
 # Allow all search engine crawlers
 User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://neve26.com/sitemap.xml
-Sitemap: https://neve26.com/sitemap-news.xml
+Sitemap: https://bronze.news/sitemap.xml
+Sitemap: https://bronze.news/sitemap-news.xml
 
 # Crawl-delay for politeness (optional)
 # Crawl-delay: 1

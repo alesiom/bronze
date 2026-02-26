@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Support - Neve26</title>
-  <meta name="description" content="Get help with Neve26, your winter sports schedule tracker app.">
-  <meta property="og:title" content="Support - Neve26">
-  <meta property="og:description" content="Get help with Neve26, your winter sports schedule tracker app.">
+  <title>Support - Bronze</title>
+  <meta name="description" content="Get help with Bronze, your sports news and schedule app.">
+  <meta property="og:title" content="Support - Bronze">
+  <meta property="og:description" content="Get help with Bronze, your sports news and schedule app.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://neve26.com/support">
-  <link rel="canonical" href="https://neve26.com/support">
+  <meta property="og:url" content="https://bronze.news/support">
+  <link rel="canonical" href="https://bronze.news/support">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -41,7 +41,6 @@
       line-height: 1.6;
     }
 
-    /* Skip Link for Accessibility */
     .skip-link {
       position: absolute;
       top: -100%;
@@ -61,13 +60,11 @@
       outline-offset: 2px;
     }
 
-    /* Focus styles - WCAG AAA */
     a:focus, button:focus, select:focus, input:focus, summary:focus {
       outline: var(--focus-outline);
       outline-offset: 2px;
     }
 
-    /* Header */
     header {
       padding: 1rem 2rem;
       display: flex;
@@ -85,9 +82,7 @@
       font-weight: 600;
       font-size: 1.1rem;
     }
-    .header-brand:hover {
-      color: var(--color-accent);
-    }
+    .header-brand:hover { color: var(--color-accent); }
 
     .lang-selector {
       background: var(--color-bg-light);
@@ -99,7 +94,6 @@
       cursor: pointer;
     }
 
-    /* Main Content */
     main {
       flex: 1;
       padding: 2rem;
@@ -108,33 +102,11 @@
       width: 100%;
     }
 
-    h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.02em;
-    }
-
-    h2 {
-      font-size: 1.35rem;
-      font-weight: 600;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-      color: var(--color-text);
-    }
-
-    p {
-      margin-bottom: 1rem;
-      color: var(--color-text);
-    }
-
-    a {
-      color: var(--color-accent);
-      text-decoration: underline;
-    }
-    a:hover {
-      color: var(--color-accent-hover);
-    }
+    h1 { font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+    h2 { font-size: 1.35rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; }
+    p { margin-bottom: 1rem; }
+    a { color: var(--color-accent); text-decoration: underline; }
+    a:hover { color: var(--color-accent-hover); }
 
     .contact-section {
       background: var(--color-bg-light);
@@ -150,19 +122,9 @@
       margin-top: 0.5rem;
     }
 
-    /* FAQ Accordion */
-    .faq-list {
-      list-style: none;
-      padding: 0;
-    }
-
-    .faq-item {
-      border-bottom: 1px solid var(--color-bg-light);
-    }
-
-    details {
-      padding: 1rem 0;
-    }
+    .faq-list { list-style: none; padding: 0; }
+    .faq-item { border-bottom: 1px solid var(--color-bg-light); }
+    details { padding: 1rem 0; }
 
     summary {
       cursor: pointer;
@@ -175,10 +137,7 @@
       padding: 0.5rem 0;
     }
 
-    summary::-webkit-details-marker {
-      display: none;
-    }
-
+    summary::-webkit-details-marker { display: none; }
     summary::after {
       content: "+";
       font-size: 1.5rem;
@@ -186,17 +145,10 @@
       color: var(--color-accent);
       transition: transform 0.2s ease;
     }
+    details[open] summary::after { content: "\2212"; }
 
-    details[open] summary::after {
-      content: "−";
-    }
+    .faq-answer { padding: 1rem 0; color: var(--color-text-muted); }
 
-    .faq-answer {
-      padding: 1rem 0;
-      color: var(--color-text-muted);
-    }
-
-    /* Footer */
     footer {
       padding: 2rem;
       text-align: center;
@@ -218,51 +170,23 @@
       font-size: 0.9rem;
       padding: 0.25rem 0.5rem;
     }
-    .footer-links a:hover {
-      color: var(--color-text);
-    }
+    .footer-links a:hover { color: var(--color-text); }
+    .footer-separator { color: var(--color-bg-light); }
+    .copyright { font-size: 0.85rem; color: var(--color-text-muted); }
 
-    .footer-separator {
-      color: var(--color-bg-light);
-    }
-
-    .copyright {
-      font-size: 0.85rem;
-      color: var(--color-text-muted);
-    }
-
-    /* RTL Support */
-    html[dir="rtl"] {
-      direction: rtl;
-    }
-    html[dir="rtl"] summary::after {
-      order: -1;
-    }
-
-    /* Responsive */
     @media (max-width: 480px) {
       header { padding: 1rem; flex-direction: column; gap: 1rem; }
       main { padding: 1.5rem 1rem; }
       h1 { font-size: 1.75rem; }
-      h2 { font-size: 1.2rem; }
       .contact-section { padding: 1rem; }
     }
 
-    /* High contrast mode support */
     @media (prefers-contrast: high) {
-      :root {
-        --color-bg: #000000;
-        --color-text: #ffffff;
-        --color-text-muted: #ffffff;
-      }
+      :root { --color-bg: #000000; --color-text: #ffffff; --color-text-muted: #ffffff; }
     }
 
-    /* Reduced motion */
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        transition: none !important;
-        animation: none !important;
-      }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
       html { scroll-behavior: auto; }
     }
   </style>
@@ -271,23 +195,15 @@
   <a href="#main-content" class="skip-link" data-i18n="skipToContent">Skip to content</a>
 
   <header role="banner">
-    <a href="/" class="header-brand" aria-label="Neve26 - Back to home">
+    <a href="/" class="header-brand" aria-label="Bronze - Back to home">
       <img src="/favicon-32.png" alt="" width="24" height="24" aria-hidden="true">
-      <span>Neve26</span>
+      <span>Bronze</span>
     </a>
     <label for="langSelect" class="visually-hidden" data-i18n="selectLanguage">Select language</label>
     <select class="lang-selector" id="langSelect" aria-label="Select language">
       <option value="en">English</option>
       <option value="de">Deutsch</option>
       <option value="fr">Français</option>
-      <option value="it">Italiano</option>
-      <option value="es">Español</option>
-      <option value="pt">Português</option>
-      <option value="nl">Nederlands</option>
-      <option value="ar">العربية</option>
-      <option value="ja">日本語</option>
-      <option value="zh">中文</option>
-      <option value="ko">한국어</option>
     </select>
   </header>
 
@@ -297,7 +213,7 @@
     <section class="contact-section" aria-labelledby="contact-heading">
       <h2 id="contact-heading" data-i18n="contactTitle">Contact Us</h2>
       <p data-i18n="contactText">Have a question, found a bug, or need help? We're here for you.</p>
-      <a href="mailto:hello@neve26.com" class="contact-email">hello@neve26.com</a>
+      <a href="mailto:hello@bronze.news" class="contact-email">hello@bronze.news</a>
     </section>
 
     <section aria-labelledby="faq-heading">
@@ -335,7 +251,7 @@
         <li class="faq-item">
           <details>
             <summary data-i18n="faq5q">How do I change the app language?</summary>
-            <div class="faq-answer" data-i18n="faq5a">Go to Settings in the app and select your preferred language. We support 11 languages including English, German, French, Italian, and more.</div>
+            <div class="faq-answer" data-i18n="faq5a">Go to Settings in the app and select your preferred language. We support English, German, and French.</div>
           </details>
         </li>
 
@@ -360,11 +276,11 @@
       <span class="footer-separator" aria-hidden="true">•</span>
       <a href="/privacy" data-i18n="privacy">Privacy Policy</a>
       <span class="footer-separator" aria-hidden="true">•</span>
-      <a href="https://x.com/neve2026" target="_blank" rel="noopener noreferrer">X @neve2026</a>
+      <a href="https://x.com/bronzenews" target="_blank" rel="noopener noreferrer">X @bronzenews</a>
       <span class="footer-separator" aria-hidden="true">•</span>
-      <a href="https://instagram.com/neve.2026" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="https://instagram.com/bronzenews" target="_blank" rel="noopener noreferrer">Instagram</a>
     </nav>
-    <p class="copyright">© 2026 Neve26</p>
+    <p class="copyright">&copy; 2026 Bronze</p>
   </footer>
 
   <script>
@@ -383,7 +299,7 @@
         faq4q: "How accurate is the schedule data?",
         faq4a: "We update our data regularly from official sources. However, always verify important times with official channels before attending events.",
         faq5q: "How do I change the app language?",
-        faq5a: "Go to Settings in the app and select your preferred language. We support 11 languages including English, German, French, Italian, and more.",
+        faq5a: "Go to Settings in the app and select your preferred language. We support English, German, and French.",
         faq6q: "Can I get a refund?",
         faq6a: "Refunds are handled by the App Store (iOS) or Google Play (Android). Contact their support directly for refund requests.",
         responseTitle: "Response Time",
@@ -405,13 +321,13 @@
         faq3q: "Ist die App kostenlos?",
         faq3a: "Ja, die Kernfunktionen (Zeitpläne durchsuchen und Favoriten speichern) sind kostenlos. Push-Benachrichtigungen erfordern einen einmaligen Kauf.",
         faq4q: "Wie genau sind die Zeitplandaten?",
-        faq4a: "Wir aktualisieren unsere Daten regelmäßig aus offiziellen Quellen. Überprüfen Sie wichtige Zeiten jedoch immer über offizielle Kanäle.",
+        faq4a: "Wir aktualisieren unsere Daten regelmässig aus offiziellen Quellen. Überprüfen Sie wichtige Zeiten jedoch immer über offizielle Kanäle.",
         faq5q: "Wie ändere ich die App-Sprache?",
-        faq5a: "Gehen Sie in der App zu Einstellungen und wählen Sie Ihre bevorzugte Sprache. Wir unterstützen 11 Sprachen.",
+        faq5a: "Gehen Sie in der App zu Einstellungen und wählen Sie Ihre bevorzugte Sprache. Wir unterstützen Englisch, Deutsch und Französisch.",
         faq6q: "Kann ich eine Rückerstattung erhalten?",
         faq6a: "Rückerstattungen werden vom App Store (iOS) oder Google Play (Android) abgewickelt. Kontaktieren Sie deren Support direkt.",
         responseTitle: "Antwortzeit",
-        responseText: "Wir antworten in der Regel innerhalb von 24-48 Stunden auf E-Mails. Zu Stoßzeiten kann es etwas länger dauern.",
+        responseText: "Wir antworten in der Regel innerhalb von 24-48 Stunden auf E-Mails. Zu Stosszeiten kann es etwas länger dauern.",
         home: "Startseite",
         privacy: "Datenschutz",
         skipToContent: "Zum Inhalt springen",
@@ -431,7 +347,7 @@
         faq4q: "Quelle est la précision des données de programmation ?",
         faq4a: "Nous mettons à jour nos données régulièrement à partir de sources officielles. Vérifiez toujours les horaires importants auprès des canaux officiels.",
         faq5q: "Comment changer la langue de l'application ?",
-        faq5a: "Allez dans Paramètres et sélectionnez votre langue préférée. Nous supportons 11 langues.",
+        faq5a: "Allez dans Paramètres et sélectionnez votre langue préférée. Nous supportons l'anglais, l'allemand et le français.",
         faq6q: "Puis-je obtenir un remboursement ?",
         faq6a: "Les remboursements sont gérés par l'App Store (iOS) ou Google Play (Android). Contactez leur support directement.",
         responseTitle: "Délai de réponse",
@@ -440,221 +356,23 @@
         privacy: "Confidentialité",
         skipToContent: "Aller au contenu",
         selectLanguage: "Choisir la langue"
-      },
-      it: {
-        title: "Supporto",
-        contactTitle: "Contattaci",
-        contactText: "Hai una domanda, hai trovato un bug o hai bisogno di aiuto? Siamo qui per te.",
-        faqTitle: "Domande frequenti",
-        faq1q: "Come aggiungo un evento ai preferiti?",
-        faq1a: "Tocca l'icona stella accanto a qualsiasi evento per aggiungerlo ai preferiti. Puoi vedere tutti i tuoi preferiti nella scheda Preferiti.",
-        faq2q: "Come funzionano le notifiche push?",
-        faq2a: "Quando attivi le notifiche, ti avviseremo quando il programma cambia per i tuoi eventi preferiti - come cambi di orario, luogo o cancellazioni.",
-        faq3q: "L'app è gratuita?",
-        faq3a: "Sì, le funzionalità principali (consultare orari e salvare preferiti) sono gratuite. Le notifiche push richiedono un acquisto una tantum.",
-        faq4q: "Quanto sono accurati i dati del programma?",
-        faq4a: "Aggiorniamo i nostri dati regolarmente da fonti ufficiali. Verifica sempre gli orari importanti tramite canali ufficiali.",
-        faq5q: "Come cambio la lingua dell'app?",
-        faq5a: "Vai su Impostazioni nell'app e seleziona la tua lingua preferita. Supportiamo 11 lingue.",
-        faq6q: "Posso ottenere un rimborso?",
-        faq6a: "I rimborsi sono gestiti dall'App Store (iOS) o Google Play (Android). Contatta direttamente il loro supporto.",
-        responseTitle: "Tempi di risposta",
-        responseText: "Rispondiamo generalmente alle email entro 24-48 ore. Durante i periodi di punta, potrebbe richiedere un po' più di tempo.",
-        home: "Home",
-        privacy: "Privacy",
-        skipToContent: "Vai al contenuto",
-        selectLanguage: "Seleziona lingua"
-      },
-      es: {
-        title: "Soporte",
-        contactTitle: "Contáctanos",
-        contactText: "¿Tienes una pregunta, encontraste un error o necesitas ayuda? Estamos aquí para ti.",
-        faqTitle: "Preguntas frecuentes",
-        faq1q: "¿Cómo agrego un evento a mis favoritos?",
-        faq1a: "Toca el icono de estrella junto a cualquier evento para agregarlo a tus favoritos. Puedes ver todos tus favoritos en la pestaña Favoritos.",
-        faq2q: "¿Cómo funcionan las notificaciones push?",
-        faq2a: "Cuando activas las notificaciones, te avisaremos cuando cambie el horario de tus eventos favoritos - como cambios de hora, lugar o cancelaciones.",
-        faq3q: "¿La app es gratuita?",
-        faq3a: "Sí, las funciones principales (ver horarios y guardar favoritos) son gratuitas. Las notificaciones push requieren una compra única.",
-        faq4q: "¿Qué tan precisos son los datos del horario?",
-        faq4a: "Actualizamos nuestros datos regularmente de fuentes oficiales. Sin embargo, siempre verifica los horarios importantes con canales oficiales.",
-        faq5q: "¿Cómo cambio el idioma de la app?",
-        faq5a: "Ve a Configuración en la app y selecciona tu idioma preferido. Soportamos 11 idiomas.",
-        faq6q: "¿Puedo obtener un reembolso?",
-        faq6a: "Los reembolsos son manejados por App Store (iOS) o Google Play (Android). Contacta su soporte directamente.",
-        responseTitle: "Tiempo de respuesta",
-        responseText: "Normalmente respondemos a los correos en 24-48 horas. Durante periodos de alta demanda, puede tardar un poco más.",
-        home: "Inicio",
-        privacy: "Privacidad",
-        skipToContent: "Ir al contenido",
-        selectLanguage: "Seleccionar idioma"
-      },
-      pt: {
-        title: "Suporte",
-        contactTitle: "Entre em contato",
-        contactText: "Tem uma dúvida, encontrou um bug ou precisa de ajuda? Estamos aqui para você.",
-        faqTitle: "Perguntas frequentes",
-        faq1q: "Como adiciono um evento aos meus favoritos?",
-        faq1a: "Toque no ícone de estrela ao lado de qualquer evento para adicioná-lo aos seus favoritos. Você pode ver todos os seus favoritos na aba Favoritos.",
-        faq2q: "Como funcionam as notificações push?",
-        faq2a: "Quando você ativa as notificações, avisamos quando a programação muda para seus eventos favoritos - como mudanças de horário, local ou cancelamentos.",
-        faq3q: "O app é gratuito?",
-        faq3a: "Sim, os recursos principais (ver horários e salvar favoritos) são gratuitos. Notificações push requerem uma compra única.",
-        faq4q: "Quão precisos são os dados da programação?",
-        faq4a: "Atualizamos nossos dados regularmente de fontes oficiais. No entanto, sempre verifique horários importantes com canais oficiais.",
-        faq5q: "Como mudo o idioma do app?",
-        faq5a: "Vá em Configurações no app e selecione seu idioma preferido. Suportamos 11 idiomas.",
-        faq6q: "Posso obter um reembolso?",
-        faq6a: "Reembolsos são gerenciados pela App Store (iOS) ou Google Play (Android). Entre em contato com o suporte deles diretamente.",
-        responseTitle: "Tempo de resposta",
-        responseText: "Normalmente respondemos aos emails em 24-48 horas. Durante períodos de pico, pode demorar um pouco mais.",
-        home: "Início",
-        privacy: "Privacidade",
-        skipToContent: "Ir para o conteúdo",
-        selectLanguage: "Selecionar idioma"
-      },
-      nl: {
-        title: "Ondersteuning",
-        contactTitle: "Neem contact op",
-        contactText: "Heeft u een vraag, een bug gevonden of hulp nodig? Wij zijn er voor u.",
-        faqTitle: "Veelgestelde vragen",
-        faq1q: "Hoe voeg ik een evenement toe aan mijn favorieten?",
-        faq1a: "Tik op het sterpictogram naast een evenement om het aan uw favorieten toe te voegen. U kunt al uw favorieten bekijken in het tabblad Favorieten.",
-        faq2q: "Hoe werken pushmeldingen?",
-        faq2a: "Wanneer u meldingen inschakelt, waarschuwen we u wanneer het schema wijzigt voor uw favoriete evenementen - zoals tijdswijzigingen, locatiewijzigingen of annuleringen.",
-        faq3q: "Is de app gratis?",
-        faq3a: "Ja, de kernfuncties (schema's bekijken en favorieten opslaan) zijn gratis. Pushmeldingen vereisen een eenmalige aankoop.",
-        faq4q: "Hoe nauwkeurig zijn de schemagegevens?",
-        faq4a: "We werken onze gegevens regelmatig bij van officiële bronnen. Verifieer belangrijke tijden echter altijd via officiële kanalen.",
-        faq5q: "Hoe wijzig ik de app-taal?",
-        faq5a: "Ga naar Instellingen in de app en selecteer uw voorkeurstaal. We ondersteunen 11 talen.",
-        faq6q: "Kan ik een terugbetaling krijgen?",
-        faq6a: "Terugbetalingen worden afgehandeld door de App Store (iOS) of Google Play (Android). Neem rechtstreeks contact op met hun ondersteuning.",
-        responseTitle: "Reactietijd",
-        responseText: "We reageren meestal binnen 24-48 uur op e-mails. Tijdens piekperiodes kan het iets langer duren.",
-        home: "Home",
-        privacy: "Privacy",
-        skipToContent: "Ga naar inhoud",
-        selectLanguage: "Selecteer taal"
-      },
-      ar: {
-        title: "الدعم",
-        contactTitle: "اتصل بنا",
-        contactText: "هل لديك سؤال، وجدت خطأ، أو تحتاج إلى مساعدة؟ نحن هنا من أجلك.",
-        faqTitle: "الأسئلة الشائعة",
-        faq1q: "كيف أضيف حدثاً إلى المفضلة؟",
-        faq1a: "اضغط على أيقونة النجمة بجانب أي حدث لإضافته إلى المفضلة. يمكنك عرض جميع المفضلات في علامة تبويب المفضلة.",
-        faq2q: "كيف تعمل الإشعارات؟",
-        faq2a: "عند تفعيل الإشعارات، سننبهك عند تغيير الجدول الزمني لأحداثك المفضلة - مثل تغييرات الوقت أو المكان أو الإلغاءات.",
-        faq3q: "هل التطبيق مجاني؟",
-        faq3a: "نعم، الميزات الأساسية (تصفح الجداول وحفظ المفضلة) مجانية. الإشعارات تتطلب شراء لمرة واحدة.",
-        faq4q: "ما مدى دقة بيانات الجدول؟",
-        faq4a: "نقوم بتحديث بياناتنا بانتظام من المصادر الرسمية. ومع ذلك، تحقق دائماً من الأوقات المهمة عبر القنوات الرسمية.",
-        faq5q: "كيف أغير لغة التطبيق؟",
-        faq5a: "اذهب إلى الإعدادات في التطبيق واختر لغتك المفضلة. ندعم 11 لغة.",
-        faq6q: "هل يمكنني الحصول على استرداد؟",
-        faq6a: "يتم التعامل مع المبالغ المستردة من قبل App Store (iOS) أو Google Play (Android). اتصل بدعمهم مباشرة.",
-        responseTitle: "وقت الاستجابة",
-        responseText: "نرد عادة على الرسائل خلال 24-48 ساعة. خلال أوقات الذروة، قد يستغرق الأمر وقتاً أطول قليلاً.",
-        home: "الرئيسية",
-        privacy: "الخصوصية",
-        skipToContent: "انتقل إلى المحتوى",
-        selectLanguage: "اختر اللغة"
-      },
-      ja: {
-        title: "サポート",
-        contactTitle: "お問い合わせ",
-        contactText: "ご質問、バグの報告、またはヘルプが必要ですか？お気軽にご連絡ください。",
-        faqTitle: "よくある質問",
-        faq1q: "イベントをお気に入りに追加するには？",
-        faq1a: "イベントの横にある星アイコンをタップして、お気に入りに追加します。お気に入りタブですべてのお気に入りを確認できます。",
-        faq2q: "プッシュ通知はどのように機能しますか？",
-        faq2a: "通知を有効にすると、お気に入りイベントのスケジュール変更（時間変更、会場変更、キャンセルなど）をお知らせします。",
-        faq3q: "アプリは無料ですか？",
-        faq3a: "はい、基本機能（スケジュールの閲覧とお気に入りの保存）は無料です。プッシュ通知には1回限りの購入が必要です。",
-        faq4q: "スケジュールデータはどの程度正確ですか？",
-        faq4a: "公式ソースから定期的にデータを更新しています。ただし、重要な時間は必ず公式チャンネルで確認してください。",
-        faq5q: "アプリの言語を変更するには？",
-        faq5a: "アプリの設定に移動し、お好みの言語を選択してください。11言語に対応しています。",
-        faq6q: "返金はできますか？",
-        faq6a: "返金はApp Store（iOS）またはGoogle Play（Android）で処理されます。直接サポートにお問い合わせください。",
-        responseTitle: "返信時間",
-        responseText: "通常24〜48時間以内にメールに返信します。イベントの繁忙期は、もう少し時間がかかる場合があります。",
-        home: "ホーム",
-        privacy: "プライバシー",
-        skipToContent: "コンテンツへスキップ",
-        selectLanguage: "言語を選択"
-      },
-      zh: {
-        title: "支持",
-        contactTitle: "联系我们",
-        contactText: "有问题、发现bug或需要帮助？我们随时为您服务。",
-        faqTitle: "常见问题",
-        faq1q: "如何将赛事添加到收藏？",
-        faq1a: "点击任何赛事旁边的星标图标即可将其添加到收藏。您可以在收藏标签中查看所有收藏。",
-        faq2q: "推送通知如何工作？",
-        faq2a: "启用通知后，当您收藏的赛事日程发生变化（如时间变更、场地变更或取消）时，我们会通知您。",
-        faq3q: "应用免费吗？",
-        faq3a: "是的，核心功能（浏览日程和保存收藏）是免费的。推送通知需要一次性购买。",
-        faq4q: "日程数据有多准确？",
-        faq4a: "我们定期从官方来源更新数据。但是，请始终通过官方渠道确认重要时间。",
-        faq5q: "如何更改应用语言？",
-        faq5a: "在应用中进入设置，选择您偏好的语言。我们支持11种语言。",
-        faq6q: "可以退款吗？",
-        faq6a: "退款由App Store（iOS）或Google Play（Android）处理。请直接联系他们的支持。",
-        responseTitle: "响应时间",
-        responseText: "我们通常在24-48小时内回复邮件。在高峰期，可能需要稍长时间。",
-        home: "首页",
-        privacy: "隐私政策",
-        skipToContent: "跳至内容",
-        selectLanguage: "选择语言"
-      },
-      ko: {
-        title: "지원",
-        contactTitle: "문의하기",
-        contactText: "질문이 있거나, 버그를 발견했거나, 도움이 필요하신가요? 저희가 도와드리겠습니다.",
-        faqTitle: "자주 묻는 질문",
-        faq1q: "이벤트를 즐겨찾기에 추가하려면?",
-        faq1a: "이벤트 옆의 별 아이콘을 탭하여 즐겨찾기에 추가하세요. 즐겨찾기 탭에서 모든 즐겨찾기를 볼 수 있습니다.",
-        faq2q: "푸시 알림은 어떻게 작동하나요?",
-        faq2a: "알림을 활성화하면 즐겨찾기 이벤트의 일정이 변경될 때(시간 변경, 장소 변경, 취소 등) 알려드립니다.",
-        faq3q: "앱은 무료인가요?",
-        faq3a: "네, 핵심 기능(일정 보기 및 즐겨찾기 저장)은 무료입니다. 푸시 알림은 1회 구매가 필요합니다.",
-        faq4q: "일정 데이터는 얼마나 정확한가요?",
-        faq4a: "공식 출처에서 정기적으로 데이터를 업데이트합니다. 하지만 중요한 시간은 항상 공식 채널에서 확인하세요.",
-        faq5q: "앱 언어를 변경하려면?",
-        faq5a: "앱에서 설정으로 이동하여 원하는 언어를 선택하세요. 11개 언어를 지원합니다.",
-        faq6q: "환불받을 수 있나요?",
-        faq6a: "환불은 App Store(iOS) 또는 Google Play(Android)에서 처리됩니다. 해당 지원팀에 직접 문의하세요.",
-        responseTitle: "응답 시간",
-        responseText: "일반적으로 24-48시간 이내에 이메일에 응답합니다. 이벤트 피크 시간에는 조금 더 걸릴 수 있습니다.",
-        home: "홈",
-        privacy: "개인정보 처리방침",
-        skipToContent: "콘텐츠로 건너뛰기",
-        selectLanguage: "언어 선택"
       }
     };
 
-    const rtlLangs = ['ar'];
     let currentLang = 'en';
 
     function setLanguage(lang) {
       currentLang = lang;
       const t = translations[lang] || translations.en;
-
       document.documentElement.lang = lang;
-      document.documentElement.dir = rtlLangs.includes(lang) ? 'rtl' : 'ltr';
-
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (t[key]) el.textContent = t[key];
       });
-
-      localStorage.setItem('neve26_lang', lang);
+      localStorage.setItem('bronze_lang', lang);
     }
 
-    // Detect language
-    const savedLang = localStorage.getItem('neve26_lang');
+    const savedLang = localStorage.getItem('bronze_lang');
     const browserLang = navigator.language.split('-')[0];
     const detectedLang = savedLang || (translations[browserLang] ? browserLang : 'en');
 

@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Neve26 App - Accessible Winter Sports Schedule Tracker</title>
-  <meta name="description" content="The most accessible winter sports app. WCAG AAA compliant, works offline in the mountains, supports 11 languages. Track Alpine skiing, Biathlon, and more.">
+  <title>Bronze App - Accessible Sports News & Schedule Tracker</title>
+  <meta name="description" content="The most accessible sports app. WCAG AAA compliant, works offline, supports 3 languages. Track football, tennis, athletics, cycling, motorsport, and more.">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Neve26 App - Accessible Winter Sports Schedule Tracker">
-  <meta property="og:description" content="WCAG AAA accessible. Works offline. 11 languages. Track schedules, get notifications, never miss a race.">
+  <meta property="og:title" content="Bronze App - Accessible Sports News & Schedule Tracker">
+  <meta property="og:description" content="WCAG AAA accessible. Works offline. 3 languages. Track schedules, get notifications, never miss a match.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://neve26.com/app">
-  <meta property="og:site_name" content="Neve26">
+  <meta property="og:url" content="https://bronze.news/app">
+  <meta property="og:site_name" content="Bronze">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@neve2026">
+  <meta name="twitter:site" content="@bronzenews">
 
   <!-- Canonical -->
-  <link rel="canonical" href="https://neve26.com/app">
+  <link rel="canonical" href="https://bronze.news/app">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -30,10 +30,10 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Neve26",
+    "name": "Bronze",
     "applicationCategory": "SportsApplication",
     "operatingSystem": "iOS, Android",
-    "description": "Accessible winter sports schedule tracker with offline support and 11 languages",
+    "description": "Accessible sports news and schedule tracker with offline support and 3 languages",
     "offers": {
       "@type": "Offer",
       "price": "2.99",
@@ -555,20 +555,6 @@
       font-size: 0.85rem;
     }
 
-    /* === RTL Support === */
-    html[dir="rtl"] {
-      direction: rtl;
-    }
-
-    html[dir="rtl"] .header-container {
-      flex-direction: row-reverse;
-    }
-
-    html[dir="rtl"] .use-case {
-      flex-direction: row-reverse;
-      text-align: right;
-    }
-
     /* === Responsive === */
     @media (max-width: 768px) {
       .header-nav {
@@ -650,16 +636,16 @@
 
   <header class="site-header" role="banner">
     <div class="header-container">
-      <a href="/" class="site-logo" aria-label="Neve26 Home">
+      <a href="/" class="site-logo" aria-label="Bronze Home">
         <img src="/logo-128.png" alt="" width="40" height="40">
-        <span>Neve26</span>
+        <span>Bronze</span>
       </a>
 
       <nav class="header-nav" aria-label="Main navigation">
         <ul class="nav-links">
           <li><a href="/" data-i18n="navNews">News</a></li>
-          <li><a href="/alpine-skiing/" data-i18n="navAlpine">Alpine</a></li>
-          <li><a href="/biathlon/" data-i18n="navBiathlon">Biathlon</a></li>
+          <li><a href="/football/" data-i18n="navFootball">Football</a></li>
+          <li><a href="/tennis/" data-i18n="navTennis">Tennis</a></li>
           <li><a href="/athletes/" data-i18n="navAthletes">Athletes</a></li>
           <li><a href="/app" aria-current="page" data-i18n="navApp">Get App</a></li>
         </ul>
@@ -669,14 +655,6 @@
           <option value="en">English</option>
           <option value="de">Deutsch</option>
           <option value="fr">Français</option>
-          <option value="it">Italiano</option>
-          <option value="es">Español</option>
-          <option value="pt">Português</option>
-          <option value="nl">Nederlands</option>
-          <option value="ar">العربية</option>
-          <option value="ja">日本語</option>
-          <option value="zh">中文</option>
-          <option value="ko">한국어</option>
         </select>
       </nav>
     </div>
@@ -685,9 +663,9 @@
   <main id="main-content" role="main">
     <!-- Hero Section -->
     <section class="hero" aria-labelledby="hero-title">
-      <img src="/logo-128.png" alt="Neve26 app icon" class="hero-logo" width="120" height="120">
-      <h1 id="hero-title">Neve26</h1>
-      <p class="hero-tagline" data-i18n="heroTagline">The winter sports companion designed for everyone</p>
+      <img src="/logo-128.png" alt="Bronze app icon" class="hero-logo" width="120" height="120">
+      <h1 id="hero-title">Bronze</h1>
+      <p class="hero-tagline" data-i18n="heroTagline">The sports companion designed for everyone</p>
 
       <div class="hero-badges" role="list" aria-label="App highlights">
         <span class="badge" role="listitem">
@@ -700,7 +678,7 @@
         </span>
         <span class="badge" role="listitem">
           <span class="badge-icon" aria-hidden="true">&#x2713;</span>
-          <span data-i18n="badgeLanguages">11 Languages</span>
+          <span data-i18n="badgeLanguages">3 Languages</span>
         </span>
         <span class="badge" role="listitem">
           <span class="badge-icon" aria-hidden="true">&#x2713;</span>
@@ -725,7 +703,7 @@
           <span data-i18n="playStore">Google Play</span>
         </a>
       </div>
-      <p class="coming-soon-text" data-i18n="comingSoon">Coming January 2026</p>
+      <p class="coming-soon-text" data-i18n="comingSoon">Coming soon</p>
     </section>
 
     <!-- Key Features Section -->
@@ -742,31 +720,31 @@
         <article class="feature-card highlight" data-highlight="Essential">
           <span class="feature-icon" aria-hidden="true">&#128247;</span>
           <h3 data-i18n="featureOfflineTitle">Works Offline</h3>
-          <p data-i18n="featureOfflineDesc">No signal on the mountain? No problem. The full schedule downloads to your device. Check race times even in remote valleys or when traveling abroad without data.</p>
+          <p data-i18n="featureOfflineDesc">No signal? No problem. The full schedule downloads to your device. Check event times even when travelling without data.</p>
         </article>
 
         <article class="feature-card">
           <span class="feature-icon" aria-hidden="true">&#128276;</span>
           <h3 data-i18n="featureNotifyTitle">Smart Notifications</h3>
-          <p data-i18n="featureNotifyDesc">Get alerts 2 hours before your favorite events start. Never miss a race. Choose which sports and athletes to follow.</p>
+          <p data-i18n="featureNotifyDesc">Get alerts before your favourite events start. Never miss a match. Choose which sports and athletes to follow.</p>
         </article>
 
         <article class="feature-card">
           <span class="feature-icon" aria-hidden="true">&#127760;</span>
-          <h3 data-i18n="featureLangTitle">11 Languages</h3>
-          <p data-i18n="featureLangDesc">English, German, French, Italian, Spanish, Portuguese, Dutch, Arabic, Japanese, Chinese, and Korean. The app speaks your language.</p>
+          <h3 data-i18n="featureLangTitle">3 Languages</h3>
+          <p data-i18n="featureLangDesc">English, German, and French. The app speaks your language.</p>
         </article>
 
         <article class="feature-card">
           <span class="feature-icon" aria-hidden="true">&#11088;</span>
-          <h3 data-i18n="featureFavTitle">Save Favorites</h3>
-          <p data-i18n="featureFavDesc">Track your favorite athletes, events, and sports. Your personal schedule shows only what matters to you.</p>
+          <h3 data-i18n="featureFavTitle">Save Favourites</h3>
+          <p data-i18n="featureFavDesc">Track your favourite athletes, events, and sports. Your personal schedule shows only what matters to you.</p>
         </article>
 
         <article class="feature-card">
           <span class="feature-icon" aria-hidden="true">&#128274;</span>
           <h3 data-i18n="featurePrivacyTitle">Privacy First</h3>
-          <p data-i18n="featurePrivacyDesc">No ads. No tracking. No data selling. We collect only what's needed for notifications. Your data is deleted after the season.</p>
+          <p data-i18n="featurePrivacyDesc">No ads. No tracking. No data selling. We collect only what's needed for notifications.</p>
         </article>
       </div>
     </section>
@@ -779,15 +757,15 @@
         <article class="use-case">
           <span class="use-case-icon" aria-hidden="true">&#9968;</span>
           <div>
-            <h3 data-i18n="useCase1Title">At the Venue</h3>
-            <p data-i18n="useCase1Desc">Visiting Kitzbuhel, Adelboden, or Cortina? Know exactly when each run starts, even without cell service in the mountains.</p>
+            <h3 data-i18n="useCase1Title">At the Event</h3>
+            <p data-i18n="useCase1Desc">At the stadium or trackside? Know exactly when each event starts, even without mobile signal.</p>
           </div>
         </article>
 
         <article class="use-case">
           <span class="use-case-icon" aria-hidden="true">&#9992;</span>
           <div>
-            <h3 data-i18n="useCase2Title">Traveling Abroad</h3>
+            <h3 data-i18n="useCase2Title">Travelling Abroad</h3>
             <p data-i18n="useCase2Desc">No international data plan? Download the schedule before you travel and access it offline throughout your trip.</p>
           </div>
         </article>
@@ -804,7 +782,7 @@
           <span class="use-case-icon" aria-hidden="true">&#128250;</span>
           <div>
             <h3 data-i18n="useCase4Title">Watching at Home</h3>
-            <p data-i18n="useCase4Desc">Get reminders so you never miss your favorite athlete competing. Perfect for casual fans who want to catch the highlights.</p>
+            <p data-i18n="useCase4Desc">Get reminders so you never miss your favourite athlete competing. Perfect for casual fans who want to catch the highlights.</p>
           </div>
         </article>
       </div>
@@ -812,48 +790,44 @@
 
     <!-- Sports Covered Section -->
     <section class="sports-section" aria-labelledby="sports-title">
-      <h2 id="sports-title" class="section-title" data-i18n="sportsTitle">All Winter Sports</h2>
+      <h2 id="sports-title" class="section-title" data-i18n="sportsTitle">All Sports</h2>
 
       <div class="sports-grid" role="list">
         <div class="sport-item" role="listitem">
+          <span class="sport-icon" aria-hidden="true">&#9917;</span>
+          <span class="sport-name" data-i18n="sportFootball">Football</span>
+        </div>
+        <div class="sport-item" role="listitem">
+          <span class="sport-icon" aria-hidden="true">&#127934;</span>
+          <span class="sport-name" data-i18n="sportTennis">Tennis</span>
+        </div>
+        <div class="sport-item" role="listitem">
+          <span class="sport-icon" aria-hidden="true">&#127939;</span>
+          <span class="sport-name" data-i18n="sportAthletics">Athletics</span>
+        </div>
+        <div class="sport-item" role="listitem">
+          <span class="sport-icon" aria-hidden="true">&#128692;</span>
+          <span class="sport-name" data-i18n="sportCycling">Cycling</span>
+        </div>
+        <div class="sport-item" role="listitem">
+          <span class="sport-icon" aria-hidden="true">&#127946;</span>
+          <span class="sport-name" data-i18n="sportMotorsport">Motorsport</span>
+        </div>
+        <div class="sport-item" role="listitem">
           <span class="sport-icon" aria-hidden="true">&#9975;</span>
-          <span class="sport-name" data-i18n="sportAlpine">Alpine Skiing</span>
+          <span class="sport-name" data-i18n="sportWinterSports">Winter Sports</span>
         </div>
         <div class="sport-item" role="listitem">
-          <span class="sport-icon" aria-hidden="true">&#127935;</span>
-          <span class="sport-name" data-i18n="sportXC">Cross-Country</span>
-        </div>
-        <div class="sport-item" role="listitem">
-          <span class="sport-icon" aria-hidden="true">&#127935;</span>
-          <span class="sport-name" data-i18n="sportBiathlon">Biathlon</span>
-        </div>
-        <div class="sport-item" role="listitem">
-          <span class="sport-icon" aria-hidden="true">&#9976;</span>
-          <span class="sport-name" data-i18n="sportFigure">Figure Skating</span>
-        </div>
-        <div class="sport-item" role="listitem">
-          <span class="sport-icon" aria-hidden="true">&#127951;</span>
-          <span class="sport-name" data-i18n="sportHockey">Ice Hockey</span>
-        </div>
-        <div class="sport-item" role="listitem">
-          <span class="sport-icon" aria-hidden="true">&#128759;</span>
-          <span class="sport-name" data-i18n="sportBobsled">Bobsled</span>
-        </div>
-        <div class="sport-item" role="listitem">
-          <span class="sport-icon" aria-hidden="true">&#127935;</span>
-          <span class="sport-name" data-i18n="sportJumping">Ski Jumping</span>
-        </div>
-        <div class="sport-item" role="listitem">
-          <span class="sport-icon" aria-hidden="true">&#129525;</span>
-          <span class="sport-name" data-i18n="sportCurling">Curling</span>
+          <span class="sport-icon" aria-hidden="true">&#127946;</span>
+          <span class="sport-name" data-i18n="sportSwimming">Swimming</span>
         </div>
       </div>
     </section>
 
     <!-- Final CTA Section -->
     <section class="cta-section" aria-labelledby="cta-title">
-      <h2 id="cta-title" data-i18n="ctaTitle">Ready for Winter 2026?</h2>
-      <p data-i18n="ctaDesc">Download Neve26 and never miss a moment of the action. One price, all features, no compromises.</p>
+      <h2 id="cta-title" data-i18n="ctaTitle">Ready to Follow Your Sports?</h2>
+      <p data-i18n="ctaDesc">Download Bronze and never miss a moment of the action. One price, all features, no compromises.</p>
 
       <div class="store-buttons">
         <a href="#" class="store-btn disabled" aria-label="Download on the App Store - Coming soon" aria-disabled="true">
@@ -869,7 +843,7 @@
           <span data-i18n="playStore">Google Play</span>
         </a>
       </div>
-      <p class="coming-soon-text" data-i18n="comingSoon">Coming January 2026</p>
+      <p class="coming-soon-text" data-i18n="comingSoon">Coming soon</p>
     </section>
   </main>
 
@@ -880,10 +854,10 @@
         <a href="/privacy" data-i18n="footerPrivacy">Privacy Policy</a>
         <a href="/terms" data-i18n="footerTerms">Terms of Service</a>
         <a href="/support" data-i18n="footerSupport">Support</a>
-        <a href="https://x.com/neve2026" target="_blank" rel="noopener noreferrer">X @neve2026</a>
-        <a href="https://instagram.com/neve.2026" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://x.com/bronzenews" target="_blank" rel="noopener noreferrer">X @bronzenews</a>
+        <a href="https://instagram.com/bronzenews" target="_blank" rel="noopener noreferrer">Instagram</a>
       </nav>
-      <p class="copyright">© 2026 Neve26. <span data-i18n="footerDisclaimer">Independent winter sports coverage.</span></p>
+      <p class="copyright">&copy; 2026 Bronze. <span data-i18n="footerDisclaimer">Independent sports coverage.</span></p>
     </div>
   </footer>
 
@@ -893,7 +867,7 @@
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
     (function() {
-      var u="//matomo.neve26.com/";
+      var u="//matomo.bronze.news/";
       _paq.push(['setTrackerUrl', u+'matomo.php']);
       _paq.push(['setSiteId', '1']);
       var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
@@ -901,7 +875,7 @@
     })();
   </script>
   <noscript>
-    <img referrerpolicy="no-referrer-when-downgrade" src="//matomo.neve26.com/matomo.php?idsite=1&amp;rec=1" style="border:0" alt="">
+    <img referrerpolicy="no-referrer-when-downgrade" src="//matomo.bronze.news/matomo.php?idsite=1&amp;rec=1" style="border:0" alt="">
   </noscript>
 
   <!-- Language Switching -->
@@ -911,331 +885,172 @@
         skipToContent: "Skip to main content",
         selectLanguage: "Select language",
         navNews: "News",
-        navAlpine: "Alpine",
-        navBiathlon: "Biathlon",
+        navFootball: "Football",
+        navTennis: "Tennis",
         navAthletes: "Athletes",
         navApp: "Get App",
-        heroTagline: "The winter sports companion designed for everyone",
+        heroTagline: "The sports companion designed for everyone",
         badgeAccessible: "WCAG AAA Accessible",
         badgeOffline: "Works Offline",
-        badgeLanguages: "11 Languages",
+        badgeLanguages: "3 Languages",
         badgeAdFree: "No Ads, Ever",
         price: "$2.99",
         priceNote: "One-time purchase. No subscriptions.",
         appStore: "App Store",
         playStore: "Google Play",
-        comingSoon: "Coming January 2026",
+        comingSoon: "Coming soon",
         featuresTitle: "Built Different",
         featureAccessTitle: "Highly Accessible",
         featureAccessDesc: "WCAG AAA compliant - the highest accessibility standard. Full VoiceOver and TalkBack support. High contrast modes. Large touch targets. Everyone can use this app.",
         featureOfflineTitle: "Works Offline",
-        featureOfflineDesc: "No signal on the mountain? No problem. The full schedule downloads to your device. Check race times even in remote valleys or when traveling abroad without data.",
+        featureOfflineDesc: "No signal? No problem. The full schedule downloads to your device. Check event times even when travelling without data.",
         featureNotifyTitle: "Smart Notifications",
-        featureNotifyDesc: "Get alerts 2 hours before your favorite events start. Never miss a race. Choose which sports and athletes to follow.",
-        featureLangTitle: "11 Languages",
-        featureLangDesc: "English, German, French, Italian, Spanish, Portuguese, Dutch, Arabic, Japanese, Chinese, and Korean. The app speaks your language.",
-        featureFavTitle: "Save Favorites",
-        featureFavDesc: "Track your favorite athletes, events, and sports. Your personal schedule shows only what matters to you.",
+        featureNotifyDesc: "Get alerts before your favourite events start. Never miss a match. Choose which sports and athletes to follow.",
+        featureLangTitle: "3 Languages",
+        featureLangDesc: "English, German, and French. The app speaks your language.",
+        featureFavTitle: "Save Favourites",
+        featureFavDesc: "Track your favourite athletes, events, and sports. Your personal schedule shows only what matters to you.",
         featurePrivacyTitle: "Privacy First",
-        featurePrivacyDesc: "No ads. No tracking. No data selling. We collect only what's needed for notifications. Your data is deleted after the season.",
+        featurePrivacyDesc: "No ads. No tracking. No data selling. We collect only what's needed for notifications.",
         useCasesTitle: "Perfect For",
-        useCase1Title: "At the Venue",
-        useCase1Desc: "Visiting Kitzbuhel, Adelboden, or Cortina? Know exactly when each run starts, even without cell service in the mountains.",
-        useCase2Title: "Traveling Abroad",
+        useCase1Title: "At the Event",
+        useCase1Desc: "At the stadium or trackside? Know exactly when each event starts, even without mobile signal.",
+        useCase2Title: "Travelling Abroad",
         useCase2Desc: "No international data plan? Download the schedule before you travel and access it offline throughout your trip.",
         useCase3Title: "Blind & Low Vision",
         useCase3Desc: "Finally, a sports app that works perfectly with screen readers. Full accessibility from day one, not an afterthought.",
         useCase4Title: "Watching at Home",
-        useCase4Desc: "Get reminders so you never miss your favorite athlete competing. Perfect for casual fans who want to catch the highlights.",
-        sportsTitle: "All Winter Sports",
-        sportAlpine: "Alpine Skiing",
-        sportXC: "Cross-Country",
-        sportBiathlon: "Biathlon",
-        sportFigure: "Figure Skating",
-        sportHockey: "Ice Hockey",
-        sportBobsled: "Bobsled",
-        sportJumping: "Ski Jumping",
-        sportCurling: "Curling",
-        ctaTitle: "Ready for Winter 2026?",
-        ctaDesc: "Download Neve26 and never miss a moment of the action. One price, all features, no compromises.",
+        useCase4Desc: "Get reminders so you never miss your favourite athlete competing. Perfect for casual fans who want to catch the highlights.",
+        sportsTitle: "All Sports",
+        sportFootball: "Football",
+        sportTennis: "Tennis",
+        sportAthletics: "Athletics",
+        sportCycling: "Cycling",
+        sportMotorsport: "Motorsport",
+        sportWinterSports: "Winter Sports",
+        sportSwimming: "Swimming",
+        ctaTitle: "Ready to Follow Your Sports?",
+        ctaDesc: "Download Bronze and never miss a moment of the action. One price, all features, no compromises.",
         footerNews: "News",
         footerPrivacy: "Privacy Policy",
         footerTerms: "Terms of Service",
         footerSupport: "Support",
-        footerDisclaimer: "Independent winter sports coverage."
+        footerDisclaimer: "Independent sports coverage."
       },
       de: {
         skipToContent: "Zum Hauptinhalt springen",
-        selectLanguage: "Sprache wahlen",
+        selectLanguage: "Sprache wählen",
         navNews: "Nachrichten",
-        navAlpine: "Ski Alpin",
-        navBiathlon: "Biathlon",
+        navFootball: "Fussball",
+        navTennis: "Tennis",
         navAthletes: "Athleten",
         navApp: "App laden",
-        heroTagline: "Der Wintersport-Begleiter fur alle",
+        heroTagline: "Der Sport-Begleiter für alle",
         badgeAccessible: "WCAG AAA barrierefrei",
         badgeOffline: "Offline nutzbar",
-        badgeLanguages: "11 Sprachen",
+        badgeLanguages: "3 Sprachen",
         badgeAdFree: "Keine Werbung",
         price: "2,99 €",
         priceNote: "Einmaliger Kauf. Kein Abo.",
         appStore: "App Store",
         playStore: "Google Play",
-        comingSoon: "Erscheint Januar 2026",
+        comingSoon: "Demnächst verfügbar",
         featuresTitle: "Anders gebaut",
-        featureAccessTitle: "Vollstandig barrierefrei",
-        featureAccessDesc: "WCAG AAA - der hochste Barrierefreiheitsstandard. VoiceOver und TalkBack Unterstutzung. Hoher Kontrast. Grosse Schaltflachen. Jeder kann diese App nutzen.",
+        featureAccessTitle: "Vollständig barrierefrei",
+        featureAccessDesc: "WCAG AAA - der höchste Barrierefreiheitsstandard. VoiceOver und TalkBack Unterstützung. Hoher Kontrast. Grosse Schaltflächen. Jeder kann diese App nutzen.",
         featureOfflineTitle: "Offline nutzbar",
-        featureOfflineDesc: "Kein Signal auf dem Berg? Kein Problem. Der komplette Zeitplan wird heruntergeladen. Rennzeiten auch in abgelegenen Talern oder auf Reisen ohne Daten abrufbar.",
+        featureOfflineDesc: "Kein Signal? Kein Problem. Der komplette Zeitplan wird heruntergeladen. Eventzeiten auch auf Reisen ohne Daten abrufbar.",
         featureNotifyTitle: "Smarte Benachrichtigungen",
-        featureNotifyDesc: "Erhalten Sie Benachrichtigungen 2 Stunden vor Ihren Lieblingsevents. Verpassen Sie kein Rennen.",
-        featureLangTitle: "11 Sprachen",
-        featureLangDesc: "Englisch, Deutsch, Franzosisch, Italienisch, Spanisch, Portugiesisch, Niederlandisch, Arabisch, Japanisch, Chinesisch und Koreanisch.",
+        featureNotifyDesc: "Erhalten Sie Benachrichtigungen vor Ihren Lieblingsevents. Verpassen Sie kein Spiel.",
+        featureLangTitle: "3 Sprachen",
+        featureLangDesc: "Englisch, Deutsch und Französisch.",
         featureFavTitle: "Favoriten speichern",
-        featureFavDesc: "Verfolgen Sie Ihre Lieblings-Athleten, Events und Sportarten. Ihr personlicher Zeitplan zeigt nur, was Sie interessiert.",
-        featurePrivacyTitle: "Privatsphare zuerst",
-        featurePrivacyDesc: "Keine Werbung. Kein Tracking. Kein Datenverkauf. Wir sammeln nur das Notigste. Ihre Daten werden nach der Saison geloscht.",
-        useCasesTitle: "Perfekt fur",
+        featureFavDesc: "Verfolgen Sie Ihre Lieblings-Athleten, Events und Sportarten. Ihr persönlicher Zeitplan zeigt nur, was Sie interessiert.",
+        featurePrivacyTitle: "Privatsphäre zuerst",
+        featurePrivacyDesc: "Keine Werbung. Kein Tracking. Kein Datenverkauf. Wir sammeln nur das Nötigste.",
+        useCasesTitle: "Perfekt für",
         useCase1Title: "Vor Ort",
-        useCase1Desc: "Besuchen Sie Kitzbuhel, Adelboden oder Cortina? Wissen Sie genau, wann jeder Lauf beginnt - auch ohne Handyempfang.",
+        useCase1Desc: "Im Stadion oder an der Strecke? Wissen Sie genau, wann jedes Event beginnt - auch ohne Handyempfang.",
         useCase2Title: "Auf Reisen",
         useCase2Desc: "Kein internationaler Datentarif? Laden Sie den Zeitplan vor der Reise herunter und greifen Sie offline darauf zu.",
         useCase3Title: "Blinde & Sehbehinderte",
         useCase3Desc: "Endlich eine Sport-App, die perfekt mit Screenreadern funktioniert. Barrierefreiheit von Anfang an.",
         useCase4Title: "Zuhause",
         useCase4Desc: "Erhalten Sie Erinnerungen, damit Sie Ihren Lieblings-Athleten nicht verpassen.",
-        sportsTitle: "Alle Wintersportarten",
-        sportAlpine: "Ski Alpin",
-        sportXC: "Langlauf",
-        sportBiathlon: "Biathlon",
-        sportFigure: "Eiskunstlauf",
-        sportHockey: "Eishockey",
-        sportBobsled: "Bobsport",
-        sportJumping: "Skispringen",
-        sportCurling: "Curling",
-        ctaTitle: "Bereit fur Winter 2026?",
-        ctaDesc: "Laden Sie Neve26 herunter und verpassen Sie keinen Moment. Ein Preis, alle Funktionen.",
+        sportsTitle: "Alle Sportarten",
+        sportFootball: "Fussball",
+        sportTennis: "Tennis",
+        sportAthletics: "Leichtathletik",
+        sportCycling: "Radsport",
+        sportMotorsport: "Motorsport",
+        sportWinterSports: "Wintersport",
+        sportSwimming: "Schwimmen",
+        ctaTitle: "Bereit für Ihren Sport?",
+        ctaDesc: "Laden Sie Bronze herunter und verpassen Sie keinen Moment. Ein Preis, alle Funktionen.",
         footerNews: "Nachrichten",
         footerPrivacy: "Datenschutz",
         footerTerms: "AGB",
         footerSupport: "Support",
-        footerDisclaimer: "Unabhangige Wintersport-Berichterstattung."
+        footerDisclaimer: "Unabhängige Sport-Berichterstattung."
       },
       fr: {
         skipToContent: "Aller au contenu principal",
         selectLanguage: "Choisir la langue",
-        navNews: "Actualites",
-        navAlpine: "Ski Alpin",
-        navBiathlon: "Biathlon",
-        navAthletes: "Athletes",
-        navApp: "Telecharger",
-        heroTagline: "Le compagnon des sports d'hiver concu pour tous",
+        navNews: "Actualités",
+        navFootball: "Football",
+        navTennis: "Tennis",
+        navAthletes: "Athlètes",
+        navApp: "Télécharger",
+        heroTagline: "Le compagnon sportif conçu pour tous",
         badgeAccessible: "Accessible WCAG AAA",
         badgeOffline: "Fonctionne hors ligne",
-        badgeLanguages: "11 langues",
-        badgeAdFree: "Sans publicite",
+        badgeLanguages: "3 langues",
+        badgeAdFree: "Sans publicité",
         price: "2,99 €",
         priceNote: "Achat unique. Sans abonnement.",
         appStore: "App Store",
         playStore: "Google Play",
-        comingSoon: "Disponible en janvier 2026",
-        featuresTitle: "Concu differemment",
+        comingSoon: "Bientôt disponible",
+        featuresTitle: "Conçu différemment",
         featureAccessTitle: "Hautement accessible",
-        featureAccessDesc: "Conforme WCAG AAA - le plus haut standard d'accessibilite. Support complet VoiceOver et TalkBack. Modes contraste eleve. Tout le monde peut utiliser cette app.",
+        featureAccessDesc: "Conforme WCAG AAA - le plus haut standard d'accessibilité. Support complet VoiceOver et TalkBack. Modes contraste élevé. Tout le monde peut utiliser cette app.",
         featureOfflineTitle: "Fonctionne hors ligne",
-        featureOfflineDesc: "Pas de signal en montagne? Pas de probleme. Le calendrier complet se telecharge. Consultez les horaires meme dans les vallees isolees.",
+        featureOfflineDesc: "Pas de signal ? Pas de problème. Le calendrier complet se télécharge. Consultez les horaires même en voyage sans données.",
         featureNotifyTitle: "Notifications intelligentes",
-        featureNotifyDesc: "Recevez des alertes 2 heures avant vos evenements favoris. Ne manquez aucune course.",
-        featureLangTitle: "11 langues",
-        featureLangDesc: "Anglais, allemand, francais, italien, espagnol, portugais, neerlandais, arabe, japonais, chinois et coreen.",
+        featureNotifyDesc: "Recevez des alertes avant vos événements favoris. Ne manquez aucun match.",
+        featureLangTitle: "3 langues",
+        featureLangDesc: "Anglais, allemand et français.",
         featureFavTitle: "Sauvegardez vos favoris",
-        featureFavDesc: "Suivez vos athletes, evenements et sports preferes. Votre calendrier personnel affiche uniquement ce qui compte pour vous.",
-        featurePrivacyTitle: "Confidentialite d'abord",
-        featurePrivacyDesc: "Pas de pub. Pas de tracking. Pas de vente de donnees. Vos donnees sont supprimees apres la saison.",
+        featureFavDesc: "Suivez vos athlètes, événements et sports préférés. Votre calendrier personnel affiche uniquement ce qui compte pour vous.",
+        featurePrivacyTitle: "Confidentialité d'abord",
+        featurePrivacyDesc: "Pas de pub. Pas de tracking. Pas de vente de données.",
         useCasesTitle: "Parfait pour",
         useCase1Title: "Sur place",
-        useCase1Desc: "En visite a Kitzbuhel, Adelboden ou Cortina? Sachez exactement quand chaque manche commence, meme sans reseau.",
+        useCase1Desc: "Au stade ou en bord de piste ? Sachez exactement quand chaque événement commence, même sans réseau.",
         useCase2Title: "En voyage",
-        useCase2Desc: "Pas de forfait data international? Telechargez le calendrier avant de partir et consultez-le hors ligne.",
+        useCase2Desc: "Pas de forfait data international ? Téléchargez le calendrier avant de partir et consultez-le hors ligne.",
         useCase3Title: "Malvoyants",
-        useCase3Desc: "Enfin une app sport qui fonctionne parfaitement avec les lecteurs d'ecran. Accessibilite des le depart.",
-        useCase4Title: "A la maison",
-        useCase4Desc: "Recevez des rappels pour ne jamais manquer votre athlete prefere.",
-        sportsTitle: "Tous les sports d'hiver",
-        sportAlpine: "Ski Alpin",
-        sportXC: "Ski de fond",
-        sportBiathlon: "Biathlon",
-        sportFigure: "Patinage artistique",
-        sportHockey: "Hockey sur glace",
-        sportBobsled: "Bobsleigh",
-        sportJumping: "Saut a ski",
-        sportCurling: "Curling",
-        ctaTitle: "Pret pour l'hiver 2026?",
-        ctaDesc: "Telechargez Neve26 et ne manquez rien. Un prix, toutes les fonctionnalites.",
-        footerNews: "Actualites",
-        footerPrivacy: "Confidentialite",
+        useCase3Desc: "Enfin une app sport qui fonctionne parfaitement avec les lecteurs d'écran. Accessibilité dès le départ.",
+        useCase4Title: "À la maison",
+        useCase4Desc: "Recevez des rappels pour ne jamais manquer votre athlète préféré.",
+        sportsTitle: "Tous les sports",
+        sportFootball: "Football",
+        sportTennis: "Tennis",
+        sportAthletics: "Athlétisme",
+        sportCycling: "Cyclisme",
+        sportMotorsport: "Sport automobile",
+        sportWinterSports: "Sports d'hiver",
+        sportSwimming: "Natation",
+        ctaTitle: "Prêt à suivre vos sports ?",
+        ctaDesc: "Téléchargez Bronze et ne manquez rien. Un prix, toutes les fonctionnalités.",
+        footerNews: "Actualités",
+        footerPrivacy: "Confidentialité",
         footerTerms: "CGU",
         footerSupport: "Assistance",
-        footerDisclaimer: "Couverture independante des sports d'hiver."
-      },
-      it: {
-        skipToContent: "Vai al contenuto principale",
-        selectLanguage: "Seleziona lingua",
-        navNews: "Notizie",
-        navAlpine: "Sci Alpino",
-        navBiathlon: "Biathlon",
-        navAthletes: "Atleti",
-        navApp: "Scarica App",
-        heroTagline: "Il compagno degli sport invernali progettato per tutti",
-        badgeAccessible: "Accessibile WCAG AAA",
-        badgeOffline: "Funziona offline",
-        badgeLanguages: "11 lingue",
-        badgeAdFree: "Senza pubblicita",
-        price: "2,99 €",
-        priceNote: "Acquisto unico. Nessun abbonamento.",
-        appStore: "App Store",
-        playStore: "Google Play",
-        comingSoon: "In arrivo a gennaio 2026",
-        featuresTitle: "Costruita diversamente",
-        featureAccessTitle: "Altamente accessibile",
-        featureAccessDesc: "Conforme WCAG AAA - il piu alto standard di accessibilita. Supporto completo VoiceOver e TalkBack. Modalita ad alto contrasto. Tutti possono usare questa app.",
-        featureOfflineTitle: "Funziona offline",
-        featureOfflineDesc: "Nessun segnale in montagna? Nessun problema. Il calendario completo si scarica sul dispositivo. Consulta gli orari anche nelle valli remote.",
-        featureNotifyTitle: "Notifiche intelligenti",
-        featureNotifyDesc: "Ricevi avvisi 2 ore prima dei tuoi eventi preferiti. Non perdere mai una gara.",
-        featureLangTitle: "11 lingue",
-        featureLangDesc: "Inglese, tedesco, francese, italiano, spagnolo, portoghese, olandese, arabo, giapponese, cinese e coreano.",
-        featureFavTitle: "Salva i preferiti",
-        featureFavDesc: "Segui i tuoi atleti, eventi e sport preferiti. Il tuo calendario personale mostra solo cio che ti interessa.",
-        featurePrivacyTitle: "Privacy prima di tutto",
-        featurePrivacyDesc: "Niente pubblicita. Niente tracciamento. Niente vendita dati. I tuoi dati vengono eliminati dopo la stagione.",
-        useCasesTitle: "Perfetta per",
-        useCase1Title: "Sul posto",
-        useCase1Desc: "In visita a Kitzbuhel, Adelboden o Cortina? Sai esattamente quando inizia ogni manche, anche senza segnale.",
-        useCase2Title: "In viaggio",
-        useCase2Desc: "Nessun piano dati internazionale? Scarica il calendario prima di partire e consultalo offline.",
-        useCase3Title: "Non vedenti e ipovedenti",
-        useCase3Desc: "Finalmente un'app sportiva che funziona perfettamente con i lettori di schermo. Accessibilita fin dal primo giorno.",
-        useCase4Title: "A casa",
-        useCase4Desc: "Ricevi promemoria per non perdere mai il tuo atleta preferito in gara.",
-        sportsTitle: "Tutti gli sport invernali",
-        sportAlpine: "Sci Alpino",
-        sportXC: "Sci di fondo",
-        sportBiathlon: "Biathlon",
-        sportFigure: "Pattinaggio artistico",
-        sportHockey: "Hockey su ghiaccio",
-        sportBobsled: "Bob",
-        sportJumping: "Salto con gli sci",
-        sportCurling: "Curling",
-        ctaTitle: "Pronto per l'inverno 2026?",
-        ctaDesc: "Scarica Neve26 e non perdere nemmeno un momento. Un prezzo, tutte le funzionalita.",
-        footerNews: "Notizie",
-        footerPrivacy: "Privacy",
-        footerTerms: "Termini di servizio",
-        footerSupport: "Supporto",
-        footerDisclaimer: "Copertura indipendente degli sport invernali."
-      },
-      es: {
-        heroTagline: "El companero de deportes de invierno disenado para todos",
-        badgeAccessible: "Accesible WCAG AAA",
-        badgeOffline: "Funciona sin conexion",
-        badgeLanguages: "11 idiomas",
-        badgeAdFree: "Sin anuncios",
-        price: "$2.99",
-        priceNote: "Compra unica. Sin suscripciones.",
-        featuresTitle: "Construida diferente",
-        useCasesTitle: "Perfecto para",
-        sportsTitle: "Todos los deportes de invierno",
-        ctaTitle: "Listo para el invierno 2026?",
-        ctaDesc: "Descarga Neve26 y no te pierdas ningun momento. Un precio, todas las funciones."
-      },
-      pt: {
-        heroTagline: "O companheiro de esportes de inverno projetado para todos",
-        badgeAccessible: "Acessivel WCAG AAA",
-        badgeOffline: "Funciona offline",
-        badgeLanguages: "11 idiomas",
-        badgeAdFree: "Sem anuncios",
-        price: "$2.99",
-        priceNote: "Compra unica. Sem assinaturas.",
-        featuresTitle: "Construido diferente",
-        useCasesTitle: "Perfeito para",
-        sportsTitle: "Todos os esportes de inverno",
-        ctaTitle: "Pronto para o inverno 2026?",
-        ctaDesc: "Baixe Neve26 e nao perca nenhum momento. Um preco, todos os recursos."
-      },
-      nl: {
-        heroTagline: "De wintersport-companion ontworpen voor iedereen",
-        badgeAccessible: "WCAG AAA Toegankelijk",
-        badgeOffline: "Werkt offline",
-        badgeLanguages: "11 talen",
-        badgeAdFree: "Geen advertenties",
-        price: "€2,99",
-        priceNote: "Eenmalige aankoop. Geen abonnement.",
-        featuresTitle: "Anders gebouwd",
-        useCasesTitle: "Perfect voor",
-        sportsTitle: "Alle wintersporten",
-        ctaTitle: "Klaar voor winter 2026?",
-        ctaDesc: "Download Neve26 en mis geen moment. Een prijs, alle functies."
-      },
-      ar: {
-        heroTagline: "رفيق الرياضات الشتوية المصمم للجميع",
-        badgeAccessible: "متوافق مع WCAG AAA",
-        badgeOffline: "يعمل بدون إنترنت",
-        badgeLanguages: "11 لغة",
-        badgeAdFree: "بدون إعلانات",
-        price: "$2.99",
-        priceNote: "شراء لمرة واحدة. بدون اشتراكات.",
-        featuresTitle: "مبني بشكل مختلف",
-        useCasesTitle: "مثالي لـ",
-        sportsTitle: "جميع الرياضات الشتوية",
-        ctaTitle: "مستعد لشتاء 2026؟",
-        ctaDesc: "حمّل Neve26 ولا تفوت أي لحظة. سعر واحد، جميع الميزات."
-      },
-      ja: {
-        heroTagline: "すべての人のためにデザインされたウィンタースポーツコンパニオン",
-        badgeAccessible: "WCAG AAA準拠",
-        badgeOffline: "オフラインで動作",
-        badgeLanguages: "11言語対応",
-        badgeAdFree: "広告なし",
-        price: "¥450",
-        priceNote: "買い切り。サブスクなし。",
-        featuresTitle: "違いを生む設計",
-        useCasesTitle: "こんな方に最適",
-        sportsTitle: "すべてのウィンタースポーツ",
-        ctaTitle: "2026年冬の準備はできていますか？",
-        ctaDesc: "Neve26をダウンロードして、一瞬も見逃さない。ワンプライス、全機能。"
-      },
-      zh: {
-        heroTagline: "为每个人设计的冬季运动伴侣",
-        badgeAccessible: "WCAG AAA 无障碍",
-        badgeOffline: "离线可用",
-        badgeLanguages: "11种语言",
-        badgeAdFree: "无广告",
-        price: "¥21",
-        priceNote: "一次性购买。无订阅。",
-        featuresTitle: "与众不同",
-        useCasesTitle: "适合",
-        sportsTitle: "所有冬季运动",
-        ctaTitle: "准备好迎接2026年冬天了吗？",
-        ctaDesc: "下载Neve26，不错过任何精彩时刻。一个价格，全部功能。"
-      },
-      ko: {
-        heroTagline: "모두를 위해 설계된 겨울 스포츠 동반자",
-        badgeAccessible: "WCAG AAA 접근성",
-        badgeOffline: "오프라인 지원",
-        badgeLanguages: "11개 언어",
-        badgeAdFree: "광고 없음",
-        price: "₩3,900",
-        priceNote: "일회성 구매. 구독 없음.",
-        featuresTitle: "다르게 만들었습니다",
-        useCasesTitle: "이런 분께 추천",
-        sportsTitle: "모든 겨울 스포츠",
-        ctaTitle: "2026년 겨울 준비되셨나요?",
-        ctaDesc: "Neve26을 다운로드하고 단 한 순간도 놓치지 마세요. 한 번 결제, 모든 기능."
+        footerDisclaimer: "Couverture sportive indépendante."
       }
     };
 
-    const rtlLangs = ['ar'];
     let currentLang = 'en';
 
     function setLanguage(lang) {
@@ -1244,7 +1059,6 @@
       const fallback = translations.en;
 
       document.documentElement.lang = lang;
-      document.documentElement.dir = rtlLangs.includes(lang) ? 'rtl' : 'ltr';
 
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
@@ -1255,7 +1069,7 @@
         }
       });
 
-      localStorage.setItem('neve26_lang', lang);
+      localStorage.setItem('bronze_lang', lang);
 
       // Track language change in Matomo
       if (window._paq) {
@@ -1264,7 +1078,7 @@
     }
 
     // Detect language
-    const savedLang = localStorage.getItem('neve26_lang');
+    const savedLang = localStorage.getItem('bronze_lang');
     const browserLang = navigator.language.split('-')[0];
     const detectedLang = savedLang || (translations[browserLang] ? browserLang : 'en');
 
