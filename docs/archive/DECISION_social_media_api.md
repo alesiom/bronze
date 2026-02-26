@@ -25,10 +25,10 @@
 
 ---
 
-## Neve26 Social Media Requirements
+## Bronze Social Media Requirements
 
 From KNOWLEDGE.md:
-- **Platforms:** Instagram (@neve.2026), X (@neve2026)
+- **Platforms:** Instagram (@bronzenews), X (@bronzenews)
 - **Daily volume:** 2 feed posts + 5 stories + 1 reel = **8 posts/day**
 - **Monthly volume:** ~240 posts/month
 - **Integration:** n8n workflows for automation
@@ -47,7 +47,7 @@ From KNOWLEDGE.md:
 | **Accelerate** | $49 | **$33/mo** | Unlimited | 50 |
 | Unlimited | $999 | $667/mo | Unlimited | Unlimited |
 
-**For Neve26:** Accelerate plan at $33/mo (annual) = **$396/year**
+**For Bronze:** Accelerate plan at $33/mo (annual) = **$396/year**
 
 ### Supported Platforms
 Twitter/X, Instagram, TikTok, LinkedIn, Facebook, YouTube, Threads, Reddit, Pinterest, Bluesky (12 total)
@@ -72,7 +72,7 @@ Twitter/X, Instagram, TikTok, LinkedIn, Facebook, YouTube, Threads, Reddit, Pint
 POST https://api.getlate.dev/posts
 {
   "text": "Shiffrin wins in Adelboden! Full recap...",
-  "mediaUrls": ["https://neve26.com/images/articles/shiffrin-win.jpg"],
+  "mediaUrls": ["https://bronze.news/images/articles/shiffrin-win.jpg"],
   "profiles": ["instagram_xxx", "twitter_xxx"]
 }
 ```
@@ -94,7 +94,7 @@ POST https://api.getlate.dev/posts
 
 ### Rate Limits
 - 200 API calls per hour per account
-- 25-50 posts per 24 hours (sufficient for Neve26)
+- 25-50 posts per 24 hours (sufficient for Bronze)
 
 ### Pros
 - **Free** - no ongoing cost
@@ -112,7 +112,7 @@ POST https://api.getlate.dev/posts
 ### Reels Limitation (Critical)
 > "Scheduled Reels often lose their audio or fail to publish because copyright agreements for trending music do not extend to API-published content."
 
-This means Neve26's daily reel would need **original audio only** - no trending sounds.
+This means Bronze's daily reel would need **original audio only** - no trending sounds.
 
 ---
 
@@ -181,8 +181,8 @@ The free tier's **17 tweets/day app-wide** limit is unusable for any real automa
 ### Action Items if Approved
 
 1. Sign up at https://getlate.dev (free tier to test)
-2. Connect @neve.2026 (Instagram) via OAuth
-3. Connect @neve2026 (X) via OAuth
+2. Connect @bronzenews (Instagram) via OAuth
+3. Connect @bronzenews (X) via OAuth
 4. Get API key
 5. Add credentials to n8n
 6. Proceed with T16 (posting workflow)

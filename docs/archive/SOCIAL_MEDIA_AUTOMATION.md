@@ -1,6 +1,6 @@
 # Social Media Automation Strategy
 
-Automated detection and integration of athlete social media content into Neve26 articles.
+Automated detection and integration of athlete social media content into Bronze articles.
 
 ---
 
@@ -124,7 +124,7 @@ Setup Requirements:
 │   └─ Create at: business.facebook.com
 │
 ├─ Instagram Business or Creator Account
-│   └─ @neve.2026 must be Business/Creator (not Personal)
+│   └─ @bronzenews must be Business/Creator (not Personal)
 │   └─ Connected to a Facebook Page
 │
 ├─ Meta Developer App
@@ -422,16 +422,16 @@ Since auto-commenting isn't possible, here's a manual workflow:
 ```
 After publishing article with athlete social content:
 
-□ Open @neve.2026 Instagram
+□ Open @bronzenews Instagram
 □ For each podium athlete:
   □ Go to their embedded post
   □ Like the post
   □ Leave genuine comment:
       "Congratulations on [result]! 🎿 Great performance at [venue]!"
   □ Follow if not already following
-□ Share article link in @neve.2026 story
+□ Share article link in @bronzenews story
   □ Tag athletes: @marco_odermatt @athlete2 @athlete3
-□ Post on X (@neve2026):
+□ Post on X (@bronzenews):
   □ Article link + congratulations
   □ Tag athletes' X handles
 ```
@@ -463,7 +463,7 @@ Record/Milestone:
 
 ### Phase 2: Instagram API Setup (Week 1)
 - [ ] Create Meta Business Account (if not exists)
-- [ ] Convert @neve.2026 to Business Account
+- [ ] Convert @bronzenews to Business Account
 - [ ] Create Meta Developer App
 - [ ] Request `business_discovery` permission
 - [ ] Submit for App Review
@@ -528,7 +528,7 @@ Record/Milestone:
 | Embed relevance accuracy | >90% | Manual review sample |
 | New handles discovered/month | 5-10 | DB growth tracking |
 | Time from race to enriched article | <2 hours | Timestamp tracking |
-| Engagement on @neve.2026 | Growing | Instagram analytics |
+| Engagement on @bronzenews | Growing | Instagram analytics |
 
 ---
 

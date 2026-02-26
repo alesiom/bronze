@@ -1165,7 +1165,7 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@neve2026">
+  <meta name="twitter:site" content="@bronzenews">
 
   <!-- Canonical and alternates -->
   <link rel="canonical" href="https://bronze.news/{lang_path}{category_path}/{slug}/">
@@ -1259,8 +1259,8 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
         <a href="/app">{ui_footer_app}</a>
         <a href="/privacy">{ui_footer_privacy}</a>
         <a href="/support">{ui_footer_support}</a>
-        <a href="https://x.com/neve2026" target="_blank" rel="noopener noreferrer">X @neve2026</a>
-        <a href="https://instagram.com/neve.2026" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://x.com/bronzenews" target="_blank" rel="noopener noreferrer">X @bronzenews</a>
+        <a href="https://instagram.com/bronzenews" target="_blank" rel="noopener noreferrer">Instagram</a>
       </nav>
       <p class="copyright">© 2026 Bronze. {ui_footer_disclaimer}</p>
     </div>
@@ -1555,7 +1555,7 @@ INDEX_TEMPLATE = '''<!DOCTYPE html>
             <a href="/app">Get App</a>
             <a href="/privacy">Privacy</a>
             <a href="/support">Support</a>
-            <a href="https://x.com/neve2026">X @neve2026</a>
+            <a href="https://x.com/bronzenews">X @bronzenews</a>
         </nav>
         <p class="copyright">&copy; 2026 Bronze. Independent winter sports coverage.</p>
     </footer>

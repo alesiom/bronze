@@ -1,7 +1,7 @@
-# Neve26 - App Store Metadata (Deutsch)
+# Bronze - App Store Metadata (Deutsch)
 
 ## App Name
-Neve26 - Wintersport
+Bronze - Wintersport
 
 ## Subtitle (30 chars max)
 Zeitplan, Warnungen & News
@@ -11,11 +11,11 @@ ski,biathlon,wintersport,zeitplan,benachrichtigungen,barrierefrei,weltcup,FIS,IB
 
 ## Description
 
-Verpasse keinen Moment der Wintersport-Action. Neve26 ist dein persönlicher Begleiter für die Wintersportsaison 2026 und liefert dir Live-Zeitpläne, sofortige Benachrichtigungen und aktuelle Nachrichten direkt auf dein Smartphone.
+Verpasse keinen Moment der Wintersport-Action. Bronze ist dein persönlicher Begleiter für die Wintersportsaison 2026 und liefert dir Live-Zeitpläne, sofortige Benachrichtigungen und aktuelle Nachrichten direkt auf dein Smartphone.
 
 **DEIN KOMPLETTES WINTERSPORT-ZENTRUM**
 
-Verfolge jedes Event in 16 Disziplinen: Ski Alpin, Biathlon, Skilanglauf, Skispringen, Bob, Rodeln, Eiskunstlauf und mehr. Von FIS-Weltcup-Rennen bis zu IBU-Biathlon-Events – Neve26 verbindet dich mit den Sportarten, die du liebst.
+Verfolge jedes Event in 16 Disziplinen: Ski Alpin, Biathlon, Skilanglauf, Skispringen, Bob, Rodeln, Eiskunstlauf und mehr. Von FIS-Weltcup-Rennen bis zu IBU-Biathlon-Events – Bronze verbindet dich mit den Sportarten, die du liebst.
 
 **INTELLIGENTE BENACHRICHTIGUNGEN**
 
@@ -23,7 +23,7 @@ Füge Events zu deinen Favoriten hinzu und erhalte Erinnerungen 2 Stunden vor de
 
 **11 SPRACHEN, EINE APP**
 
-Neve26 spricht deine Sprache. Vollständige Unterstützung für Deutsch, Englisch, Französisch, Italienisch, Spanisch, Portugiesisch, Niederländisch, Arabisch, Japanisch, Chinesisch und Koreanisch. Wechsle die Sprache sofort in den Einstellungen.
+Bronze spricht deine Sprache. Vollständige Unterstützung für Deutsch, Englisch, Französisch, Italienisch, Spanisch, Portugiesisch, Niederländisch, Arabisch, Japanisch, Chinesisch und Koreanisch. Wechsle die Sprache sofort in den Einstellungen.
 
 **OFFLINE-MODUS**
 
@@ -35,11 +35,11 @@ Bleib informiert mit den neuesten Wintersport-Nachrichten. Lies Renn-Vorschauen,
 
 **BARRIEREFREIHEIT AN ERSTER STELLE**
 
-Neve26 wurde von Grund auf für alle entwickelt. Wir erfüllen die WCAG-AAA-Barrierefreiheitsstandards – das höchste Niveau. Volle VoiceOver- und TalkBack-Unterstützung, kontrastreiche Themes, anpassbare Textgrößen und Komfort-Modus für einfachere Bedienung. Wenn dir Barrierefreiheit wichtig ist, wurde Neve26 für dich gemacht.
+Bronze wurde von Grund auf für alle entwickelt. Wir erfüllen die WCAG-AAA-Barrierefreiheitsstandards – das höchste Niveau. Volle VoiceOver- und TalkBack-Unterstützung, kontrastreiche Themes, anpassbare Textgrößen und Komfort-Modus für einfachere Bedienung. Wenn dir Barrierefreiheit wichtig ist, wurde Bronze für dich gemacht.
 
 **PRIVATSPHÄRE RESPEKTIERT**
 
-Keine Werbung. Kein Tracking. Kein Datenverkauf. Wir erfassen nur, was für Benachrichtigungen nötig ist – nichts mehr. Datenschutzerklärung unter neve26.com/privacy.
+Keine Werbung. Kein Tracking. Kein Datenverkauf. Wir erfassen nur, was für Benachrichtigungen nötig ist – nichts mehr. Datenschutzerklärung unter bronze.news/privacy.
 
 **ABGEDECKTE SPORTARTEN**
 - Ski Alpin
@@ -61,9 +61,9 @@ Keine Werbung. Kein Tracking. Kein Datenverkauf. Wir erfassen nur, was für Bena
 
 **UNABHÄNGIG & WERBEFREI**
 
-Neve26 ist eine unabhängige Plattform – wir sind mit keiner Sportorganisation verbunden. Unsere Berichterstattung ist unparteiisch und unsere App ist völlig frei von Werbung. Ein Kauf, voller Zugang, für immer.
+Bronze ist eine unabhängige Plattform – wir sind mit keiner Sportorganisation verbunden. Unsere Berichterstattung ist unparteiisch und unsere App ist völlig frei von Werbung. Ein Kauf, voller Zugang, für immer.
 
-Lade Neve26 herunter und erlebe Wintersport wie nie zuvor.
+Lade Bronze herunter und erlebe Wintersport wie nie zuvor.
 
 ## What's New (Version 1.0.0)
 Erstveröffentlichung mit:
@@ -89,13 +89,13 @@ Secondary: Nachrichten
 4+ (Keine anstößigen Inhalte)
 
 ## Privacy Policy URL
-https://neve26.com/privacy
+https://bronze.news/privacy
 
 ## Support URL
-https://neve26.com/support
+https://bronze.news/support
 
 ## Copyright
-2026 Neve26
+2026 Bronze
 
 ## Contact Information
-support@neve26.com
+support@bronze.news

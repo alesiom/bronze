@@ -1,12 +1,12 @@
 # SEO & Sitemaps
 
-This document covers the SEO infrastructure for Neve26, including robots.txt, sitemaps, and automation.
+This document covers the SEO infrastructure for Bronze, including robots.txt, sitemaps, and automation.
 
 ---
 
 ## Overview
 
-Neve26 uses a multi-sitemap strategy optimized for news websites:
+Bronze uses a multi-sitemap strategy optimized for news websites:
 
 | File | Purpose | Update Frequency |
 |------|---------|------------------|
@@ -43,8 +43,8 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://neve26.com/sitemap.xml
-Sitemap: https://neve26.com/sitemap-news.xml
+Sitemap: https://bronze.news/sitemap.xml
+Sitemap: https://bronze.news/sitemap-news.xml
 
 # Block non-content paths
 Disallow: /api/
@@ -64,7 +64,7 @@ Allow: /
 
 ### AI Crawler Policy
 
-We explicitly allow AI crawlers to ensure Neve26 content appears in:
+We explicitly allow AI crawlers to ensure Bronze content appears in:
 - ChatGPT/OpenAI responses (GPTBot)
 - Google Gemini/Bard (Google-Extended)
 - Claude (ClaudeBot)
@@ -84,15 +84,15 @@ Points to all other sitemaps:
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
-    <loc>https://neve26.com/sitemap-pages.xml</loc>
+    <loc>https://bronze.news/sitemap-pages.xml</loc>
     <lastmod>2026-01-11</lastmod>
   </sitemap>
   <sitemap>
-    <loc>https://neve26.com/sitemap-articles.xml</loc>
+    <loc>https://bronze.news/sitemap-articles.xml</loc>
     <lastmod>2026-01-11</lastmod>
   </sitemap>
   <sitemap>
-    <loc>https://neve26.com/sitemap-news.xml</loc>
+    <loc>https://bronze.news/sitemap-news.xml</loc>
     <lastmod>2026-01-11</lastmod>
   </sitemap>
 </sitemapindex>
@@ -118,12 +118,12 @@ All published articles with:
 Example entry:
 ```xml
 <url>
-  <loc>https://neve26.com/adelboden-giant-slalom-preview-2026/</loc>
+  <loc>https://bronze.news/adelboden-giant-slalom-preview-2026/</loc>
   <lastmod>2026-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
-  <xhtml:link rel="alternate" hreflang="en" href="https://neve26.com/adelboden-giant-slalom-preview-2026/"/>
-  <xhtml:link rel="alternate" hreflang="de" href="https://neve26.com/de/adelboden-giant-slalom-preview-2026/"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://bronze.news/adelboden-giant-slalom-preview-2026/"/>
+  <xhtml:link rel="alternate" hreflang="de" href="https://bronze.news/de/adelboden-giant-slalom-preview-2026/"/>
   <!-- ... all 11 languages -->
 </url>
 ```
@@ -138,10 +138,10 @@ Special sitemap for Google News with:
 Example entry:
 ```xml
 <url>
-  <loc>https://neve26.com/article-slug/</loc>
+  <loc>https://bronze.news/article-slug/</loc>
   <news:news>
     <news:publication>
-      <news:name>Neve26</news:name>
+      <news:name>Bronze</news:name>
       <news:language>en</news:language>
     </news:publication>
     <news:publication_date>2026-01-11T10:30:00+00:00</news:publication_date>
@@ -165,10 +165,10 @@ Example entry:
 python3 website/scripts/generate_sitemaps.py --api-url http://localhost:8000
 
 # Production
-python3 website/scripts/generate_sitemaps.py --api-url https://api.neve26.com
+python3 website/scripts/generate_sitemaps.py --api-url https://api.bronze.news
 
 # Custom output directory
-python3 website/scripts/generate_sitemaps.py --output-dir /var/www/neve26
+python3 website/scripts/generate_sitemaps.py --output-dir /var/www/bronze
 ```
 
 ### What It Does
@@ -206,12 +206,12 @@ Add to the article publishing workflow in n8n:
 | Field | Value |
 |-------|-------|
 | Method | POST |
-| URL | `https://api.neve26.com/api/v1/sitemaps/generate` |
+| URL | `https://api.bronze.news/api/v1/sitemaps/generate` |
 | Authentication | API Key |
 
 Or use an Execute Command node:
 ```bash
-python3 /var/www/neve26/scripts/generate_sitemaps.py --api-url https://api.neve26.com
+python3 /var/www/bronze/scripts/generate_sitemaps.py --api-url https://api.bronze.news
 ```
 
 **Pros:**
@@ -228,7 +228,7 @@ Add to server crontab:
 crontab -e
 
 # Add line (runs every 15 minutes)
-*/15 * * * * cd /var/www/neve26 && python3 scripts/generate_sitemaps.py --api-url https://api.neve26.com >> /var/log/neve26/sitemap.log 2>&1
+*/15 * * * * cd /var/www/bronze && python3 scripts/generate_sitemaps.py --api-url https://api.bronze.news >> /var/log/bronze/sitemap.log 2>&1
 ```
 
 **Pros:**
@@ -254,10 +254,10 @@ Use n8n for immediate updates + cron as backup:
 After deploying sitemaps:
 
 1. Go to [Google Search Console](https://search.google.com/search-console)
-2. Add property: `https://neve26.com`
+2. Add property: `https://bronze.news`
 3. Verify ownership (DNS TXT record or HTML file)
 4. Go to **Sitemaps** section
-5. Submit: `https://neve26.com/sitemap.xml`
+5. Submit: `https://bronze.news/sitemap.xml`
 
 Google will automatically discover all linked sitemaps from the index.
 
@@ -289,8 +289,8 @@ Each article URL includes hreflang tags for all 11 languages:
 | `ko` | Korean |
 
 URL structure:
-- English: `neve26.com/article-slug/`
-- Other: `neve26.com/{lang}/article-slug/`
+- English: `bronze.news/article-slug/`
+- Other: `bronze.news/{lang}/article-slug/`
 
 ---
 
@@ -312,7 +312,7 @@ If article count exceeds limits, the script will need pagination support.
 
 ### Sitemaps not updating
 
-1. Check API is accessible: `curl https://api.neve26.com/api/v1/articles`
+1. Check API is accessible: `curl https://api.bronze.news/api/v1/articles`
 2. Check script permissions: `chmod +x scripts/generate_sitemaps.py`
 3. Check output directory is writable
 

@@ -2,7 +2,7 @@
 
 **Date**: January 8, 2026
 **Status**: Complete
-**Location**: n8n.neve26.com
+**Location**: n8n.bronze.news
 
 ---
 
@@ -25,7 +25,7 @@ Automated workflow to generate news articles from FIS World Cup race results.
               ▼            │            ▼
        ┌─────────────┐     │     ┌─────────────┐
        │  ❌ Log     │     │     │  ✅ POST to │
-       │  Violation  │     │     │  Neve26 API │
+       │  Violation  │     │     │  Bronze API │
        └─────────────┘     │     └──────┬──────┘
                            │            │
                            │     ┌──────▼──────┐
@@ -40,7 +40,7 @@ Automated workflow to generate news articles from FIS World Cup race results.
 
 ### Step 1: Import Workflow
 
-1. Open n8n.neve26.com
+1. Open n8n.bronze.news
 2. Go to **Workflows** → **Import from File**
 3. Select `/workflows/fis-article-generator.json`
 4. Click **Import**
@@ -54,9 +54,9 @@ Automated workflow to generate news articles from FIS World Cup race results.
 4. Header Name: `x-api-key`
 5. Header Value: `sk-ant-...` (your Claude API key)
 
-#### Neve26 API Key (if using auth)
+#### Bronze API Key (if using auth)
 1. Create new **Header Auth** credential
-2. Name: `Neve26 API`
+2. Name: `Bronze API`
 3. Header Name: `Authorization`
 4. Header Value: `Bearer <your-token>`
 
@@ -128,12 +128,12 @@ Before each race day, update the workflow:
 ### 8. Create Article in API
 - **Type**: HTTP Request
 - **Method**: POST
-- **URL**: `https://api.neve26.com/api/v1/articles`
+- **URL**: `https://api.bronze.news/api/v1/articles`
 - **Body**: Article JSON with multilingual structure
 
 ### 9. Trigger Translation Workflow
 - **Type**: HTTP Request (Webhook)
-- **URL**: `https://n8n.neve26.com/webhook/translate-article`
+- **URL**: `https://n8n.bronze.news/webhook/translate-article`
 - **Purpose**: Starts separate workflow for 10-language translation
 
 ---

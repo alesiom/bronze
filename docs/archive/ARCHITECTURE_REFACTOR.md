@@ -76,7 +76,7 @@
    - `INDEX_TEMPLATE` contains ~225 lines of CSS (around line 600-825)
 2. Merge both CSS blocks, removing duplicates
 3. Ensure WCAG AAA compliance preserved (contrast ratios, focus states)
-4. Add header comment: `/* Neve26 Unified Styles - Generated from refactor */`
+4. Add header comment: `/* Bronze Unified Styles - Generated from refactor */`
 
 **CSS must include:**
 - Skip link styles (`.skip-link`)
@@ -98,7 +98,7 @@
 **Instructions:**
 1. Copy CSS to VPS:
    ```bash
-   scp website/static/style.css ubuntu@neve26:/home/ubuntu/neve26/website/static/
+   scp website/static/style.css ubuntu@bronze:/home/ubuntu/bronze/website/static/
    ```
 
 2. Update `docker-compose.yml` to mount static directory (if not already):
@@ -110,10 +110,10 @@
 
 3. Restart website container:
    ```bash
-   ssh neve26 "cd /home/ubuntu/neve26 && docker compose restart website"
+   ssh bronze "cd /home/ubuntu/bronze && docker compose restart website"
    ```
 
-**Verify:** `curl -I https://neve26.com/static/style.css` returns 200
+**Verify:** `curl -I https://bronze.news/static/style.css` returns 200
 
 ---
 
@@ -136,18 +136,18 @@
 
 3. Deploy updated articles.py:
    ```bash
-   scp src/api/routes/articles.py ubuntu@neve26:/home/ubuntu/neve26/src/api/routes/
-   ssh neve26 "cd /home/ubuntu/neve26 && docker compose restart api"
+   scp src/api/routes/articles.py ubuntu@bronze:/home/ubuntu/bronze/src/api/routes/
+   ssh bronze "cd /home/ubuntu/bronze && docker compose restart api"
    ```
 
 4. Regenerate all HTML files:
    ```bash
-   curl -X POST https://api.neve26.com/api/v1/articles/regenerate-all
+   curl -X POST https://api.bronze.news/api/v1/articles/regenerate-all
    ```
 
 **Verify:**
-- `curl neve26.com/ | grep 'href="/static/style.css"'` → Found
-- `curl neve26.com/ | grep '<style>' | wc -l` → 0
+- `curl bronze.news/ | grep 'href="/static/style.css"'` → Found
+- `curl bronze.news/ | grep '<style>' | wc -l` → 0
 - Visual check: pages look the same as before
 
 ---
@@ -162,7 +162,7 @@
 
 ```python
 """
-Article and HTML validation for Neve26.
+Article and HTML validation for Bronze.
 This module is the automated gatekeeper - no human review needed.
 """
 from typing import List, Optional
@@ -380,7 +380,7 @@ CREATE INDEX idx_rejections_date ON validation_rejections(created_at);
 
 **Run migration:**
 ```bash
-ssh neve26 "docker exec -i neve26-db psql -U postgres -d neve26" < migrations/010_validation_rejections.sql
+ssh bronze "docker exec -i bronze-db psql -U postgres -d bronze" < migrations/010_validation_rejections.sql
 ```
 
 **Verify:** Table exists in database
@@ -446,7 +446,7 @@ ssh neve26 "docker exec -i neve26-db psql -U postgres -d neve26" < migrations/01
    <head>
        <meta charset="UTF-8">
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       <title>{% block title %}{{ title }} | Neve26{% endblock %}</title>
+       <title>{% block title %}{{ title }} | Bronze{% endblock %}</title>
        <meta name="description" content="{{ meta_description }}">
        <link rel="stylesheet" href="/static/style.css">
        {% block head_extra %}{% endblock %}
@@ -485,7 +485,7 @@ ssh neve26 "docker exec -i neve26-db psql -U postgres -d neve26" < migrations/01
 ```html
 {% extends 'base.html.j2' %}
 
-{% block title %}{{ article.title }} | Neve26{% endblock %}
+{% block title %}{{ article.title }} | Bronze{% endblock %}
 
 {% block head_extra %}
 {# Structured data for SEO #}
@@ -557,7 +557,7 @@ ssh neve26 "docker exec -i neve26-db psql -U postgres -d neve26" < migrations/01
 ```html
 {% extends 'base.html.j2' %}
 
-{% block title %}{{ page_title }} | Neve26{% endblock %}
+{% block title %}{{ page_title }} | Bronze{% endblock %}
 
 {% block content %}
 <section class="index-page">
@@ -640,7 +640,7 @@ ssh neve26 "docker exec -i neve26-db psql -U postgres -d neve26" < migrations/01
 ```html
 <header class="site-header">
     <nav class="main-nav" aria-label="Main navigation">
-        <a href="{{ home_url }}" class="logo">Neve26</a>
+        <a href="{{ home_url }}" class="logo">Bronze</a>
         <ul class="nav-links">
             <li><a href="{{ url_for('news') }}">{{ i18n.nav_news }}</a></li>
             <li><a href="{{ url_for('alpine') }}">{{ i18n.nav_alpine }}</a></li>
@@ -669,7 +669,7 @@ ssh neve26 "docker exec -i neve26-db psql -U postgres -d neve26" < migrations/01
         <a href="/privacy">{{ i18n.footer_privacy }}</a>
         <a href="/support">{{ i18n.footer_support }}</a>
     </nav>
-    <p class="copyright">&copy; 2026 Neve26</p>
+    <p class="copyright">&copy; 2026 Bronze</p>
 </footer>
 ```
 
@@ -956,8 +956,8 @@ R07
 
 After completing all phases:
 
-- [ ] `curl neve26.com/ | grep 'href="/static/style.css"'` → Found
-- [ ] `curl neve26.com/ | grep '<style>' | wc -l` → 0
+- [ ] `curl bronze.news/ | grep 'href="/static/style.css"'` → Found
+- [ ] `curl bronze.news/ | grep '<style>' | wc -l` → 0
 - [ ] Create article with "olympic" → Rejected with error
 - [ ] `ls website/templates/` shows .html.j2 files
 - [ ] `ls website/i18n/` shows 11 .json files
@@ -1010,8 +1010,8 @@ Based on dependencies, tickets can be distributed across multiple Claude instanc
 ### Starting a new Claude instance for a ticket:
 
 ```
-I'm working on the Neve26 website architecture refactor.
-Project: /Users/alex/kDrive/Privé/Neve26/
+I'm working on the Bronze website architecture refactor.
+Project: /Users/alex/kDrive/Privé/Bronze/
 
 Please read these files first:
 - docs/ARCHITECTURE_REFACTOR.md (this file)
@@ -1033,7 +1033,7 @@ Work on ticket: R[XX]
 | Ticket | Description | Status | Notes |
 |--------|-------------|--------|-------|
 | R01 | Create consolidated CSS file | [x] | `/website/static/style.css` |
-| R02 | Deploy CSS to production | [x] | Live on neve26.com |
+| R02 | Deploy CSS to production | [x] | Live on bronze.news |
 | R03 | Update templates for external CSS | [x] | CSS link in templates |
 | R04 | Create validation module | [x] | `src/api/validation.py` |
 | R05 | Integrate validation | [x] | Called in articles.py |

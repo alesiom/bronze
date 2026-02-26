@@ -1,9 +1,9 @@
--- Neve26 Translation SQL
+-- Bronze Translation SQL
 -- Generated from translations/*.json files
 -- Files: 2
 --
 -- Run with:
---   docker exec -i neve26-db psql -U postgres -d neve26 < translations.sql
+--   docker exec -i bronze-db psql -U postgres -d neve26 < translations.sql
 
 BEGIN;
 

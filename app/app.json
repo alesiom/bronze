@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "Neve26",
-    "slug": "neve26",
-    "owner": "neve26",
+    "name": "Bronze",
+    "slug": "bronze",
+    "owner": "bronze",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    "scheme": "neve26",
+    "scheme": "bronze",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -16,9 +16,9 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.neve26.app",
+      "bundleIdentifier": "news.bronze.app",
       "buildNumber": "1",
-      "associatedDomains": ["applinks:neve26.com"],
+      "associatedDomains": ["applinks:bronze.news"],
       "infoPlist": {
         "NSUserTrackingUsageDescription": "We do not track users. This disclosure is required by Apple for transparency."
       }
@@ -28,7 +28,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#008C45"
       },
-      "package": "com.neve26.app",
+      "package": "news.bronze.app",
       "versionCode": 1,
       "permissions": ["RECEIVE_BOOT_COMPLETED"],
       "edgeToEdgeEnabled": true
@@ -63,7 +63,7 @@
       "typedRoutes": true
     },
     "extra": {
-      "apiUrl": "https://api.neve26.com"
+      "apiUrl": "https://api.bronze.news"
     }
   }
 }

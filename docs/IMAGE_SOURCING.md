@@ -1,8 +1,8 @@
-# Image Sourcing Guide for Neve26 Articles
+# Image Sourcing Guide for Bronze Articles
 
 ## Overview
 
-This document outlines where to find free, legally-safe images for Neve26 articles, and how to properly attribute them.
+This document outlines where to find free, legally-safe images for Bronze articles, and how to properly attribute them.
 
 ---
 

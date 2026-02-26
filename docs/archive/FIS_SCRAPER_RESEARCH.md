@@ -153,7 +153,7 @@ Sitemap: https://www.fis-ski.com/sitemap.xml
 5. **Transform**: Convert to article-ready format
 6. **Generate**: Claude API creates article from results
 7. **Validate**: Check against legal blocklist
-8. **Store**: POST to Neve26 API
+8. **Store**: POST to Bronze API
 
 ### n8n Node Recommendations
 
@@ -163,7 +163,7 @@ Sitemap: https://www.fis-ski.com/sitemap.xml
 | Parse | HTML Extract | CSS selector for results table |
 | Compare | Code | JavaScript hash comparison |
 | Generate | HTTP Request | Claude API call |
-| Store | HTTP Request | POST to api.neve26.com |
+| Store | HTTP Request | POST to api.bronze.news |
 
 ---
 
@@ -180,7 +180,7 @@ def fetch_race_results(race_id: str) -> dict:
     url = f"https://www.fis-ski.com/DB/general/results.html?sectorcode=AL&raceid={race_id}"
 
     headers = {
-        "User-Agent": "Neve26-Bot/1.0 (news aggregator; contact@neve26.com)"
+        "User-Agent": "Bronze-Bot/1.0 (news aggregator; contact@bronze.news)"
     }
 
     response = httpx.get(url, headers=headers, timeout=30)

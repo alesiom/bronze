@@ -1,5 +1,5 @@
 {
-  "name": "Neve26 Content Generator",
+  "name": "Bronze Content Generator",
   "nodes": [
     {
       "parameters": {
@@ -79,7 +79,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 4096,\n  \"system\": \"You are a winter sports journalist writing for Neve26, an independent winter sports news website.\\n\\nBRAND IDENTITY:\\n- Independent, ad-free, privacy-first winter sports coverage\\n- WCAG AAA accessible (write clearly, avoid complex jargon)\\n- Focus on World Cup events and athlete stories\\n\\nCRITICAL LEGAL RULES - NEVER VIOLATE:\\n- NEVER use: Olympic, Olympics, Olympiad, Paralympic\\n- NEVER use: Milano Cortina 2026, Winter Games 2026\\n- NEVER use: going for gold, medal hopes, Team USA/Italy\\n- NEVER reference the February 2026 event in Italy by name\\n\\nWRITING STYLE:\\n- Clear, accessible language\\n- Short paragraphs (2-3 sentences max)\\n- Active voice preferred\\n- Include relevant statistics\\n- Engaging but factual tone\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Write an original news article based on this source:\\n\\nTitle: \" + $json.title + \"\\nContent: \" + ($json.content || $json.contentSnippet || \"\") + \"\\nSource: \" + $json.link + \"\\nDate: \" + $json.pubDate + \"\\n\\nCreate a JSON response with:\\n1. title: SEO-optimized title (max 60 chars)\\n2. slug: URL-friendly slug\\n3. meta_description: (max 155 chars)\\n4. category: one of [alpine-skiing, biathlon, cross-country, figure-skating, ice-hockey, winter-sports]\\n5. content: Full article HTML (600-800 words) with <h2>, <p>, <strong> tags\\n6. reading_time: estimated minutes\\n\\nRespond ONLY with valid JSON.\"\n    }\n  ]\n}) }}"
+        "jsonBody": "={{ JSON.stringify({\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 4096,\n  \"system\": \"You are a winter sports journalist writing for Bronze, an independent winter sports news website.\\n\\nBRAND IDENTITY:\\n- Independent, ad-free, privacy-first winter sports coverage\\n- WCAG AAA accessible (write clearly, avoid complex jargon)\\n- Focus on World Cup events and athlete stories\\n\\nCRITICAL LEGAL RULES - NEVER VIOLATE:\\n- NEVER use: Olympic, Olympics, Olympiad, Paralympic\\n- NEVER use: Milano Cortina 2026, Winter Games 2026\\n- NEVER use: going for gold, medal hopes, Team USA/Italy\\n- NEVER reference the February 2026 event in Italy by name\\n\\nWRITING STYLE:\\n- Clear, accessible language\\n- Short paragraphs (2-3 sentences max)\\n- Active voice preferred\\n- Include relevant statistics\\n- Engaging but factual tone\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Write an original news article based on this source:\\n\\nTitle: \" + $json.title + \"\\nContent: \" + ($json.content || $json.contentSnippet || \"\") + \"\\nSource: \" + $json.link + \"\\nDate: \" + $json.pubDate + \"\\n\\nCreate a JSON response with:\\n1. title: SEO-optimized title (max 60 chars)\\n2. slug: URL-friendly slug\\n3. meta_description: (max 155 chars)\\n4. category: one of [alpine-skiing, biathlon, cross-country, figure-skating, ice-hockey, winter-sports]\\n5. content: Full article HTML (600-800 words) with <h2>, <p>, <strong> tags\\n6. reading_time: estimated minutes\\n\\nRespond ONLY with valid JSON.\"\n    }\n  ]\n}) }}"
       },
       "id": "claude-generate",
       "name": "Generate Article (Claude)",
@@ -153,7 +153,7 @@
         "authentication": "privateKey",
         "resource": "file",
         "operation": "upload",
-        "path": "=/var/www/neve26.com/{{ $json.path }}",
+        "path": "=/var/www/bronze.news/{{ $json.path }}",
         "binaryPropertyName": "data"
       },
       "id": "sftp-deploy",
@@ -163,14 +163,14 @@
       "position": [1540, 0],
       "credentials": {
         "sshPrivateKey": {
-          "id": "ssh-neve26",
-          "name": "Neve26 VPS SSH"
+          "id": "ssh-bronze",
+          "name": "Bronze VPS SSH"
         }
       }
     },
     {
       "parameters": {
-        "content": "## Neve26 Content Generator Workflow\n\n### Flow:\n1. **Schedule Trigger** - Every 15 minutes\n2. **RSS Read** - Fetch winter sports feeds\n3. **Legal Filter** - Block Olympic terms\n4. **Claude Generate** - Create original article\n5. **Prepare Batches** - Split for 10 translations\n6. **Claude Translate** - Translate to each language\n7. **Generate HTML** - Create files from template\n8. **Deploy** - SFTP to VPS\n\n### Required Credentials:\n- Anthropic API key\n- SSH private key for VPS",
+        "content": "## Bronze Content Generator Workflow\n\n### Flow:\n1. **Schedule Trigger** - Every 15 minutes\n2. **RSS Read** - Fetch winter sports feeds\n3. **Legal Filter** - Block Olympic terms\n4. **Claude Generate** - Create original article\n5. **Prepare Batches** - Split for 10 translations\n6. **Claude Translate** - Translate to each language\n7. **Generate HTML** - Create files from template\n8. **Deploy** - SFTP to VPS\n\n### Required Credentials:\n- Anthropic API key\n- SSH private key for VPS",
         "height": 340,
         "width": 320
       },

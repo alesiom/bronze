@@ -1,7 +1,7 @@
-# Neve26 - App Store Metadata (English)
+# Bronze - App Store Metadata (English)
 
 ## App Name
-Neve26 - Winter Sports
+Bronze - Winter Sports
 
 ## Subtitle (30 chars max)
 Schedule, Alerts & News
@@ -11,11 +11,11 @@ skiing,biathlon,winter sports,schedule,notifications,accessible,world cup,FIS,IB
 
 ## Description
 
-Never miss a moment of winter sports action. Neve26 is your personal companion for the 2026 winter sports season, delivering live schedules, instant notifications, and breaking news right to your fingertips.
+Never miss a moment of winter sports action. Bronze is your personal companion for the 2026 winter sports season, delivering live schedules, instant notifications, and breaking news right to your fingertips.
 
 **YOUR COMPLETE WINTER SPORTS HUB**
 
-Track every event across 16 disciplines including alpine skiing, biathlon, cross-country skiing, ski jumping, bobsled, luge, figure skating, and more. From FIS World Cup races to IBU Biathlon events, Neve26 keeps you connected to the sports you love.
+Track every event across 16 disciplines including alpine skiing, biathlon, cross-country skiing, ski jumping, bobsled, luge, figure skating, and more. From FIS World Cup races to IBU Biathlon events, Bronze keeps you connected to the sports you love.
 
 **SMART NOTIFICATIONS**
 
@@ -23,7 +23,7 @@ Add events to your favorites and receive reminders 2 hours before they start. Ge
 
 **11 LANGUAGES, ONE APP**
 
-Neve26 speaks your language. Full support for English, German, French, Italian, Spanish, Portuguese, Dutch, Arabic, Japanese, Chinese, and Korean. Switch languages instantly in settings.
+Bronze speaks your language. Full support for English, German, French, Italian, Spanish, Portuguese, Dutch, Arabic, Japanese, Chinese, and Korean. Switch languages instantly in settings.
 
 **OFFLINE MODE**
 
@@ -35,11 +35,11 @@ Stay informed with the latest winter sports news. Read race previews, athlete pr
 
 **ACCESSIBILITY FIRST**
 
-Neve26 is built from the ground up for everyone. We meet WCAG AAA accessibility standards - the highest level. Full VoiceOver and TalkBack support, high contrast themes, adjustable text sizes, and Comfort Mode for easier interaction. If accessibility matters to you, Neve26 was made for you.
+Bronze is built from the ground up for everyone. We meet WCAG AAA accessibility standards - the highest level. Full VoiceOver and TalkBack support, high contrast themes, adjustable text sizes, and Comfort Mode for easier interaction. If accessibility matters to you, Bronze was made for you.
 
 **PRIVACY RESPECTED**
 
-No ads. No tracking. No data selling. We collect only what's needed to send you notifications - nothing more. Your privacy policy is at neve26.com/privacy.
+No ads. No tracking. No data selling. We collect only what's needed to send you notifications - nothing more. Your privacy policy is at bronze.news/privacy.
 
 **SPORTS COVERED**
 - Alpine Skiing
@@ -61,9 +61,9 @@ No ads. No tracking. No data selling. We collect only what's needed to send you 
 
 **INDEPENDENT & AD-FREE**
 
-Neve26 is an independent platform - we're not affiliated with any sports organization. Our coverage is unbiased, and our app is completely free of advertisements. One purchase, full access, forever.
+Bronze is an independent platform - we're not affiliated with any sports organization. Our coverage is unbiased, and our app is completely free of advertisements. One purchase, full access, forever.
 
-Download Neve26 and experience winter sports like never before.
+Download Bronze and experience winter sports like never before.
 
 ## What's New (Version 1.0.0)
 Initial release featuring:
@@ -89,13 +89,13 @@ $2.99 USD
 4+ (No objectionable content)
 
 ## Privacy Policy URL
-https://neve26.com/privacy
+https://bronze.news/privacy
 
 ## Support URL
-https://neve26.com/support
+https://bronze.news/support
 
 ## Copyright
-2026 Neve26
+2026 Bronze
 
 ## Contact Information
-support@neve26.com
+support@bronze.news

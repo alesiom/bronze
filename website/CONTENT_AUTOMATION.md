@@ -1,8 +1,8 @@
-# Neve26 Website Content Automation
+# Bronze Website Content Automation
 
 ## Overview
 
-Fully automated content creation pipeline for neve26.com that:
+Fully automated content creation pipeline for bronze.news that:
 - Monitors winter sports RSS feeds and events
 - AI-generates articles using Claude
 - Translates to all 11 languages
@@ -15,7 +15,7 @@ Fully automated content creation pipeline for neve26.com that:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                     NEVE26 CONTENT AUTOMATION PIPELINE                       │
+│                     BRONZE CONTENT AUTOMATION PIPELINE                       │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
 │  ┌──────────────────────────────────────────────────────────────────────┐   │
@@ -179,7 +179,7 @@ Fully automated content creation pipeline for neve26.com that:
 ### System Prompt (All Articles)
 
 ```
-You are a winter sports journalist writing for Neve26, an independent winter sports news website.
+You are a winter sports journalist writing for Bronze, an independent winter sports news website.
 
 BRAND IDENTITY:
 - Independent, ad-free, privacy-first winter sports coverage
@@ -413,7 +413,7 @@ Each language needs these UI strings:
 ### Option A: Direct VPS Deployment (Recommended)
 
 ```
-n8n → SSH/SFTP → VPS (/var/www/neve26.com/)
+n8n → SSH/SFTP → VPS (/var/www/bronze.news/)
 ```
 
 Pros: Simplest, fastest
@@ -444,7 +444,7 @@ Cons: More infrastructure to manage
 For each article, create 11 files:
 
 ```
-/var/www/neve26.com/
+/var/www/bronze.news/
 ├── odermatt-adelboden-giant-slalom-2026/
 │   └── index.html                          # English (default)
 ├── de/odermatt-adelboden-giant-slalom-2026/

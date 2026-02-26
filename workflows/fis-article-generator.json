@@ -33,7 +33,7 @@
           "parameters": [
             {
               "name": "User-Agent",
-              "value": "Neve26-Bot/1.0 (news aggregator; hello@neve26.com)"
+              "value": "Bronze-Bot/1.0 (news aggregator; hello@bronze.news)"
             }
           ]
         }
@@ -157,7 +157,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://api.neve26.com/api/v1/articles",
+        "url": "https://api.bronze.news/api/v1/articles",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
@@ -173,7 +173,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://n8n.neve26.com/webhook/translate-article",
+        "url": "https://n8n.bronze.news/webhook/translate-article",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"article_id\": \"{{ $json.id }}\",\n  \"slug\": \"{{ $json.slug }}\",\n  \"source_lang\": \"en\",\n  \"target_langs\": [\"de\", \"fr\", \"it\", \"es\", \"pt\", \"nl\", \"ar\", \"ja\", \"zh\", \"ko\"]\n}"
@@ -187,7 +187,7 @@
     },
     {
       "parameters": {
-        "content": "## FIS Article Generator Workflow\n\n**Purpose**: Automatically generate news articles from FIS World Cup race results\n\n**Trigger**: Every 5 minutes on race days\n\n**Process**:\n1. Fetch FIS results page\n2. Parse HTML for results table\n3. Generate article via Claude API\n4. Validate against legal blocklist\n5. Create article in Neve26 API\n6. Trigger translation workflow\n\n**Legal Blocklist**:\n- Olympic, Olympics, Milano Cortina 2026\n- Winter Games 2026, Team USA/Italy\n- Going for gold, medal hopes\n\n**Configuration Required**:\n- Set `race_id` in workflow variables\n- Add Anthropic API credentials\n- Add Neve26 API credentials",
+        "content": "## FIS Article Generator Workflow\n\n**Purpose**: Automatically generate news articles from FIS World Cup race results\n\n**Trigger**: Every 5 minutes on race days\n\n**Process**:\n1. Fetch FIS results page\n2. Parse HTML for results table\n3. Generate article via Claude API\n4. Validate against legal blocklist\n5. Create article in Bronze API\n6. Trigger translation workflow\n\n**Legal Blocklist**:\n- Olympic, Olympics, Milano Cortina 2026\n- Winter Games 2026, Team USA/Italy\n- Going for gold, medal hopes\n\n**Configuration Required**:\n- Set `race_id` in workflow variables\n- Add Anthropic API credentials\n- Add Bronze API credentials",
         "height": 400,
         "width": 350
       },
@@ -352,7 +352,7 @@
   "staticData": null,
   "tags": [
     {
-      "name": "neve26",
+      "name": "bronze",
       "id": "1"
     },
     {
