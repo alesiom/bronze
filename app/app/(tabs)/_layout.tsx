@@ -40,20 +40,20 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="news"
-        options={{
-          title: t('tabs.news'),
-          tabBarIcon: ({ color }) => (
-            <Feather name="file-text" size={24} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="favorites"
         options={{
           title: t('tabs.favorites'),
           tabBarIcon: ({ color }) => (
             <Feather name="heart" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="news"
+        options={{
+          title: t('tabs.news'),
+          tabBarIcon: ({ color }) => (
+            <Feather name="file-text" size={24} color={color} />
           ),
         }}
       />

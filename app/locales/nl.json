@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Neve26",
+    "name": "Bronze",
     "tagline": "Elk evenement. Elke update."
   },
   "tabs": {
@@ -90,6 +90,9 @@
     "SMT": "Snowboarden",
     "SBD": "Snowboarden",
     "SSK": "Schaatsen"
+  },
+  "federations": {
+    "olympics": "Olympisch"
   },
   "venues": {
     "bormio": "Bormio",

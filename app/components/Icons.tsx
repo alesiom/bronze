@@ -70,6 +70,7 @@ export const Icons = {
   Settings: createFeatherIcon('settings'),
   Bell: createFeatherIcon('bell'),
   Globe: createFeatherIcon('globe'),
+  ChevronLeft: createFeatherIcon('chevron-left'),
   ChevronRight: createFeatherIcon('chevron-right'),
   ChevronUp: createFeatherIcon('chevron-up'),
   ChevronDown: createFeatherIcon('chevron-down'),

@@ -1,6 +1,6 @@
 /**
  * Article types for the News feature
- * Matches the API response format from api.neve26.com
+ * Matches the API response format from api.bronze.news
  */
 
 import type { SportCode } from './event';
@@ -67,23 +67,26 @@ export const CATEGORY_TO_SPORT_CODE: Partial<Record<ArticleCategory, SportCode>>
 };
 
 export interface Article {
+  id: number;
   slug: string;
   title: string;
-  excerpt: string;
-  content: string;
-  category: ArticleCategory;
-  sport_code: SportCode | null;
-  athlete_slugs: string[];
+  excerpt: string | null;
+  content?: string;  // Only in detail response
+  category: string;
+  sport_code: string | null;
+  athlete_slugs?: string[];
   published_at: string;
-  image_url: string | null;
-  reading_time_minutes: number;
+  featured_image: string | null;
+  image_alt: string | null;
+  venue: string | null;
+  venue_city: string | null;
 }
 
 export interface ArticleListResponse {
   articles: Article[];
   total: number;
-  page: number;
   limit: number;
+  offset: number;
 }
 
 export interface ArticleFilters {

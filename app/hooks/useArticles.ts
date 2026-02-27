@@ -182,7 +182,7 @@ export function useArticleSports() {
           const sportSet = new Set<SportCode>();
           for (const article of response.articles) {
             if (article.sport_code) {
-              sportSet.add(article.sport_code);
+              sportSet.add(article.sport_code as SportCode);
             }
           }
           setSports(Array.from(sportSet).sort());

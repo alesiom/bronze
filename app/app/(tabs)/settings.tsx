@@ -133,9 +133,9 @@ export default function SettingsScreen() {
           style: 'destructive',
           onPress: async () => {
             try {
-              await AsyncStorage.removeItem('@neve26_favorites');
-              await AsyncStorage.removeItem('@neve26_favorite_ids');
-              await AsyncStorage.removeItem('@neve26_pending_sync');
+              await AsyncStorage.removeItem('@bronze_favorites');
+              await AsyncStorage.removeItem('@bronze_favorite_ids');
+              await AsyncStorage.removeItem('@bronze_pending_sync');
               await refreshFavorites();
               Alert.alert('Done', 'All favorites cleared');
             } catch (error) {
@@ -149,8 +149,8 @@ export default function SettingsScreen() {
   };
 
   const handleDebugFavorites = async () => {
-    const stored = await AsyncStorage.getItem('@neve26_favorites');
-    const storedIds = await AsyncStorage.getItem('@neve26_favorite_ids');
+    const stored = await AsyncStorage.getItem('@bronze_favorites');
+    const storedIds = await AsyncStorage.getItem('@bronze_favorite_ids');
     console.log('[DEBUG] Stored favorites raw:', stored);
     console.log('[DEBUG] Stored favorite IDs raw:', storedIds);
     const parsed = stored ? JSON.parse(stored) : [];
@@ -316,7 +316,7 @@ export default function SettingsScreen() {
         <View style={styles.footer}>
           <Icons.Mountain size={32} color={theme.textMuted} />
           <Text style={[styles.footerText, { color: theme.textMuted }]}>
-            Neve26
+            Bronze
           </Text>
           <Text style={[styles.footerTagline, { color: theme.textMuted }]}>
             {t('app.tagline')}

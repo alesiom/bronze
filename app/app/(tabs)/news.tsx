@@ -139,10 +139,8 @@ function SportFilterBar({
   const isDark = colorScheme === 'dark';
   const theme = isDark ? darkColors : colors;
 
-  // Show all sports for now (articles may cover any sport)
-  const sportsToShow = ALL_SPORTS.filter((s) =>
-    availableSports.size === 0 || availableSports.has(s.code)
-  );
+  // Show all sports - API uses different codes, filtering handled server-side
+  const sportsToShow = ALL_SPORTS;
 
   return (
     <View style={[styles.filterBar, { backgroundColor: theme.background }]}>

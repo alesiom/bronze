@@ -14,10 +14,10 @@ import {
 } from '../services/notifications';
 import type { Event } from '../types';
 
-const FAVORITES_KEY = '@neve26_favorites';
-const FAVORITES_IDS_KEY = '@neve26_favorite_ids';
-const PENDING_SYNC_KEY = '@neve26_pending_sync';
-const SETTINGS_KEY = '@neve26_settings';
+const FAVORITES_KEY = '@bronze_favorites';
+const FAVORITES_IDS_KEY = '@bronze_favorite_ids';
+const PENDING_SYNC_KEY = '@bronze_pending_sync';
+const SETTINGS_KEY = '@bronze_settings';
 
 // Translation function placeholder (will be set by component)
 let translationFn: ((key: string, options?: Record<string, unknown>) => string) | null = null;

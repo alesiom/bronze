@@ -17,6 +17,38 @@ import { colors, darkColors, spacing, sizing, typography, getContrastText } from
 import { SportIcon } from './SportIcon';
 import type { Article, SportCode } from '../types';
 
+// Map API sport codes to app sport codes (API uses shorter codes)
+const API_TO_APP_SPORT_CODE: Record<string, SportCode> = {
+  'ALP': 'ALP',
+  'AS': 'ALP',      // Alpine Skiing variant
+  'BIA': 'BTH',     // Biathlon
+  'BT': 'BTH',      // Biathlon
+  'BTH': 'BTH',
+  'BS': 'BOB',      // Bobsleigh
+  'BOB': 'BOB',
+  'XC': 'CCS',      // Cross-Country
+  'CCS': 'CCS',
+  'CUR': 'CUR',
+  'FS': 'FSK',      // Figure Skating
+  'FSK': 'FSK',
+  'FRS': 'FRS',
+  'IHO': 'IHO',
+  'LG': 'LUG',      // Luge
+  'LUG': 'LUG',
+  'NC': 'NCB',      // Nordic Combined
+  'NK': 'NCB',      // Nordic Combined
+  'NCB': 'NCB',
+  'STK': 'STK',
+  'SKN': 'SKN',
+  'SJ': 'SJP',      // Ski Jumping
+  'SJP': 'SJP',
+  'SMT': 'SMT',
+  'SB': 'SBD',      // Snowboard
+  'SBD': 'SBD',
+  'SS': 'SSK',      // Speed Skating
+  'SSK': 'SSK',
+};
+
 interface ArticleCardProps {
   article: Article;
 }
@@ -24,7 +56,7 @@ interface ArticleCardProps {
 /**
  * Format relative time for article (e.g., "2h ago", "Yesterday")
  */
-function formatArticleDate(dateStr: string, t: (key: string) => string): string {
+function formatArticleDate(dateStr: string, t: (key: string, options?: Record<string, unknown>) => string): string {
   const date = new Date(dateStr);
   const now = new Date();
   const diffMs = now.getTime() - date.getTime();
@@ -58,8 +90,13 @@ export function ArticleCard({ article }: ArticleCardProps) {
   const isDark = colorScheme === 'dark';
   const theme = isDark ? darkColors : colors;
 
-  const sportColor = article.sport_code
-    ? theme.sportColors[article.sport_code as SportCode]
+  // Map API sport code to app sport code
+  const appSportCode = article.sport_code
+    ? API_TO_APP_SPORT_CODE[article.sport_code]
+    : null;
+
+  const sportColor = appSportCode
+    ? (theme.sportColors[appSportCode] ?? theme.primary)
     : theme.primary;
 
   const handlePress = () => {
@@ -81,7 +118,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
           ]}
         >
           {/* Sport badge */}
-          {article.sport_code && (
+          {appSportCode && (
             <View
               style={[
                 styles.sportBadge,
@@ -89,7 +126,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
               ]}
             >
               <SportIcon
-                sportCode={article.sport_code as SportCode}
+                sportCode={appSportCode}
                 size={16}
                 color={getContrastText(sportColor)}
               />
@@ -99,7 +136,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
                   { color: getContrastText(sportColor) },
                 ]}
               >
-                {t(`sports.${article.sport_code}`)}
+                {t(`sports.${appSportCode}`)}
               </Text>
             </View>
           )}
@@ -120,16 +157,10 @@ export function ArticleCard({ article }: ArticleCardProps) {
             {article.excerpt}
           </Text>
 
-          {/* Footer: date and reading time */}
+          {/* Footer: date */}
           <View style={styles.footer}>
             <Text style={[styles.meta, { color: theme.textMuted }]}>
               {formatArticleDate(article.published_at, t)}
-            </Text>
-            <Text style={[styles.metaSeparator, { color: theme.textMuted }]}>
-              {' \u2022 '}
-            </Text>
-            <Text style={[styles.meta, { color: theme.textMuted }]}>
-              {t('article.readingTime', { minutes: article.reading_time_minutes })}
             </Text>
           </View>
         </View>
@@ -176,9 +207,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   meta: {
-    fontSize: typography.fontSize.sm,
-  },
-  metaSeparator: {
     fontSize: typography.fontSize.sm,
   },
 });

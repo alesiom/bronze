@@ -10,7 +10,7 @@ import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { Event } from '../types';
 
-const SCHEDULED_NOTIFICATIONS_KEY = '@neve26_scheduled_notifications';
+const SCHEDULED_NOTIFICATIONS_KEY = '@bronze_scheduled_notifications';
 const REMINDER_MINUTES = 120; // 2 hours before event
 
 // Configure notification behavior

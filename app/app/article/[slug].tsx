@@ -22,14 +22,21 @@ import { useArticle } from '../../hooks';
 import { SportIcon, Icons } from '../../components';
 import type { SportCode } from '../../types';
 
+// Map API sport codes to app sport codes
+const API_TO_APP_SPORT_CODE: Record<string, SportCode> = {
+  'ALP': 'ALP', 'AS': 'ALP', 'BIA': 'BTH', 'BT': 'BTH', 'BTH': 'BTH',
+  'BS': 'BOB', 'BOB': 'BOB', 'XC': 'CCS', 'CCS': 'CCS', 'CUR': 'CUR',
+  'FS': 'FSK', 'FSK': 'FSK', 'FRS': 'FRS', 'IHO': 'IHO',
+  'LG': 'LUG', 'LUG': 'LUG', 'NC': 'NCB', 'NK': 'NCB', 'NCB': 'NCB',
+  'STK': 'STK', 'SKN': 'SKN', 'SJ': 'SJP', 'SJP': 'SJP', 'SMT': 'SMT',
+  'SB': 'SBD', 'SBD': 'SBD', 'SS': 'SSK', 'SSK': 'SSK',
+};
+
 /**
- * Strip HTML tags and decode entities for plain text display
+ * Decode HTML entities
  */
-function stripHtml(html: string): string {
-  // Remove HTML tags
-  let text = html.replace(/<[^>]*>/g, '');
-  // Decode common HTML entities
-  text = text
+function decodeEntities(text: string): string {
+  return text
     .replace(/&nbsp;/g, ' ')
     .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
@@ -42,9 +49,127 @@ function stripHtml(html: string): string {
     .replace(/&ldquo;/g, '"')
     .replace(/&mdash;/g, '\u2014')
     .replace(/&ndash;/g, '\u2013');
-  // Normalize whitespace
-  text = text.replace(/\s+/g, ' ').trim();
-  return text;
+}
+
+/**
+ * Text segment - plain text, bold, italic, or a link
+ */
+type TextSegment =
+  | { type: 'text'; content: string }
+  | { type: 'bold'; content: string }
+  | { type: 'italic'; content: string }
+  | { type: 'link'; content: string; href: string };
+
+/**
+ * Content block types for rendering
+ */
+type ContentBlock =
+  | { type: 'paragraph'; segments: TextSegment[] }
+  | { type: 'heading'; text: string };
+
+/**
+ * Parse inline content to extract text, bold, italic, and links
+ */
+function parseInlineContent(html: string): TextSegment[] {
+  const segments: TextSegment[] = [];
+  // Match <a>, <strong>/<b>, <em>/<i> tags
+  const inlineRegex = /<(a)\s+href="([^"]*)"[^>]*>([\s\S]*?)<\/a>|<(strong|b)>([\s\S]*?)<\/\4>|<(em|i)>([\s\S]*?)<\/\6>/gi;
+
+  let lastIndex = 0;
+  let match;
+
+  while ((match = inlineRegex.exec(html)) !== null) {
+    // Add text before the match
+    if (match.index > lastIndex) {
+      const textBefore = html.slice(lastIndex, match.index);
+      const cleanText = decodeEntities(textBefore.replace(/<[^>]*>/g, '')).replace(/\s+/g, ' ');
+      if (cleanText.trim()) {
+        segments.push({ type: 'text', content: cleanText });
+      }
+    }
+
+    if (match[1] === 'a') {
+      // Link
+      const href = match[2];
+      const linkText = decodeEntities(match[3].replace(/<[^>]*>/g, '')).trim();
+      if (linkText) {
+        segments.push({ type: 'link', content: linkText, href });
+      }
+    } else if (match[4]) {
+      // Bold (<strong> or <b>)
+      const boldText = decodeEntities(match[5].replace(/<[^>]*>/g, '')).trim();
+      if (boldText) {
+        segments.push({ type: 'bold', content: boldText });
+      }
+    } else if (match[6]) {
+      // Italic (<em> or <i>)
+      const italicText = decodeEntities(match[7].replace(/<[^>]*>/g, '')).trim();
+      if (italicText) {
+        segments.push({ type: 'italic', content: italicText });
+      }
+    }
+
+    lastIndex = match.index + match[0].length;
+  }
+
+  // Add remaining text
+  if (lastIndex < html.length) {
+    const textAfter = html.slice(lastIndex);
+    const cleanText = decodeEntities(textAfter.replace(/<[^>]*>/g, '')).replace(/\s+/g, ' ');
+    if (cleanText.trim()) {
+      segments.push({ type: 'text', content: cleanText });
+    }
+  }
+
+  // Fallback: if no segments, treat entire content as text
+  if (segments.length === 0) {
+    const cleanText = decodeEntities(html.replace(/<[^>]*>/g, '')).replace(/\s+/g, ' ').trim();
+    if (cleanText) {
+      segments.push({ type: 'text', content: cleanText });
+    }
+  }
+
+  return segments;
+}
+
+/**
+ * Parse HTML content into structured blocks for rendering
+ */
+function parseContent(html: string): ContentBlock[] {
+  if (!html) return [];
+
+  const blocks: ContentBlock[] = [];
+
+  // Match: <h2>...</h2>, <p>...</p>
+  const regex = /<(h[1-6]|p)>([\s\S]*?)<\/\1>/gi;
+  let match;
+
+  while ((match = regex.exec(html)) !== null) {
+    const tag = match[1].toLowerCase();
+    const content = match[2];
+
+    if (tag.startsWith('h')) {
+      const text = decodeEntities(content.replace(/<[^>]*>/g, '')).replace(/\s+/g, ' ').trim();
+      if (text) {
+        blocks.push({ type: 'heading', text });
+      }
+    } else {
+      const segments = parseInlineContent(content);
+      if (segments.length > 0) {
+        blocks.push({ type: 'paragraph', segments });
+      }
+    }
+  }
+
+  // Fallback: if no blocks found, treat as single paragraph
+  if (blocks.length === 0) {
+    const segments = parseInlineContent(html);
+    if (segments.length > 0) {
+      blocks.push({ type: 'paragraph', segments });
+    }
+  }
+
+  return blocks;
 }
 
 // Format article date for display
@@ -94,9 +219,14 @@ export default function ArticleDetailScreen() {
   // Fetch article
   const { article, loading, error } = useArticle(slug ?? '');
 
+  // Map API sport code to app sport code
+  const appSportCode = article?.sport_code
+    ? API_TO_APP_SPORT_CODE[article.sport_code]
+    : null;
+
   // Sport color for styling
-  const sportColor = article?.sport_code
-    ? theme.sportColors[article.sport_code as SportCode]
+  const sportColor = appSportCode
+    ? (theme.sportColors[appSportCode] ?? theme.primary)
     : theme.primary;
 
   // Handle share
@@ -106,8 +236,8 @@ export default function ArticleDetailScreen() {
     try {
       await Share.share({
         title: article.title,
-        message: `${article.title}\n\nRead more on Neve26`,
-        url: `https://neve26.com/articles/${article.slug}`,
+        message: `${article.title}\n\nRead more on Bronze`,
+        url: `https://bronze.news/article/${article.slug}`,
       });
     } catch {
       // User cancelled or error
@@ -174,7 +304,7 @@ export default function ArticleDetailScreen() {
         showsVerticalScrollIndicator={false}
       >
         {/* Sport badge */}
-        {article.sport_code && (
+        {appSportCode && (
           <View
             style={[
               styles.sportBadge,
@@ -182,7 +312,7 @@ export default function ArticleDetailScreen() {
             ]}
           >
             <SportIcon
-              sportCode={article.sport_code as SportCode}
+              sportCode={appSportCode}
               size={18}
               color={getContrastText(sportColor)}
             />
@@ -192,7 +322,7 @@ export default function ArticleDetailScreen() {
                 { color: getContrastText(sportColor) },
               ]}
             >
-              {t(`sports.${article.sport_code}`)}
+              {t(`sports.${appSportCode}`)}
             </Text>
           </View>
         )}
@@ -207,12 +337,6 @@ export default function ArticleDetailScreen() {
           <Text style={[styles.publishedDate, { color: theme.textSecondary }]}>
             {formatPublishedDate(article.published_at)}
           </Text>
-          <Text style={[styles.metaSeparator, { color: theme.textMuted }]}>
-            {' \u2022 '}
-          </Text>
-          <Text style={[styles.readingTime, { color: theme.textSecondary }]}>
-            {t('article.readingTime', { minutes: article.reading_time_minutes })}
-          </Text>
         </View>
 
         {/* Divider */}
@@ -220,9 +344,35 @@ export default function ArticleDetailScreen() {
 
         {/* Article content */}
         <View style={styles.contentContainer}>
-          <Text style={[styles.contentText, { color: theme.text }]}>
-            {stripHtml(article.content)}
-          </Text>
+          {parseContent(article.content || '').map((block, index) => {
+            if (block.type === 'heading') {
+              return (
+                <Text
+                  key={index}
+                  style={[styles.sectionHeading, { color: theme.text }]}
+                >
+                  {block.text}
+                </Text>
+              );
+            }
+            // Paragraph with inline formatting
+            return (
+              <Text
+                key={index}
+                style={[styles.paragraph, { color: theme.text }]}
+              >
+                {block.segments.map((segment, i) => {
+                  if (segment.type === 'bold') {
+                    return <Text key={i} style={{ fontWeight: '700' }}>{segment.content}</Text>;
+                  }
+                  if (segment.type === 'italic') {
+                    return <Text key={i} style={{ fontStyle: 'italic' }}>{segment.content}</Text>;
+                  }
+                  return segment.content;
+                })}
+              </Text>
+            );
+          })}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -306,8 +456,15 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
+    gap: spacing.lg,
   },
-  contentText: {
+  sectionHeading: {
+    fontSize: typography.fontSize.xl,
+    fontWeight: typography.fontWeight.bold,
+    lineHeight: typography.fontSize.xl * typography.lineHeight.tight,
+    marginTop: spacing.md,
+  },
+  paragraph: {
     fontSize: typography.fontSize.lg,
     lineHeight: typography.fontSize.lg * typography.lineHeight.relaxed,
   },

@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Neve26",
+    "name": "Bronze",
     "tagline": "すべてのイベント。すべての更新。"
   },
   "tabs": {
@@ -90,6 +90,9 @@
     "SMT": "スノーボード",
     "SBD": "スノーボード",
     "SSK": "スピードスケート"
+  },
+  "federations": {
+    "olympics": "五輪"
   },
   "venues": {
     "bormio": "ボルミオ",

@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Neve26",
+    "name": "Bronze",
     "tagline": "Track every event. Every update."
   },
   "tabs": {
@@ -91,12 +91,15 @@
     "IHO": "Ice Hockey",
     "LUG": "Luge",
     "NCB": "Nordic Combined",
-    "STK": "Skeleton",
-    "SKN": "Short Track",
+    "STK": "Short Track",
+    "SKN": "Skeleton",
     "SJP": "Ski Jumping",
     "SMT": "Ski Mountaineering",
     "SBD": "Snowboard",
     "SSK": "Speed Skating"
+  },
+  "federations": {
+    "olympics": "Olympics"
   },
   "venues": {
     "bormio": "Bormio",
@@ -132,7 +135,7 @@
   "news": {
     "title": "News",
     "empty": "No articles yet",
-    "emptyHint": "Check back later for the latest winter sports news",
+    "emptyHint": "Check back later for the latest sports news",
     "loading": "Loading articles...",
     "error": "Could not load articles",
     "pullToRefresh": "Pull to refresh"

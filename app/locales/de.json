@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Neve26",
+    "name": "Bronze",
     "tagline": "Jedes Event. Jedes Update."
   },
   "tabs": {
@@ -90,12 +90,15 @@
     "IHO": "Eishockey",
     "LUG": "Rodeln",
     "NCB": "Nordische Kombination",
-    "STK": "Skeleton",
-    "SKN": "Shorttrack",
+    "STK": "Shorttrack",
+    "SKN": "Skeleton",
     "SJP": "Skispringen",
     "SMT": "Skibergsteigen",
     "SBD": "Snowboard",
     "SSK": "Eisschnelllauf"
+  },
+  "federations": {
+    "olympics": "Olympia"
   },
   "venues": {
     "bormio": "Bormio",

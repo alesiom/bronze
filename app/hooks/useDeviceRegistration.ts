@@ -8,7 +8,7 @@ import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api } from '../services/api';
 
-const DEVICE_TOKEN_KEY = '@neve26_push_token';
+const DEVICE_TOKEN_KEY = '@bronze_push_token';
 
 export interface DeviceRegistrationState {
   isRegistered: boolean;

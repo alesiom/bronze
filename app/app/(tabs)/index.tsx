@@ -566,10 +566,22 @@ function SessionCard({
             <Text style={[styles.sportName, { color: theme.text }]}>
               {session.sport}
             </Text>
-            {session.federation && session.federation !== 'IOC' && (
-              <View style={[styles.federationBadge, { backgroundColor: theme.textSecondary + '20' }]}>
-                <Text style={[styles.federationText, { color: theme.textSecondary }]}>
-                  {session.federation}
+            {session.federation && (
+              <View style={[
+                styles.federationBadge,
+                { backgroundColor: session.federation === 'IOC'
+                    ? theme.primary + '20'
+                    : theme.textSecondary + '20'
+                }
+              ]}>
+                <Text style={[
+                  styles.federationText,
+                  { color: session.federation === 'IOC'
+                      ? theme.primary
+                      : theme.textSecondary
+                  }
+                ]}>
+                  {session.federation === 'IOC' ? t('federations.olympics') : session.federation}
                 </Text>
               </View>
             )}

@@ -1,23 +1,26 @@
 /**
  * Articles API service
- * Fetches news articles from api.neve26.com
+ * Fetches news articles from api.bronze.news
  */
 
 import type { Article, ArticleListResponse, ArticleFilters } from '../types';
 import i18n from '../i18n';
 
 // API configuration
-const API_BASE_URL = __DEV__
-  ? 'http://localhost:8000/api/v1'  // Local dev
-  : 'https://api.neve26.com/api/v1'; // Production
+// Always use production API - localhost doesn't work on physical devices
+const API_BASE_URL = 'https://api.bronze.news/api/v1';
 
 /**
  * Get current language code for API requests
  */
 function getCurrentLang(): string {
-  const lang = i18n.language || 'en';
-  // API expects 2-letter codes
-  return lang.split('-')[0];
+  try {
+    const lang = i18n.language || 'en';
+    // API expects 2-letter codes
+    return lang.split('-')[0];
+  } catch {
+    return 'en';
+  }
 }
 
 /**

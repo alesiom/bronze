@@ -1,6 +1,6 @@
 /**
- * Neve26 Color Palette
- * Italian flag + winter palette inspired
+ * Bronze Color Palette
+ * Sport-focused accessible palette
  *
  * ACCESSIBILITY RULE: WCAG AAA (7:1 contrast ratio minimum)
  * ============================================================
@@ -149,6 +149,8 @@ export type ColorScheme = typeof colors;
  * @returns Luminance value between 0 (black) and 1 (white)
  */
 export function getLuminance(hex: string): number {
+  // Safety check for undefined/null
+  if (!hex) return 0;
   // Remove # if present
   const color = hex.replace('#', '');
 

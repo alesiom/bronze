@@ -1,7 +1,7 @@
 /**
- * Neve26 Spacing & Sizing System
+ * Bronze Spacing & Sizing System
  *
- * Designed for glove-friendly interaction:
+ * Designed for accessible interaction:
  * - Large touch targets (56-64px minimum)
  * - Generous spacing (16-20px between elements)
  * - Big readable text (18-20px base)

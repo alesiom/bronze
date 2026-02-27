@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SETTINGS_KEY = '@neve26_settings';
+const SETTINGS_KEY = '@bronze_settings';
 
 export type ThemeMode = 'light' | 'dark' | 'system';
 

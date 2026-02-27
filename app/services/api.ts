@@ -1,5 +1,5 @@
 /**
- * API client for Neve26 backend
+ * API client for Bronze backend
  * Handles all server communication with offline-first support
  */
 
@@ -9,10 +9,10 @@ import type { Event } from '../types';
 // API configuration
 const API_BASE_URL = __DEV__
   ? 'http://localhost:8000/api/v1'  // Local dev
-  : 'https://api.neve26.app/api/v1'; // Production
+  : 'https://api.bronze.news/api/v1'; // Production
 
-const DEVICE_ID_KEY = '@neve26_device_id';
-const LAST_SYNC_KEY = '@neve26_last_sync';
+const DEVICE_ID_KEY = '@bronze_device_id';
+const LAST_SYNC_KEY = '@bronze_last_sync';
 
 // Type definitions matching backend
 export interface DeviceRegisterRequest {

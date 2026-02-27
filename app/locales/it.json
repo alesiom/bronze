@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Neve26",
+    "name": "Bronze",
     "tagline": "Ogni evento. Ogni aggiornamento."
   },
   "tabs": {
@@ -98,6 +98,9 @@
     "SMT": "Sci Alpinismo",
     "SBD": "Snowboard",
     "SSK": "Pattinaggio di Velocità"
+  },
+  "federations": {
+    "olympics": "Olimpiadi"
   },
   "venues": {
     "bormio": "Bormio",
