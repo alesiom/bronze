@@ -1,0 +1,45 @@
+# bronze.news - Main website
+bronze.news {
+    reverse_proxy bronze-website:80
+}
+
+www.bronze.news {
+    redir https://bronze.news{uri}
+}
+
+# API
+api.bronze.news {
+    reverse_proxy bronze-api:8000
+}
+
+# n8n automation
+n8n.bronze.news {
+    reverse_proxy n8n:5678
+}
+
+# Matomo Analytics
+matomo.bronze.news {
+    reverse_proxy matomo:80
+}
+
+# Legacy neve26.com - redirect to bronze.news
+neve26.com {
+    redir https://bronze.news{uri} permanent
+}
+
+www.neve26.com {
+    redir https://bronze.news{uri} permanent
+}
+
+# Legacy subdomains
+api.neve26.com {
+    redir https://api.bronze.news{uri} permanent
+}
+
+n8n.neve26.com {
+    redir https://n8n.bronze.news{uri} permanent
+}
+
+matomo.neve26.com {
+    redir https://matomo.bronze.news{uri} permanent
+}
