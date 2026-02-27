@@ -13,11 +13,11 @@ VALUES
     ('Cyprien Sarrazin', 'cyprien-sarrazin', 'FRA', 'Alpine Skiing', 'cypriensarrazin', NULL, 'manual'),
     ('Dominik Paris', 'dominik-paris', 'ITA', 'Alpine Skiing', 'dominikparis', NULL, 'manual'),
     ('Manuel Feller', 'manuel-feller', 'AUT', 'Alpine Skiing', 'manuelfeller', NULL, 'manual'),
-    ('Zan Kranjec', 'zan-kranjec', 'SLO', 'Alpine Skiing', 'zan_kransen', NULL, 'manual'),
+    ('Zan Kranjec', 'zan-kranjec', 'SLO', 'Alpine Skiing', 'zankranjec', NULL, 'manual'),
 
     -- Alpine Skiing - Women
     ('Mikaela Shiffrin', 'mikaela-shiffrin', 'USA', 'Alpine Skiing', 'mikaelashiffrin', 'MikaelaShiffrin', 'manual'),
-    ('Lara Gut-Behrami', 'lara-gut-behrami', 'SUI', 'Alpine Skiing', 'laborosov', NULL, 'manual'),
+    ('Lara Gut-Behrami', 'lara-gut-behrami', 'SUI', 'Alpine Skiing', 'laragutbehrami', NULL, 'manual'),
     ('Federica Brignone', 'federica-brignone', 'ITA', 'Alpine Skiing', 'federicabrignone', NULL, 'manual'),
     ('Sofia Goggia', 'sofia-goggia', 'ITA', 'Alpine Skiing', 'sofia_goggia', NULL, 'manual'),
     ('Petra Vlhova', 'petra-vlhova', 'SVK', 'Alpine Skiing', 'petravlhova', NULL, 'manual'),
@@ -54,6 +54,6 @@ VALUES
     ('Ryoyu Kobayashi', 'ryoyu-kobayashi', 'JPN', 'Ski Jumping', 'ryoyu_kobayashi', NULL, 'manual'),
     ('Anze Lanisek', 'anze-lanisek', 'SLO', 'Ski Jumping', 'anzelanisek', NULL, 'manual'),
     ('Stefan Kraft', 'stefan-kraft', 'AUT', 'Ski Jumping', 'stefankraft', NULL, 'manual'),
-    ('Halvor Egner Granerud', 'halvor-egner-granerud', 'NOR', 'Ski Jumping', 'halvoregnergaborosov', NULL, 'manual')
+    ('Halvor Egner Granerud', 'halvor-egner-granerud', 'NOR', 'Ski Jumping', 'halvorgranerud', NULL, 'manual')
 
 ON CONFLICT (athlete_slug) DO NOTHING;
