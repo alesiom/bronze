@@ -15,39 +15,8 @@ import { useRouter } from 'expo-router';
 
 import { colors, darkColors, spacing, sizing, typography, getContrastText } from '../theme';
 import { SportIcon } from './SportIcon';
-import type { Article, SportCode } from '../types';
-
-// Map API sport codes to app sport codes (API uses shorter codes)
-const API_TO_APP_SPORT_CODE: Record<string, SportCode> = {
-  'ALP': 'ALP',
-  'AS': 'ALP',      // Alpine Skiing variant
-  'BIA': 'BTH',     // Biathlon
-  'BT': 'BTH',      // Biathlon
-  'BTH': 'BTH',
-  'BS': 'BOB',      // Bobsleigh
-  'BOB': 'BOB',
-  'XC': 'CCS',      // Cross-Country
-  'CCS': 'CCS',
-  'CUR': 'CUR',
-  'FS': 'FSK',      // Figure Skating
-  'FSK': 'FSK',
-  'FRS': 'FRS',
-  'IHO': 'IHO',
-  'LG': 'LUG',      // Luge
-  'LUG': 'LUG',
-  'NC': 'NCB',      // Nordic Combined
-  'NK': 'NCB',      // Nordic Combined
-  'NCB': 'NCB',
-  'STK': 'STK',
-  'SKN': 'SKN',
-  'SJ': 'SJP',      // Ski Jumping
-  'SJP': 'SJP',
-  'SMT': 'SMT',
-  'SB': 'SBD',      // Snowboard
-  'SBD': 'SBD',
-  'SS': 'SSK',      // Speed Skating
-  'SSK': 'SSK',
-};
+import type { Article } from '../types';
+import { normalizeSportCode } from '../types';
 
 interface ArticleCardProps {
   article: Article;
@@ -90,9 +59,9 @@ export function ArticleCard({ article }: ArticleCardProps) {
   const isDark = colorScheme === 'dark';
   const theme = isDark ? darkColors : colors;
 
-  // Map API sport code to app sport code
+  // Normalise API sport code (handles legacy 3-letter codes too)
   const appSportCode = article.sport_code
-    ? API_TO_APP_SPORT_CODE[article.sport_code]
+    ? normalizeSportCode(article.sport_code)
     : null;
 
   const sportColor = appSportCode

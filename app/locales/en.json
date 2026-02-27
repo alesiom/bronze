@@ -81,22 +81,14 @@
     "privacy": "Privacy Policy"
   },
   "sports": {
-    "ALP": "Alpine Skiing",
-    "BTH": "Biathlon",
-    "BOB": "Bobsled",
-    "CCS": "Cross-Country Skiing",
-    "CUR": "Curling",
-    "FSK": "Figure Skating",
-    "FRS": "Freestyle Skiing",
-    "IHO": "Ice Hockey",
-    "LUG": "Luge",
-    "NCB": "Nordic Combined",
-    "STK": "Short Track",
-    "SKN": "Skeleton",
-    "SJP": "Ski Jumping",
-    "SMT": "Ski Mountaineering",
-    "SBD": "Snowboard",
-    "SSK": "Speed Skating"
+    "football": "Football",
+    "tennis": "Tennis",
+    "athletics": "Athletics",
+    "cycling": "Cycling",
+    "motorsport": "Motorsport",
+    "winter-sports": "Winter Sports",
+    "swimming": "Swimming",
+    "other": "Other"
   },
   "federations": {
     "olympics": "Olympics"

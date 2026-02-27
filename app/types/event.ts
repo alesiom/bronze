@@ -11,23 +11,58 @@ export type EventStatus =
   | 'postponed';
 
 export type SportCode =
-  | 'ALP' // Alpine Skiing
-  | 'BTH' // Biathlon
-  | 'BOB' // Bobsleigh
-  | 'CCS' // Cross-Country Skiing
-  | 'CER' // Ceremonies
-  | 'CUR' // Curling
-  | 'FSK' // Figure Skating
-  | 'FRS' // Freestyle Skiing
-  | 'IHO' // Ice Hockey
-  | 'LUG' // Luge
-  | 'NCB' // Nordic Combined
-  | 'SKN' // Skeleton
-  | 'STK' // Short Track Speed Skating
-  | 'SJP' // Ski Jumping
-  | 'SMT' // Ski Mountaineering
-  | 'SBD' // Snowboard
-  | 'SSK'; // Speed Skating
+  | 'football'
+  | 'tennis'
+  | 'athletics'
+  | 'cycling'
+  | 'motorsport'
+  | 'winter-sports'
+  | 'swimming'
+  | 'other';
+
+// Legacy codes from schedule.json and old API responses
+export type LegacySportCode =
+  | 'ALP' | 'BTH' | 'BOB' | 'CCS' | 'CER' | 'CUR'
+  | 'FSK' | 'FRS' | 'IHO' | 'LUG' | 'NCB' | 'SKN'
+  | 'STK' | 'SJP' | 'SMT' | 'SBD' | 'SSK';
+
+// Map every legacy code to a general sport code
+const LEGACY_TO_SPORT_CODE: Record<LegacySportCode, SportCode> = {
+  ALP: 'winter-sports',
+  BTH: 'winter-sports',
+  BOB: 'winter-sports',
+  CCS: 'winter-sports',
+  CER: 'other',
+  CUR: 'winter-sports',
+  FSK: 'winter-sports',
+  FRS: 'winter-sports',
+  IHO: 'winter-sports',
+  LUG: 'winter-sports',
+  NCB: 'winter-sports',
+  SKN: 'winter-sports',
+  STK: 'winter-sports',
+  SJP: 'winter-sports',
+  SMT: 'winter-sports',
+  SBD: 'winter-sports',
+  SSK: 'winter-sports',
+};
+
+const VALID_SPORT_CODES: Set<string> = new Set<string>([
+  'football', 'tennis', 'athletics', 'cycling',
+  'motorsport', 'winter-sports', 'swimming', 'other',
+]);
+
+/**
+ * Normalise any sport code (legacy 3-letter or new slug) to a SportCode.
+ * Unknown values fall back to 'other'.
+ */
+export function normalizeSportCode(code: string | null | undefined): SportCode {
+  if (!code) return 'other';
+  // Already a valid new code?
+  if (VALID_SPORT_CODES.has(code)) return code as SportCode;
+  // Legacy 3-letter code?
+  return LEGACY_TO_SPORT_CODE[code as LegacySportCode] ?? 'other';
+}
 
 export interface TeamInfo {
   teamCode: string; // 3-letter country code (e.g., "SWE", "USA")

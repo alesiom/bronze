@@ -1,11 +1,10 @@
 /**
- * Sport Icons - Custom SVG icons for winter sports
+ * Sport Icons - MaterialCommunityIcons for general sports
  */
 
 import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { colors } from '../theme';
-import { SportIconComponents } from './SportIcons';
+import type { SportCode } from '../types';
 
 interface SportIconProps {
   sportCode: string;
@@ -13,34 +12,23 @@ interface SportIconProps {
   color?: string;
 }
 
-// Icons that look better from MaterialCommunityIcons
-const MATERIAL_ICONS: Record<string, keyof typeof MaterialCommunityIcons.glyphMap> = {
-  ALP: 'ski', // Alpine Skiing - classic downhill skier
+const SPORT_ICONS: Record<SportCode, keyof typeof MaterialCommunityIcons.glyphMap> = {
+  football: 'soccer',
+  tennis: 'tennis',
+  athletics: 'run-fast',
+  cycling: 'bicycle',
+  motorsport: 'car-sports',
+  'winter-sports': 'snowflake',
+  swimming: 'swim',
+  other: 'trophy-outline',
 };
 
-export function SportIcon({ sportCode, size = 24, color = colors.snowWhite }: SportIconProps) {
-  // Check if we prefer MaterialCommunityIcons for this sport
-  const materialIcon = MATERIAL_ICONS[sportCode];
-  if (materialIcon) {
-    return (
-      <MaterialCommunityIcons
-        name={materialIcon}
-        size={size}
-        color={color}
-      />
-    );
-  }
+export function SportIcon({ sportCode, size = 24, color = '#FFFFFF' }: SportIconProps) {
+  const iconName = SPORT_ICONS[sportCode as SportCode] ?? 'trophy-outline';
 
-  // Use custom SVG icon
-  const CustomIcon = SportIconComponents[sportCode];
-  if (CustomIcon) {
-    return <CustomIcon size={size} color={color} />;
-  }
-
-  // Fallback
   return (
     <MaterialCommunityIcons
-      name="medal-outline"
+      name={iconName}
       size={size}
       color={color}
     />

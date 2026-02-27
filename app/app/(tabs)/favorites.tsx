@@ -139,8 +139,8 @@ function SessionCard({ session, onPress, onRemove }: {
   const renderRightActions = () => (
     <SwipeActionBehind color={accentColor} side="right">
       <AnimatedIconCrossfade
-        iconA={<Icons.Heart size={32} color={colors.snowWhite} />}
-        iconB={<Icons.HeartOutline size={32} color={colors.snowWhite} />}
+        iconA={<Icons.Heart size={32} color={'#FFFFFF'} />}
+        iconB={<Icons.HeartOutline size={32} color={'#FFFFFF'} />}
         showB={justRemoved}
       />
     </SwipeActionBehind>
@@ -190,8 +190,8 @@ function SessionCard({ session, onPress, onRemove }: {
                     {session.sport}
                   </Text>
                   {isLive && (
-                    <View style={[styles.liveBadge, { backgroundColor: colors.rossoCorsa }]}>
-                      <Icons.Zap size={12} color={colors.snowWhite} />
+                    <View style={[styles.liveBadge, { backgroundColor: theme.error }]}>
+                      <Icons.Zap size={12} color={'#FFFFFF'} />
                       <Text style={styles.liveText}>{t('schedule.liveNow')}</Text>
                     </View>
                   )}
@@ -316,11 +316,6 @@ export default function FavoritesScreen() {
             <Text style={[styles.emptyHint, { color: theme.textMuted }]}>
               {t('favorites.emptyHint')}
             </Text>
-            <View style={styles.emptySnowflakes}>
-              <Icons.Snowflake size={20} color={theme.textMuted} />
-              <Icons.Snowflake size={20} color={theme.textMuted} />
-              <Icons.Snowflake size={20} color={theme.textMuted} />
-            </View>
           </View>
         }
       />
@@ -381,7 +376,7 @@ const styles = StyleSheet.create({
     borderRadius: sizing.radius.small,
   },
   liveText: {
-    color: colors.snowWhite,
+    color: '#FFFFFF',
     fontSize: typography.fontSize.xs,
     fontWeight: typography.fontWeight.bold,
   },
@@ -443,11 +438,6 @@ const styles = StyleSheet.create({
     fontSize: typography.fontSize.md,
     textAlign: 'center',
     lineHeight: typography.fontSize.md * typography.lineHeight.relaxed,
-  },
-  emptySnowflakes: {
-    flexDirection: 'row',
-    gap: spacing.md,
-    marginTop: spacing.sm,
   },
   swipeActionBehind: {
     width: SWIPE_ACTION_WIDTH,

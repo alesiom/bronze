@@ -74,22 +74,14 @@
     "privacy": "개인정보 보호정책"
   },
   "sports": {
-    "ALP": "알파인 스키",
-    "BTH": "바이애슬론",
-    "BOB": "봅슬레이",
-    "CCS": "크로스컨트리 스키",
-    "CUR": "컬링",
-    "FSK": "피겨 스케이팅",
-    "FRS": "프리스타일 스키",
-    "IHO": "아이스하키",
-    "LUG": "루지",
-    "NCB": "노르딕 복합",
-    "STK": "스켈레톤",
-    "SKN": "쇼트트랙",
-    "SJP": "스키점프",
-    "SMT": "스노보드",
-    "SBD": "스노보드",
-    "SSK": "스피드 스케이팅"
+    "football": "축구",
+    "tennis": "테니스",
+    "athletics": "육상",
+    "cycling": "사이클",
+    "motorsport": "모터스포츠",
+    "winter-sports": "겨울 스포츠",
+    "swimming": "수영",
+    "other": "기타"
   },
   "federations": {
     "olympics": "올림픽"

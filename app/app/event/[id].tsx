@@ -47,17 +47,17 @@ function BigButton({
   const bgColor = {
     primary: colors.primary,
     secondary: isDark ? theme.surfaceAlt : colors.surfaceAlt,
-    danger: colors.rossoCorsa,
+    danger: colors.error,
   }[variant];
 
   // Shadow color matches button color (lighter for secondary)
   const shadowColor = {
     primary: colors.primary,
     secondary: isDark ? theme.textMuted : '#888',
-    danger: colors.rossoCorsa,
+    danger: colors.error,
   }[variant];
 
-  const textColor = variant === 'secondary' ? theme.text : colors.snowWhite;
+  const textColor = variant === 'secondary' ? theme.text : '#FFFFFF';
 
   const getButtonStyle = (pressed: boolean) => ({
     backgroundColor: bgColor,
@@ -199,7 +199,7 @@ export default function EventDetailScreen() {
               </View>
             )}
             <View style={[styles.statusBadge, { backgroundColor: badgeBgColor }, event.status === 'live' && styles.liveBadge]}>
-              <Text style={[styles.statusText, { color: event.status === 'live' ? colors.snowWhite : headerTextColor }]}>{statusLabel}</Text>
+              <Text style={[styles.statusText, { color: event.status === 'live' ? '#FFFFFF' : headerTextColor }]}>{statusLabel}</Text>
             </View>
           </View>
         </View>
@@ -218,7 +218,7 @@ export default function EventDetailScreen() {
         <View style={styles.actions}>
           <BigButton
             title={isEventFavorite ? t('event.removeFromFavorites') : t('event.addToFavorites')}
-            icon={<Icons.Heart size={22} color={colors.snowWhite} />}
+            icon={<Icons.Heart size={22} color={'#FFFFFF'} />}
             onPress={handleToggleFavorite}
             variant={isEventFavorite ? 'danger' : 'primary'}
           />
@@ -267,7 +267,7 @@ const styles = StyleSheet.create({
     marginBottom: spacing.xs,
   },
   eventName: {
-    color: colors.snowWhite,
+    color: '#FFFFFF',
     fontSize: typography.fontSize.xxxl,
     fontWeight: typography.fontWeight.bold,
     lineHeight: typography.fontSize.xxxl * typography.lineHeight.tight,
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
     borderRadius: sizing.radius.small,
   },
   medalText: {
-    color: colors.snowWhite,
+    color: '#FFFFFF',
     fontSize: typography.fontSize.sm,
     fontWeight: typography.fontWeight.semibold,
   },
@@ -298,10 +298,10 @@ const styles = StyleSheet.create({
     borderRadius: sizing.radius.small,
   },
   liveBadge: {
-    backgroundColor: colors.rossoCorsa,
+    backgroundColor: colors.error,
   },
   statusText: {
-    color: colors.snowWhite,
+    color: '#FFFFFF',
     fontSize: typography.fontSize.sm,
     fontWeight: typography.fontWeight.semibold,
   },

@@ -74,22 +74,14 @@
     "privacy": "隐私政策"
   },
   "sports": {
-    "ALP": "高山滑雪",
-    "BTH": "冬季两项",
-    "BOB": "雪车",
-    "CCS": "越野滑雪",
-    "CUR": "冰壶",
-    "FSK": "花样滑冰",
-    "FRS": "自由式滑雪",
-    "IHO": "冰球",
-    "LUG": "雪橇",
-    "NCB": "北欧两项",
-    "STK": "钢架雪车",
-    "SKN": "短道速滑",
-    "SJP": "跳台滑雪",
-    "SMT": "单板滑雪",
-    "SBD": "单板滑雪",
-    "SSK": "速度滑冰"
+    "football": "足球",
+    "tennis": "网球",
+    "athletics": "田径",
+    "cycling": "自行车",
+    "motorsport": "赛车运动",
+    "winter-sports": "冬季运动",
+    "swimming": "游泳",
+    "other": "其他"
   },
   "federations": {
     "olympics": "奥运"

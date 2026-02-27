@@ -54,22 +54,14 @@ const SWIPE_THRESHOLD = SWIPE_ACTION_WIDTH * 0.75; // Trigger at 75% of action w
 
 // All sports for filter
 const ALL_SPORTS: { code: SportCode; labelKey: string }[] = [
-  { code: 'ALP', labelKey: 'sports.ALP' },
-  { code: 'BTH', labelKey: 'sports.BTH' },
-  { code: 'BOB', labelKey: 'sports.BOB' },
-  { code: 'CCS', labelKey: 'sports.CCS' },
-  { code: 'CUR', labelKey: 'sports.CUR' },
-  { code: 'FSK', labelKey: 'sports.FSK' },
-  { code: 'FRS', labelKey: 'sports.FRS' },
-  { code: 'IHO', labelKey: 'sports.IHO' },
-  { code: 'LUG', labelKey: 'sports.LUG' },
-  { code: 'NCB', labelKey: 'sports.NCB' },
-  { code: 'STK', labelKey: 'sports.STK' },
-  { code: 'SKN', labelKey: 'sports.SKN' },
-  { code: 'SJP', labelKey: 'sports.SJP' },
-  { code: 'SMT', labelKey: 'sports.SMT' },
-  { code: 'SBD', labelKey: 'sports.SBD' },
-  { code: 'SSK', labelKey: 'sports.SSK' },
+  { code: 'football', labelKey: 'sports.football' },
+  { code: 'tennis', labelKey: 'sports.tennis' },
+  { code: 'athletics', labelKey: 'sports.athletics' },
+  { code: 'cycling', labelKey: 'sports.cycling' },
+  { code: 'motorsport', labelKey: 'sports.motorsport' },
+  { code: 'winter-sports', labelKey: 'sports.winter-sports' },
+  { code: 'swimming', labelKey: 'sports.swimming' },
+  { code: 'other', labelKey: 'sports.other' },
 ];
 
 // Sport filter pill component with hard shadow button effect
@@ -486,7 +478,7 @@ function SessionCard({
     if (isFavorite && !justAdded) {
       return (
         <SwipeActionBehind color={accentColor} side="left">
-          <Icons.Check size={32} color={colors.snowWhite} />
+          <Icons.Check size={32} color={'#FFFFFF'} />
         </SwipeActionBehind>
       );
     }
@@ -494,8 +486,8 @@ function SessionCard({
       <SwipeActionBehind color={accentColor} side="left">
         <AnimatedIconScale
           trigger={justAdded}
-          iconBefore={<Icons.Heart size={32} color={colors.snowWhite} />}
-          iconAfter={<Icons.Check size={32} color={colors.snowWhite} />}
+          iconBefore={<Icons.Heart size={32} color={'#FFFFFF'} />}
+          iconAfter={<Icons.Check size={32} color={'#FFFFFF'} />}
         />
       </SwipeActionBehind>
     );
@@ -508,8 +500,8 @@ function SessionCard({
     return (
       <SwipeActionBehind color={accentColor} side="right">
         <AnimatedIconCrossfade
-          iconA={<Icons.Heart size={32} color={colors.snowWhite} />}
-          iconB={<Icons.HeartOutline size={32} color={colors.snowWhite} />}
+          iconA={<Icons.Heart size={32} color={'#FFFFFF'} />}
+          iconB={<Icons.HeartOutline size={32} color={'#FFFFFF'} />}
           showB={showOutline}
         />
       </SwipeActionBehind>
@@ -586,8 +578,8 @@ function SessionCard({
               </View>
             )}
             {isLive && (
-              <View style={[styles.liveBadge, { backgroundColor: colors.rossoCorsa }]}>
-                <Icons.Zap size={12} color={colors.snowWhite} />
+              <View style={[styles.liveBadge, { backgroundColor: theme.error }]}>
+                <Icons.Zap size={12} color={'#FFFFFF'} />
                 <Text style={styles.liveText}>{t('schedule.liveNow')}</Text>
               </View>
             )}
@@ -674,7 +666,7 @@ function SectionHeader({ title, sectionKey }: { title: string; sectionKey?: stri
     <View style={[
       styles.sectionHeader,
       isNowSection && styles.nowSectionHeader,
-      isNowSection && { backgroundColor: isDark ? colors.rossoCorsa + '15' : colors.rossoCorsa + '10' },
+      isNowSection && { backgroundColor: isDark ? theme.error + '15' : theme.error + '10' },
     ]}>
       <Text style={[styles.sectionTitle, { color: theme.text }]}>
         {title}
@@ -873,11 +865,6 @@ export default function ScheduleScreen() {
             <Text style={[styles.emptyText, { color: theme.text }]}>
               {t('schedule.noEvents')}
             </Text>
-            <View style={styles.emptySnowflakes}>
-              <Icons.Snowflake size={20} color={theme.textMuted} />
-              <Icons.Snowflake size={20} color={theme.textMuted} />
-              <Icons.Snowflake size={20} color={theme.textMuted} />
-            </View>
           </View>
         }
       />
@@ -945,7 +932,7 @@ const styles = StyleSheet.create({
   nowSectionFooter: {
     height: spacing.xl,  // Total height: gap coverage + padding
     marginTop: -spacing.md,  // Pull up to cover the last card's bottom margin
-    backgroundColor: colors.rossoCorsa + '10',
+    backgroundColor: colors.error + '10',
   },
   sectionTitle: {
     fontSize: typography.fontSize.xxl,
@@ -995,7 +982,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   liveText: {
-    color: colors.snowWhite,
+    color: '#FFFFFF',
     fontSize: typography.fontSize.xs,
     fontWeight: typography.fontWeight.bold,
   },
@@ -1077,11 +1064,6 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: typography.fontSize.xl,
     fontWeight: typography.fontWeight.semibold,
-  },
-  emptySnowflakes: {
-    flexDirection: 'row',
-    gap: spacing.md,
-    marginTop: spacing.sm,
   },
   swipeActionBehind: {
     width: SWIPE_ACTION_WIDTH,

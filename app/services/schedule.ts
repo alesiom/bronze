@@ -4,12 +4,28 @@
  */
 
 import type { Event, ScheduleData, SportCode, FilterState, Discipline, Session, MatchInfo } from '../types';
+import { normalizeSportCode } from '../types';
 
 // Import bundled schedule data
 import scheduleData from '../assets/data/schedule.json';
 
-// Type assertion for imported JSON
-const schedule = scheduleData as ScheduleData;
+// Normalise legacy sport codes (ALP, BTH…) → new codes (winter-sports, other…)
+function normalizeScheduleData(raw: unknown): ScheduleData {
+  const data = raw as ScheduleData;
+  return {
+    ...data,
+    events: data.events.map((e) => ({
+      ...e,
+      sport_code: normalizeSportCode(e.sport_code as string),
+    })),
+    disciplines: data.disciplines.map((d) => ({
+      ...d,
+      disciplineCode: normalizeSportCode(d.disciplineCode as string),
+    })),
+  };
+}
+
+const schedule = normalizeScheduleData(scheduleData);
 
 // Venue city mapping (derived from venue names)
 const VENUE_CITIES: Record<string, string> = {
