@@ -6,64 +6,40 @@
 import type { SportCode } from './event';
 
 export type ArticleCategory =
-  | 'alpine-skiing'
-  | 'biathlon'
-  | 'bobsleigh'
-  | 'cross-country'
-  | 'curling'
-  | 'figure-skating'
-  | 'freestyle-skiing'
-  | 'ice-hockey'
-  | 'luge'
-  | 'nordic-combined'
-  | 'short-track'
-  | 'skeleton'
-  | 'ski-jumping'
-  | 'ski-mountaineering'
-  | 'snowboard'
-  | 'speed-skating'
-  | 'athletes'
+  | 'football'
+  | 'tennis'
+  | 'athletics'
+  | 'cycling'
+  | 'motorsport'
+  | 'winter-sports'
+  | 'swimming'
+  | 'other'
+  | 'athlete-profile'
+  | 'sport-explainer'
+  | 'news'
   | 'general';
 
-// Map from sport code to article category
+// Map from sport code to article category (1-to-1 for sport categories)
 export const SPORT_CODE_TO_CATEGORY: Record<SportCode, ArticleCategory> = {
-  ALP: 'alpine-skiing',
-  BTH: 'biathlon',
-  BOB: 'bobsleigh',
-  CCS: 'cross-country',
-  CER: 'general',
-  CUR: 'curling',
-  FSK: 'figure-skating',
-  FRS: 'freestyle-skiing',
-  IHO: 'ice-hockey',
-  LUG: 'luge',
-  NCB: 'nordic-combined',
-  SKN: 'skeleton',
-  STK: 'short-track',
-  SJP: 'ski-jumping',
-  SMT: 'ski-mountaineering',
-  SBD: 'snowboard',
-  SSK: 'speed-skating',
+  football: 'football',
+  tennis: 'tennis',
+  athletics: 'athletics',
+  cycling: 'cycling',
+  motorsport: 'motorsport',
+  'winter-sports': 'winter-sports',
+  swimming: 'swimming',
+  other: 'general',
 };
 
-// Map from article category to sport code
+// Map from article category back to sport code (only sport categories)
 export const CATEGORY_TO_SPORT_CODE: Partial<Record<ArticleCategory, SportCode>> = {
-  'alpine-skiing': 'ALP',
-  'biathlon': 'BTH',
-  'bobsleigh': 'BOB',
-  'cross-country': 'CCS',
-  'curling': 'CUR',
-  'figure-skating': 'FSK',
-  'freestyle-skiing': 'FRS',
-  'ice-hockey': 'IHO',
-  'luge': 'LUG',
-  'nordic-combined': 'NCB',
-  'short-track': 'STK',
-  'skeleton': 'SKN',
-  'ski-jumping': 'SJP',
-  'ski-mountaineering': 'SMT',
-  'snowboard': 'SBD',
-  'speed-skating': 'SSK',
+  football: 'football',
+  tennis: 'tennis',
+  athletics: 'athletics',
+  cycling: 'cycling',
+  motorsport: 'motorsport',
+  'winter-sports': 'winter-sports',
+  swimming: 'swimming',
 };
 
 export interface Article {

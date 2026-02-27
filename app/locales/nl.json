@@ -74,22 +74,14 @@
     "privacy": "Privacybeleid"
   },
   "sports": {
-    "ALP": "Alpineskiën",
-    "BTH": "Biatlon",
-    "BOB": "Bobsleeën",
-    "CCS": "Langlaufen",
-    "CUR": "Curling",
-    "FSK": "Kunstrijden",
-    "FRS": "Freestyleskiën",
-    "IHO": "IJshockey",
-    "LUG": "Rodelen",
-    "NCB": "Noordse Combinatie",
-    "STK": "Skeleton",
-    "SKN": "Shorttrack",
-    "SJP": "Schansspringen",
-    "SMT": "Snowboarden",
-    "SBD": "Snowboarden",
-    "SSK": "Schaatsen"
+    "football": "Voetbal",
+    "tennis": "Tennis",
+    "athletics": "Atletiek",
+    "cycling": "Wielrennen",
+    "motorsport": "Autosport",
+    "winter-sports": "Wintersport",
+    "swimming": "Zwemmen",
+    "other": "Overig"
   },
   "federations": {
     "olympics": "Olympisch"

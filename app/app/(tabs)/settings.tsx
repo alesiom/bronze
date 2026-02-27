@@ -90,7 +90,7 @@ function SettingToggle({
         value={value}
         onValueChange={onValueChange}
         trackColor={{ false: theme.textMuted, true: colors.primary }}
-        thumbColor={value ? colors.snowWhite : colors.snowWhite}
+        thumbColor={value ? '#FFFFFF' : '#FFFFFF'}
       />
     </View>
   );
@@ -321,11 +321,6 @@ export default function SettingsScreen() {
           <Text style={[styles.footerTagline, { color: theme.textMuted }]}>
             {t('app.tagline')}
           </Text>
-          <View style={styles.footerSnowflakes}>
-            <Icons.Snowflake size={16} color={theme.textMuted} />
-            <Icons.Snowflake size={16} color={theme.textMuted} />
-            <Icons.Snowflake size={16} color={theme.textMuted} />
-          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -417,10 +412,5 @@ const styles = StyleSheet.create({
   },
   footerTagline: {
     fontSize: typography.fontSize.sm,
-  },
-  footerSnowflakes: {
-    flexDirection: 'row',
-    gap: spacing.sm,
-    marginTop: spacing.sm,
   },
 });

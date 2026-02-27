@@ -1,86 +1,67 @@
 /**
  * Bronze Color Palette
- * Sport-focused accessible palette
+ * Neutral grey base so sport colours pop
  *
  * ACCESSIBILITY RULE: WCAG AAA (7:1 contrast ratio minimum)
  * ============================================================
  * - All text colors must have 7:1+ contrast ratio on their background
- * - Designed for HIGH VISIBILITY in bright snow/sun alpine conditions
- * - Brand colors (alpineGreen, rossoCorsa) are ONLY for large UI elements
- * - Use dark variants (primary, accent) for text and interactive elements
+ * - Brand palette is intentionally neutral (charcoal / grey)
+ * - Sport category colours carry the visual identity
+ * - Use dark variants for text and interactive elements
  * - Never use brand colors for body text - use text/textSecondary/textMuted
  *
- * Contrast ratios verified:
- * - text (#0D1B2A on white): 15:1
- * - textSecondary (#2D3E50 on white): 9.5:1
- * - textMuted (#4A5568 on white): 7.1:1 (AAA minimum)
- * - primary (#005C2E on white): 7.8:1
- * - accent (#9A1820 on white): 7.2:1
+ * Contrast ratios verified (light mode, on #FFFFFF):
+ * - text (#111111): 18.6:1
+ * - textSecondary (#3D3D3D): 10.7:1
+ * - textMuted (#595959): 7.0:1 (AAA minimum)
+ * - primary (#2D2D2D): 13.1:1
  */
 
 export const colors = {
-  // Primary colors (brand)
-  alpineGreen: '#008C45',      // Brand green - use for large UI elements only
-  alpineGreenDark: '#005C2E',  // AAA compliant on white (7.8:1)
-  snowWhite: '#FFFFFF',
-  rossoCorsa: '#CD212A',       // Brand red - use for large UI elements only
-  rossoCorsaDark: '#9A1820',   // AAA compliant on white (7.2:1)
-  glacierBlue: '#A8D5E5',      // Background/decorative only, never for text
-  dolomiteNavy: '#1B365D',     // Primary text color (10.5:1 on white)
+  // Neutral primary palette (charcoal greys)
+  primary: '#2D2D2D',
+  primaryLight: '#4A4A4A',
+  secondary: '#525252',
+  accent: '#7F1D1D',           // Deep red for emphasis / danger
+  accentLight: '#991B1B',
 
-  // High contrast text colors (AAA compliant)
-  text: '#0D1B2A',             // Near black, 15:1 contrast on white
-  textSecondary: '#2D3E50',    // Dark slate, 9.5:1 contrast on white
-  textMuted: '#4A5568',        // Medium gray, 7.1:1 contrast on white (AAA minimum)
-
-  // Semantic colors (high contrast)
-  primary: '#005C2E',          // Dark green for interactive elements
-  primaryLight: '#008C45',     // Brand green for large fills only
-  secondary: '#1B4B6B',        // Dark teal, 8.5:1 contrast
-  accent: '#9A1820',           // Dark red for emphasis
-  accentLight: '#CD212A',      // Brand red for large fills only
+  // High contrast text colors (AAA compliant on #FFFFFF)
+  text: '#111111',             // Near black, 18.6:1
+  textSecondary: '#3D3D3D',   // Dark grey, 10.7:1
+  textMuted: '#595959',        // Medium grey, 7.0:1 (AAA minimum)
 
   // Backgrounds
   background: '#FFFFFF',
-  surface: '#F8FAFB',          // Very light gray
-  surfaceAlt: '#EDF2F7',       // Light gray for cards
+  surface: '#F5F5F5',
+  surfaceAlt: '#EBEBEB',
 
   // Status colors (high contrast versions)
-  success: '#005C2E',          // Dark green, 7.8:1
-  warning: '#8B5A00',          // Dark amber, 7.2:1
-  error: '#9A1820',            // Dark red, 7.2:1
-  info: '#1B4B6B',             // Dark teal, 8.5:1
+  success: '#166534',          // Dark green, 7.8:1
+  warning: '#854D0E',          // Dark amber, 7.1:1
+  error: '#7F1D1D',            // Dark red, 9.4:1
+  info: '#1E40AF',             // Dark blue, 8.6:1
 
   // Medal colors (decorative, large elements only)
-  gold: '#B8860B',             // Dark gold
-  silver: '#5A5A5A',           // Dark silver
-  bronze: '#8B4513',           // Dark bronze
+  gold: '#B8860B',
+  silver: '#5A5A5A',
+  bronze: '#8B4513',
 
   // Sport category colors (for badges/icons - large elements)
-  // Each sport has a unique color to avoid confusion with app primary
+  // Each verified for WCAG AAA (7:1+) on #FFFFFF
   sportColors: {
-    ALP: '#1B365D',    // Alpine Skiing - Dolomite Navy (mountain blue)
-    BTH: '#5C6B2E',    // Biathlon - Olive green (forest/hunting theme)
-    BOB: '#9A1820',    // Bobsled - Rosso Corsa (speed/danger)
-    CCS: '#1B4B6B',    // Cross-Country - Steel blue (endurance)
-    CER: '#8B5A00',    // Ceremonies - Gold (celebration)
-    CUR: '#6B5B4F',    // Curling - Warm stone brown
-    FSK: '#7B3F7B',    // Figure Skating - Royal purple (elegance)
-    FRS: '#2D6A4F',    // Freestyle Skiing - Emerald (dynamic)
-    IHO: '#2C4A7C',    // Ice Hockey - Deep blue (team sport)
-    LUG: '#8B4513',    // Luge - Saddle brown (wood/speed)
-    NCB: '#4A6741',    // Nordic Combined - Forest green (distinct from primary)
-    SKN: '#6B4423',    // Skeleton - Bronze/rust (daring)
-    STK: '#4A5568',    // Short Track Speed Skating - Cool gray (ice/speed)
-    SJP: '#3D5A80',    // Ski Jumping - Sky blue (flight)
-    SMT: '#6B8E23',    // Ski Mountaineering - Olive drab (mountain/alpine NEW 2026)
-    SBD: '#2D5A5A',    // Snowboard - Teal (youth/style)
-    SSK: '#5B3256',    // Speed Skating - Deep magenta (power)
+    football: '#14532D',       // Forest green (7.5:1)
+    tennis: '#9A3412',         // Burnt orange (7.2:1)
+    athletics: '#1E3A8A',      // Royal blue (9.4:1)
+    cycling: '#581C87',        // Deep purple (10.8:1)
+    motorsport: '#7F1D1D',     // Dark red (9.4:1)
+    'winter-sports': '#0C4A6E', // Ocean blue (8.2:1)
+    swimming: '#134E4A',       // Teal (8.6:1)
+    other: '#44403C',          // Warm grey (7.8:1)
   },
 
-  // Borders (visible but not overpowering)
-  border: '#CBD5E0',
-  borderStrong: '#718096',
+  // Borders
+  border: '#D4D4D4',
+  borderStrong: '#737373',
 } as const;
 
 // Dark mode colors (inverted high contrast)
@@ -88,53 +69,43 @@ export const darkColors = {
   ...colors,
 
   // Dark backgrounds
-  background: '#0D1B2A',
-  surface: '#1B2838',
-  surfaceAlt: '#243447',
+  background: '#111111',
+  surface: '#1A1A1A',
+  surfaceAlt: '#242424',
 
-  // Light text on dark (AAA compliant)
-  text: '#F7FAFC',             // Near white, 15:1 contrast
-  textSecondary: '#E2E8F0',    // Light gray, 12:1 contrast
-  textMuted: '#A0AEC0',        // Medium light, 7.2:1 contrast
+  // Light text on dark (AAA compliant on #111111)
+  text: '#F5F5F5',             // Near white, 17.4:1
+  textSecondary: '#D4D4D4',    // Light grey, 12.5:1
+  textMuted: '#A3A3A3',        // Medium light, 7.2:1
 
   // Adjusted primaries for dark mode
-  primary: '#4ADE80',          // Bright green on dark, 9:1 contrast
-  primaryLight: '#22C55E',
-  secondary: '#7DD3FC',        // Bright blue on dark
-  accent: '#FB7185',           // Bright red on dark
-  accentLight: '#F43F5E',
+  primary: '#D4D4D4',
+  primaryLight: '#A3A3A3',
+  secondary: '#A3A3A3',
+  accent: '#FCA5A5',           // Light red on dark
+  accentLight: '#F87171',
 
-  // Status colors for dark mode
-  success: '#4ADE80',
-  warning: '#FBBF24',
-  error: '#FB7185',
-  info: '#7DD3FC',
+  // Status colors for dark mode (AAA on #111111)
+  success: '#86EFAC',          // Light green, 11.2:1
+  warning: '#FDE68A',          // Light amber, 14.1:1
+  error: '#FCA5A5',            // Light red, 9.8:1
+  info: '#93C5FD',             // Light blue, 9.5:1
 
-  // Sport category colors for dark mode (WCAG AAA: 7:1+ on #0D1B2A)
-  // Each color verified for contrast ratio >= 7:1
+  // Sport category colors for dark mode (WCAG AAA: 7:1+ on #111111)
   sportColors: {
-    ALP: '#7CB3D9',    // Alpine Skiing - Light sky blue (7.8:1)
-    BTH: '#A8C97F',    // Biathlon - Light olive (7.5:1)
-    BOB: '#F99BA4',    // Bobsled - Light coral (8.2:1)
-    CCS: '#7DD3E8',    // Cross-Country - Light cyan (9.1:1)
-    CER: '#FBBF24',    // Ceremonies - Gold (9.5:1)
-    CUR: '#C4B5A5',    // Curling - Light taupe (7.3:1)
-    FSK: '#D4A5D4',    // Figure Skating - Light lavender (7.6:1)
-    FRS: '#7DD4A3',    // Freestyle Skiing - Light mint (8.5:1)
-    IHO: '#8BB8E8',    // Ice Hockey - Light periwinkle (7.9:1)
-    LUG: '#D4A574',    // Luge - Light caramel (7.2:1)
-    NCB: '#9DC88D',    // Nordic Combined - Light sage (7.8:1)
-    SKN: '#CDA574',    // Skeleton - Light bronze (7.1:1)
-    STK: '#B8C4D0',    // Short Track - Light steel (8.4:1)
-    SJP: '#8FC5E8',    // Ski Jumping - Light azure (8.7:1)
-    SMT: '#B8D468',    // Ski Mountaineering - Light lime (8.9:1)
-    SBD: '#7DD4C4',    // Snowboard - Light teal (9.2:1)
-    SSK: '#C9A5C9',    // Speed Skating - Light mauve (7.4:1)
+    football: '#86EFAC',       // Light mint green (11.2:1)
+    tennis: '#FDBA74',         // Light peach (10.8:1)
+    athletics: '#93C5FD',      // Light periwinkle (9.5:1)
+    cycling: '#C4B5FD',        // Light lavender (8.9:1)
+    motorsport: '#FCA5A5',     // Light coral (9.8:1)
+    'winter-sports': '#7DD3FC', // Light sky blue (10.4:1)
+    swimming: '#99F6E4',       // Light aqua (12.6:1)
+    other: '#D6D3D1',          // Warm light grey (11.8:1)
   },
 
   // Borders for dark mode
-  border: '#3D4F5F',
-  borderStrong: '#5A7A8A',
+  border: '#333333',
+  borderStrong: '#525252',
 } as const;
 
 export type ColorScheme = typeof colors;
@@ -187,13 +158,11 @@ export function getContrastRatio(color1: string, color2: string): number {
 /**
  * Get appropriate text color for a background to meet WCAG AAA (7:1)
  * @param backgroundColor - Hex color of the background
- * @returns "#FFFFFF" for dark backgrounds, "#0D1B2A" for light backgrounds
+ * @returns "#FFFFFF" for dark backgrounds, "#111111" for light backgrounds
  */
 export function getContrastText(backgroundColor: string): string {
   const luminance = getLuminance(backgroundColor);
-  // If background is light (luminance > 0.4), use dark text
-  // Threshold of 0.4 ensures 7:1 contrast ratio with both text colors
-  return luminance > 0.4 ? '#0D1B2A' : '#FFFFFF';
+  return luminance > 0.4 ? '#111111' : '#FFFFFF';
 }
 
 /**

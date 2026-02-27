@@ -20,17 +20,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors, darkColors, spacing, sizing, typography, getContrastText } from '../../theme';
 import { useArticle } from '../../hooks';
 import { SportIcon, Icons } from '../../components';
-import type { SportCode } from '../../types';
-
-// Map API sport codes to app sport codes
-const API_TO_APP_SPORT_CODE: Record<string, SportCode> = {
-  'ALP': 'ALP', 'AS': 'ALP', 'BIA': 'BTH', 'BT': 'BTH', 'BTH': 'BTH',
-  'BS': 'BOB', 'BOB': 'BOB', 'XC': 'CCS', 'CCS': 'CCS', 'CUR': 'CUR',
-  'FS': 'FSK', 'FSK': 'FSK', 'FRS': 'FRS', 'IHO': 'IHO',
-  'LG': 'LUG', 'LUG': 'LUG', 'NC': 'NCB', 'NK': 'NCB', 'NCB': 'NCB',
-  'STK': 'STK', 'SKN': 'SKN', 'SJ': 'SJP', 'SJP': 'SJP', 'SMT': 'SMT',
-  'SB': 'SBD', 'SBD': 'SBD', 'SS': 'SSK', 'SSK': 'SSK',
-};
+import { normalizeSportCode } from '../../types';
 
 /**
  * Decode HTML entities
@@ -219,9 +209,9 @@ export default function ArticleDetailScreen() {
   // Fetch article
   const { article, loading, error } = useArticle(slug ?? '');
 
-  // Map API sport code to app sport code
+  // Normalise API sport code (handles legacy 3-letter codes too)
   const appSportCode = article?.sport_code
-    ? API_TO_APP_SPORT_CODE[article.sport_code]
+    ? normalizeSportCode(article.sport_code)
     : null;
 
   // Sport color for styling

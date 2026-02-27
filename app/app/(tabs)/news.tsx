@@ -49,22 +49,14 @@ function countryCodeToFlag(code: string): string {
 
 // All sports for filter
 const ALL_SPORTS: { code: SportCode; labelKey: string }[] = [
-  { code: 'ALP', labelKey: 'sports.ALP' },
-  { code: 'BTH', labelKey: 'sports.BTH' },
-  { code: 'BOB', labelKey: 'sports.BOB' },
-  { code: 'CCS', labelKey: 'sports.CCS' },
-  { code: 'CUR', labelKey: 'sports.CUR' },
-  { code: 'FSK', labelKey: 'sports.FSK' },
-  { code: 'FRS', labelKey: 'sports.FRS' },
-  { code: 'IHO', labelKey: 'sports.IHO' },
-  { code: 'LUG', labelKey: 'sports.LUG' },
-  { code: 'NCB', labelKey: 'sports.NCB' },
-  { code: 'STK', labelKey: 'sports.STK' },
-  { code: 'SKN', labelKey: 'sports.SKN' },
-  { code: 'SJP', labelKey: 'sports.SJP' },
-  { code: 'SMT', labelKey: 'sports.SMT' },
-  { code: 'SBD', labelKey: 'sports.SBD' },
-  { code: 'SSK', labelKey: 'sports.SSK' },
+  { code: 'football', labelKey: 'sports.football' },
+  { code: 'tennis', labelKey: 'sports.tennis' },
+  { code: 'athletics', labelKey: 'sports.athletics' },
+  { code: 'cycling', labelKey: 'sports.cycling' },
+  { code: 'motorsport', labelKey: 'sports.motorsport' },
+  { code: 'winter-sports', labelKey: 'sports.winter-sports' },
+  { code: 'swimming', labelKey: 'sports.swimming' },
+  { code: 'other', labelKey: 'sports.other' },
 ];
 
 // Sport filter pill component
