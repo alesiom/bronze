@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS article_generation_log (
 );
 
 -- Comments for documentation
-COMMENT ON TABLE articles IS 'News articles with multilingual content for neve26.com';
+COMMENT ON TABLE articles IS 'News articles with multilingual content for bronze.news';
 COMMENT ON COLUMN articles.title IS 'Multilingual titles: {"en": "...", "de": "...", ...}';
 COMMENT ON COLUMN articles.content IS 'Multilingual HTML content for article body';
 COMMENT ON TABLE athlete_profiles IS 'Pre-built athlete profiles for SEO and Olympic-adjacent traffic';

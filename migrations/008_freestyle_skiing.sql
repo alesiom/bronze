@@ -1,5 +1,5 @@
 -- Migration 008: Freestyle Skiing Sport Explainer
--- Run with: docker exec -i neve26-db psql -U postgres -d neve26 -f - < migrations/008_freestyle_skiing.sql
+-- Run with: docker exec -i bronze-db psql -U postgres -d neve26 -f - < migrations/008_freestyle_skiing.sql
 
 INSERT INTO articles (slug, title, excerpt, content, category, sport_code, meta_description, status, published_at, source_type) VALUES
 

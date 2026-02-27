@@ -1,5 +1,5 @@
 -- Migration 010: Bobsled Sport Explainer
--- Run with: docker exec -i neve26-db psql -U postgres -d neve26 -f - < migrations/010_bobsled.sql
+-- Run with: docker exec -i bronze-db psql -U postgres -d neve26 -f - < migrations/010_bobsled.sql
 
 INSERT INTO articles (slug, title, excerpt, content, category, sport_code, meta_description, status, published_at, source_type) VALUES
 

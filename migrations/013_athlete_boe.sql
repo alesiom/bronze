@@ -1,5 +1,5 @@
 -- Migration 013: Johannes Thingnes Bø Athlete Profile
--- Run with: docker exec -i neve26-db psql -U postgres -d neve26 -f - < migrations/013_athlete_boe.sql
+-- Run with: docker exec -i bronze-db psql -U postgres -d neve26 -f - < migrations/013_athlete_boe.sql
 
 INSERT INTO articles (slug, title, excerpt, content, category, sport_code, meta_description, status, published_at, source_type) VALUES
 

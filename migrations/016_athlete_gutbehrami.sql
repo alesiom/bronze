@@ -1,5 +1,5 @@
 -- Migration 016: Lara Gut-Behrami Athlete Profile
--- Run with: docker exec -i neve26-db psql -U postgres -d neve26 -f - < migrations/016_athlete_gutbehrami.sql
+-- Run with: docker exec -i bronze-db psql -U postgres -d neve26 -f - < migrations/016_athlete_gutbehrami.sql
 
 INSERT INTO articles (slug, title, excerpt, content, category, sport_code, meta_description, status, published_at, source_type) VALUES
 

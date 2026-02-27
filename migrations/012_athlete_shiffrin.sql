@@ -1,5 +1,5 @@
 -- Migration 012: Mikaela Shiffrin Athlete Profile
--- Run with: docker exec -i neve26-db psql -U postgres -d neve26 -f - < migrations/012_athlete_shiffrin.sql
+-- Run with: docker exec -i bronze-db psql -U postgres -d neve26 -f - < migrations/012_athlete_shiffrin.sql
 
 INSERT INTO articles (slug, title, excerpt, content, category, sport_code, meta_description, status, published_at, source_type) VALUES
 
