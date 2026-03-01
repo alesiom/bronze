@@ -870,14 +870,6 @@ LANGUAGES = [
     {"code": "en", "name": "English", "dir": "ltr", "path": ""},
     {"code": "de", "name": "Deutsch", "dir": "ltr", "path": "de/"},
     {"code": "fr", "name": "Français", "dir": "ltr", "path": "fr/"},
-    {"code": "it", "name": "Italiano", "dir": "ltr", "path": "it/"},
-    {"code": "es", "name": "Español", "dir": "ltr", "path": "es/"},
-    {"code": "pt", "name": "Português", "dir": "ltr", "path": "pt/"},
-    {"code": "nl", "name": "Nederlands", "dir": "ltr", "path": "nl/"},
-    {"code": "ar", "name": "العربية", "dir": "rtl", "path": "ar/"},
-    {"code": "ja", "name": "日本語", "dir": "ltr", "path": "ja/"},
-    {"code": "zh", "name": "中文", "dir": "ltr", "path": "zh/"},
-    {"code": "ko", "name": "한국어", "dir": "ltr", "path": "ko/"},
 ]
 
 UI_STRINGS = {
@@ -885,155 +877,37 @@ UI_STRINGS = {
         "reading_time": "{min} min read",
         "skip": "Skip to main content",
         "nav_news": "News",
-        "nav_alpine": "Alpine",
-        "nav_biathlon": "Biathlon",
         "nav_athletes": "Athletes",
         "nav_app": "Get App",
         "select_lang": "Select language",
         "footer_app": "Get the App",
         "footer_privacy": "Privacy",
         "footer_support": "Support",
-        "footer_disclaimer": "Independent winter sports coverage.",
+        "footer_disclaimer": "Independent sports coverage.",
     },
     "de": {
         "reading_time": "{min} Min. Lesezeit",
         "skip": "Zum Hauptinhalt springen",
         "nav_news": "Nachrichten",
-        "nav_alpine": "Ski Alpin",
-        "nav_biathlon": "Biathlon",
         "nav_athletes": "Athleten",
         "nav_app": "App laden",
         "select_lang": "Sprache wählen",
         "footer_app": "App herunterladen",
         "footer_privacy": "Datenschutz",
         "footer_support": "Support",
-        "footer_disclaimer": "Unabhängige Wintersport-Berichterstattung.",
+        "footer_disclaimer": "Unabhängige Sportberichterstattung.",
     },
     "fr": {
         "reading_time": "{min} min de lecture",
         "skip": "Aller au contenu principal",
         "nav_news": "Actualités",
-        "nav_alpine": "Ski Alpin",
-        "nav_biathlon": "Biathlon",
         "nav_athletes": "Athlètes",
         "nav_app": "Télécharger",
         "select_lang": "Choisir la langue",
         "footer_app": "Télécharger l'app",
         "footer_privacy": "Confidentialité",
         "footer_support": "Assistance",
-        "footer_disclaimer": "Couverture indépendante des sports d'hiver.",
-    },
-    "it": {
-        "reading_time": "{min} min di lettura",
-        "skip": "Vai al contenuto principale",
-        "nav_news": "Notizie",
-        "nav_alpine": "Sci Alpino",
-        "nav_biathlon": "Biathlon",
-        "nav_athletes": "Atleti",
-        "nav_app": "Scarica App",
-        "select_lang": "Seleziona lingua",
-        "footer_app": "Scarica l'App",
-        "footer_privacy": "Privacy",
-        "footer_support": "Supporto",
-        "footer_disclaimer": "Copertura indipendente degli sport invernali.",
-    },
-    "es": {
-        "reading_time": "{min} min de lectura",
-        "skip": "Ir al contenido principal",
-        "nav_news": "Noticias",
-        "nav_alpine": "Esquí Alpino",
-        "nav_biathlon": "Biatlón",
-        "nav_athletes": "Atletas",
-        "nav_app": "Descargar",
-        "select_lang": "Seleccionar idioma",
-        "footer_app": "Descargar App",
-        "footer_privacy": "Privacidad",
-        "footer_support": "Soporte",
-        "footer_disclaimer": "Cobertura independiente de deportes de invierno.",
-    },
-    "pt": {
-        "reading_time": "{min} min de leitura",
-        "skip": "Ir para o conteúdo principal",
-        "nav_news": "Notícias",
-        "nav_alpine": "Esqui Alpino",
-        "nav_biathlon": "Biatlo",
-        "nav_athletes": "Atletas",
-        "nav_app": "Baixar App",
-        "select_lang": "Selecionar idioma",
-        "footer_app": "Baixar o App",
-        "footer_privacy": "Privacidade",
-        "footer_support": "Suporte",
-        "footer_disclaimer": "Cobertura independente de esportes de inverno.",
-    },
-    "nl": {
-        "reading_time": "{min} min leestijd",
-        "skip": "Ga naar hoofdinhoud",
-        "nav_news": "Nieuws",
-        "nav_alpine": "Alpineskiën",
-        "nav_biathlon": "Biathlon",
-        "nav_athletes": "Atleten",
-        "nav_app": "Download App",
-        "select_lang": "Selecteer taal",
-        "footer_app": "Download de App",
-        "footer_privacy": "Privacy",
-        "footer_support": "Ondersteuning",
-        "footer_disclaimer": "Onafhankelijke wintersport verslaggeving.",
-    },
-    "ar": {
-        "reading_time": "{min} دقيقة قراءة",
-        "skip": "انتقل إلى المحتوى الرئيسي",
-        "nav_news": "أخبار",
-        "nav_alpine": "تزلج جبال الألب",
-        "nav_biathlon": "البياثلون",
-        "nav_athletes": "الرياضيون",
-        "nav_app": "تحميل التطبيق",
-        "select_lang": "اختر اللغة",
-        "footer_app": "تحميل التطبيق",
-        "footer_privacy": "الخصوصية",
-        "footer_support": "الدعم",
-        "footer_disclaimer": "تغطية مستقلة للرياضات الشتوية.",
-    },
-    "ja": {
-        "reading_time": "{min}分で読めます",
-        "skip": "メインコンテンツへスキップ",
-        "nav_news": "ニュース",
-        "nav_alpine": "アルペン",
-        "nav_biathlon": "バイアスロン",
-        "nav_athletes": "選手",
-        "nav_app": "アプリ",
-        "select_lang": "言語を選択",
-        "footer_app": "アプリを入手",
-        "footer_privacy": "プライバシー",
-        "footer_support": "サポート",
-        "footer_disclaimer": "独立したウィンタースポーツ報道。",
-    },
-    "zh": {
-        "reading_time": "{min}分钟阅读",
-        "skip": "跳至主要内容",
-        "nav_news": "新闻",
-        "nav_alpine": "高山滑雪",
-        "nav_biathlon": "冬季两项",
-        "nav_athletes": "运动员",
-        "nav_app": "下载应用",
-        "select_lang": "选择语言",
-        "footer_app": "下载应用",
-        "footer_privacy": "隐私",
-        "footer_support": "支持",
-        "footer_disclaimer": "独立的冬季运动报道。",
-    },
-    "ko": {
-        "reading_time": "{min}분 소요",
-        "skip": "주요 콘텐츠로 건너뛰기",
-        "nav_news": "뉴스",
-        "nav_alpine": "알파인",
-        "nav_biathlon": "바이애슬론",
-        "nav_athletes": "선수",
-        "nav_app": "앱 다운로드",
-        "select_lang": "언어 선택",
-        "footer_app": "앱 다운로드",
-        "footer_privacy": "개인정보",
-        "footer_support": "지원",
-        "footer_disclaimer": "독립적인 동계 스포츠 보도.",
+        "footer_disclaimer": "Couverture sportive indépendante.",
     },
 }
 
@@ -1043,97 +917,73 @@ CATEGORY_CONFIG = {
     "athlete-profile": {
         "path": "athletes",
         "labels": {
-            "en": "Athletes", "de": "Athleten", "fr": "Athlètes", "it": "Atleti",
-            "es": "Atletas", "pt": "Atletas", "nl": "Atleten", "ar": "الرياضيون",
-            "ja": "選手", "zh": "运动员", "ko": "선수"
+            "en": "Athletes", "de": "Athleten", "fr": "Athlètes"
         }
     },
     "venue-guide": {
         "path": "venues",
         "labels": {
-            "en": "Venues", "de": "Austragungsorte", "fr": "Sites", "it": "Sedi",
-            "es": "Sedes", "pt": "Locais", "nl": "Locaties", "ar": "الأماكن",
-            "ja": "会場", "zh": "场地", "ko": "경기장"
+            "en": "Venues", "de": "Austragungsorte", "fr": "Sites"
         }
     },
     "sport-explainer": {
         "path": "guides",
         "labels": {
-            "en": "Guides", "de": "Ratgeber", "fr": "Guides", "it": "Guide",
-            "es": "Guías", "pt": "Guias", "nl": "Gidsen", "ar": "أدلة",
-            "ja": "ガイド", "zh": "指南", "ko": "가이드"
+            "en": "Guides", "de": "Ratgeber", "fr": "Guides"
         }
     },
     "historical": {
         "path": "history",
         "labels": {
-            "en": "History", "de": "Geschichte", "fr": "Histoire", "it": "Storia",
-            "es": "Historia", "pt": "História", "nl": "Geschiedenis", "ar": "التاريخ",
-            "ja": "歴史", "zh": "历史", "ko": "역사"
+            "en": "History", "de": "Geschichte", "fr": "Histoire"
         }
     },
     "biathlon": {
         "path": "biathlon",
         "labels": {
-            "en": "Biathlon", "de": "Biathlon", "fr": "Biathlon", "it": "Biathlon",
-            "es": "Biatlón", "pt": "Biatlo", "nl": "Biathlon", "ar": "البياثلون",
-            "ja": "バイアスロン", "zh": "冬季两项", "ko": "바이애슬론"
+            "en": "Biathlon", "de": "Biathlon", "fr": "Biathlon"
         }
     },
     "alpine-skiing": {
         "path": "alpine-skiing",
         "labels": {
-            "en": "Alpine Skiing", "de": "Ski Alpin", "fr": "Ski Alpin", "it": "Sci Alpino",
-            "es": "Esquí Alpino", "pt": "Esqui Alpino", "nl": "Alpineskiën", "ar": "التزلج الألبي",
-            "ja": "アルペンスキー", "zh": "高山滑雪", "ko": "알파인 스키"
+            "en": "Alpine Skiing", "de": "Ski Alpin", "fr": "Ski Alpin"
         }
     },
     "cross-country": {
         "path": "cross-country",
         "labels": {
-            "en": "Cross-Country", "de": "Langlauf", "fr": "Ski de Fond", "it": "Sci di Fondo",
-            "es": "Esquí de Fondo", "pt": "Esqui Cross-Country", "nl": "Langlaufen", "ar": "التزلج الريفي",
-            "ja": "クロスカントリー", "zh": "越野滑雪", "ko": "크로스컨트리"
+            "en": "Cross-Country", "de": "Langlauf", "fr": "Ski de Fond"
         }
     },
     "ski-jumping": {
         "path": "ski-jumping",
         "labels": {
-            "en": "Ski Jumping", "de": "Skispringen", "fr": "Saut à Ski", "it": "Salto con gli Sci",
-            "es": "Salto de Esquí", "pt": "Salto de Esqui", "nl": "Schansspringen", "ar": "قفز التزلج",
-            "ja": "スキージャンプ", "zh": "跳台滑雪", "ko": "スキ점프"
+            "en": "Ski Jumping", "de": "Skispringen", "fr": "Saut à Ski"
         }
     },
     "nordic-combined": {
         "path": "nordic-combined",
         "labels": {
-            "en": "Nordic Combined", "de": "Nordische Kombination", "fr": "Combiné Nordique", "it": "Combinata Nordica",
-            "es": "Combinada Nórdica", "pt": "Combinado Nórdico", "nl": "Noordse Combinatie", "ar": "الجمع الشمالي",
-            "ja": "ノルディック複合", "zh": "北欧两项", "ko": "노르딕 복합"
+            "en": "Nordic Combined", "de": "Nordische Kombination", "fr": "Combiné Nordique"
         }
     },
     "freestyle": {
         "path": "freestyle",
         "labels": {
-            "en": "Freestyle", "de": "Freestyle", "fr": "Freestyle", "it": "Freestyle",
-            "es": "Freestyle", "pt": "Freestyle", "nl": "Freestyle", "ar": "فريستايل",
-            "ja": "フリースタイル", "zh": "自由式", "ko": "프리스타일"
+            "en": "Freestyle", "de": "Freestyle", "fr": "Freestyle"
         }
     },
     "snowboard": {
         "path": "snowboard",
         "labels": {
-            "en": "Snowboard", "de": "Snowboard", "fr": "Snowboard", "it": "Snowboard",
-            "es": "Snowboard", "pt": "Snowboard", "nl": "Snowboard", "ar": "تزلج الجليد",
-            "ja": "スノーボード", "zh": "单板滑雪", "ko": "스노보드"
+            "en": "Snowboard", "de": "Snowboard", "fr": "Snowboard"
         }
     },
     "news": {
         "path": "news",
         "labels": {
-            "en": "News", "de": "Nachrichten", "fr": "Actualités", "it": "Notizie",
-            "es": "Noticias", "pt": "Notícias", "nl": "Nieuws", "ar": "أخبار",
-            "ja": "ニュース", "zh": "新闻", "ko": "뉴스"
+            "en": "News", "de": "Nachrichten", "fr": "Actualités"
         }
     },
 }
@@ -1142,9 +992,7 @@ CATEGORY_CONFIG = {
 DEFAULT_CATEGORY = {
     "path": "news",
     "labels": {
-        "en": "News", "de": "Nachrichten", "fr": "Actualités", "it": "Notizie",
-        "es": "Noticias", "pt": "Notícias", "nl": "Nieuws", "ar": "أخبار",
-        "ja": "ニュース", "zh": "新闻", "ko": "뉴스"
+        "en": "News", "de": "Nachrichten", "fr": "Actualités"
     }
 }
 
@@ -1212,14 +1060,6 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
           <option value="en" {sel_en}>English</option>
           <option value="de" {sel_de}>Deutsch</option>
           <option value="fr" {sel_fr}>Français</option>
-          <option value="it" {sel_it}>Italiano</option>
-          <option value="es" {sel_es}>Español</option>
-          <option value="pt" {sel_pt}>Português</option>
-          <option value="nl" {sel_nl}>Nederlands</option>
-          <option value="ar" {sel_ar}>العربية</option>
-          <option value="ja" {sel_ja}>日本語</option>
-          <option value="zh" {sel_zh}>中文</option>
-          <option value="ko" {sel_ko}>한국어</option>
         </select>
       </nav>
     </div>
@@ -1610,78 +1450,46 @@ NAV_TRANSLATIONS = {
     "en": {"news": "News", "alpine": "Alpine", "biathlon": "Biathlon", "athletes": "Athletes", "app": "Get App"},
     "de": {"news": "Nachrichten", "alpine": "Ski Alpin", "biathlon": "Biathlon", "athletes": "Athleten", "app": "App laden"},
     "fr": {"news": "Actualités", "alpine": "Ski Alpin", "biathlon": "Biathlon", "athletes": "Athlètes", "app": "Télécharger"},
-    "it": {"news": "Notizie", "alpine": "Sci Alpino", "biathlon": "Biathlon", "athletes": "Atleti", "app": "Scarica App"},
-    "es": {"news": "Noticias", "alpine": "Esquí Alpino", "biathlon": "Biatlón", "athletes": "Atletas", "app": "Descargar"},
-    "pt": {"news": "Notícias", "alpine": "Esqui Alpino", "biathlon": "Biatlo", "athletes": "Atletas", "app": "Baixar"},
-    "nl": {"news": "Nieuws", "alpine": "Alpineskiën", "biathlon": "Biathlon", "athletes": "Atleten", "app": "Download"},
-    "ar": {"news": "أخبار", "alpine": "تزلج جبال الألب", "biathlon": "البياثلون", "athletes": "الرياضيين", "app": "تحميل"},
-    "ja": {"news": "ニュース", "alpine": "アルペン", "biathlon": "バイアスロン", "athletes": "選手", "app": "アプリ"},
-    "zh": {"news": "新闻", "alpine": "高山滑雪", "biathlon": "冬季两项", "athletes": "运动员", "app": "下载"},
-    "ko": {"news": "뉴스", "alpine": "알파인", "biathlon": "바이애슬론", "athletes": "선수", "app": "앱 다운로드"},
 }
 
 # Category labels in each language (used for article card tags)
 # Maps to CATEGORY_CONFIG labels - using singular form for tags
 CATEGORY_LABELS = {
     "athlete-profile": {
-        "en": "Athlete", "de": "Athlet", "fr": "Athlète", "it": "Atleta",
-        "es": "Atleta", "pt": "Atleta", "nl": "Atleet", "ar": "رياضي",
-        "ja": "選手", "zh": "运动员", "ko": "선수"
+        "en": "Athlete", "de": "Athlet", "fr": "Athlète"
     },
     "venue-guide": {
-        "en": "Venue", "de": "Austragungsort", "fr": "Site", "it": "Sede",
-        "es": "Sede", "pt": "Local", "nl": "Locatie", "ar": "مكان",
-        "ja": "会場", "zh": "场地", "ko": "경기장"
+        "en": "Venue", "de": "Austragungsort", "fr": "Site"
     },
     "sport-explainer": {
-        "en": "Guide", "de": "Ratgeber", "fr": "Guide", "it": "Guida",
-        "es": "Guía", "pt": "Guia", "nl": "Gids", "ar": "دليل",
-        "ja": "ガイド", "zh": "指南", "ko": "가이드"
+        "en": "Guide", "de": "Ratgeber", "fr": "Guide"
     },
     "historical": {
-        "en": "History", "de": "Geschichte", "fr": "Histoire", "it": "Storia",
-        "es": "Historia", "pt": "História", "nl": "Geschiedenis", "ar": "تاريخ",
-        "ja": "歴史", "zh": "历史", "ko": "역사"
+        "en": "History", "de": "Geschichte", "fr": "Histoire"
     },
     "news": {
-        "en": "News", "de": "Nachrichten", "fr": "Actualités", "it": "Notizie",
-        "es": "Noticias", "pt": "Notícias", "nl": "Nieuws", "ar": "أخبار",
-        "ja": "ニュース", "zh": "新闻", "ko": "뉴스"
+        "en": "News", "de": "Nachrichten", "fr": "Actualités"
     },
     "biathlon": {
-        "en": "Biathlon", "de": "Biathlon", "fr": "Biathlon", "it": "Biathlon",
-        "es": "Biatlón", "pt": "Biatlo", "nl": "Biathlon", "ar": "البياثلون",
-        "ja": "バイアスロン", "zh": "冬季两项", "ko": "바이애슬론"
+        "en": "Biathlon", "de": "Biathlon", "fr": "Biathlon"
     },
     "alpine-skiing": {
-        "en": "Alpine", "de": "Alpin", "fr": "Alpin", "it": "Alpino",
-        "es": "Alpino", "pt": "Alpino", "nl": "Alpineskiën", "ar": "التزلج الألبي",
-        "ja": "アルペン", "zh": "高山", "ko": "알파인"
+        "en": "Alpine", "de": "Alpin", "fr": "Alpin"
     },
     "cross-country": {
-        "en": "Cross-Country", "de": "Langlauf", "fr": "Fond", "it": "Fondo",
-        "es": "Fondo", "pt": "Cross-Country", "nl": "Langlaufen", "ar": "التزلج الريفي",
-        "ja": "クロカン", "zh": "越野", "ko": "크로스컨트리"
+        "en": "Cross-Country", "de": "Langlauf", "fr": "Fond"
     },
     "ski-jumping": {
-        "en": "Ski Jumping", "de": "Skispringen", "fr": "Saut", "it": "Salto",
-        "es": "Salto", "pt": "Salto", "nl": "Schansspringen", "ar": "قفز التزلج",
-        "ja": "ジャンプ", "zh": "跳台", "ko": "스키점프"
+        "en": "Ski Jumping", "de": "Skispringen", "fr": "Saut"
     },
     "nordic-combined": {
-        "en": "Nordic Combined", "de": "Komb.", "fr": "Combiné", "it": "Combinata",
-        "es": "Combinada", "pt": "Combinado", "nl": "Combinatie", "ar": "الجمع الشمالي",
-        "ja": "複合", "zh": "两项", "ko": "복합"
+        "en": "Nordic Combined", "de": "Komb.", "fr": "Combiné"
     },
     "freestyle": {
-        "en": "Freestyle", "de": "Freestyle", "fr": "Freestyle", "it": "Freestyle",
-        "es": "Freestyle", "pt": "Freestyle", "nl": "Freestyle", "ar": "فريستايل",
-        "ja": "フリー", "zh": "自由式", "ko": "프리스타일"
+        "en": "Freestyle", "de": "Freestyle", "fr": "Freestyle"
     },
     "snowboard": {
-        "en": "Snowboard", "de": "Snowboard", "fr": "Snowboard", "it": "Snowboard",
-        "es": "Snowboard", "pt": "Snowboard", "nl": "Snowboard", "ar": "تزلج الجليد",
-        "ja": "スノボ", "zh": "单板", "ko": "스노보드"
+        "en": "Snowboard", "de": "Snowboard", "fr": "Snowboard"
     },
 }
 
@@ -1704,34 +1512,22 @@ FILTER_CATEGORY_MAP = {
 # Filter labels for sport page filters
 FILTER_LABELS = {
     "all": {
-        "en": "All", "de": "Alle", "fr": "Tout", "it": "Tutto",
-        "es": "Todo", "pt": "Tudo", "nl": "Alles", "ar": "الكل",
-        "ja": "すべて", "zh": "全部", "ko": "전체"
+        "en": "All", "de": "Alle", "fr": "Tout"
     },
     "biathlon": {
-        "en": "Biathlon", "de": "Biathlon", "fr": "Biathlon", "it": "Biathlon",
-        "es": "Biatlón", "pt": "Biatlo", "nl": "Biathlon", "ar": "البياثلون",
-        "ja": "バイアスロン", "zh": "冬季两项", "ko": "바이애슬론"
+        "en": "Biathlon", "de": "Biathlon", "fr": "Biathlon"
     },
     "alpine": {
-        "en": "Alpine", "de": "Alpin", "fr": "Alpin", "it": "Alpino",
-        "es": "Alpino", "pt": "Alpino", "nl": "Alpin", "ar": "الألبي",
-        "ja": "アルペン", "zh": "高山", "ko": "알파인"
+        "en": "Alpine", "de": "Alpin", "fr": "Alpin"
     },
     "history": {
-        "en": "History", "de": "Geschichte", "fr": "Histoire", "it": "Storia",
-        "es": "Historia", "pt": "História", "nl": "Geschiedenis", "ar": "تاريخ",
-        "ja": "歴史", "zh": "历史", "ko": "역사"
+        "en": "History", "de": "Geschichte", "fr": "Histoire"
     },
     "venue": {
-        "en": "Venues", "de": "Orte", "fr": "Sites", "it": "Sedi",
-        "es": "Sedes", "pt": "Locais", "nl": "Locaties", "ar": "الأماكن",
-        "ja": "会場", "zh": "场地", "ko": "경기장"
+        "en": "Venues", "de": "Orte", "fr": "Sites"
     },
     "guide": {
-        "en": "Guides", "de": "Ratgeber", "fr": "Guides", "it": "Guide",
-        "es": "Guías", "pt": "Guias", "nl": "Gidsen", "ar": "أدلة",
-        "ja": "ガイド", "zh": "指南", "ko": "가이드"
+        "en": "Guides", "de": "Ratgeber", "fr": "Guides"
     },
 }
 
@@ -1812,11 +1608,7 @@ async def generate_index_pages(
         {
             "slug": "",
             "articles": homepage_news[:30],  # Latest 30 news (excludes athletes and history)
-            "heading": {"en": "Winter Sports News", "de": "Wintersport-Nachrichten", "fr": "Actualités Sports d'Hiver",
-                       "it": "Notizie Sport Invernali", "es": "Noticias Deportes de Invierno",
-                       "pt": "Notícias Esportes de Inverno", "nl": "Wintersport Nieuws",
-                       "ar": "أخبار الرياضات الشتوية", "ja": "ウィンタースポーツニュース",
-                       "zh": "冬季运动新闻", "ko": "동계 스포츠 뉴스"},
+            "heading": {"en": "Winter Sports News", "de": "Wintersport-Nachrichten", "fr": "Actualités Sports d'Hiver"},
             "meta": {"en": "Latest winter sports news - FIS World Cup, Biathlon race coverage and analysis."},
             "nav_current": "home",
             "has_headline": True  # Show first article as headline
